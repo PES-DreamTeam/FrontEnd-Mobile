@@ -1,6 +1,6 @@
 const en = {
     home: {
-        title: 'Inicio',
+        title: 'Home',
     },
     settings: {
         title: 'Settings',
