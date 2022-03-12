@@ -4,6 +4,7 @@ const es = {
     },
     settings: {
         title: 'Ajustes',
+        subtitle: "Bienvenido/a a la pantalla de settings",
     },
     signIn: {
         title: 'Iniciar sesión',

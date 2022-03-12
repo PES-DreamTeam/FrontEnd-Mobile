@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext } from './context/authContext';
-import useUserSettings from './hooks/useUserSettings';
 import { SignInScreen, SignUpScreen, HomeScreen, SettingsScreen } from './pages/';
 import i18n from 'i18n-js';
 

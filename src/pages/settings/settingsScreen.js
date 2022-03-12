@@ -1,15 +1,16 @@
+import React, { useEffect } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native'
 import useAuth from '../../hooks/useAuth';
 import useUserSettings from '../../hooks/useUserSettings';
-
+import i18n from 'i18n-js';
 function SettingsScreen() {
 
     const { signOut } = useAuth();
     const { setLanguage } = useUserSettings();
-    
+
     return(
         <View style={styles.container}>
-            <Text>Welcome to the settings screen</Text>
+            <Text>{i18n.t('settings.subtitle')}</Text>
             <Button
                 title="LogOut"
                 onPress={() => signOut()}
