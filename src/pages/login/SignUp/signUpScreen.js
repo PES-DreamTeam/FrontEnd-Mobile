@@ -1,6 +1,7 @@
 import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
+import i18n from 'i18n-js';
 
 function SignUpScreen({ navigation }) {
 
@@ -36,14 +37,14 @@ function SignUpScreen({ navigation }) {
             <View>
                 <View>
                     <Text style={styles.subtitle}>
-                        Enter your data to sign up
+                        {i18n.t('signUp.form.enterCredentials')}
                     </Text>
                 </View>
                 <TextInput
                     onChangeText={(e) => onChangeText(e, 'name')}
                     value={name}
                     style={styles.input}
-                    placeholder="Name:"
+                    placeholder={i18n.t('signUp.form.name')}
                 />
                 <TextInput
                     onChangeText={(e) => onChangeText(e, 'email')}
@@ -78,13 +79,13 @@ function SignUpScreen({ navigation }) {
 
                 <Button
                     onPress={() => createUser()}
-                    title="Sign Up"
+                    title={i18n.t('signUp.title')}
                 />
             </View>
             <View style={styles.button}>
                 <Button
                     onPress={() => navigation.navigate('SignIn')}
-                    title="Go to SignIn"
+                    title={i18n.t('signUp.goToSignIn')}
                 />
             </View>
         </View>

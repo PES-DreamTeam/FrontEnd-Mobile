@@ -1,7 +1,7 @@
 import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useContext } from 'react';
 import useAuth from '../../../hooks/useAuth';
-import { AuthContext } from '../../../context/authContext';
+import i18n from 'i18n-js';
 
 function SignInScreen({ navigation }) {
 
@@ -54,10 +54,10 @@ function SignInScreen({ navigation }) {
             <View style={[styles.topContainer]}>
                 <View>
                     <Text style={styles.title}>
-                        Sign In
+                       {i18n.t('signIn.title')} 
                     </Text>
                     <Text style={styles.subtitle}>
-                        Enter your credentials below
+                        {i18n.t('signIn.form.enterCredentials')}
                     </Text>
                 </View>
                 {error.error ?
@@ -99,12 +99,12 @@ function SignInScreen({ navigation }) {
                 </View>
                 <Button
                     onPress={()=> SignIn()}
-                    title={isLoading ? 'Loading...' : 'Sign In'}
+                    title={isLoading ? i18n.t('miscelaneus.loading') : i18n.t('signIn.title')}
                     disabled={isLoading}
                 />
             </View>
             <Text>
-                or one of your social profiles
+                {i18n.t('signIn.otherSocial')}
             </Text>
             <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
                 <Button
@@ -116,11 +116,11 @@ function SignInScreen({ navigation }) {
             </View>
             <View style={{flexDirection: 'row'}}>
                 <Text>
-                    Don't have an account?
+                    {i18n.t('signIn.noAccount')}
                 </Text>
                 <View style={{marginLeft: 5}}>
                     <Text style={{color: 'blue'}} onPress={() => {navigation.navigate("SignUp")}}>
-                        Sign Up
+                        {i18n.t('signUp.title')}
                     </Text>
                 </View>
             </View>
