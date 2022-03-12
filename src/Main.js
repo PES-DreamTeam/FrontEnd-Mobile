@@ -2,17 +2,17 @@ import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { AuthContext } from './context/authContext';
 import { SignInScreen, SignUpScreen, HomeScreen, SettingsScreen } from './pages/';
+import useAuth from './hooks/useAuth';
 
 const Tab = createBottomTabNavigator();
 const Stack =  createStackNavigator();
 
 function Main() {
-    const { auth } = useContext(AuthContext);
+    const { isSignedIn } = useAuth();
 
     return(
-        !auth?.isSignedIn ?(
+        !isSignedIn() ?(
             <NavigationContainer>
                 <Stack.Navigator
                     initialRouteName="SignIn"
