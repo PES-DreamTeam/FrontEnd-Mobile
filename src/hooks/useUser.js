@@ -15,6 +15,7 @@ const useUser = () => {
         const data = response.data;
         console.log(data.user);
         return (data.user);
+        
     }
 
     return { getUserInfo };
