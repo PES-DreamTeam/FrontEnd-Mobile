@@ -39,8 +39,20 @@ function Main() {
         ) : ( 
             <NavigationContainer>
                 <Tab.Navigator>
-                    <Tab.Screen name={i18n.t('home.title')} component={HomeScreen} />
-                    <Tab.Screen name={i18n.t('settings.title')} component={SettingsScreen} />
+                    <Tab.Screen 
+                        name="Home"
+                        component={HomeScreen} 
+                        options={{
+                            title: `${i18n.t('home.title')}`,
+                        }}
+                    />
+                    <Tab.Screen 
+                        name="Settings"
+                        component={SettingsScreen} 
+                        options={{
+                            title: `${i18n.t('settings.title')}`,
+                        }}
+                    />
                 </Tab.Navigator>
             </NavigationContainer>
         )

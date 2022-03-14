@@ -13,7 +13,6 @@ const useUser = () => {
         const id = decodedToken._id;
         const response = await axios.get(`${API_HOST}/api/users/${id}`);
         const data = response.data;
-        console.log(data.user);
         return (data.user);
         
     }

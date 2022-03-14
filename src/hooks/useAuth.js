@@ -30,7 +30,6 @@ const useAuth = () => {
         logout();
     }
     const isSignedIn = () => {
-        console.log(auth?.isSignedIn);
         return auth?.isSignedIn;
     }
 
