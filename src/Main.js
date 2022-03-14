@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { SignInScreen, SignUpScreen, HomeScreen, SettingsScreen } from './pages/';
 import useAuth from './hooks/useAuth';
+import i18n from 'i18n-js';
 
 const Tab = createBottomTabNavigator();
 const Stack =  createStackNavigator();
+
 
 function Main() {
     const { isSignedIn } = useAuth();
@@ -21,7 +23,7 @@ function Main() {
                     name="SignIn" 
                     component={SignInScreen}
                     options={{
-                        title: 'Sign In',
+                        title: `${i18n.t('signIn.title')}`,
                         gestureEnabled: false,
                     }}  
                     />
@@ -29,7 +31,7 @@ function Main() {
                     name="SignUp" 
                     component={SignUpScreen}
                     options={{
-                        title: 'Sign Up',
+                        title: `${i18n.t('signUp.title')}`,
                     }}   
                     />
                 </Stack.Navigator>
@@ -37,8 +39,8 @@ function Main() {
         ) : ( 
             <NavigationContainer>
                 <Tab.Navigator>
-                    <Tab.Screen name="Home" component={HomeScreen} />
-                    <Tab.Screen name="Settings" component={SettingsScreen} />
+                    <Tab.Screen name={i18n.t('home.title')} component={HomeScreen} />
+                    <Tab.Screen name={i18n.t('settings.title')} component={SettingsScreen} />
                 </Tab.Navigator>
             </NavigationContainer>
         )
