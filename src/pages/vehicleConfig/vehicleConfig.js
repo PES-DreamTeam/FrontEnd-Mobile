@@ -2,6 +2,7 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, Pre
 import React, { useState, useContext, useEffect } from 'react';
 import Carousel from 'react-native-snap-carousel';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
+import i18n from 'i18n-js';
 
 function VehicleConfig() {
 
@@ -50,6 +51,7 @@ function VehicleConfig() {
     return(
         <View style={styles.container}>
             <View style={[styles.topContainer]}>
+                <Text style={styles.title}>{i18n.t('vehicleConfig.title')}</Text>
                 <Text style={[styles.formTitle]}>Vehicle brand</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
@@ -133,6 +135,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: 'bold',
+        marginTop: 25,
+        marginBottom: 25,
     },
     formTitle: {
         marginBottom: 10,
