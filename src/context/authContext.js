@@ -54,19 +54,12 @@ const AuthProvider = ({ children }) => {
         axios.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const setFirstTimeInApp = value => {
-        setAuthState({
-            ...auth,
-            firstTimeInApp: value
-        });
-    }
-
     useEffect(() => {
         getAuthState();
     },[])
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, logout, setFirstTime, firstTime}}>
+        <AuthContext.Provider value={{ auth, setAuth, logout, setFirstTime, firstTime }}>
             {children}
         </AuthContext.Provider>
     )
