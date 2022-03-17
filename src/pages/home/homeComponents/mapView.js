@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from 'react';
-import { StyleSheet  } from 'react-native';
+import { StyleSheet, Pressable, View } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
@@ -31,29 +31,54 @@ const CustomMapView = ({color, onPress}) => {
         })();
       }, []);
 
+      const centerPosition = () => {
+        console.log("Center position");
+      }
+
     return (
-        <MapView style ={styles.map} 
-            initialRegion={{
-                latitude: latitude,
-                longitude: longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-            }}
-        >
-          <Marker 
-            coordinate={{
-            latitude: latitude, longitude: longitude
-            }}
-            image = {require('../../../../assets/images/carTypes/carType_0.png')}
-            />
-        </MapView>
+        <View style ={styles.mapContent}> 
+          <MapView style ={styles.map} 
+              initialRegion={{
+                  latitude: latitude,
+                  longitude: longitude,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+              }}
+          >
+            <Marker 
+              coordinate={{
+              latitude: latitude, longitude: longitude
+              }}
+              image = {require('../../../../assets/images/carTypes/carType_0.png')}
+              />
+          </MapView>
+
+          <Pressable 
+          style={styles.floatingButton}
+          onPress={centerPosition}
+          />
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     map: {
-        flex: 1,
-        width: '100%',
+      width: '100%',
+      height: '100%',
+    },
+    mapContent: {
+      flex: 1,
+      width: '100%',
+    }, 
+    floatingButton: {
+      position: 'absolute',
+      justifyContent: 'center',
+      alignContent: 'center',
+      width: 60,
+      height: 60,
+      bottom: 25,
+      right: 25,
+      backgroundColor: 'red',
     }
 })
 
