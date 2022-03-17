@@ -52,7 +52,7 @@ const UserSettingsProvider = ({ children }) => {
     },[])
 
     return (
-        <UserSettingsContext.Provider value={{ saveUserSettings, language: userSettings.language }}>
+        <UserSettingsContext.Provider value={{ saveUserSettings, language: userSettings?.language }}>
             {children}
         </UserSettingsContext.Provider>
     )

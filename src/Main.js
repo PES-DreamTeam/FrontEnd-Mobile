@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { SignInScreen, SignUpScreen, HomeScreen, SettingsScreen } from './pages/';
+import { SignInScreen, SignUpScreen, HomeScreen, SettingsScreen, VehicleConfig } from './pages/';
 import useAuth from './hooks/useAuth';
 import i18n from 'i18n-js';
 
@@ -38,12 +38,21 @@ function Main() {
             </NavigationContainer>
         ) : ( 
             <NavigationContainer>
-                <Tab.Navigator>
+                <Tab.Navigator initialRouteName="initialRouteName">
+                <Tab.Screen 
+                        name="initialRouteName"
+                        component={VehicleConfig} 
+                        options={{
+                            title: `${i18n.t('vehicleConfig.title')}`,
+                            headerShown: false
+                        }}
+                    />
                     <Tab.Screen 
                         name="Home"
                         component={HomeScreen} 
                         options={{
                             title: `${i18n.t('home.title')}`,
+                            headerShown: false
                         }}
                     />
                     <Tab.Screen 
