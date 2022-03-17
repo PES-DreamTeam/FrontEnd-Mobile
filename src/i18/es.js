@@ -6,6 +6,9 @@ const es = {
         title: 'Ajustes',
         subtitle: "Bienvenido/a a la pantalla de settings",
     },
+    vehicleConfig: {
+        title: 'Configuracion de vehículo'
+    },
     signIn: {
         title: 'Iniciar sesión',
         form: {
