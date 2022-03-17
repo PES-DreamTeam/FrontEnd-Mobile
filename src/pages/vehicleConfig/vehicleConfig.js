@@ -1,10 +1,10 @@
 import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, Pressable } from 'react-native';
 import React, { useState, useContext, useEffect } from 'react';
-import Carousel from 'react-native-snap-carousel';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
+import useAuth from '../../hooks/useAuth';
 
-function VehicleConfig() {
-
+function VehicleConfig({ navigation }) {
+    const {setFirstTime} = useAuth();
     const [vehicle, setVehicle] = useState({
         vehicleBrand: '',
         vehicleModel: '',
@@ -42,10 +42,6 @@ function VehicleConfig() {
         setVehicle({...vehicle, ['vehicleType']: index});
 
     }
-
-    useEffect(()=> {console.log(vehicle)}, [vehicle]);
-
-    
 
     return(
         <View style={styles.container}>
@@ -87,6 +83,7 @@ function VehicleConfig() {
                 />
                 <Button
                     title={'Continue'}
+                    onPress={()=>{setFirstTime(false)}}
                 />
 
                 <View style={[styles.skipContainer]}>

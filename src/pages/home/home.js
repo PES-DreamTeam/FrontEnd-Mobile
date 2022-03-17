@@ -3,7 +3,7 @@ import { Dimensions, Pressable, StyleSheet, Text, View, Image, TextInput} from '
 import { CustomMapView } from './homeComponents/';
 
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 
   const [search, setSearch] = useState('');
 
@@ -11,16 +11,11 @@ export default function HomeScreen() {
     setSearch(text);  
   }
 
-  useEffect(() => {
-    console.log(search) 
-  }, [search]);
-
- 
   return (
     
     <View style={styles.container}>
       <View style={styles.topBar}>
-        <Pressable style={styles.topBarMenuButton}>
+        <Pressable style={styles.topBarMenuButton} onPress={()=>navigation.toggleDrawer()}>
           <Image
             source={require('../../../assets/favicon.png')}
           />

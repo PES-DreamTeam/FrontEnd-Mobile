@@ -12,6 +12,8 @@ const AuthProvider = ({ children }) => {
 
     const [auth, setAuthState] = useState(initialState);
 
+    const [firstTime, setFirstTime] = useState(true);
+
     const getAuthState = async () => {
         try {
             const authDataString = await AsyncStorage.getItem("auth");
@@ -52,12 +54,19 @@ const AuthProvider = ({ children }) => {
         axios.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
 
+    const setFirstTimeInApp = value => {
+        setAuthState({
+            ...auth,
+            firstTimeInApp: value
+        });
+    }
+
     useEffect(() => {
         getAuthState();
     },[])
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, logout }}>
+        <AuthContext.Provider value={{ auth, setAuth, logout, setFirstTime, firstTime}}>
             {children}
         </AuthContext.Provider>
     )

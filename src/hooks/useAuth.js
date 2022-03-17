@@ -4,7 +4,8 @@ import {API_HOST} from '@env';
 import { AuthContext } from '../context/authContext';
 const useAuth = () => {
 
-    const { auth, setAuth, logout } = useContext(AuthContext);
+    const { auth, setAuth, logout, firstTime, setFirstTime } = useContext(AuthContext);
+
     const signIn = async (user) => {
         const { email, password } = user;
         const response = await axios.post(`${API_HOST}/api/auth/login`, {
@@ -33,7 +34,7 @@ const useAuth = () => {
         return auth?.isSignedIn;
     }
 
-    return { signIn, signOut, signUp, isSignedIn };
+    return { signIn, signOut, signUp, isSignedIn, firstTime, setFirstTime };
 }
 
 export default useAuth;
