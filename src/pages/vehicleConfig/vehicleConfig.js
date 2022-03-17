@@ -2,6 +2,7 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, Pre
 import React, { useState, useContext, useEffect } from 'react';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
+import i18n from 'i18n-js';
 
 function VehicleConfig({ navigation }) {
     const {setFirstTime} = useAuth();
@@ -46,6 +47,7 @@ function VehicleConfig({ navigation }) {
     return(
         <View style={styles.container}>
             <View style={[styles.topContainer]}>
+                <Text style={styles.title}>{i18n.t('vehicleConfig.title')}</Text>
                 <Text style={[styles.formTitle]}>Vehicle brand</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
@@ -130,6 +132,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: 'bold',
+        marginTop: 25,
+        marginBottom: 25,
     },
     formTitle: {
         marginBottom: 10,
