@@ -77,7 +77,7 @@ function ProfileScreen() {
                 style={[styles.image]}
             />
             <Pressable style={styles.editButton} onPress={()=>("")}>
-                <Text style={{color:"white", fontWeight: 'bold'}}>
+                <Text style={{color:"white", fontWeight: 'bold'  }}>
                     Edit your profile
                 </Text>
             </Pressable>
