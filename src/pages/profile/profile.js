@@ -1,11 +1,35 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import { View, Text, Button, StyleSheet, Image, Pressable } from 'react-native'
 import useAuth from '../../hooks/useAuth';
 import useUserSettings from '../../hooks/useUserSettings';
 import i18n from 'i18n-js';
-
+import useUser from  '../../hooks/useUser';
 function ProfileScreen() {
 
+    const{ getUserInfo } = useUser();
+
+        
+    const [user,setUser] = useState({
+        id:null,
+        email:null,
+        nickname:null
+    })
+
+    const{id,email,nickname} = user;
+
+ useEffect(() => {
+    (async () => { 
+        let infoUsuario = await getUserInfo();
+          setUser({
+            id:infoUsuario._id,
+            email:infoUsuario.email,
+            nickname:infoUsuario.nickname
+          })
+        })();
+ },[]);
+       
+    
+    
     return(
         <View style={styles.container}>
             {/* Imagen de perfil */}
@@ -15,10 +39,11 @@ function ProfileScreen() {
             />
             {/* Nombre de perfil */}
             <Text style = {[styles.title]}>
-                AwaKT
+                {nickname}
+               
             </Text>
             <Text style = {[styles.subtitle]}>
-                awakt@ecoroads.com
+                {email}
             </Text>
             <Text style = {[styles.header]}>
                 {i18n.t('profile.yourVehicle')}
