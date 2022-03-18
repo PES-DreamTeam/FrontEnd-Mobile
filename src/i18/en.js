@@ -1,32 +1,32 @@
 const en = {
-    home: {
-        title: 'Home',
-    },
-    settings: {
-        title: 'Settings',
-        subtitle: "Bienvenido/a a la pantalla de settings",
-    },
-    vehicleConfig: {
-        title: 'Vehicle configuration'
-    },
-    signIn: {
-        title: 'Sign In',
-        form: {
-            enterCredentials: 'Ingrese sus credenciales',
-        },
-        otherSocial: 'O inicie sesión con',
-        noAccount: '¿No tiene una cuenta?',
-    }, 
-    signUp: {
-        title: 'Registrarse',
-        form: {
-            enterCredentials: 'Ingrese sus credenciales',
-            name: 'Nombre:'
-        },
-        goToSignIn: 'Ir a Iniciar sesión',
-    },
-    miscelaneus: {
-        loading: 'Cargando...',
-    }
+	home: {
+		title: "Home",
+	}, 
+	settings: {
+		title: "Settings",
+		subtitle: "Welcome to settings",
+	}, 
+	signIn: {
+		title: "Log In",
+		form: {
+			enterCredentials: "Enter your credentials",
+		}, 
+		otherSocial: "Or Log In with",
+		noAccount: "¿Haven't got an account?",
+	}, 
+	signUp: {
+		title: "Sign Up",
+		form: {
+			enterCredentials: "Enter your credentials",
+			name: "Name:",
+		}, 
+		goTosSignIn: "Go to Log In",
+	}, 
+	miscelaneus: {
+		loading: "Loading...",
+	}, 
+	vehicleConfig: {
+		title: "Vehicle configuration",
+	}
 }
-export { en }
+export{ en }

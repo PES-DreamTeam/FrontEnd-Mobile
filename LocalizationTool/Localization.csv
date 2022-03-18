@@ -1,0 +1,24 @@
+Key,en,es
+PAGE_home,,
+title,Home,Inicio
+,,
+PAGE_settings,,
+title,Settings,Ajustes
+subtitle,Welcome to settings,Bienvenido a los ajustes
+,,
+,,
+PAGE_signIn,,
+title,Log In,Iniciar sesión
+form_enterCredentials,Enter your credentials,Ingrese sus credenciales
+otherSocial,Or Log In with,O inicie sesión con
+noAccount,¿Haven't got an account?,¿No tiene una cuenta?
+PAGE_signUp,,
+title,Sign Up,Registrarse
+form_enterCredentials,Enter your credentials,Ingrese sus credenciales
+form_name,Name:,Nombre:
+goTosSignIn,Go to Log In,Ir a Iniciar sesión
+PAGE_miscelaneus,,
+loading,Loading...,Cargando...
+,,
+PAGE_vehicleConfig,,
+title,Vehicle configuration,Configuracion del vehículo
