@@ -27,6 +27,9 @@ const en = {
 	}, 
 	vehicleConfig: {
 		title: "Vehicle configuration",
-	}
+	},
+	profile: {
+		yourVehicle: "Your vehicle information",
+	},
 }
 export{ en }

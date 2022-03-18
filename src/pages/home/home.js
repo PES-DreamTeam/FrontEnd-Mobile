@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   topBar: {
     marginTop: 20,
     height: 60,
-    width: Dimensions.get('window').width,
+    width: '100%',
     textAlign: 'left',
     flexDirection: 'row',
     alignItems: 'center'

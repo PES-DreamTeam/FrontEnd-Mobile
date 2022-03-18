@@ -24,11 +24,12 @@ function SettingsScreen() {
                 </View>
                 <View style={styles.button}>
                     <Button
-                        title="Set SP"
+                        title="Set ES"
                         onPress={() => setLanguage('es')}
                     />
                 </View>
             </View>
+
 
         </View>
     )
