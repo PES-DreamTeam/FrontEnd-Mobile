@@ -17,7 +17,7 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.topBar}>
         <Pressable style={styles.topBarMenuButton} onPress={()=>navigation.toggleDrawer()}>
           <Image
-            source={require('../../../assets/favicon.png')}
+            source={require('../../../assets/images/desplegable.png')}
           />
         </Pressable>
         <TextInput
