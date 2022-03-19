@@ -20,13 +20,17 @@ const es = {
 			enterCredentials: "Ingrese sus credenciales",
 			name: "Nombre:",
 		}, 
-		goTosSignIn: "Ir a Iniciar sesión",
+		goToSignIn: "Ir a Iniciar sesión",
 	}, 
 	miscelaneus: {
 		loading: "Cargando...",
 	}, 
 	vehicleConfig: {
 		title: "Configuracion del vehículo",
+	}, 
+	profile: {
+		yourVehicle: "Información de tu vehículo",
+		title: "Perfil",
 	}
 }
 export{ es }

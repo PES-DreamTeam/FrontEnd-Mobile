@@ -1,24 +1,27 @@
-Key,en,es
-PAGE_home,,
-title,Home,Inicio
-,,
-PAGE_settings,,
-title,Settings,Ajustes
-subtitle,Welcome to settings,Bienvenido a los ajustes
-,,
-,,
-PAGE_signIn,,
-title,Log In,Iniciar sesión
-form_enterCredentials,Enter your credentials,Ingrese sus credenciales
-otherSocial,Or Log In with,O inicie sesión con
-noAccount,¿Haven't got an account?,¿No tiene una cuenta?
-PAGE_signUp,,
-title,Sign Up,Registrarse
-form_enterCredentials,Enter your credentials,Ingrese sus credenciales
-form_name,Name:,Nombre:
-goTosSignIn,Go to Log In,Ir a Iniciar sesión
-PAGE_miscelaneus,,
-loading,Loading...,Cargando...
-,,
-PAGE_vehicleConfig,,
-title,Vehicle configuration,Configuracion del vehículo
+Key,en,es,cat
+PAGE_home,,,
+title,Home,Inicio,Inici
+,,,
+PAGE_settings,,,
+title,Settings,Ajustes,Configuració
+subtitle,Welcome to settings,Bienvenido a los ajustes,Benvingut a la configuració
+,,,
+,,,
+PAGE_signIn,,,
+title,Log In,Iniciar sesión,Iniciar sessió
+form_enterCredentials,Enter your credentials,Ingrese sus credenciales,Introdueix els credencials
+otherSocial,Or Log In with,O inicie sesión con,O inicia sessió amb
+noAccount,Haven't got an account?,¿No tiene una cuenta?,No tens compte?
+PAGE_signUp,,,
+title,Sign Up,Registrarse,Registrar-se
+form_enterCredentials,Enter your credentials,Ingrese sus credenciales,Introdueix els credencials
+form_name,Name:,Nombre:,Nom:
+goToSignIn,Go to Log In,Ir a Iniciar sesión,Anar a Inciar sessió
+PAGE_miscelaneus,,,
+loading,Loading...,Cargando...,Carregant...
+,,,
+PAGE_vehicleConfig,,,
+title,Vehicle configuration,Configuracion del vehículo,Configuració del vehicle
+PAGE_profile,,,
+yourVehicle,Your vehicle information,Información de tu vehículo,Informació del teu vehicle
+title,Profile,Perfil,Perfil
