@@ -2,18 +2,13 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, Pre
 import React, { useState, useContext, useEffect } from 'react';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
+import useVehicleConfig from '../../hooks/useVehicleConfig';
 import i18n from 'i18n-js';
 
-function VehicleConfig({ navigation }) {
-    const {setFirstTime} = useAuth();
-    const [vehicle, setVehicle] = useState({
-        vehicleBrand: '',
-        vehicleModel: '',
-        vehicleNickname: '',
-        vehicleType: 0,
-        vehicleColor: '#000000'
-    });
+function VehicleConfig({ navigation }) {    
 
+    const { sendConfig } = useVehicleConfig();
+    
     const carColors = { 
         White:  '#DDDDDD',
         Grey:   '#4E4E4E',
@@ -24,7 +19,16 @@ function VehicleConfig({ navigation }) {
         Green:  '#296E01'
     };
 
-    const [currentColor, setCurrentColor] = useState('#ffffff');
+    const {setFirstTime} = useAuth();
+    const [vehicle, setVehicle] = useState({
+        vehicleBrand: '',
+        vehicleModel: '',
+        vehicleNickname: '',
+        vehicleType: 0,
+        vehicleColor: carColors.White
+    });
+
+    const [currentColor, setCurrentColor] = useState(carColors.White);
 
     const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor } = vehicle;
 
@@ -43,6 +47,14 @@ function VehicleConfig({ navigation }) {
         setVehicle({...vehicle, ['vehicleType']: index});
 
     }
+
+    const validateInformation = () => {
+        if (vehicleBrand.length === 0 || vehicleModel.length === 0 || vehicleNickname.length === 0) {
+            return "Please fill all the spaces.";
+        }
+        sendConfig(vehicle);
+        return "Configuration saved successfully!";
+    };
 
     return(
         <View style={styles.container}>
@@ -84,8 +96,11 @@ function VehicleConfig({ navigation }) {
                     onSnapToItem={updateCurrentCarType}
                 />
                 <Button
-                    title={'Continue'}
-                    onPress={()=>{setFirstTime(false)}}
+                    title={"Continue"}
+                    onPress={() => {
+                        setFirstTime(false);
+                        console.log(validateInformation());
+                    }}
                 />
 
                 <View style={[styles.skipContainer]}>
