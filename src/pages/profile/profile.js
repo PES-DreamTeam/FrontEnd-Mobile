@@ -25,11 +25,9 @@ function ProfileScreen() {
     })
 
     const{id,email,nickname, vehicleConfig} = user;
-    console.log(vehicleConfig.length);
  useEffect(() => {
     (async () => { 
         let infoUsuario = await getUserInfo();
-        console.log(infoUsuario)
           setUser(
                 infoUsuario
           )

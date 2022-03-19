@@ -8,10 +8,10 @@ const Drawer = createDrawerNavigator();
 
 function SidebarNavigator (){
 
-    const { firstTime} = useAuth();
+    const { auth } = useAuth();
 
     return(
-        firstTime ? (
+        auth?.user?.isNew ? (
             <VehicleConfig/>
         ):
             <NavigationContainer>

@@ -19,7 +19,8 @@ function VehicleConfig({ navigation }) {
         Green:  '#296E01'
     };
 
-    const {setFirstTime} = useAuth();
+    const { auth, setAuth, updateUser } = useAuth();
+
     const [vehicle, setVehicle] = useState({
         vehicleBrand: '',
         vehicleModel: '',
@@ -66,7 +67,7 @@ function VehicleConfig({ navigation }) {
             });
         }else {
             sendConfig(vehicle)
-                .then()
+                .then(user => setAuth({...auth, user}))
                 .catch(err => {
                     setError({
                         error: true,
@@ -76,6 +77,10 @@ function VehicleConfig({ navigation }) {
                 })
         }
     };
+
+    const markAsNotNew = () => {
+        updateUser({...auth.user, isNew: false});
+    }
 
     return(
         <View style={styles.container}>
@@ -142,7 +147,6 @@ function VehicleConfig({ navigation }) {
                     title={"Continue"}
                     onPress={() => {
                         validateInformation();
-                        setFirstTime(false);    
                     }}
                 />
 
@@ -151,7 +155,7 @@ function VehicleConfig({ navigation }) {
                         Don't have an EV?
                     </Text>
                     <View style={{marginLeft: 5}}>
-                        <Text style={{color: 'blue'}} onPress={() => {navigation.navigate("SignUp")}}>
+                        <Text style={{color: 'blue'}} onPress={() => markAsNotNew()}>
                             Skip
                         </Text>
                     </View>
