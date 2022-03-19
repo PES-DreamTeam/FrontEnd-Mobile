@@ -24,14 +24,14 @@ function ProfileScreen() {
         }]
     })
 
-    const{id,email,nickname} = user;
-
+    const{id,email,nickname, vehicleConfig} = user;
+    console.log(vehicleConfig.length);
  useEffect(() => {
     (async () => { 
         let infoUsuario = await getUserInfo();
-        
+        console.log(infoUsuario)
           setUser(
-          infoUsuario
+                infoUsuario
           )
         })();
  },[]);
@@ -56,12 +56,17 @@ function ProfileScreen() {
             <Text style = {[styles.header]}>
                 {i18n.t('profile.yourVehicle')}
             </Text>
+
+            {vehicleConfig.length > 0 ? (
+                <>
+                
             <View style={[styles.informationContainer]}>
                 <Text style = {[styles.text]}>
                     Model:
                 </Text>
                 <Text style = {[styles.secondaryText]}>
-                    {user.vehicleConfig[0].brand} {user.vehicleConfig[0].model}
+                   {vehicleConfig[0].brand} {vehicleConfig[0].model}
+
                 </Text>
             </View>
             <View style={[styles.informationContainer]}>
@@ -69,7 +74,7 @@ function ProfileScreen() {
                     Nickname:
                 </Text>
                 <Text style = {[styles.secondaryText]}>
-                     {user.vehicleConfig[0].nickname}
+                     {vehicleConfig[0].nickname}
 
                 </Text>
             </View>
@@ -78,14 +83,17 @@ function ProfileScreen() {
                     NumberPlate:
                 </Text>
                 <Text style = {[styles.secondaryText]}>
-                {user.vehicleConfig[0].numberPlate}
+                {vehicleConfig[0].numberPlate}
 
                 </Text>
             </View>
+           
             <Image 
                 source={require('../../../assets/images/carTypes/carType_2.png')} 
-                style={[styles.image, {tintColor: user.vehicleConfig[0].color}]}
+                style={[styles.image, {tintColor: vehicleConfig[0].color}]}
             />
+             </>
+            ) : <Text>Vehicle not defined yet </Text>}
             <Pressable style={styles.editButton} onPress={()=>("")}>
                 <Text style={{color:"white", fontWeight: 'bold'}}>
                     Edit your profile

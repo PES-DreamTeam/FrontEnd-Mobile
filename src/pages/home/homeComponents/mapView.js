@@ -38,8 +38,6 @@ const CustomMapView = ({color, onPress}) => {
 
       const mapRef = useRef(null);
       const centerPosition = () => {
-        console.log("Center position");
-
         mapRef.current.animateToRegion(
           location
         , 1500)
@@ -58,7 +56,6 @@ const CustomMapView = ({color, onPress}) => {
       (async () => { 
         let infoPuntosCarga = await getChargePoints();
         let arrayPuntos = Object.entries(infoPuntosCarga);
-       // console.log(arrayPuntos)
         setChargePoints(arrayPuntos)
           })();
    },[]);
