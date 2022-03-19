@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
-import { en, es } from '../i18';
+import * as languages from '../i18';
 
 const UserSettingsContext = createContext({});
 
@@ -10,7 +10,7 @@ const UserSettingsProvider = ({ children }) => {
 
     i18n.defaultLocale = 'es';
     i18n.fallbacks = true;
-    i18n.translations = { en, es };
+    i18n.translations = languages;
 
     const initialState = {
         language: Localization.locale,

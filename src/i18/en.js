@@ -12,7 +12,7 @@ const en = {
 			enterCredentials: "Enter your credentials",
 		}, 
 		otherSocial: "Or Log In with",
-		noAccount: "¿Haven't got an account?",
+		noAccount: "Haven't got an account?",
 	}, 
 	signUp: {
 		title: "Sign Up",
@@ -20,16 +20,17 @@ const en = {
 			enterCredentials: "Enter your credentials",
 			name: "Name:",
 		}, 
-		goTosSignIn: "Go to Log In",
+		goToSignIn: "Go to Log In",
 	}, 
 	miscelaneus: {
 		loading: "Loading...",
 	}, 
 	vehicleConfig: {
 		title: "Vehicle configuration",
-	},
+	}, 
 	profile: {
 		yourVehicle: "Your vehicle information",
-	},
+		title: "Profile",
+	}
 }
 export{ en }

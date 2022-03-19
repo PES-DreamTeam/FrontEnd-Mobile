@@ -28,6 +28,12 @@ function SettingsScreen() {
                         onPress={() => setLanguage('es')}
                     />
                 </View>
+                <View style={styles.button}>
+                    <Button
+                        title="Set CAT"
+                        onPress={() => setLanguage('cat')}
+                    />
+                </View>
             </View>
 
         </View>
