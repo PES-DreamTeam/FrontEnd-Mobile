@@ -25,12 +25,19 @@ function VehicleConfig({ navigation }) {
         vehicleModel: '',
         vehicleNickname: '',
         vehicleType: 0,
-        vehicleColor: carColors.White
+        vehicleColor: carColors.White,
+        numberPlate: '',
+    });
+
+    const [error, setError] = useState({
+        error: false, 
+        attribute: '',
+        message: ''
     });
 
     const [currentColor, setCurrentColor] = useState(carColors.White);
 
-    const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor } = vehicle;
+    const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor, numberPlate } = vehicle;
 
     const onChangeText = (text, name) => {
         setVehicle({
@@ -49,17 +56,38 @@ function VehicleConfig({ navigation }) {
     }
 
     const validateInformation = () => {
-        if (vehicleBrand.length === 0 || vehicleModel.length === 0 || vehicleNickname.length === 0) {
-            return "Please fill all the spaces.";
+        if(vehicleBrand.length === 0 || vehicleModel.length === 0 ||
+            vehicleNickname.length === 0) {
+            //Form Error
+            setError({
+                error: true,
+                attribute: 'BlankFields',
+                message: 'Please fill in all fields'
+            });
+        }else {
+            sendConfig(vehicle)
+                .then()
+                .catch(err => {
+                    setError({
+                        error: true,
+                        attribute: err.attribute,
+                        message: err.error
+                    });
+                })
         }
-        sendConfig(vehicle);
-        return "Configuration saved successfully!";
     };
 
     return(
         <View style={styles.container}>
             <View style={[styles.topContainer]}>
                 <Text style={styles.title}>{i18n.t('vehicleConfig.title')}</Text>
+                {error.error && error.attribute !== "NumberPlate" ?
+                    <View style={styles.errorContainer}>
+                        <Text style={styles.error}>
+                            {error.message}
+                        </Text>
+                    </View>
+                : null}
                 <Text style={[styles.formTitle]}>Vehicle brand</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
@@ -75,6 +103,21 @@ function VehicleConfig({ navigation }) {
                     style={styles.input}
                     name="vehicleModel"
                     placeholder="Car's model here"
+                />
+                {error.error && error.attribute === "NumberPlate" ?
+                    <View style={styles.errorContainer}>
+                        <Text style={styles.error}>
+                            {error.message}
+                        </Text>
+                    </View>
+                : null}
+                <Text style={[styles.formTitle]}>Number plate</Text>
+                <TextInput
+                    onChangeText={(text) => onChangeText(text, 'numberPlate')}
+                    value={numberPlate}
+                    style={styles.input}
+                    name="numberPlate"
+                    placeholder="Car's number plate here"
                 />
                 <Text style={[styles.formTitle]}>Vehicle Color</Text>
 
@@ -98,8 +141,8 @@ function VehicleConfig({ navigation }) {
                 <Button
                     title={"Continue"}
                     onPress={() => {
-                        setFirstTime(false);
-                        console.log(validateInformation());
+                        validateInformation();
+                        setFirstTime(false);    
                     }}
                 />
 

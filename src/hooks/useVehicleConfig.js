@@ -9,17 +9,32 @@ const useVehicleConfig = () => {
     const { auth } = useContext(AuthContext);
 
     const sendConfig = async (vehicle) => {
-        const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor } = vehicle;
-        console.log(vehicleBrand);
+        const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor, numberPlate} = vehicle;
         const decodedToken = jwt_decode(auth.token);
         const id = decodedToken._id;
-        await axios.post(`${API_HOST}/api/users/${id}/vehicleConfig`, {
-            vehicleBrand,
-            vehicleModel,
-            vehicleNickname,
-            vehicleType,
-            vehicleColor,
-        });
+        try {
+            await axios.post(`${API_HOST}/api/users/${id}/vehicleConfig`, {      
+                brand: vehicleBrand,
+                model: vehicleModel,
+                nickname: vehicleNickname,
+                color: vehicleColor,
+                numberPlate: numberPlate,
+                vehicleType: vehicleType,
+            });        
+        } catch(error) {
+            if(error.response.status === 409) {
+                throw { 
+                    attribute : error.response.data.attribute,
+                    error: error.response.data.error,
+                } 
+            }
+            else{
+                throw { 
+                    attribute : "Unknown",
+                    error: "Something went wrong. Try again later.",
+                } 
+            }
+        };
     }; 
 
   return { sendConfig };

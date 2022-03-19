@@ -14,7 +14,6 @@ const useUser = () => {
         const response = await axios.get(`${API_HOST}/api/users/${id}`);
         const data = response.data;
         return (data.user);
-        
     }
 
     return { getUserInfo };
