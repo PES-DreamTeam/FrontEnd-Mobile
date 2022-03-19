@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import useUserSettings from '../../hooks/useUserSettings';
 import i18n from 'i18n-js';
 import useUser from  '../../hooks/useUser';
+import { tintColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 function ProfileScreen() {
 
     const{ getUserInfo } = useUser();
@@ -12,7 +13,15 @@ function ProfileScreen() {
     const [user,setUser] = useState({
         id:null,
         email:null,
-        nickname:null
+        nickname:null,
+        vehicleConfig: [{
+            brand:null,
+            model:null,
+            nickname: null,
+            numberPlate: null,
+            color: null
+
+        }]
     })
 
     const{id,email,nickname} = user;
@@ -20,11 +29,10 @@ function ProfileScreen() {
  useEffect(() => {
     (async () => { 
         let infoUsuario = await getUserInfo();
-          setUser({
-            id:infoUsuario._id,
-            email:infoUsuario.email,
-            nickname:infoUsuario.nickname
-          })
+        
+          setUser(
+          infoUsuario
+          )
         })();
  },[]);
        
@@ -53,7 +61,7 @@ function ProfileScreen() {
                     Model:
                 </Text>
                 <Text style = {[styles.secondaryText]}>
-                    Mercedes EQS
+                    {user.vehicleConfig[0].brand} {user.vehicleConfig[0].model}
                 </Text>
             </View>
             <View style={[styles.informationContainer]}>
@@ -61,7 +69,8 @@ function ProfileScreen() {
                     Nickname:
                 </Text>
                 <Text style = {[styles.secondaryText]}>
-                    El EcoCoche
+                     {user.vehicleConfig[0].nickname}
+
                 </Text>
             </View>
             <View style={[styles.informationContainer]}>
@@ -69,12 +78,13 @@ function ProfileScreen() {
                     NumberPlate:
                 </Text>
                 <Text style = {[styles.secondaryText]}>
-                    ECO12345
+                {user.vehicleConfig[0].numberPlate}
+
                 </Text>
             </View>
             <Image 
                 source={require('../../../assets/images/carTypes/carType_2.png')} 
-                style={[styles.image]}
+                style={[styles.image, {tintColor: user.vehicleConfig[0].color}]}
             />
             <Pressable style={styles.editButton} onPress={()=>("")}>
                 <Text style={{color:"white", fontWeight: 'bold'}}>
@@ -123,7 +133,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     header: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
         textDecorationLine: 'underline',
     },
