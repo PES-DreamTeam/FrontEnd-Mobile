@@ -30,7 +30,6 @@ function SettingsScreen() {
                 </View>
             </View>
 
-
         </View>
     )
 }

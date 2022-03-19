@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { StyleSheet, Pressable, View, Image } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
+import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 
 const CustomMapView = ({color, onPress}) => {
@@ -36,15 +37,31 @@ const CustomMapView = ({color, onPress}) => {
 
 
       const mapRef = useRef(null);
-
-
       const centerPosition = () => {
         console.log("Center position");
 
         mapRef.current.animateToRegion(
           location
-        , 3*1000)
+        , 1500)
       }
+
+
+      const [chargePoints, setChargePoints] = useState([]);
+
+      const {getChargePoints} = useChargePoints();
+      getChargePoints();
+      
+ 
+
+
+     useEffect(() => {
+      (async () => { 
+        let infoPuntosCarga = await getChargePoints();
+        let arrayPuntos = Object.entries(infoPuntosCarga);
+       // console.log(arrayPuntos)
+        setChargePoints(arrayPuntos)
+          })();
+   },[]);
 
     return (
         <View style ={styles.mapContent}> 
@@ -62,6 +79,19 @@ const CustomMapView = ({color, onPress}) => {
               }}
               image = {require('../../../../assets/images/carTypes/carType_0.png')}
               />
+ 
+              {chargePoints.map(chargePoint => 
+                <Marker 
+                  key={chargePoint[1].id}
+                  coordinate={
+                    {latitude: chargePoint[1].lat, longitude:chargePoint[1].lng }}
+                  title={chargePoint[1].name}
+                  description={chargePoint[1].address}
+                  />
+                  
+                  
+              )}
+              
           </MapView>
 
           <Pressable 
