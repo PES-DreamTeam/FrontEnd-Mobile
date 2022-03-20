@@ -1,14 +1,14 @@
-import React, { useEffect, useState} from 'react';
-import { View, Text, Button, StyleSheet, Image, Pressable } from 'react-native'
-import useAuth from '../../hooks/useAuth';
-import useUserSettings from '../../hooks/useUserSettings';
+import React, { useEffect, useState, useRef} from 'react';
+import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions } from 'react-native';
 import i18n from 'i18n-js';
 import useUser from  '../../hooks/useUser';
-import { tintColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+import CarInfoItem from './profileComponents/CarInfoItem';
+import Carousel from 'react-native-snap-carousel';
+
+
 function ProfileScreen() {
 
     const{ getUserInfo } = useUser();
-
         
     const [user,setUser] = useState({
         id:null,
@@ -24,15 +24,17 @@ function ProfileScreen() {
         }]
     })
 
+    const {width} = useWindowDimensions();
+
     const{id,email,nickname, vehicleConfig} = user;
- useEffect(() => {
-    (async () => { 
-        let infoUsuario = await getUserInfo();
-          setUser(
-                infoUsuario
-          )
-        })();
- },[]);
+    useEffect(() => {
+        (async () => { 
+            let infoUsuario = await getUserInfo();
+            setUser(
+                    infoUsuario
+            )
+            })();
+    },[]);
        
     
     
@@ -56,41 +58,17 @@ function ProfileScreen() {
             </Text>
 
             {vehicleConfig.length > 0 ? (
-                <>
-                
-            <View style={[styles.informationContainer]}>
-                <Text style = {[styles.text]}>
-                    Model:
-                </Text>
-                <Text style = {[styles.secondaryText]}>
-                   {vehicleConfig[0].brand} {vehicleConfig[0].model}
-
-                </Text>
-            </View>
-            <View style={[styles.informationContainer]}>
-                <Text style = {[styles.text]}>
-                    Nickname:
-                </Text>
-                <Text style = {[styles.secondaryText]}>
-                     {vehicleConfig[0].nickname}
-
-                </Text>
-            </View>
-            <View style={[styles.informationContainer]}>
-                <Text style = {[styles.text]}>
-                    NumberPlate:
-                </Text>
-                <Text style = {[styles.secondaryText]}>
-                {vehicleConfig[0].numberPlate}
-
-                </Text>
-            </View>
-           
-            <Image 
-                source={require('../../../assets/images/carTypes/carType_2.png')} 
-                style={[styles.image, {tintColor: vehicleConfig[0].color}]}
-            />
-             </>
+                <View>
+                    <Carousel
+                        data = {vehicleConfig}
+                        renderItem = {({item}) => <CarInfoItem item = {item} />}
+                        sliderWidth={320}
+                        sliderHeight={128}
+                        itemWidth={320}
+                        itemHeight={128}
+                        keyExtractor={(item,index) => index}
+                    />
+                </View> 
             ) : <Text>Vehicle not defined yet </Text>}
             <Pressable style={styles.editButton} onPress={()=>("")}>
                 <Text style={{color:"white", fontWeight: 'bold'}}>
