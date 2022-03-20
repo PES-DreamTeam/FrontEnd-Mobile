@@ -66,15 +66,18 @@ function VehicleConfig({ navigation }) {
                 message: 'Please fill in all fields'
             });
         }else {
+            var isSent = true;
             sendConfig(vehicle)
                 .then(user => setAuth({...auth, user}))
                 .catch(err => {
+                    isSent = false;
                     setError({
                         error: true,
                         attribute: err.attribute,
                         message: err.error
                     });
                 })
+            if(isSent !== false) navigation.navigate("Home");
         }
     };
 

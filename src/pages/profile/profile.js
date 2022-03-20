@@ -2,11 +2,12 @@ import React, { useEffect, useState, useRef} from 'react';
 import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions } from 'react-native';
 import i18n from 'i18n-js';
 import useUser from  '../../hooks/useUser';
+import useAuth from '../../hooks/useAuth';
 import CarInfoItem from './profileComponents/CarInfoItem';
 import Carousel from 'react-native-snap-carousel';
 
 
-function ProfileScreen() {
+function ProfileScreen({ navigation }) {
 
     const{ getUserInfo } = useUser();
         
@@ -35,8 +36,6 @@ function ProfileScreen() {
             )
             })();
     },[]);
-       
-    
     
     return(
         <View style={styles.container}>
@@ -70,11 +69,18 @@ function ProfileScreen() {
                     />
                 </View> 
             ) : <Text>Vehicle not defined yet </Text>}
-            <Pressable style={styles.editButton} onPress={()=>("")}>
-                <Text style={{color:"white", fontWeight: 'bold'}}>
-                    Edit your profile
-                </Text>
-            </Pressable>
+            <View style={styles.buttonBar}>
+                <Pressable style={styles.editButton} onPress={()=>("")}>
+                    <Text style={{color:"white", fontWeight: 'bold'}}>
+                        Edit your profile
+                    </Text>
+                </Pressable>
+                <Pressable style={styles.addButton} onPress={() => {navigation.navigate("VehicleConfig")}}>
+                    <Text style={{color:"white", fontWeight: 'bold'}}>
+                        Add a new vehicle
+                    </Text>
+                </Pressable>
+            </View>
 
 
         </View>
@@ -145,6 +151,22 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 100/5,
     },
+    addButton: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        backgroundColor: '#5CB362',
+        margin: 25,
+        padding: 20,
+        alignSelf: 'center',
+        borderRadius: 100/5,
+    },
+    buttonBar: {
+        marginTop: 20,
+        width: '100%',
+        textAlign: 'left',
+        flexDirection: 'row',
+        alignItems: 'center'
+      },
 })
 
 export { ProfileScreen }
