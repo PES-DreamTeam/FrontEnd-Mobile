@@ -12,25 +12,25 @@ function SettingsScreen() {
         <View style={styles.container}>
             <Text>{i18n.t('settings.subtitle')}</Text>
             <Button
-                title="LogOut"
+                title= {i18n.t('settings.logOut')}
                 onPress={() => signOut()}
             />
             <View style={styles.languageButtons}>
                 <View style={styles.button}>
                     <Button
-                        title="Set EN"
-                        onPress={() => setLanguage('en')}
-                    />
-                </View>
-                <View style={styles.button}>
-                    <Button
-                        title="Set ES"
+                        title={i18n.t('settings.setES')}
                         onPress={() => setLanguage('es')}
                     />
                 </View>
                 <View style={styles.button}>
                     <Button
-                        title="Set CAT"
+                        title= {i18n.t('settings.setEN')}
+                        onPress={() => setLanguage('en')}
+                    />
+                </View>
+                <View style={styles.button}>
+                    <Button
+                        title={i18n.t('settings.setCAT')}
                         onPress={() => setLanguage('cat')}
                     />
                 </View>

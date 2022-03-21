@@ -96,21 +96,21 @@ function VehicleConfig({ navigation }) {
                         </Text>
                     </View>
                 : null}
-                <Text style={[styles.formTitle]}>Vehicle brand</Text>
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleBrand')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
                     value={vehicleBrand}
                     style={styles.input}
-                    name="vehicleBrand"
-                    placeholder="Car's brand here"
+                    name= "vehicleBrand"
+                    placeholder= {i18n.t('vehicleConfig.vehicleBrandPlacheholder')}
                 />
-                <Text style={[styles.formTitle]}>Vehicle model</Text>
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleModel')}
                     value={vehicleModel}
                     style={styles.input}
                     name="vehicleModel"
-                    placeholder="Car's model here"
+                    placeholder= {i18n.t('vehicleConfig.vehicleModelPlacheholder')}
                 />
                 {error.error && error.attribute === "NumberPlate" ?
                     <View style={styles.errorContainer}>
@@ -119,35 +119,35 @@ function VehicleConfig({ navigation }) {
                         </Text>
                     </View>
                 : null}
-                <Text style={[styles.formTitle]}>Number plate</Text>
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNumPlate')} </Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'numberPlate')}
                     value={numberPlate}
                     style={styles.input}
                     name="numberPlate"
-                    placeholder="Car's number plate here"
+                    placeholder= {i18n.t('vehicleConfig.vehicleNumPlatePlacheholder')}
                 />
-                <Text style={[styles.formTitle]}>Vehicle Color</Text>
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
 
                 <CircularColorBtnList
                     carColors = {carColors}
                     onChangeColor = {onChangeColor}
                 />
                 
-                <Text style={[styles.formTitle]}>Vehicle Nickname</Text>
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNickname')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleNickname')}
                     value={vehicleNickname}
                     style={styles.input}
                     name="vehicleNickname"
-                    placeholder="Car's nickname here"
+                    placeholder= {i18n.t('vehicleConfig.vehicleNicknamePlacheholder')}
                 />
                 <CarTypeSelector
                     vehicleColor={vehicleColor}
                     onSnapToItem={updateCurrentCarType}
                 />
                 <Button
-                    title={"Continue"}
+                    title={ i18n.t('vehicleConfig.continue')}
                     onPress={() => {
                         validateInformation();
                     }}
@@ -155,7 +155,7 @@ function VehicleConfig({ navigation }) {
 
                 <View style={[styles.skipContainer]}>
                     <Text>
-                        Don't have an EV?
+                        { i18n.t('vehicleConfig.notEV')}
                     </Text>
                     <View style={{marginLeft: 5}}>
                         <Text style={{color: 'blue'}} onPress={() => markAsNotNew()}>

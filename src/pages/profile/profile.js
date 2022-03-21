@@ -68,16 +68,16 @@ function ProfileScreen({ navigation }) {
                         keyExtractor={(item,index) => index}
                     />
                 </View> 
-            ) : <Text>Vehicle not defined yet </Text>}
+            ) : <Text>  {i18n.t('profile.vehicleNotDef')} </Text>}
             <View style={styles.buttonBar}>
                 <Pressable style={styles.editButton} onPress={()=>("")}>
                     <Text style={{color:"white", fontWeight: 'bold'}}>
-                        Edit your profile
+                        {i18n.t('profile.editProfile')}
                     </Text>
                 </Pressable>
                 <Pressable style={styles.addButton} onPress={() => {navigation.navigate("VehicleConfig")}}>
                     <Text style={{color:"white", fontWeight: 'bold'}}>
-                        Add a new vehicle
+                        {i18n.t('profile.addNewVehicle')}
                     </Text>
                 </Pressable>
             </View>

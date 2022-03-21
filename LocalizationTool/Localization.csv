@@ -5,16 +5,22 @@ title,Home,Inicio,Inici
 PAGE_settings,,,
 title,Settings,Ajustes,Configuració
 subtitle,Welcome to settings,Bienvenido a los ajustes,Benvingut a la configuració
-,,,
-,,,
+logOut,LogOut,Cerrar sesión,Tancar sessió
+setEN,English language,Idioma Inglés,Idioma Anglès
+setCAT,Catalan language,Idioma Catalán,Idioma Català
+setES,Spanish language,Idioma Español,Idioma Espanyol
 PAGE_signIn,,,
 title,Log In,Iniciar sesión,Iniciar sessió
 form_enterCredentials,Enter your credentials,Ingrese sus credenciales,Introdueix els credencials
 otherSocial,Or Log In with,O inicie sesión con,O inicia sessió amb
+pwdOrEmailMessage,There is an error with your password or email,Hay un error con el email o contraseña,Hi ha un error amb el email o la contrasenya
+emptyFieldMessage,Please fill in all fields,Porfavor rellene todos los campos,Siusplau ompli tots els camps
 noAccount,Haven't got an account?,¿No tiene una cuenta?,No tens compte?
 PAGE_signUp,,,
 title,Sign Up,Registrarse,Registrar-se
 form_enterCredentials,Enter your credentials,Ingrese sus credenciales,Introdueix els credencials
+form_email,Email:,Email:,Email:
+form_password,Password:,Contraseña:,Contrasenya:
 form_name,Name:,Nombre:,Nom:
 goToSignIn,Go to Log In,Ir a Iniciar sesión,Anar a Inciar sessió
 PAGE_miscelaneus,,,
@@ -22,6 +28,24 @@ loading,Loading...,Cargando...,Carregant...
 ,,,
 PAGE_vehicleConfig,,,
 title,Vehicle configuration,Configuracion del vehículo,Configuració del vehicle
+vehicleBrand,Vehicle brand,Marca del vehículo,Marca del vehicle
+vehicleBrandPlaceholder,Car's brand here,Introduce la marca,Introdueix la marca
+vehicleModel,Vehicle model,Modelo del vehículo,Model del vehícle
+vehicleModelPlaceholder,Car's model here,Introduce el modelo,Introdueix el model
+vehicleNumPlate,Number plate,Matrícula,Matrícula
+vehicleNumPlatePlaceholder,Car's number plate here,Introduce la matrícula,Introdueix la matrícula
+vecicleColor,Vehicle Color,Color del vehículo,Color del vehicle
+vehicleNickname,Vehicle Nickname,Apodo del vehículo,Sobrenom del vehicle
+vehicleNicknamePlaceholder,Car's nickname here,Introduce el apodo,Introdueix el sobrenom
+continue,Continue,Continuar,Continua
+notEV,Don't have an EV?,No tienes un VE?,No tens un VE?
+,,,
 PAGE_profile,,,
-yourVehicle,Your vehicle information,Información de tu vehículo,Informació del teu vehicle
+yourVehicle,Your vehicles information,Información de tus vehículos,Informació dels teus vehicles
 title,Profile,Perfil,Perfil
+vehicleNotDef,Vehicle not defined yet,Vehículo no definido,Vehicle no definit
+addNewVehicle,Add a new vehicle,Añade un vehículo,Afegeix un vehicle
+editProfile,Edit your profile,Edita tu perfil,Edita el teu perfil
+PAGE_carInfoItem,,,
+nickname,Nickname:,Apodo:,Sobrenom:
+numberPlate,Number Plate:,Matricula:,Matricula:

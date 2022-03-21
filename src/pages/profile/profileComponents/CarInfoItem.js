@@ -23,8 +23,8 @@ export default CarInfoItem = ({item}) => {
             <Image source = {vehicleImages[item.vehicleType]} style={[styles.image, {tintColor: item.color}, {width, resizeMode: 'contain'}, ]} />
             <View>
                 <Text style= {[styles.title]}>{item.brand} {item.model}</Text>
-                <Text style= {[styles.text]}>Nickname: "{item.nickname}"</Text>
-                <Text style= {[styles.text]}>Number Plate: {item.numberPlate}</Text>
+                <Text style= {[styles.text]}> {i18n.t('carInfoItem.nickname')} "{item.nickname}"</Text>
+                <Text style= {[styles.text]}> {i18n.t('carInfoItem.numberPlate')} {item.numberPlate}</Text>
             </View>
 
         </View>

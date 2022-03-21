@@ -32,13 +32,13 @@ function SignInScreen({ navigation }) {
             //Form Error
             setError({
                 error: true,
-                message: 'Please fill in all fields'
+                message: i18n.t('signUp.emptyFieldMessage')
             });
         }else {
             setLoading(true);
             signIn(user)
                 .then()
-                .catch(err => {setError({error:true, message: 'There is an error with your password or email'});})
+                .catch(err => {setError({error:true, message: i18n.t('signUp.pwdOrEmailMessage')});})
                 .finally(()=> setLoading(false));
         }
     }
