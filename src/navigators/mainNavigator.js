@@ -7,7 +7,6 @@ import i18n from 'i18n-js';
 const Tab = createBottomTabNavigator();
 function MainNavigator(){
 
-
     return(
         <Tab.Navigator initialRouteName="Map"
         screenOptions={({ route }) => ({

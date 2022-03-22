@@ -41,7 +41,7 @@ function ProfileScreen({ navigation }) {
         <View style={styles.container}>
             {/* Imagen de perfil */}
             <Image 
-                source={require('../../../assets/images/awakt.jpg')} 
+                source={require('../../../assets/images/user_profile.jpg')} 
                 style={[styles.profileImage]}
             />
             {/* Nombre de perfil */}

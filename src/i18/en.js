@@ -6,6 +6,7 @@ const en = {
 		title: "Settings",
 		subtitle: "Welcome to settings",
 		logOut: "LogOut",
+		signOut: "Sign Out",
 		setEN: "English language",
 		setCAT: "Catalan language",
 		setES: "Spanish language",
