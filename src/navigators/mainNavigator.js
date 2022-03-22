@@ -24,13 +24,6 @@ function MainNavigator(){
                     title: `${i18n.t('settings.title')}`,
                 }}
             />
-            <Tab.Screen 
-                name="Profile"
-                component={ProfileScreen} 
-                options={{
-                    title: `${i18n.t('settings.title')}`,
-                }}
-            />
         </Tab.Navigator>
     )
 }

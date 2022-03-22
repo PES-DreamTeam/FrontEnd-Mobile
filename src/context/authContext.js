@@ -7,12 +7,11 @@ const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
     const initialState = {
         token: null,
+        user:null,
         isSignedIn: false
     }
 
     const [auth, setAuthState] = useState(initialState);
-
-    const [firstTime, setFirstTime] = useState(true);
 
     const getAuthState = async () => {
         try {
@@ -22,6 +21,7 @@ const AuthProvider = ({ children }) => {
             configureAxiosHeaders(authData.token);
             setAuthState({
                 token: authData.token,
+                user:authData.user,
                 isSignedIn: true
             });
         } catch (error) {
@@ -59,7 +59,7 @@ const AuthProvider = ({ children }) => {
     },[])
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, logout, setFirstTime, firstTime }}>
+        <AuthContext.Provider value={{ auth, setAuth, logout }}>
             {children}
         </AuthContext.Provider>
     )

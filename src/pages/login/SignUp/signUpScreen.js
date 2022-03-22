@@ -51,7 +51,7 @@ function SignUpScreen({ navigation }) {
                     value={email}
                     style={styles.input}
                     name="email"
-                    placeholder="Email:"
+                    placeholder={i18n.t('signUp.form.email')}
                 />
                 <View style={styles.passwordContainer}>
                     <TextInput
@@ -59,7 +59,7 @@ function SignUpScreen({ navigation }) {
                         value={password}
                         style={[styles.input, {marginBottom: 0, width: '90%'}]}
                         name="password"
-                        placeholder="Password:"
+                        placeholder={i18n.t('signUp.form.password')}
                         textContentType="password"
                         secureTextEntry={showPassword}
                     />

@@ -12,7 +12,7 @@ void Usage() {
 
 struct LanguageFile {
     string outputPath = "";
-    string langauge = "";
+    string language = "";
     string content = "";
 };
 
@@ -53,7 +53,7 @@ bool ReadInput(string fileName, string outputPath, vector<LanguageFile>& jsonEle
                     objectCreated.push_back(false);
                     inSubobject.push_back(false);
                     lf.outputPath = outputPath + "/" + lineSplitted[i] + ".js";
-                    lf.langauge = lineSplitted[i];
+                    lf.language = lineSplitted[i];
                     lf.content = "const " + lineSplitted[i] + " = {";
                     jsonElements.push_back(lf);
                 }
@@ -101,7 +101,7 @@ bool ReadInput(string fileName, string outputPath, vector<LanguageFile>& jsonEle
             if(objectCreated[i]) {
                 jsonElements[i].content += "\n\t}";
             }
-            jsonElements[i].content += "\n}\nexport{ " + jsonElements[i].langauge + " }";
+            jsonElements[i].content += "\n}\nexport{ " + jsonElements[i].language + " }";
             
         }
 
@@ -125,7 +125,7 @@ bool WriteIndex(vector<LanguageFile>& jsonElements, string outputPath) {
     ofstream myfile;
     myfile.open (outputPath);
     for(int i = 0; i < jsonElements.size(); ++i) {
-        myfile << "export * from \'./" << jsonElements[i].langauge + "\';\n";
+        myfile << "export * from \'./" << jsonElements[i].language + "\';\n";
     }
     myfile.close();
 

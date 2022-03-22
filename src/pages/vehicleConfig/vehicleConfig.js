@@ -2,18 +2,13 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, Pre
 import React, { useState, useContext, useEffect } from 'react';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
+import useVehicleConfig from '../../hooks/useVehicleConfig';
 import i18n from 'i18n-js';
 
-function VehicleConfig({ navigation }) {
-    const {setFirstTime} = useAuth();
-    const [vehicle, setVehicle] = useState({
-        vehicleBrand: '',
-        vehicleModel: '',
-        vehicleNickname: '',
-        vehicleType: 0,
-        vehicleColor: '#000000'
-    });
+function VehicleConfig({ navigation }) {    
 
+    const { sendConfig } = useVehicleConfig();
+    
     const carColors = { 
         White:  '#DDDDDD',
         Grey:   '#4E4E4E',
@@ -24,9 +19,26 @@ function VehicleConfig({ navigation }) {
         Green:  '#296E01'
     };
 
-    const [currentColor, setCurrentColor] = useState('#ffffff');
+    const { auth, setAuth, updateUser } = useAuth();
 
-    const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor } = vehicle;
+    const [vehicle, setVehicle] = useState({
+        vehicleBrand: '',
+        vehicleModel: '',
+        vehicleNickname: '',
+        vehicleType: 0,
+        vehicleColor: carColors.White,
+        numberPlate: '',
+    });
+
+    const [error, setError] = useState({
+        error: false, 
+        attribute: '',
+        message: ''
+    });
+
+    const [currentColor, setCurrentColor] = useState(carColors.White);
+
+    const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor, numberPlate } = vehicle;
 
     const onChangeText = (text, name) => {
         setVehicle({
@@ -44,56 +56,109 @@ function VehicleConfig({ navigation }) {
 
     }
 
+    const validateInformation = () => {
+        if(vehicleBrand.length === 0 || vehicleModel.length === 0 ||
+            vehicleNickname.length === 0) {
+            //Form Error
+            setError({
+                error: true,
+                attribute: 'BlankFields',
+                message: 'Please fill in all fields'
+            });
+        }else {
+            var isSent = true;
+            sendConfig(vehicle)
+                .then(user => setAuth({...auth, user}))
+                .catch(err => {
+                    isSent = false;
+                    setError({
+                        error: true,
+                        attribute: err.attribute,
+                        message: err.error
+                    });
+                })
+            if(isSent !== false) navigation.navigate("Home");
+        }
+    };
+
+    const markAsNotNew = () => {
+        updateUser({...auth.user, isNew: false});
+    }
+
     return(
         <View style={styles.container}>
             <View style={[styles.topContainer]}>
                 <Text style={styles.title}>{i18n.t('vehicleConfig.title')}</Text>
-                <Text style={[styles.formTitle]}>Vehicle brand</Text>
+                {error.error && error.attribute !== "NumberPlate" ?
+                    <View style={styles.errorContainer}>
+                        <Text style={styles.error}>
+                            {error.message}
+                        </Text>
+                    </View>
+                : null}
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleBrand')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
                     value={vehicleBrand}
                     style={styles.input}
-                    name="vehicleBrand"
-                    placeholder="Car's brand here"
+                    name= "vehicleBrand"
+                    placeholder= {i18n.t('vehicleConfig.vehicleBrandPlacheholder')}
                 />
-                <Text style={[styles.formTitle]}>Vehicle model</Text>
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleModel')}
                     value={vehicleModel}
                     style={styles.input}
                     name="vehicleModel"
-                    placeholder="Car's model here"
+                    placeholder= {i18n.t('vehicleConfig.vehicleModelPlacheholder')}
                 />
-                <Text style={[styles.formTitle]}>Vehicle Color</Text>
+                {error.error && error.attribute === "NumberPlate" ?
+                    <View style={styles.errorContainer}>
+                        <Text style={styles.error}>
+                            {error.message}
+                        </Text>
+                    </View>
+                : null}
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNumPlate')} </Text>
+                <TextInput
+                    onChangeText={(text) => onChangeText(text, 'numberPlate')}
+                    value={numberPlate}
+                    style={styles.input}
+                    name="numberPlate"
+                    placeholder= {i18n.t('vehicleConfig.vehicleNumPlatePlacheholder')}
+                />
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
 
                 <CircularColorBtnList
                     carColors = {carColors}
                     onChangeColor = {onChangeColor}
                 />
                 
-                <Text style={[styles.formTitle]}>Vehicle Nickname</Text>
+                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNickname')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleNickname')}
                     value={vehicleNickname}
                     style={styles.input}
                     name="vehicleNickname"
-                    placeholder="Car's nickname here"
+                    placeholder= {i18n.t('vehicleConfig.vehicleNicknamePlacheholder')}
                 />
                 <CarTypeSelector
                     vehicleColor={vehicleColor}
                     onSnapToItem={updateCurrentCarType}
                 />
                 <Button
-                    title={'Continue'}
-                    onPress={()=>{setFirstTime(false)}}
+                    title={ i18n.t('vehicleConfig.continue')}
+                    onPress={() => {
+                        validateInformation();
+                    }}
                 />
 
                 <View style={[styles.skipContainer]}>
                     <Text>
-                        Don't have an EV?
+                        { i18n.t('vehicleConfig.notEV')}
                     </Text>
                     <View style={{marginLeft: 5}}>
-                        <Text style={{color: 'blue'}} onPress={() => {navigation.navigate("SignUp")}}>
+                        <Text style={{color: 'blue'}} onPress={() => markAsNotNew()}>
                             Skip
                         </Text>
                     </View>

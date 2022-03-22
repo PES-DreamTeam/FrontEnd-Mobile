@@ -1,34 +1,41 @@
-import React, { useEffect, useState} from 'react';
-import { View, Text, Button, StyleSheet, Image, Pressable } from 'react-native'
-import useAuth from '../../hooks/useAuth';
-import useUserSettings from '../../hooks/useUserSettings';
+import React, { useEffect, useState, useRef} from 'react';
+import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions } from 'react-native';
 import i18n from 'i18n-js';
 import useUser from  '../../hooks/useUser';
-function ProfileScreen() {
+import useAuth from '../../hooks/useAuth';
+import CarInfoItem from './profileComponents/CarInfoItem';
+import Carousel from 'react-native-snap-carousel';
+
+
+function ProfileScreen({ navigation }) {
 
     const{ getUserInfo } = useUser();
-
         
     const [user,setUser] = useState({
         id:null,
         email:null,
-        nickname:null
+        nickname:null,
+        vehicleConfig: [{
+            brand:null,
+            model:null,
+            nickname: null,
+            numberPlate: null,
+            color: null
+
+        }]
     })
 
-    const{id,email,nickname} = user;
+    const {width} = useWindowDimensions();
 
- useEffect(() => {
-    (async () => { 
-        let infoUsuario = await getUserInfo();
-          setUser({
-            id:infoUsuario._id,
-            email:infoUsuario.email,
-            nickname:infoUsuario.nickname
-          })
-        })();
- },[]);
-       
-    
+    const{id,email,nickname, vehicleConfig} = user;
+    useEffect(() => {
+        (async () => { 
+            let infoUsuario = await getUserInfo();
+            setUser(
+                    infoUsuario
+            )
+            })();
+    },[]);
     
     return(
         <View style={styles.container}>
@@ -48,13 +55,31 @@ function ProfileScreen() {
             <Text style = {[styles.header]}>
                 {i18n.t('profile.yourVehicle')}
             </Text>
-            <View style={[styles.informationContainer]}>
-                <Text style = {[styles.text]}>
-                    Model:
-                </Text>
-                <Text style = {[styles.secondaryText]}>
-                    Mercedes EQS
-                </Text>
+
+            {vehicleConfig.length > 0 ? (
+                <View>
+                    <Carousel
+                        data = {vehicleConfig}
+                        renderItem = {({item}) => <CarInfoItem item = {item} />}
+                        sliderWidth={320}
+                        sliderHeight={128}
+                        itemWidth={320}
+                        itemHeight={128}
+                        keyExtractor={(item,index) => index}
+                    />
+                </View> 
+            ) : <Text>  {i18n.t('profile.vehicleNotDef')} </Text>}
+            <View style={styles.buttonBar}>
+                <Pressable style={styles.editButton} onPress={()=>("")}>
+                    <Text style={{color:"white", fontWeight: 'bold'}}>
+                        {i18n.t('profile.editProfile')}
+                    </Text>
+                </Pressable>
+                <Pressable style={styles.addButton} onPress={() => {navigation.navigate("VehicleConfig")}}>
+                    <Text style={{color:"white", fontWeight: 'bold'}}>
+                        {i18n.t('profile.addNewVehicle')}
+                    </Text>
+                </Pressable>
             </View>
             <View style={[styles.informationContainer]}>
                 <Text style = {[styles.text]}>
@@ -123,7 +148,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     header: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
         textDecorationLine: 'underline',
     },
@@ -151,6 +176,22 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 100/5,
     },
+    addButton: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        backgroundColor: '#5CB362',
+        margin: 25,
+        padding: 20,
+        alignSelf: 'center',
+        borderRadius: 100/5,
+    },
+    buttonBar: {
+        marginTop: 20,
+        width: '100%',
+        textAlign: 'left',
+        flexDirection: 'row',
+        alignItems: 'center'
+      },
 })
 
 export { ProfileScreen }
