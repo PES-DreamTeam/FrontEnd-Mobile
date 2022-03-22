@@ -102,7 +102,7 @@ function VehicleConfig({ navigation }) {
                     value={vehicleBrand}
                     style={styles.input}
                     name= "vehicleBrand"
-                    placeholder= {i18n.t('vehicleConfig.vehicleBrandPlacheholder')}
+                    placeholder= {i18n.t('vehicleConfig.vehicleBrandPlaceholder')}
                 />
                 <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
                 <TextInput
@@ -110,7 +110,7 @@ function VehicleConfig({ navigation }) {
                     value={vehicleModel}
                     style={styles.input}
                     name="vehicleModel"
-                    placeholder= {i18n.t('vehicleConfig.vehicleModelPlacheholder')}
+                    placeholder= {i18n.t('vehicleConfig.vehicleModelPlaceholder')}
                 />
                 {error.error && error.attribute === "NumberPlate" ?
                     <View style={styles.errorContainer}>
@@ -125,7 +125,7 @@ function VehicleConfig({ navigation }) {
                     value={numberPlate}
                     style={styles.input}
                     name="numberPlate"
-                    placeholder= {i18n.t('vehicleConfig.vehicleNumPlatePlacheholder')}
+                    placeholder= {i18n.t('vehicleConfig.vehicleNumPlatePlaceholder')}
                 />
                 <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
 
@@ -140,7 +140,7 @@ function VehicleConfig({ navigation }) {
                     value={vehicleNickname}
                     style={styles.input}
                     name="vehicleNickname"
-                    placeholder= {i18n.t('vehicleConfig.vehicleNicknamePlacheholder')}
+                    placeholder= {i18n.t('vehicleConfig.vehicleNicknamePlaceholder')}
                 />
                 <CarTypeSelector
                     vehicleColor={vehicleColor}

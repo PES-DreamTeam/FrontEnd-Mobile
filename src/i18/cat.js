@@ -41,7 +41,7 @@ const cat = {
 		vehicleModelPlaceholder: "Introdueix el model",
 		vehicleNumPlate: "Matrícula",
 		vehicleNumPlatePlaceholder: "Introdueix la matrícula",
-		vecicleColor: "Color del vehicle",
+		vehicleColor: "Color del vehicle",
 		vehicleNickname: "Sobrenom del vehicle",
 		vehicleNicknamePlaceholder: "Introdueix el sobrenom",
 		continue: "Continua",

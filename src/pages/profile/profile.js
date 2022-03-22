@@ -81,33 +81,6 @@ function ProfileScreen({ navigation }) {
                     </Text>
                 </Pressable>
             </View>
-            <View style={[styles.informationContainer]}>
-                <Text style = {[styles.text]}>
-                    Nickname:
-                </Text>
-                <Text style = {[styles.secondaryText]}>
-                    El EcoCoche
-                </Text>
-            </View>
-            <View style={[styles.informationContainer]}>
-                <Text style = {[styles.text]}>
-                    NumberPlate:
-                </Text>
-                <Text style = {[styles.secondaryText]}>
-                    ECO12345
-                </Text>
-            </View>
-            <Image 
-                source={require('../../../assets/images/carTypes/carType_2.png')} 
-                style={[styles.image]}
-            />
-            <Pressable style={styles.editButton} onPress={()=>("")}>
-                <Text style={{color:"white", fontWeight: 'bold'  }}>
-                    Edit your profile
-                </Text>
-            </Pressable>
-
-
         </View>
     )
 }

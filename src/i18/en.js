@@ -41,7 +41,7 @@ const en = {
 		vehicleModelPlaceholder: "Car's model here",
 		vehicleNumPlate: "Number plate",
 		vehicleNumPlatePlaceholder: "Car's number plate here",
-		vecicleColor: "Vehicle Color",
+		vehicleColor: "Vehicle Color",
 		vehicleNickname: "Vehicle Nickname",
 		vehicleNicknamePlaceholder: "Car's nickname here",
 		continue: "Continue",

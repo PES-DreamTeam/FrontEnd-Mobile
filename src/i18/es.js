@@ -41,7 +41,7 @@ const es = {
 		vehicleModelPlaceholder: "Introduce el modelo",
 		vehicleNumPlate: "Matrícula",
 		vehicleNumPlatePlaceholder: "Introduce la matrícula",
-		vecicleColor: "Color del vehículo",
+		vehicleColor: "Color del vehículo",
 		vehicleNickname: "Apodo del vehículo",
 		vehicleNicknamePlaceholder: "Introduce el apodo",
 		continue: "Continuar",
