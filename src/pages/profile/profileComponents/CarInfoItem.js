@@ -1,5 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, Image, useWindowDimensions} from 'react-native';
+import i18n from 'i18n-js';
 
 export default CarInfoItem = ({item}) => {
     const {width} = useWindowDimensions();
