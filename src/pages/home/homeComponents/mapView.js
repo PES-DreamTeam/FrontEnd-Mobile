@@ -4,7 +4,7 @@ import MapView, { Callout, Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 
-const CustomMapView = ({color, onPress}) => {
+const CustomMapView = ({color, vehicleType}) => {
 
     const [location,setLocation] = useState({
         latitude:41.3887900,
@@ -48,7 +48,8 @@ const CustomMapView = ({color, onPress}) => {
 
       const {getChargePoints} = useChargePoints();
       getChargePoints();
-      
+      const pinColor = '#000000';
+
  
 
 
@@ -73,10 +74,12 @@ const CustomMapView = ({color, onPress}) => {
             <Marker 
               coordinate={{
               latitude: latitude, longitude: longitude
-              }}
-              image = {require('../../../../assets/images/carTypes/carType_0.png')}
-              />
- 
+              }}>
+                <Image
+                  source = {vehicleType}
+                  style = {{tintColor: color}}
+                />
+              </Marker>
               {chargePoints.map(chargePoint => 
                 <Marker 
                   key={chargePoint[1].id}
@@ -107,6 +110,15 @@ const styles = StyleSheet.create({
     map: {
       width: '100%',
       height: '100%',
+    },
+    mapMarker: {
+      height: 24,
+      width: 64,
+      alignSelf: 'center',
+      position:'relative',
+      left: 0,
+      right: 0
+    
     },
     mapContent: {
       flex: 1,
