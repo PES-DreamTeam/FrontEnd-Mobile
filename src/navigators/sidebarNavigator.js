@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigator } from './mainNavigator';
 import { ProfileScreen, SettingsScreen, VehicleConfig } from '../pages';
 import useAuth from '../hooks/useAuth';
-import { CustomDrawer } from './';
+import { CustomDrawer } from './customDrawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Drawer = createDrawerNavigator();
