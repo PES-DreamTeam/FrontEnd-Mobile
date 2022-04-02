@@ -1,6 +1,6 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useRef} from 'react';
 import { Dimensions, Pressable, StyleSheet, Text, View, Image, TextInput} from 'react-native';
-import { CustomMapView } from './homeComponents/';
+import { CustomMapView, FilterMap, LocationInfo } from './homeComponents/';
 import useAuth from '../../hooks/useAuth';
 
 
@@ -17,16 +17,31 @@ export default function HomeScreen({ navigation }) {
 
   const { auth } = useAuth();
 
-  // //console.log(auth?.user?.vehicleConfig);
-  // console.log(auth?.user?.vehicleConfig[9].color);
-  // console.log(auth?.user?.vehicleConfig[9].vehicleType);
-  //console.log(auth?.user?.vehicleConfig[0].vehicleType);
-
   const [search, setSearch] = useState('');
 
   const onChangeText = (text) => {  
     setSearch(text);  
   }
+
+  const [currentFilter, setCurrentFilter] = useState("");
+
+  const ChangeFilter = (filter) => {
+    setCurrentFilter(filter);
+    console.log(filter);
+    CloseStationInfo();
+  }
+
+  
+  const [currentStationInfo, setStationInfo] = useState(null);
+
+  function OpenStationInfo (station) {
+    setStationInfo(station);
+  }
+
+  function CloseStationInfo () {
+    setStationInfo(null);
+  }
+
   return (
     
     <View style={styles.container}>
@@ -47,9 +62,22 @@ export default function HomeScreen({ navigation }) {
       <CustomMapView 
         //Cogemos elutimo por ahora, luego cogeremos el 0 tras purgar la BD
         color={auth?.user?.vehicleConfig[6].color}
+        OpenStationInfo={OpenStationInfo}
+        CloseStationInfo={CloseStationInfo}
         //require( '../../../assets/images/carTypes/carType_0.png')
         vehicleType= {vehicleImages[auth?.user?.vehicleConfig[6].vehicleType]}
+        mapFilter={currentFilter}
       />
+
+      <LocationInfo
+        stationInfo={currentStationInfo}
+      /> 
+
+      <FilterMap
+        onChangeFilter={ChangeFilter}
+      />
+      
+
     </View>
   );
   

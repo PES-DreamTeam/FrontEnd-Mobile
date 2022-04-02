@@ -4,7 +4,7 @@ import MapView, { Callout, Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 
-const CustomMapView = ({color, vehicleType}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter}) => {
 
     const [location,setLocation] = useState({
         latitude:41.3887900,
@@ -13,14 +13,16 @@ const CustomMapView = ({color, vehicleType}) => {
         longitudeDelta:0.01
       });
 
-      const [stationInfoStyle, setStationInfoStyle] = useState(styles.stationInfoClosed);
+      
 
       var stationColors = [
         '#629C44', //VERDE (>=90%)
         '#FFE608', //AMARILLO (>= 70%)
         '#FF930F', //NARANJA (>= 1)
         '#D41F31', //ROJO (0)
-        '#878787'  //GRIS (?)
+        '#878787', //GRIS (?),
+        '#1D69A6'  //AZUL
+
     ]
       const {latitude,longitude} = location;
 
@@ -58,33 +60,34 @@ const CustomMapView = ({color, vehicleType}) => {
 
       const [chargePoints, setChargePoints] = useState([]);
 
-      function OpenStationInfo (station) {
-        setStationInfoStyle(styles.stationInfoOpened);
-        console.log(station);
-      }
-      function CloseStationInfo () {
-        setStationInfoStyle(styles.stationInfoClosed);
-      }
-
       const {getChargePoints} = useChargePoints();
-      getChargePoints();
       const pinColor = '#000000';
 
+      useEffect(() => {
+        (async () => { 
+          let infoPuntosCarga = await getChargePoints(mapFilter);
+          let arrayPuntos = Object.entries(infoPuntosCarga);
+          setChargePoints(arrayPuntos)
+            })();
+      },[mapFilter]);
+
      useEffect(() => {
-      (async () => { 
-        let infoPuntosCarga = await getChargePoints();
-        let arrayPuntos = Object.entries(infoPuntosCarga);
-        setChargePoints(arrayPuntos)
-          })();
+      
       },[]);
 
       function GetColorStation (station) {
         if(station !== null) {
           let availableStations = 0;
-          let countStations = station.sockets.length;
-          for (let i = 0; i < countStations; ++i) {
-            if(station.sockets[i].socket_state == 0) {
-              availableStations++;
+          let countStations = 0;
+          if(station.objectType == "bikeStation") {
+            return '#1D69A6';
+          }
+          if(station.objectType == "vehicleStation") {
+            countStations = station.data.sockets.length;
+            for (let i = 0; i < countStations; ++i) {
+              if(station.data.sockets[i].socket_state == 0) {
+                availableStations++;
+              }
             }
           }
           if(availableStations / countStations >= 0.9) {
@@ -105,7 +108,7 @@ const CustomMapView = ({color, vehicleType}) => {
     return (
         <View style ={styles.mapContent}> 
           <MapView style ={styles.map} ref={mapRef}
-          onPress={ () => CloseStationInfo()}
+            onPress={ () => CloseStationInfo()}
               initialRegion={{
                   latitude: latitude,
                   longitude: longitude,
@@ -121,29 +124,25 @@ const CustomMapView = ({color, vehicleType}) => {
                   coordinate={
                     {latitude: chargePoint[1].lat, longitude:chargePoint[1].lng }}
                   title={chargePoint[1].name}
-                  description={"Disponibles: " + chargePoint[1].address + "\n holi"}
                 />  
               )}
               <Marker 
-              coordinate={{
-              latitude: latitude, longitude: longitude
-              }}>
+                coordinate={{
+                latitude: latitude, longitude: longitude
+              }}
+              //icon= {require('../../../../assets/images/carTypes/icons/carType_7.png')}
+              >
                 <Image
-                  source = {vehicleType}
-                  style = {[{tintColor: color}, {zIndex: 100}]}
+                  source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
+                  style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
                 />
               </Marker>
               
           </MapView>
 
-          <View 
-          style={stationInfoStyle}>
-
-          </View>
-
           <Pressable 
-          style={styles.floatingButton}
-          onPress={centerPosition}
+            style={styles.floatingButton}
+            onPress={centerPosition}
           >
             <Image
             source={require('../../../../assets/images/center.png')}
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
       flex: 1
     },
     mapMarker: {
-      height: 24,
+      height: 32,
       width: 64,
       alignSelf: 'center',
       position:'relative',
@@ -179,15 +178,7 @@ const styles = StyleSheet.create({
       width: 60,
       height: 60,
       bottom: 25,
-      right: 25,
-    },
-    stationInfoOpened: {
-      height: '25%',
-      backgroundColor: 'red'
-    },
-    stationInfoClosed: {
-      height: 0,
-      backgroundColor: 'red'
+      right: 25
     }
 })
 
