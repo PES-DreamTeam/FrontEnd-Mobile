@@ -5,7 +5,7 @@ import useAuth from './hooks/useAuth';
 function Main() {
     const { isSignedIn } = useAuth();
     return(
-        isSignedIn() ?(
+        !isSignedIn() ?(
             <AuthNavigator/>
         ) : ( 
             <SidebarNavigator/>
