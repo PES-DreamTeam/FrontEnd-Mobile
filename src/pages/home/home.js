@@ -54,20 +54,27 @@ const{id,email,nickname, vehicleConfig} = user;
 
   const ChangeFilter = (filter) => {
     setCurrentFilter(filter);
-    console.log(filter);
+    //console.log(filter);
     CloseStationInfo();
   }
 
-  
+  const [wantRoute, setWantRoute] = useState(null);
   const [currentStationInfo, setStationInfo] = useState(null);
 
   function OpenStationInfo (station) {
     setStationInfo(station);
+    
   }
 
   function CloseStationInfo () {
     setStationInfo(null);
+    setWantRoute(false);
   }
+
+  function ActivateRoute () {
+    setWantRoute(true);
+  }
+
 
   return (
     
@@ -95,10 +102,14 @@ const{id,email,nickname, vehicleConfig} = user;
         //require( '../../../assets/images/carTypes/carType_0.png')
         vehicleType= {vehicleImages[vehicleConfig[0].vehicleType]}
         mapFilter={currentFilter}
+        routeActivate={wantRoute}
+        ActivateRoute={ActivateRoute}
+
       />
 
       <LocationInfo
         stationInfo={currentStationInfo}
+        ActivateRoute={ActivateRoute}
       /> 
 
       <FilterMap

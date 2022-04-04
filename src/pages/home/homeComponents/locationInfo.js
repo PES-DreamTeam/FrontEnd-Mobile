@@ -167,7 +167,6 @@ const GenericLocationInfo = (stationInfo) => {
 
 
 const LocationInfo = (stationInfo) => {
-
     const [stationInfoStyle, setStationInfoStyle] = useState(styles.locationInfoClosed);
 
     useEffect(()=>{
@@ -185,7 +184,9 @@ const LocationInfo = (stationInfo) => {
             </View>
             <GenericLocationInfo stationInfo={stationInfo.stationInfo}/>
             <View style={styles.goThereContent}>
-                <Pressable style={styles.goThereButton}>
+                <Pressable 
+                style={styles.goThereButton}
+                onPress={() => stationInfo.ActivateRoute()}>
                     <Text>Get There!</Text>
                 </Pressable>
             </View>
