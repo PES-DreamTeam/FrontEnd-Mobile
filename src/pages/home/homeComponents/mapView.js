@@ -1,10 +1,12 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { StyleSheet, Pressable, View, Image } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate}) => {
+  const GOOGLE_MAPS_APIKEY = 'AIzaSyC7PdTftO4QxOyM8vu3fSOCMlvOcuVmbk0';
 
     const [location,setLocation] = useState({
         latitude:41.3887900,
@@ -12,6 +14,14 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
         latitudeDelta:0.01,
         longitudeDelta:0.01
       });
+
+      const [destination,setDestination] = useState(
+        null
+      );
+
+      const changeDestination = (newLocation) => {
+        setDestination(newLocation);
+      }
 
       
 
@@ -115,11 +125,23 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
               }}
-          >
+          > 
+          {routeActivate ?
+            <MapViewDirections
+             origin={location}
+             destination={destination}
+             apikey={GOOGLE_MAPS_APIKEY}
+             strokeWidth={3}
+             strokeColor="hotpink"
+        />
+          : <View/>}
               {chargePoints.map(chargePoint => 
                 <Marker 
                   key={chargePoint[1].id}
-                  onPress={ () => OpenStationInfo(chargePoint[1])}
+                  onPress={ () => {
+                    OpenStationInfo(chargePoint[1]);
+                    changeDestination({latitude: chargePoint[1].lat, longitude:chargePoint[1].lng });
+                  }}
                   pinColor={GetColorStation(chargePoint[1])}
                   coordinate={
                     {latitude: chargePoint[1].lat, longitude:chargePoint[1].lng }}

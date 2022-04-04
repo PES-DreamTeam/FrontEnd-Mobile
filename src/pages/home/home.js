@@ -27,20 +27,27 @@ export default function HomeScreen({ navigation }) {
 
   const ChangeFilter = (filter) => {
     setCurrentFilter(filter);
-    console.log(filter);
+    //console.log(filter);
     CloseStationInfo();
   }
 
-  
+  const [wantRoute, setWantRoute] = useState(null);
   const [currentStationInfo, setStationInfo] = useState(null);
 
   function OpenStationInfo (station) {
     setStationInfo(station);
+    
   }
 
   function CloseStationInfo () {
     setStationInfo(null);
+    setWantRoute(false);
   }
+
+  function ActivateRoute () {
+    setWantRoute(true);
+  }
+
 
   return (
     
@@ -67,10 +74,14 @@ export default function HomeScreen({ navigation }) {
         //require( '../../../assets/images/carTypes/carType_0.png')
         vehicleType= {vehicleImages[auth?.user?.vehicleConfig[6].vehicleType]}
         mapFilter={currentFilter}
+        routeActivate={wantRoute}
+        ActivateRoute={ActivateRoute}
+
       />
 
       <LocationInfo
         stationInfo={currentStationInfo}
+        ActivateRoute={ActivateRoute}
       /> 
 
       <FilterMap
