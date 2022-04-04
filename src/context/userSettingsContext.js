@@ -31,9 +31,9 @@ const UserSettingsProvider = ({ children }) => {
 
     const saveUserSettings = async (userSettings) => {
         try {
-            await AsyncStorage.setItem('userSettings', JSON.stringify(userSettings));
             setUserSettings(userSettings); 
             setLanguage(userSettings);
+            await AsyncStorage.setItem('userSettings', JSON.stringify(userSettings));
         } catch (error) {
            Promise.reject(error); 
         }
@@ -50,7 +50,6 @@ const UserSettingsProvider = ({ children }) => {
     useEffect(()=>{
         getUserSettings();
     },[])
-
     return (
         <UserSettingsContext.Provider value={{ saveUserSettings, language: userSettings?.language }}>
             {children}
