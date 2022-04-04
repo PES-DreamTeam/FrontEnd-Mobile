@@ -39,7 +39,7 @@ function CustomDrawer(props) {
               fontSize: 18,
               marginBottom: 5,
             }}>
-            {user.nickname}
+            {user?.nickname}
           </Text>
         </ImageBackground>
         <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 10}}>

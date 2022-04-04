@@ -1,15 +1,80 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useRef} from 'react';
 import { Dimensions, Pressable, StyleSheet, Text, View, Image, TextInput} from 'react-native';
-import { CustomMapView } from './homeComponents/';
+import { CustomMapView, FilterMap, LocationInfo } from './homeComponents/';
+import useAuth from '../../hooks/useAuth';
+import useUser from  '../../hooks/useUser';
 
 
 export default function HomeScreen({ navigation }) {
+
+  var vehicleImages = [
+    require( '../../../assets/images/carTypes/icons/carType_0.png'),
+    require( '../../../assets/images/carTypes/icons/carType_1.png'),
+    require( '../../../assets/images/carTypes/icons/carType_2.png'),
+    require( '../../../assets/images/carTypes/icons/carType_3.png'),
+    require( '../../../assets/images/carTypes/icons/carType_4.png'),
+    require( '../../../assets/images/carTypes/icons/carType_5.png'),
+]
+
+  const { auth } = useAuth();
+
+  const{ getUserInfo } = useUser();
+
+  const [user,setUser] = useState({
+    id:null,
+    email:null,
+    nickname:null,
+    vehicleConfig: [{
+        brand:null,
+        model:null,
+        nickname: null,
+        numberPlate: null,
+        color: null
+
+    }]
+});
+
+const{id,email,nickname, vehicleConfig} = user;
+    useEffect(() => {
+        (async () => { 
+            let infoUsuario = await getUserInfo();
+            setUser(
+                    infoUsuario
+            )
+            })();
+    },[]);
 
   const [search, setSearch] = useState('');
 
   const onChangeText = (text) => {  
     setSearch(text);  
   }
+
+  const [currentFilter, setCurrentFilter] = useState("");
+
+  const ChangeFilter = (filter) => {
+    setCurrentFilter(filter);
+    //console.log(filter);
+    CloseStationInfo();
+  }
+
+  const [wantRoute, setWantRoute] = useState(null);
+  const [currentStationInfo, setStationInfo] = useState(null);
+
+  function OpenStationInfo (station) {
+    setStationInfo(station);
+    
+  }
+
+  function CloseStationInfo () {
+    setStationInfo(null);
+    setWantRoute(false);
+  }
+
+  function ActivateRoute () {
+    setWantRoute(true);
+  }
+
 
   return (
     
@@ -28,7 +93,30 @@ export default function HomeScreen({ navigation }) {
               placeholder="Search:"
           />
       </View>
-      <CustomMapView/>
+      <CustomMapView 
+        //Cogemos elutimo por ahora, luego cogeremos el 0 tras purgar la BD
+        
+        color={vehicleConfig[0].color}
+        OpenStationInfo={OpenStationInfo}
+        CloseStationInfo={CloseStationInfo}
+        //require( '../../../assets/images/carTypes/carType_0.png')
+        vehicleType= {vehicleImages[vehicleConfig[0].vehicleType]}
+        mapFilter={currentFilter}
+        routeActivate={wantRoute}
+        ActivateRoute={ActivateRoute}
+
+      />
+
+      <LocationInfo
+        stationInfo={currentStationInfo}
+        ActivateRoute={ActivateRoute}
+      /> 
+
+      <FilterMap
+        onChangeFilter={ChangeFilter}
+      />
+      
+
     </View>
   );
   

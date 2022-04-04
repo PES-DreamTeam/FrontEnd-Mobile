@@ -1,19 +1,42 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { StyleSheet, Pressable, View, Image } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 
-const CustomMapView = ({color, onPress}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate}) => {
+  const GOOGLE_MAPS_APIKEY = 'AIzaSyC7PdTftO4QxOyM8vu3fSOCMlvOcuVmbk0';
 
     const [location,setLocation] = useState({
         latitude:41.3887900,
         longitude:2.1589900,
         latitudeDelta:0.01,
         longitudeDelta:0.01
-      })
-    
+      });
+
+      const [destination,setDestination] = useState(
+        null
+      );
+
+      const changeDestination = (newLocation) => {
+        setDestination(newLocation);
+      }
+
+      
+
+      var stationColors = [
+        '#629C44', //VERDE (>=90%)
+        '#FFE608', //AMARILLO (>= 70%)
+        '#FF930F', //NARANJA (>= 1)
+        '#D41F31', //ROJO (0)
+        '#878787', //GRIS (?),
+        '#1D69A6'  //AZUL
+
+    ]
       const {latitude,longitude} = location;
+
+
 
     useEffect(() => {
         (async () => {
@@ -34,7 +57,8 @@ const CustomMapView = ({color, onPress}) => {
     
         })();
       }, []);
-
+      //0 -> Available, 1 -> Occupied, 2 -> Faulted, 
+      //3 -> Unavailable, 4 -> Reserved, 5 -> Charging
 
       const mapRef = useRef(null);
       const centerPosition = () => {
@@ -47,53 +71,100 @@ const CustomMapView = ({color, onPress}) => {
       const [chargePoints, setChargePoints] = useState([]);
 
       const {getChargePoints} = useChargePoints();
-      getChargePoints();
-      
- 
+      const pinColor = '#000000';
 
+      useEffect(() => {
+        (async () => { 
+          let infoPuntosCarga = await getChargePoints(mapFilter);
+          let arrayPuntos = Object.entries(infoPuntosCarga);
+          setChargePoints(arrayPuntos)
+            })();
+      },[mapFilter]);
 
      useEffect(() => {
-      (async () => { 
-        let infoPuntosCarga = await getChargePoints();
-        let arrayPuntos = Object.entries(infoPuntosCarga);
-        setChargePoints(arrayPuntos)
-          })();
-   },[]);
+      
+      },[]);
+
+      function GetColorStation (station) {
+        if(station !== null) {
+          let availableStations = 0;
+          let countStations = 0;
+          if(station.objectType == "bikeStation") {
+            return '#1D69A6';
+          }
+          if(station.objectType == "vehicleStation") {
+            countStations = station.data.sockets.length;
+            for (let i = 0; i < countStations; ++i) {
+              if(station.data.sockets[i].socket_state == 0) {
+                availableStations++;
+              }
+            }
+          }
+          if(availableStations / countStations >= 0.9) {
+            return stationColors[0];
+          }
+          if(availableStations / countStations >= 0.7) {
+            return stationColors[1];
+          }
+          else if(availableStations >= 1) {
+            return stationColors[2];
+          }
+          else {
+            return stationColors[3];
+          }
+        }
+      }
 
     return (
         <View style ={styles.mapContent}> 
           <MapView style ={styles.map} ref={mapRef}
+            onPress={ () => CloseStationInfo()}
               initialRegion={{
                   latitude: latitude,
                   longitude: longitude,
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
               }}
-          >
-            <Marker 
-              coordinate={{
-              latitude: latitude, longitude: longitude
-              }}
-              image = {require('../../../../assets/images/carTypes/carType_0.png')}
-              />
- 
+          > 
+          {routeActivate ?
+            <MapViewDirections
+             origin={location}
+             destination={destination}
+             apikey={GOOGLE_MAPS_APIKEY}
+             strokeWidth={3}
+             strokeColor="hotpink"
+        />
+          : <View/>}
               {chargePoints.map(chargePoint => 
                 <Marker 
                   key={chargePoint[1].id}
+                  onPress={ () => {
+                    OpenStationInfo(chargePoint[1]);
+                    changeDestination({latitude: chargePoint[1].lat, longitude:chargePoint[1].lng });
+                  }}
+                  pinColor={GetColorStation(chargePoint[1])}
                   coordinate={
                     {latitude: chargePoint[1].lat, longitude:chargePoint[1].lng }}
                   title={chargePoint[1].name}
-                  description={chargePoint[1].address}
-                  />
-                  
-                  
+                />  
               )}
+              <Marker 
+                coordinate={{
+                latitude: latitude, longitude: longitude
+              }}
+              //icon= {require('../../../../assets/images/carTypes/icons/carType_7.png')}
+              >
+                <Image
+                  source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
+                  style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
+                />
+              </Marker>
               
           </MapView>
 
           <Pressable 
-          style={styles.floatingButton}
-          onPress={centerPosition}
+            style={styles.floatingButton}
+            onPress={centerPosition}
           >
             <Image
             source={require('../../../../assets/images/center.png')}
@@ -106,7 +177,17 @@ const CustomMapView = ({color, onPress}) => {
 const styles = StyleSheet.create({
     map: {
       width: '100%',
-      height: '100%',
+      flex: 1
+    },
+    mapMarker: {
+      height: 32,
+      width: 64,
+      alignSelf: 'center',
+      position:'relative',
+
+      left: 0,
+      right: 0
+    
     },
     mapContent: {
       flex: 1,
@@ -119,7 +200,7 @@ const styles = StyleSheet.create({
       width: 60,
       height: 60,
       bottom: 25,
-      right: 25,
+      right: 25
     }
 })
 

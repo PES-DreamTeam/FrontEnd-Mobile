@@ -56,28 +56,29 @@ function VehicleConfig({ navigation }) {
 
     }
 
+
     const validateInformation = () => {
-        if(vehicleBrand.length === 0 || vehicleModel.length === 0 ||
-            vehicleNickname.length === 0) {
-            //Form Error
+
+        if(vehicleBrand.trim().length === 0 || vehicleModel.trim().length === 0 ||
+            vehicleNickname.trim().length === 0 || numberPlate.trim().length === 0) {
             setError({
                 error: true,
                 attribute: 'BlankFields',
                 message: 'Please fill in all fields'
             });
         }else {
-            var isSent = true;
             sendConfig(vehicle)
-                .then(user => setAuth({...auth, user}))
+                .then(user => {
+                    setAuth({...auth, user});
+                    navigation.navigate("Home");
+                })
                 .catch(err => {
-                    isSent = false;
                     setError({
                         error: true,
                         attribute: err.attribute,
                         message: err.error
                     });
                 })
-            if(isSent !== false) navigation.navigate("Home");
         }
     };
 

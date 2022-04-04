@@ -14,11 +14,11 @@ const useVehicleConfig = () => {
         const id = decodedToken._id;
         try {
             await axios.post(`${API_HOST}/api/users/${id}/vehicleConfig`, {      
-                brand: vehicleBrand,
-                model: vehicleModel,
-                nickname: vehicleNickname,
+                brand: vehicleBrand.trim(),
+                model: vehicleModel.trim(),
+                nickname: vehicleNickname.trim(),
                 color: vehicleColor,
-                numberPlate: numberPlate,
+                numberPlate: numberPlate.trim(),
                 vehicleType: vehicleType,
             });        
         } catch(error) {

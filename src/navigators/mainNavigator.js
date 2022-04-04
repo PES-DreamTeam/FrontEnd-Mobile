@@ -30,14 +30,10 @@ function MainNavigator(){
                 component={HomeScreen} 
                 options={{
                     title: `${i18n.t('home.title')}`,
-                    headerShown: false
-                }}
-            />
-            <Tab.Screen 
-                name="Settings"
-                component={SettingsScreen} 
-                options={{
-                    title: `${i18n.t('settings.title')}`,
+                    headerShown: false,
+                    tabBarVisible: false,
+                    tabBarStyle: { display: 'none' },
+                    tabBarButton: (props) => null
                 }}
             />
         </Tab.Navigator>
