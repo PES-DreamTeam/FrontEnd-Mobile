@@ -2,6 +2,7 @@ import React,{useEffect, useState, useRef} from 'react';
 import { Dimensions, Pressable, StyleSheet, Text, View, Image, TextInput} from 'react-native';
 import { CustomMapView, FilterMap, LocationInfo } from './homeComponents/';
 import useAuth from '../../hooks/useAuth';
+import useUser from  '../../hooks/useUser';
 
 
 export default function HomeScreen({ navigation }) {
@@ -16,6 +17,32 @@ export default function HomeScreen({ navigation }) {
 ]
 
   const { auth } = useAuth();
+
+  const{ getUserInfo } = useUser();
+
+  const [user,setUser] = useState({
+    id:null,
+    email:null,
+    nickname:null,
+    vehicleConfig: [{
+        brand:null,
+        model:null,
+        nickname: null,
+        numberPlate: null,
+        color: null
+
+    }]
+});
+
+const{id,email,nickname, vehicleConfig} = user;
+    useEffect(() => {
+        (async () => { 
+            let infoUsuario = await getUserInfo();
+            setUser(
+                    infoUsuario
+            )
+            })();
+    },[]);
 
   const [search, setSearch] = useState('');
 
@@ -61,11 +88,12 @@ export default function HomeScreen({ navigation }) {
       </View>
       <CustomMapView 
         //Cogemos elutimo por ahora, luego cogeremos el 0 tras purgar la BD
-        color={auth?.user?.vehicleConfig[6].color}
+        
+        color={vehicleConfig[0].color}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
         //require( '../../../assets/images/carTypes/carType_0.png')
-        vehicleType= {vehicleImages[auth?.user?.vehicleConfig[6].vehicleType]}
+        vehicleType= {vehicleImages[vehicleConfig[0].vehicleType]}
         mapFilter={currentFilter}
       />
 
