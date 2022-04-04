@@ -96,11 +96,11 @@ const{id,email,nickname, vehicleConfig} = user;
       <CustomMapView 
         //Cogemos elutimo por ahora, luego cogeremos el 0 tras purgar la BD
         
-        color={vehicleConfig[0].color}
+        color={vehicleConfig[0]?.color ?? '#000000'}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
         //require( '../../../assets/images/carTypes/carType_0.png')
-        vehicleType= {vehicleImages[vehicleConfig[0].vehicleType]}
+        vehicleType= {vehicleImages[vehicleConfig[0]?.vehicleType ?? 0]}
         mapFilter={currentFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
