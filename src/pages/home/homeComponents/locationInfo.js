@@ -102,10 +102,11 @@ const ChargeStationInfo = (stationInfo) => {
                 />
                 <Text>{GetAvailableSocketsCar(stationInfo)}/{GetTotalSocketsCar(stationInfo)}</Text>
                  <View style={styles.socketsList}>
-                    {GetAllSocketTypesCar(stationInfo).map(socket =>
+                    {GetAllSocketTypesCar(stationInfo).map((socket, index) =>
                         <Image
                             source = {vehicleImages[socket-1]}
                             style={styles.socketImage}
+                            key={index}
                         /> 
                     )} 
                 </View>
