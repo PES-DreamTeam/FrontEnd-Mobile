@@ -54,7 +54,7 @@ const{id,email,nickname, vehicleConfig} = user;
 
   const ChangeFilter = (filter) => {
     setCurrentFilter(filter);
-    console.log(filter);
+    //console.log(filter);
     CloseStationInfo();
   }
 
