@@ -7,14 +7,22 @@ const useChargePoints = () => {
 
 
     const getChargePoints = async (filter) => {
-        console.log(`/api/chargePoints?groupBy=id&objectType=`+filter);
+       // console.log(`/api/chargePoints?groupBy=id&objectType=`+filter);
         const response = await axios.get(`${API_HOST}/api/chargePoints?groupBy=id&objectType=`+filter);
         const data = response.data;
         return (data.chargePoints);
         
     }
 
-    return {  getChargePoints };
+    
+    const getSingleChargePoint = async (id_charge) => {
+        console.log(id_charge)
+        const response = await axios.get(`${API_HOST}/api/chargePoints/${id_charge}`);
+        const data = response.data;
+        return (data.chargePoints);
+    }
+
+    return {  getChargePoints, getSingleChargePoint};
 }
 
 export default useChargePoints;

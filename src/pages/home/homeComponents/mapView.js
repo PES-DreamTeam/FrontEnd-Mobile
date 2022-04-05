@@ -5,7 +5,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate, ActivateRoute}) => {
   const GOOGLE_MAPS_APIKEY = 'AIzaSyC7PdTftO4QxOyM8vu3fSOCMlvOcuVmbk0';
 
     const [location,setLocation] = useState({
@@ -15,13 +15,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
         longitudeDelta:0.01
       });
 
-      const [destination,setDestination] = useState(
-        null
-      );
-
-      const changeDestination = (newLocation) => {
-        setDestination(newLocation);
-      }
+      
+    
 
       
 
@@ -70,20 +65,30 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
 
       const [chargePoints, setChargePoints] = useState([]);
 
-      const {getChargePoints} = useChargePoints();
+      const {getChargePoints, getSingleChargePoint} = useChargePoints();
       const pinColor = '#000000';
 
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE")
+      console.log(routeActivate)
       useEffect(() => {
         (async () => { 
-          let infoPuntosCarga = await getChargePoints(mapFilter);
+          let infoPuntosCarga
+          console.log(mapFilter)
+          if(mapFilter != "singleCharge"){
+             infoPuntosCarga = await getChargePoints(mapFilter);
+          }
+          else{
+            console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+          console.log(routeActivate)
+          infoPuntosCarga = await getSingleChargePoint(routeActivate.id)
+          }
+          
           let arrayPuntos = Object.entries(infoPuntosCarga);
           setChargePoints(arrayPuntos)
             })();
       },[mapFilter]);
 
-     useEffect(() => {
-      
-      },[]);
+    
 
       function GetColorStation (station) {
         if(station !== null) {
@@ -118,18 +123,24 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
     return (
         <View style ={styles.mapContent}> 
           <MapView style ={styles.map} ref={mapRef}
-            onPress={ () => CloseStationInfo()}
-              initialRegion={{
+            onPress={ () =>{
+            CloseStationInfo()
+            ActivateRoute(null);
+            }
+          }
+            initialRegion={{
                   latitude: latitude,
                   longitude: longitude,
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
               }}
+            
           > 
-          {routeActivate ?
+          
+          {routeActivate!=null?
             <MapViewDirections
              origin={location}
-             destination={destination}
+             destination={{latitude:routeActivate.latitude, longitude:routeActivate.longitude}}
              apikey={GOOGLE_MAPS_APIKEY}
              strokeWidth={3}
              strokeColor="hotpink"
@@ -140,7 +151,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
                   key={chargePoint[1].id}
                   onPress={ () => {
                     OpenStationInfo(chargePoint[1]);
-                    changeDestination({latitude: chargePoint[1].lat, longitude:chargePoint[1].lng });
+                   
                   }}
                   pinColor={GetColorStation(chargePoint[1])}
                   coordinate={

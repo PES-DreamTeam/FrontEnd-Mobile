@@ -44,7 +44,7 @@ const GetAvailableSocketsMoto = (stationInfo) => {
 }
 
 const GetAllSocketTypes = (stationInfo, vehicleType) => {
-    console.log(stationInfo);
+   // console.log(stationInfo);
     let sockets = stationInfo?.stationInfo?.data.sockets;
     let types = [];
     let found = false;
@@ -169,7 +169,7 @@ const GenericLocationInfo = (stationInfo) => {
 
 const LocationInfo = (stationInfo) => {
     const [stationInfoStyle, setStationInfoStyle] = useState(styles.locationInfoClosed);
-
+   // console.log(stationInfo)
     useEffect(()=>{
         if(stationInfo.stationInfo != null) {
             setStationInfoStyle(styles.locationInfoOpened);
@@ -187,7 +187,16 @@ const LocationInfo = (stationInfo) => {
             <View style={styles.goThereContent}>
                 <Pressable 
                 style={styles.goThereButton}
-                onPress={() => stationInfo.ActivateRoute()}>
+                onPress={() => { 
+                    stationInfo.ActivateRoute({
+                        latitude:stationInfo?.stationInfo?.lat,
+                        longitude:stationInfo?.stationInfo?.lng,
+                        id:stationInfo?.stationInfo?.id})
+                        stationInfo.onChangeFilter("singleCharge")
+                     }   
+                 }
+                >
+                    
                     <Text>Get There!</Text>
                 </Pressable>
             </View>

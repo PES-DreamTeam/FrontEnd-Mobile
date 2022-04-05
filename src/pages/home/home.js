@@ -54,7 +54,7 @@ const{id,email,nickname, vehicleConfig} = user;
 
   const ChangeFilter = (filter) => {
     setCurrentFilter(filter);
-    //console.log(filter);
+    console.log(filter);
     CloseStationInfo();
   }
 
@@ -68,11 +68,11 @@ const{id,email,nickname, vehicleConfig} = user;
 
   function CloseStationInfo () {
     setStationInfo(null);
-    setWantRoute(false);
+    
   }
 
-  function ActivateRoute () {
-    setWantRoute(true);
+  function ActivateRoute (coord_estacion) {
+    setWantRoute(coord_estacion);
   }
 
 
@@ -110,6 +110,7 @@ const{id,email,nickname, vehicleConfig} = user;
       <LocationInfo
         stationInfo={currentStationInfo}
         ActivateRoute={ActivateRoute}
+        onChangeFilter={ChangeFilter}
       /> 
 
       <FilterMap
