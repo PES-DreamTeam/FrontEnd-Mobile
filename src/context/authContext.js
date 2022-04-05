@@ -31,7 +31,6 @@ const AuthProvider = ({ children }) => {
 
     const setAuth = async (auth) => {
         try {
-            auth.isSignedIn = true;
             await AsyncStorage.setItem("auth", JSON.stringify(auth));
             configureAxiosHeaders(auth.token);
             setAuthState(auth);
@@ -42,9 +41,9 @@ const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-           setAuthState(initialState);
            await AsyncStorage.removeItem("auth");
            configureAxiosHeaders(null);
+           setAuthState(initialState);
         } catch (error) {
            Promise.reject(error); 
         }

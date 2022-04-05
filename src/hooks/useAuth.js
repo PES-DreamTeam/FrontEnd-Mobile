@@ -12,7 +12,8 @@ const useAuth = () => {
             email,
             password,
         })
-        const data = response.data;
+        let data = response.data;
+        data.isSignedIn = true;
         setAuth(data);   
     }
 
@@ -23,7 +24,8 @@ const useAuth = () => {
             email,
             password
         })
-        const data = response.data;
+        let data = response.data;
+        data.isSignedIn = true;
         setAuth(data);
     }
 
@@ -38,12 +40,17 @@ const useAuth = () => {
         await axios.put(`${API_HOST}/api/users`, user);
     }
 
-    const updateUser = async (user) =>{
+    const updateUser = async (user) => {
         await updateUserAsync(user);
         setAuth({...auth, user});
     }
+    
+    const deleteAccount = async () => {
+        await axios.delete(`${API_HOST}/api/users/${auth.user._id}`);
+        logout();
+    }
 
-    return { signIn, signOut, signUp, isSignedIn, updateUser, setAuth, auth };
+    return { signIn, signOut, signUp, isSignedIn, updateUser, deleteAccount, setAuth, auth };
 }
 
 export default useAuth;

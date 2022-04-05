@@ -10,6 +10,8 @@ const en = {
 		setEN: "English language",
 		setCAT: "Catalan language",
 		setES: "Spanish language",
+		deleteAccountTitle: "Are you sure you want to delete your account?",
+		deleteAccountSubtitle: "This action can't be undone",
 	}, 
 	signIn: {
 		title: "Log In",
@@ -33,6 +35,8 @@ const en = {
 	}, 
 	miscelaneus: {
 		loading: "Loading...",
+		accept: 'Accept',
+		cancel: 'Cancel',
 	}, 
 	vehicleConfig: {
 		title: "Vehicle configuration",
