@@ -42,7 +42,7 @@ function SettingsScreen() {
 
                 <View style={[styles.deleteAccountContainer]}>
                     <Button
-                        text={"Borrar cuenta"}
+                        text={i18n.t('settings.deleteAccount')}
                         onPress={() => setIsModalVisible(!isModalVisible)}
                     />
                 </View>

@@ -3,6 +3,7 @@ import { Dimensions, Pressable, StyleSheet, Text, View, Image, TextInput} from '
 import { CustomMapView, FilterMap, LocationInfo } from './homeComponents/';
 import useAuth from '../../hooks/useAuth';
 import useUser from  '../../hooks/useUser';
+import i18n from 'i18n-js';
 
 
 export default function HomeScreen({ navigation }) {
@@ -90,11 +91,10 @@ const{id,email,nickname, vehicleConfig} = user;
               value={search}
               style={styles.searchBar}
               name="search"
-              placeholder="Search:"
+              placeholder={`${i18n.t('home.searchBar')}`}
           />
       </View>
       <CustomMapView 
-        //Cogemos elutimo por ahora, luego cogeremos el 0 tras purgar la BD
         
         color={vehicleConfig[0]?.color ?? '#000000'}
         OpenStationInfo={OpenStationInfo}

@@ -55,7 +55,7 @@ function CustomDrawer(props) {
                 fontSize: 15,
                 marginLeft: 5,
               }}>
-              Tell a Friend
+              {`${i18n.t('drawer.tellAFriend')}`}
             </Text>
           </View>
         </TouchableOpacity>
@@ -69,7 +69,7 @@ function CustomDrawer(props) {
               }}
               onPress={() => signOut()}
               >
-              {`${i18n.t('settings.signOut')}`}
+              {`${i18n.t('drawer.logOut')}`}
             </Text>
           </View>
         </TouchableOpacity>
