@@ -1,14 +1,18 @@
 Key,en,es,cat
 PAGE_home,,,
 title,Home,Inicio,Inici
-,,,
+searchBar,Search:,Buscar:,Buscar:
 PAGE_settings,,,
 title,Settings,Ajustes,Configuració
 subtitle,Welcome to settings,Bienvenido a los ajustes,Benvingut a la configuració
-logOut,LogOut,Cerrar sesión,Tancar sessió
+logOut,Log Out,Cerrar sesión,Tancar sessió
 setEN,English language,Idioma Inglés,Idioma Anglès
 setCAT,Catalan language,Idioma Catalán,Idioma Català
 setES,Spanish language,Idioma Español,Idioma Espanyol
+deleteAccount,Delete your account,Borrar tu cuenta,Esborrar el teu compte
+deleteAccountTitle,Are you sure you want to delete you account?,¿Estás seguro de que quieres eliminar tu cuenta?,Estas segur de que vols eliminar el teu compte?
+deleteAccountSubtitle,This action is not reversible and you will lose future access to the app.,Esta acción no es reversible y perderás todo acceso futuro a la aplicación.,Aquesta acció no és reversible i perdràs accés futur a l'aplicació.
+,,,
 PAGE_signIn,,,
 title,Log In,Iniciar sesión,Iniciar sessió
 form_enterCredentials,Enter your credentials,Ingrese sus credenciales,Introdueix els credencials
@@ -25,7 +29,7 @@ form_name,Name:,Nombre:,Nom:
 goToSignIn,Go to Log In,Ir a Iniciar sesión,Anar a Inciar sessió
 PAGE_miscelaneus,,,
 loading,Loading...,Cargando...,Carregant...
-,,,
+accept,Accept,Aceptar,Acceptar
 PAGE_vehicleConfig,,,
 title,Vehicle configuration,Configuracion del vehículo,Configuració del vehicle
 vehicleBrand,Vehicle brand,Marca del vehículo,Marca del vehicle
@@ -34,7 +38,7 @@ vehicleModel,Vehicle model,Modelo del vehículo,Model del vehícle
 vehicleModelPlaceholder,Car's model here,Introduce el modelo,Introdueix el model
 vehicleNumPlate,Number plate,Matrícula,Matrícula
 vehicleNumPlatePlaceholder,Car's number plate here,Introduce la matrícula,Introdueix la matrícula
-vecicleColor,Vehicle Color,Color del vehículo,Color del vehicle
+vehicleColor,Vehicle Color,Color del vehículo,Color del vehicle
 vehicleNickname,Vehicle Nickname,Apodo del vehículo,Sobrenom del vehicle
 vehicleNicknamePlaceholder,Car's nickname here,Introduce el apodo,Introdueix el sobrenom
 continue,Continue,Continuar,Continua
@@ -49,3 +53,10 @@ editProfile,Edit your profile,Edita tu perfil,Edita el teu perfil
 PAGE_carInfoItem,,,
 nickname,Nickname:,Apodo:,Sobrenom:
 numberPlate,Number Plate:,Matricula:,Matricula:
+,,,
+PAGE_drawer,,,
+home,Home,Inicio,Inici
+profile,Profile,Perfil,Perfil
+settings,Settings,Ajustes,Configuració
+tellAFriend,Share it with a friend!,Compartelo con un amigo!,Comparteix amb un amic!
+logOut,Log Out,Cerrar sesión,Tancar sessió

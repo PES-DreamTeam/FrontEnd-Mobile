@@ -1,6 +1,7 @@
 const es = {
 	home: {
 		title: "Inicio",
+		searchBar: "Buscar:",
 	}, 
 	settings: {
 		title: "Ajustes",
@@ -9,6 +10,9 @@ const es = {
 		setEN: "Idioma Inglés",
 		setCAT: "Idioma Catalán",
 		setES: "Idioma Español",
+		deleteAccount: "Borrar tu cuenta",
+		deleteAccountTitle: "¿Estás seguro de que quieres eliminar tu cuenta?",
+		deleteAccountSubtitle: "Esta acción no es reversible y perderás todo acceso futuro a la aplicación.",
 	}, 
 	signIn: {
 		title: "Iniciar sesión",
@@ -32,6 +36,7 @@ const es = {
 	}, 
 	miscelaneus: {
 		loading: "Cargando...",
+		accept: "Aceptar",
 	}, 
 	vehicleConfig: {
 		title: "Configuracion del vehículo",
@@ -57,6 +62,13 @@ const es = {
 	carInfoItem: {
 		nickname: "Apodo:",
 		numberPlate: "Matricula:",
+	}, 
+	drawer: {
+		home: "Inicio",
+		profile: "Perfil",
+		settings: "Ajustes",
+		tellAFriend: "Compartelo con un amigo!",
+		logOut: "Cerrar sesión",
 	}
 }
 export{ es }

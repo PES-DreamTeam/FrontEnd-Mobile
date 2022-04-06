@@ -27,7 +27,7 @@ function SidebarNavigator (){
                 <Drawer.Navigator
                     drawerContent={props => <CustomDrawer {...props} />}
                 >
-                    <Drawer.Screen name="Home" component={MainNavigator} 
+                    <Drawer.Screen name={`${i18n.t('drawer.home')}`} component={MainNavigator} 
                         options={{
                             title: `${i18n.t('home.title')}`,
                             header:()=>null, 
@@ -35,7 +35,7 @@ function SidebarNavigator (){
                                 <Ionicons name="home-outline" size={22} color={color} />
                             )                       
                         }}/>
-                    <Stack.Screen name="Profile" component={ProfileScreen}
+                    <Stack.Screen name={`${i18n.t('drawer.profile')}`} component={ProfileScreen}
                           options={{
                                 title: `${i18n.t('profile.title')}`,
                                 drawerIcon: ({color}) => (
@@ -43,7 +43,7 @@ function SidebarNavigator (){
                             )                       
                         }}                                      
                     />
-                    <Drawer.Screen name="Settings" component={SettingsScreen}
+                    <Drawer.Screen name={`${i18n.t('drawer.settings')}`} component={SettingsScreen}
                          options={{
                             title: `${i18n.t('settings.title')}`,
                             drawerIcon: ({color}) => (

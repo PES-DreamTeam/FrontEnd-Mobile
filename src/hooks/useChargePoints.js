@@ -18,7 +18,7 @@ const useChargePoints = () => {
     const getSingleChargePoint = async (id_charge) => {
         const response = await axios.get(`${API_HOST}/api/chargePoints/${id_charge}`);
         const data = response.data;
-        return (data.chargePoints);
+        return (data.chargePoint);
     }
 
     return {  getChargePoints, getSingleChargePoint};

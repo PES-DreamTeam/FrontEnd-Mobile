@@ -1,18 +1,18 @@
 const en = {
 	home: {
 		title: "Home",
+		searchBar: "Search:",
 	}, 
 	settings: {
 		title: "Settings",
 		subtitle: "Welcome to settings",
-		logOut: "LogOut",
-		signOut: "Sign Out",
+		logOut: "Log Out",
 		setEN: "English language",
 		setCAT: "Catalan language",
 		setES: "Spanish language",
-		deleteAccount: "Delete account",
-		deleteAccountTitle: "Are you sure you want to delete your account?",
-		deleteAccountSubtitle: "This action can't be undone",
+		deleteAccount: "Delete your account",
+		deleteAccountTitle: "Are you sure you want to delete you account?",
+		deleteAccountSubtitle: "This action is not reversible and you will lose future access to the app.",
 	}, 
 	signIn: {
 		title: "Log In",
@@ -36,8 +36,7 @@ const en = {
 	}, 
 	miscelaneus: {
 		loading: "Loading...",
-		accept: 'Accept',
-		cancel: 'Cancel',
+		accept: "Accept",
 	}, 
 	vehicleConfig: {
 		title: "Vehicle configuration",
@@ -63,9 +62,13 @@ const en = {
 	carInfoItem: {
 		nickname: "Nickname:",
 		numberPlate: "Number Plate:",
-	},
+	}, 
 	drawer: {
-		share: "Tell a Friend"
+		home: "Home",
+		profile: "Profile",
+		settings: "Settings",
+		tellAFriend: "Share it with a friend!",
+		logOut: "Log Out",
 	}
 }
 export{ en }

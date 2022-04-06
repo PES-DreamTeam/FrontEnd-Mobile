@@ -1,6 +1,7 @@
 const cat = {
 	home: {
 		title: "Inici",
+		searchBar: "Buscar:",
 	}, 
 	settings: {
 		title: "Configuració",
@@ -9,6 +10,9 @@ const cat = {
 		setEN: "Idioma Anglès",
 		setCAT: "Idioma Català",
 		setES: "Idioma Espanyol",
+		deleteAccount: "Esborrar el teu compte",
+		deleteAccountTitle: "Estas segur de que vols eliminar el teu compte?",
+		deleteAccountSubtitle: "Aquesta acció no és reversible i perdràs accés futur a l'aplicació.",
 	}, 
 	signIn: {
 		title: "Iniciar sessió",
@@ -32,6 +36,7 @@ const cat = {
 	}, 
 	miscelaneus: {
 		loading: "Carregant...",
+		accept: "Acceptar",
 	}, 
 	vehicleConfig: {
 		title: "Configuració del vehicle",
@@ -57,6 +62,13 @@ const cat = {
 	carInfoItem: {
 		nickname: "Sobrenom:",
 		numberPlate: "Matricula:",
+	}, 
+	drawer: {
+		home: "Inici",
+		profile: "Perfil",
+		settings: "Configuració",
+		tellAFriend: "Comparteix amb un amic!",
+		logOut: "Tancar sessió",
 	}
 }
 export{ cat }

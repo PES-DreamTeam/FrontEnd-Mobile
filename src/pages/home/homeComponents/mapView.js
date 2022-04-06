@@ -15,9 +15,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
         longitudeDelta:0.01
       });
 
+      const [filter, setFilter] = useState('');
       
-    
-
       
 
       var stationColors = [
@@ -70,17 +69,17 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
 
       useEffect(() => {
         (async () => { 
-          let infoPuntosCarga
+         
           if(mapFilter != "singleCharge"){
-             infoPuntosCarga = await getChargePoints(mapFilter);
+             let infoPuntosCarga = await getChargePoints(mapFilter);
+             let arrayPuntos = Object.entries(infoPuntosCarga);
+             setChargePoints(arrayPuntos)
           }
-          else{
+          else{      
+             let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id);
+             setChargePoints(aux);            
 
-          infoPuntosCarga = await getSingleChargePoint(routeActivate.id)
           }
-          
-          let arrayPuntos = Object.entries(infoPuntosCarga);
-          setChargePoints(arrayPuntos)
             })();
       },[mapFilter]);
 
@@ -120,7 +119,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
         <View style ={styles.mapContent}> 
           <MapView style ={styles.map} ref={mapRef}
             onPress={ () =>{
-            CloseStationInfo()
+            CloseStationInfo();
             ActivateRoute(null);
             }
           }
