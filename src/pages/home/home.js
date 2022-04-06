@@ -19,62 +19,36 @@ export default function HomeScreen({ navigation }) {
 
   const { auth } = useAuth();
 
-  const{ getUserInfo } = useUser();
-
-  const [user,setUser] = useState({
-    id:null,
-    email:null,
-    nickname:null,
-    vehicleConfig: [{
-        brand:null,
-        model:null,
-        nickname: null,
-        numberPlate: null,
-        color: null
-
-    }]
-});
-
-const{id,email,nickname, vehicleConfig} = user;
-    useEffect(() => {
-        (async () => { 
-            let infoUsuario = await getUserInfo();
-            setUser(
-                    infoUsuario
-            )
-            })();
-    },[]);
-
+  const [user,setUser] = useState(auth?.user);
   const [search, setSearch] = useState('');
+  const [currentFilter, setCurrentFilter] = useState("");
+  const [wantRoute, setWantRoute] = useState(null);
+  const [currentStationInfo, setStationInfo] = useState(null);
+
+  useEffect(() => {setUser(auth.user)},[auth]);
+
+  const{ vehicleConfig } = user;
 
   const onChangeText = (text) => {  
     setSearch(text);  
   }
-
-  const [currentFilter, setCurrentFilter] = useState("");
 
   const ChangeFilter = (filter) => {
     setCurrentFilter(filter);
     CloseStationInfo();
   }
 
-  const [wantRoute, setWantRoute] = useState(null);
-  const [currentStationInfo, setStationInfo] = useState(null);
-
-  function OpenStationInfo (station) {
+  const OpenStationInfo = (station) => {
     setStationInfo(station);
-    
   }
 
-  function CloseStationInfo () {
+  const CloseStationInfo = () => {
     setStationInfo(null);
-    
   }
 
-  function ActivateRoute (coord_estacion) {
+  const ActivateRoute = (coord_estacion) => {
     setWantRoute(coord_estacion);
   }
-
 
   return (
     
@@ -94,16 +68,14 @@ const{id,email,nickname, vehicleConfig} = user;
           />
       </View>
       <CustomMapView 
-        
         color={vehicleConfig[0]?.color ?? '#000000'}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
-        //require( '../../../assets/images/carTypes/carType_0.png')
         vehicleType= {vehicleImages[vehicleConfig[0]?.vehicleType ?? 0]}
         mapFilter={currentFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
-
+        onChangeFilter={ChangeFilter}
       />
 
       <LocationInfo
@@ -115,7 +87,6 @@ const{id,email,nickname, vehicleConfig} = user;
       <FilterMap
         onChangeFilter={ChangeFilter}
       />
-      
 
     </View>
   );

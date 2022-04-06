@@ -1,9 +1,5 @@
 import React, { Component, useEffect, useState, forwardRef, useRef, useImperativeHandle } from 'react';
 import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
-import { createIconSetFromFontello } from 'react-native-vector-icons';
-
-
-
 
 const GetTotalSockets = (stationInfo, vehicleType) => {
     let sockets = stationInfo?.stationInfo?.data.sockets;
@@ -44,7 +40,6 @@ const GetAvailableSocketsMoto = (stationInfo) => {
 }
 
 const GetAllSocketTypes = (stationInfo, vehicleType) => {
-   // console.log(stationInfo);
     let sockets = stationInfo?.stationInfo?.data.sockets;
     let types = [];
     let found = false;
@@ -79,7 +74,6 @@ const GetAllSocketTypesMoto = (stationInfo) => {
 }
 
 const ChargeStationIcon = (chargerType) => {
-
     
 }
 
@@ -188,13 +182,12 @@ const LocationInfo = (stationInfo) => {
                 <Pressable 
                 style={styles.goThereButton}
                 onPress={() => { 
-                    stationInfo.ActivateRoute({
-                        latitude:stationInfo?.stationInfo?.lat,
-                        longitude:stationInfo?.stationInfo?.lng,
-                        id:stationInfo?.stationInfo?.id})
+                        stationInfo.ActivateRoute({
+                            latitude:stationInfo?.stationInfo?.lat,
+                            longitude:stationInfo?.stationInfo?.lng,
+                            id:stationInfo?.stationInfo?.id})
                         stationInfo.onChangeFilter("singleCharge")
-                     }   
-                 }
+                    }}
                 >
                     
                     <Text>Get There!</Text>
