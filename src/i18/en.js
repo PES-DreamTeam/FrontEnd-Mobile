@@ -1,6 +1,12 @@
 const en = {
 	home: {
 		title: "Home",
+		bottomBar: {
+			map: "Map",
+			vehicle: "Vehicle",
+			bike: "Bike",
+			highlight: "Highlight",
+		}, 
 		searchBar: "Search:",
 	}, 
 	settings: {
@@ -51,6 +57,8 @@ const en = {
 		vehicleNicknamePlaceholder: "Car's nickname here",
 		continue: "Continue",
 		notEV: "Don't have an EV?",
+		cancel: "Cancel",
+		skip: "Skip",
 	}, 
 	profile: {
 		yourVehicle: "Your vehicles information",
@@ -69,6 +77,12 @@ const en = {
 		settings: "Settings",
 		tellAFriend: "Share it with a friend!",
 		logOut: "Log Out",
+	}, 
+	locationInfo: {
+		mechanical: "Mechanical",
+		electrical: "Electrical",
+		available: "Available",
+		getThere: "Get there!",
 	}
 }
 export{ en }

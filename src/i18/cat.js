@@ -1,6 +1,12 @@
 const cat = {
 	home: {
 		title: "Inici",
+		bottomBar: {
+			map: "Mapa",
+			vehicle: "Vehícle",
+			bike: "Bici",
+			highlight: "Destacats",
+		}, 
 		searchBar: "Buscar:",
 	}, 
 	settings: {
@@ -51,6 +57,8 @@ const cat = {
 		vehicleNicknamePlaceholder: "Introdueix el sobrenom",
 		continue: "Continua",
 		notEV: "No tens un VE?",
+		cancel: "Cancel·lar",
+		skip: "Salta",
 	}, 
 	profile: {
 		yourVehicle: "Informació dels teus vehicles",
@@ -69,6 +77,12 @@ const cat = {
 		settings: "Configuració",
 		tellAFriend: "Comparteix amb un amic!",
 		logOut: "Tancar sessió",
+	}, 
+	locationInfo: {
+		mechanical: "Mecàniques",
+		electrical: "Elèctriques",
+		available: "Disponibles",
+		getThere: "Porta-m'hi!",
 	}
 }
 export{ cat }

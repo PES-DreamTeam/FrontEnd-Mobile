@@ -58,6 +58,7 @@ function VehicleConfig({ navigation }) {
     }
 
 
+
     const validateInformation = () => {
 
         if(vehicleBrand.trim().length === 0 || vehicleModel.trim().length === 0 ||
@@ -88,7 +89,20 @@ function VehicleConfig({ navigation }) {
     };
 
     const markAsNotNew = () => {
+        clearAllFields();
         updateUser({...auth.user, isNew: false});
+    }
+
+    const clearAllFields = () => {
+        brand = '';
+        setVehicle(initialState);
+        
+        console.log("LIMPIANDO");
+    }
+
+    const cancel = () => {
+        clearAllFields();
+        navigation.navigate("Profile");
     }
 
     return(
@@ -164,9 +178,15 @@ function VehicleConfig({ navigation }) {
                         { i18n.t('vehicleConfig.notEV')}
                     </Text>
                     <View style={{marginLeft: 5}}>
+                        {auth?.user?.isNew ? (
                         <Text style={{color: 'blue'}} onPress={() => markAsNotNew()}>
-                            Skip
+                            {i18n.t('vehicleConfig.skip')}
                         </Text>
+                        ) :
+                        <Text style={{color: 'blue'}} onPress={() => cancel()}>
+                            {i18n.t('vehicleConfig.cancel')}
+                        </Text>
+                        }
                     </View>
                 </View>
             </View>

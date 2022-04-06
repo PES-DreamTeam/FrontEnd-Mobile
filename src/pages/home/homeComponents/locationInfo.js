@@ -1,3 +1,4 @@
+import i18n from 'i18n-js';
 import React, { Component, useEffect, useState, forwardRef, useRef, useImperativeHandle } from 'react';
 import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
 
@@ -130,10 +131,32 @@ const ChargeStationInfo = (stationInfo) => {
 }
 
 const BikeStationInfo = (stationInfo) => {
-
+    console.log(stationInfo);
     return (
         <View style ={styles.bikeStationContent}> 
-            
+            <View style = {styles.bikeContent}>
+                <View style = {styles.bikeSlotType}>
+                    <Image 
+                        source = {require( '../../../../assets/images/icons/mechanical.png')}
+                        style={styles.vehicleIcon}
+                    />
+                    <Text style={styles.stationBikeText}>{stationInfo.stationInfo.data.sockets[0].available_mechanical} {i18n.t("locationInfo.mechanical")}</Text>
+                </View>
+                <View style = {styles.bikeSlotType}>
+                    <Image
+                        source = {require( '../../../../assets/images/icons/electrical.png')}
+                        style={styles.vehicleIcon}
+                    />
+                    <Text style={styles.stationBikeText}>{stationInfo.stationInfo.data.sockets[0].available_electrical} {i18n.t("locationInfo.electrical")}</Text>
+                </View>
+                <View style = {styles.bikeSlotType}>
+                    <Image 
+                        source = {require( '../../../../assets/images/icons/parking.png')}
+                        style={styles.vehicleIcon}
+                    />
+                    <Text style={styles.stationBikeText}>{stationInfo.stationInfo.data.sockets[0].available_sockets} {i18n.t("locationInfo.available")}</Text>
+                </View>
+            </View>
             
         </View>
     );
@@ -190,7 +213,7 @@ const LocationInfo = (stationInfo) => {
                     }}
                 >
                     
-                    <Text>Get There!</Text>
+                    <Text style={styles.buttonText}> {i18n.t("locationInfo.getThere")}</Text>
                 </Pressable>
             </View>
         </View>
@@ -218,14 +241,18 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     bikeStationContent: {
-        height: "80%",
+        height: "65%",
         width: "100%",
-        backgroundColor: 'blue'
+        alignItems: 'center'
+    },
+    bikeSlotType: {
+        padding: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     highlightContent:{
-        height: "80%",
+        height: "65%",
         width: "100%",
-        backgroundColor: 'green'
     },
     availabilityContent: {
         width: "100%",
@@ -234,6 +261,12 @@ const styles = StyleSheet.create({
     socketsTypesContent: {
         width: "20%",
         flexDirection: 'row'
+    },
+    bikeContent: {
+        flexDirection: 'row'
+    },
+    stationBikeText: {
+        marginTop: 10
     },
     socketsList: {
         width: "80%",
@@ -265,6 +298,9 @@ const styles = StyleSheet.create({
         height: "100%",
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    buttonText: {
+        color: '#FFFFFF',
     }
 });
 

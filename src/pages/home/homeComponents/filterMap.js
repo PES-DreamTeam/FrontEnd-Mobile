@@ -3,6 +3,7 @@ import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
+import i18n from 'i18n-js';
 
 const FilterMap = ({onChangeFilter}) => {
 
@@ -12,25 +13,41 @@ const FilterMap = ({onChangeFilter}) => {
                 style ={styles.filterButton}
                 onPress={() => onChangeFilter("")}
                 >
-                <Text>Map</Text>
+                    <Image
+                        source={require('../../../../assets/images/icons/default.png')}
+                        style={styles.icon}
+                    />
+                <Text>{i18n.t("home.bottomBar.map")}</Text>
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1}]}
                 onPress={() => onChangeFilter("vehicleStation")}
                 >
-                <Text>Vehicle</Text>
+                    <Image
+                        source={require('../../../../assets/images/icons/station.png')}
+                        style={styles.icon}
+                    />
+                <Text>{i18n.t("home.bottomBar.vehicle")}</Text>
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1}]}
                 onPress={() => onChangeFilter("bikeStation")}
             >
-                <Text>Bike</Text>
+                <Image
+                        source={require('../../../../assets/images/icons/bike.png')}
+                        style={styles.icon}
+                    />
+                <Text>{i18n.t("home.bottomBar.bike")}</Text>
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1}]}
                 onPress={() => onChangeFilter("highlight")}
                 >
-                <Text>Highlight</Text>
+                    <Image
+                        source={require('../../../../assets/images/icons/star.png')}
+                        style={styles.icon}
+                    />
+                <Text>{i18n.t("home.bottomBar.highlight")}</Text>
             </Pressable>
           
         </View>
@@ -53,6 +70,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     }, 
+    icon: {
+        width: 25,
+        height: 24
+    },
     
 })
 

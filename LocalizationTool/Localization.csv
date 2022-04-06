@@ -1,6 +1,10 @@
 Key,en,es,cat
 PAGE_home,,,
 title,Home,Inicio,Inici
+bottomBar_map,Map,Mapa,Mapa
+bottomBar_vehicle,Vehicle,Vehículo,Vehícle
+bottomBar_bike,Bike,Bici,Bici
+bottomBar_highlight,Highlight,Destacados,Destacats
 searchBar,Search:,Buscar:,Buscar:
 PAGE_settings,,,
 title,Settings,Ajustes,Configuració
@@ -42,8 +46,9 @@ vehicleColor,Vehicle Color,Color del vehículo,Color del vehicle
 vehicleNickname,Vehicle Nickname,Apodo del vehículo,Sobrenom del vehicle
 vehicleNicknamePlaceholder,Car's nickname here,Introduce el apodo,Introdueix el sobrenom
 continue,Continue,Continuar,Continua
-notEV,Don't have an EV?,No tienes un VE?,No tens un VE?
-,,,
+notEV,Don't have an EV?,¿No tienes un VE?,No tens un VE?
+cancel,Cancel,Cancelar,Cancel·lar
+skip,Skip,Saltar,Salta
 PAGE_profile,,,
 yourVehicle,Your vehicles information,Información de tus vehículos,Informació dels teus vehicles
 title,Profile,Perfil,Perfil
@@ -60,3 +65,9 @@ profile,Profile,Perfil,Perfil
 settings,Settings,Ajustes,Configuració
 tellAFriend,Share it with a friend!,Compartelo con un amigo!,Comparteix amb un amic!
 logOut,Log Out,Cerrar sesión,Tancar sessió
+,,,
+PAGE_locationInfo,,,
+mechanical,Mechanical,Mecanicas,Mecàniques
+electrical,Electrical,Electricas,Elèctriques
+available,Available,Disponibles,Disponibles
+getThere,Get there!,¡Llévame!,Porta-m'hi!

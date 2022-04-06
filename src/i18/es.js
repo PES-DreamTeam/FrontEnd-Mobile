@@ -1,6 +1,12 @@
 const es = {
 	home: {
 		title: "Inicio",
+		bottomBar: {
+			map: "Mapa",
+			vehicle: "Vehículo",
+			bike: "Bici",
+			highlight: "Destacados",
+		}, 
 		searchBar: "Buscar:",
 	}, 
 	settings: {
@@ -50,7 +56,9 @@ const es = {
 		vehicleNickname: "Apodo del vehículo",
 		vehicleNicknamePlaceholder: "Introduce el apodo",
 		continue: "Continuar",
-		notEV: "No tienes un VE?",
+		notEV: "¿No tienes un VE?",
+		cancel: "Cancelar",
+		skip: "Saltar",
 	}, 
 	profile: {
 		yourVehicle: "Información de tus vehículos",
@@ -69,6 +77,12 @@ const es = {
 		settings: "Ajustes",
 		tellAFriend: "Compartelo con un amigo!",
 		logOut: "Cerrar sesión",
+	}, 
+	locationInfo: {
+		mechanical: "Mecanicas",
+		electrical: "Electricas",
+		available: "Disponibles",
+		getThere: "¡Llévame!",
 	}
 }
 export{ es }
