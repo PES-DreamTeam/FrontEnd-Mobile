@@ -55,7 +55,7 @@ function CustomDrawer(props) {
                 fontSize: 15,
                 marginLeft: 5,
               }}>
-              Tell a Friend
+              {i18n.t('drawer.share')}
             </Text>
           </View>
         </TouchableOpacity>

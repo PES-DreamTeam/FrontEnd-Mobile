@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import useAuth from '../../hooks/useAuth';
 import Modal from '../../utils/modal';
@@ -8,41 +8,41 @@ import i18n from 'i18n-js';
 function SettingsScreen() {
 
     const { signOut, deleteAccount } = useAuth();
-    const { setLanguage } = useUserSettings();
+    const { setLanguage, language } = useUserSettings();
     const [isModalVisible, setIsModalVisible] = useState(false);
+
     return(
         <>
             <View style={styles.container}>
                 <Text>{i18n.t('settings.subtitle')}</Text>
-                <Button
-                    text={i18n.t('settings.logOut')}
-                    onPress={() => signOut()}
-                />
                 
                 <View style={styles.languageButtons}>
                     <View style={styles.button}>
                         <Button
                             text={i18n.t('settings.setES')}
                             onPress={() => setLanguage('es')}
+                            customStyles={[language === "es" ? styles.selectedLanguageButton : {}]}
                         />
                     </View>
                     <View style={styles.button}>
                         <Button
                             text= {i18n.t('settings.setEN')}
                             onPress={() => setLanguage('en')}
+                            customStyles={[language === "en" ? styles.selectedLanguageButton : {}]}
                         />
                     </View>
                     <View style={styles.button}>
                         <Button
                             text={i18n.t('settings.setCAT')}
                             onPress={() => setLanguage('cat')}
+                            customStyles={[language === "cat" ? styles.selectedLanguageButton : {}]}
                         />
                     </View>
                 </View>
 
                 <View style={[styles.deleteAccountContainer]}>
                     <Button
-                        text={"Borrar cuenta"}
+                        text={i18n.t('settings.deleteAccount')}
                         onPress={() => setIsModalVisible(!isModalVisible)}
                     />
                 </View>
@@ -50,8 +50,8 @@ function SettingsScreen() {
                 <Modal
                     isVisible={isModalVisible}
                     handleAccept={()=>{
-                        deleteAccount();
                         setIsModalVisible(!isModalVisible);
+                        deleteAccount();
                     }} 
                     onPress={()=> setIsModalVisible(!isModalVisible)}
                     title={i18n.t('settings.deleteAccountTitle')}
@@ -80,7 +80,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
     },
-
+    selectedLanguageButton: {
+        backgroundColor: '#006fc7',
+        borderColor: 'black',
+        borderWidth: 3,
+    }
 })
 
 export { SettingsScreen }

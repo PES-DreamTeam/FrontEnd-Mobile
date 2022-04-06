@@ -21,15 +21,17 @@ function VehicleConfig({ navigation }) {
 
     const { auth, setAuth, updateUser } = useAuth();
 
-    const [vehicle, setVehicle] = useState({
+    const initialState = {
         vehicleBrand: '',
         vehicleModel: '',
         vehicleNickname: '',
         vehicleType: 0,
         vehicleColor: carColors.White,
         numberPlate: '',
-    });
+    };
 
+    const [vehicle, setVehicle] = useState(initialState);
+    useEffect(()=>{setVehicle(initialState)},[])
     const [error, setError] = useState({
         error: false, 
         attribute: '',
@@ -53,7 +55,6 @@ function VehicleConfig({ navigation }) {
 
     const updateCurrentCarType = (index) => {
         setVehicle({...vehicle, ['vehicleType']: index});
-
     }
 
 
@@ -69,7 +70,11 @@ function VehicleConfig({ navigation }) {
         }else {
             sendConfig(vehicle)
                 .then(user => {
-                    setAuth({...auth, user});
+                    setAuth({
+                        ...auth,
+                        user: user
+                    });
+                    setVehicle(initialState);
                     navigation.navigate("Home");
                 })
                 .catch(err => {

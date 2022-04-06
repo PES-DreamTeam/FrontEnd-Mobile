@@ -13,7 +13,7 @@ const useVehicleConfig = () => {
         const decodedToken = jwt_decode(auth.token);
         const id = decodedToken._id;
         try {
-            await axios.post(`${API_HOST}/api/users/${id}/vehicleConfig`, {      
+            const response = await axios.post(`${API_HOST}/api/users/${id}/vehicleConfig`, {      
                 brand: vehicleBrand.trim(),
                 model: vehicleModel.trim(),
                 nickname: vehicleNickname.trim(),
@@ -21,6 +21,7 @@ const useVehicleConfig = () => {
                 numberPlate: numberPlate.trim(),
                 vehicleType: vehicleType,
             });        
+            return response.data.user;
         } catch(error) {
             if(error.response.status === 409) {
                 throw { 

@@ -10,6 +10,7 @@ const en = {
 		setEN: "English language",
 		setCAT: "Catalan language",
 		setES: "Spanish language",
+		deleteAccount: "Delete account",
 		deleteAccountTitle: "Are you sure you want to delete your account?",
 		deleteAccountSubtitle: "This action can't be undone",
 	}, 
@@ -62,6 +63,9 @@ const en = {
 	carInfoItem: {
 		nickname: "Nickname:",
 		numberPlate: "Number Plate:",
+	},
+	drawer: {
+		share: "Tell a Friend"
 	}
 }
 export{ en }

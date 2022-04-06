@@ -68,18 +68,14 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
       const {getChargePoints, getSingleChargePoint} = useChargePoints();
       const pinColor = '#000000';
 
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE")
-      console.log(routeActivate)
       useEffect(() => {
         (async () => { 
           let infoPuntosCarga
-          console.log(mapFilter)
           if(mapFilter != "singleCharge"){
              infoPuntosCarga = await getChargePoints(mapFilter);
           }
           else{
-            console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-          console.log(routeActivate)
+
           infoPuntosCarga = await getSingleChargePoint(routeActivate.id)
           }
           

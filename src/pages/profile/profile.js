@@ -1,42 +1,33 @@
 import React, { useEffect, useState, useRef} from 'react';
 import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions } from 'react-native';
 import i18n from 'i18n-js';
-import useUser from  '../../hooks/useUser';
 import useAuth from '../../hooks/useAuth';
+import useUserSettings from '../../hooks/useUserSettings';
 import CarInfoItem from './profileComponents/CarInfoItem';
 import Carousel from 'react-native-snap-carousel';
 
-
 function ProfileScreen({ navigation }) {
 
-    const{ getUserInfo } = useUser();
-        
+    const {auth} = useAuth();
+    const {language} = useUserSettings(); 
     const [user,setUser] = useState({
-        id:null,
-        email:null,
-        nickname:null,
-        vehicleConfig: [{
-            brand:null,
-            model:null,
-            nickname: null,
-            numberPlate: null,
-            color: null
-
-        }]
+        id:auth.user._id,
+        email:auth.user.email,
+        nickname:auth.user.nickname,
+        vehicleConfig: auth.user.vehicleConfig 
     })
+    useEffect(()=>{},[language])
+    useEffect(()=>{setUser({
+        id:auth.user._id,
+        email:auth.user.email,
+        nickname:auth.user.nickname,
+        vehicleConfig: auth.user.vehicleConfig 
+    })},[auth])
 
     const {width} = useWindowDimensions();
 
     const{id,email,nickname, vehicleConfig} = user;
-    useEffect(() => {
-        (async () => { 
-            let infoUsuario = await getUserInfo();
-            setUser(
-                    infoUsuario
-            )
-            })();
-    },[]);
-    
+
     return(
         <View style={styles.container}>
             {/* Imagen de perfil */}
