@@ -96,8 +96,6 @@ function VehicleConfig({ navigation }) {
     const clearAllFields = () => {
         brand = '';
         setVehicle(initialState);
-        
-        console.log("LIMPIANDO");
     }
 
     const cancel = () => {

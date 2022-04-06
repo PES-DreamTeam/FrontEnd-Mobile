@@ -7,6 +7,7 @@ function Main() {
     useEffect(()=>{},[auth])
     
 
+    if(auth.user === null || auth.user === undefined) return <AuthNavigator/>
     return(
         !isSignedIn() ?(
             <AuthNavigator/>
