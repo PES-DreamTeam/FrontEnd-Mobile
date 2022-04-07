@@ -5,9 +5,7 @@ import useAuth from './hooks/useAuth';
 function Main() {
     const { isSignedIn, auth } = useAuth();
     useEffect(()=>{},[auth])
-    
 
-    if(auth.user === null || auth.user === undefined) return <AuthNavigator/>
     return(
         !isSignedIn() ?(
             <AuthNavigator/>

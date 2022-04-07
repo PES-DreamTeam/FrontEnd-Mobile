@@ -7,7 +7,7 @@ import Button from '../../utils/button';
 import i18n from 'i18n-js';
 function SettingsScreen() {
 
-    const { signOut, deleteAccount } = useAuth();
+    const { deleteAccount } = useAuth();
     const { setLanguage, language } = useUserSettings();
     const [isModalVisible, setIsModalVisible] = useState(false);
 

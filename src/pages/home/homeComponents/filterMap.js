@@ -1,11 +1,10 @@
-import React, { Component, useEffect, useState, useRef } from 'react';
+import React from 'react';
+import useUserSettings from '../../../hooks/useUserSettings';
 import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
-import MapView, { Callout, Marker } from 'react-native-maps';
-import useChargePoints from '../../../hooks/useChargePoints';
-import * as Location from 'expo-location';
 import i18n from 'i18n-js';
 
 const FilterMap = ({onChangeFilter}) => {
+    useUserSettings();
 
     return (
         <View style ={styles.filterContent}> 

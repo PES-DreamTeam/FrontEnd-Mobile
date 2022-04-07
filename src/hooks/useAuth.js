@@ -33,7 +33,7 @@ const useAuth = () => {
         logout();
     }
     const isSignedIn = () => {
-        return auth?.isSignedIn;
+        return auth?.user && auth?.isSignedIn;
     }
 
     const updateUserAsync = async (user) => {

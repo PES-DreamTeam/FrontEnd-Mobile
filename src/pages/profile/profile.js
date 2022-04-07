@@ -9,14 +9,14 @@ import Carousel from 'react-native-snap-carousel';
 function ProfileScreen({ navigation }) {
 
     const {auth} = useAuth();
-    const {language} = useUserSettings(); 
+    useUserSettings(); 
+
     const [user,setUser] = useState({
         id:auth.user._id,
         email:auth.user.email,
         nickname:auth.user.nickname,
         vehicleConfig: auth.user.vehicleConfig 
     })
-    useEffect(()=>{},[language])
     useEffect(()=>{setUser({
         id:auth.user._id,
         email:auth.user.email,

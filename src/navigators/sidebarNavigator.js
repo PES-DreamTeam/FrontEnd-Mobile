@@ -14,10 +14,9 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 function SidebarNavigator (){
-    const {language} = useUserSettings();
+    useUserSettings();
     const { auth } = useAuth();
 
-    useEffect(()=>{},[language])
 
     return(
         auth?.user?.isNew ? (
