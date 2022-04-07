@@ -154,7 +154,7 @@ const BikeStationInfo = (stationInfo) => {
                         source = {require( '../../../../assets/images/icons/parking.png')}
                         style={styles.vehicleIcon}
                     />
-                    <Text style={styles.stationBikeText}>{stationInfo.stationInfo.data.sockets[0].available_sockets} {i18n.t("locationInfo.available")}</Text>
+                    <Text style={styles.stationBikeText}>{stationInfo.stationInfo.data.sockets[0].available_sockets} {i18n.t("locationInfo.parking")}</Text>
                 </View>
             </View>
             

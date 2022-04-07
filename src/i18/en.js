@@ -81,7 +81,7 @@ const en = {
 	locationInfo: {
 		mechanical: "Mechanical",
 		electrical: "Electrical",
-		available: "Available",
+		parking: "Parkings",
 		getThere: "Get there!",
 	}
 }

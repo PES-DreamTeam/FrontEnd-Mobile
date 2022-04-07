@@ -81,7 +81,7 @@ const cat = {
 	locationInfo: {
 		mechanical: "Mecàniques",
 		electrical: "Elèctriques",
-		available: "Disponibles",
+		parking: "Aparcaments",
 		getThere: "Porta-m'hi!",
 	}
 }
