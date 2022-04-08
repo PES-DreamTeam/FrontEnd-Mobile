@@ -77,6 +77,7 @@ const en = {
 		settings: "Settings",
 		tellAFriend: "Share it with a friend!",
 		logOut: "Log Out",
+		shareMessage: "Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.",
 	}, 
 	locationInfo: {
 		mechanical: "Mechanical",
