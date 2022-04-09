@@ -2,7 +2,6 @@ import React,{useEffect, useState, useRef} from 'react';
 import { Dimensions, Pressable, StyleSheet, Text, View, Image, TextInput} from 'react-native';
 import { CustomMapView, FilterMap, LocationInfo } from './homeComponents/';
 import useAuth from '../../hooks/useAuth';
-import useUser from  '../../hooks/useUser';
 import i18n from 'i18n-js';
 
 
