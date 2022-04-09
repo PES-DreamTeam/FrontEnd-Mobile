@@ -1,10 +1,11 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native"
 import i18n from "i18n-js"
-export default ({onPress, text, customStyles}) => {
+export default ({onPress, text, customStyles, disabled}) => {
     return(
         <TouchableOpacity
             style={[styles.button, customStyles]}
             onPress={onPress}
+            disabled={disabled}
         >
             {
                 text ?

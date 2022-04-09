@@ -19,14 +19,31 @@ const useAuth = () => {
 
     const signUp = async (user) => {
         const { name, email, password } = user;
-        const response = await axios.post(`${API_HOST}/api/auth/register`, {
-            name, 
-            email,
-            password
-        })
-        let data = response.data;
-        data.isSignedIn = true;
-        setAuth(data);
+        try{
+            const response = await axios.post(`${API_HOST}/api/auth/register`, {
+                name, 
+                email,
+                password
+            })
+            let data = response.data;
+            data.isSignedIn = true;
+            setAuth(data);
+        }catch(err){
+            let errors = [];
+            if(err.response.status === 403)
+            {
+                err.response.data.errors.map(error => {errors.push(error);})
+                throw {
+                    error: true,	
+                    errors: errors
+                }
+            }else
+                throw {
+                    error: true,
+                    errors: ["Something went wrong. Try again later."]
+                }
+        }
+        
     }
 
     const signOut = async () => {

@@ -1,12 +1,13 @@
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import i18n from 'i18n-js';
+import Button from '../../../utils/button';
 
 function SignUpScreen({ navigation }) {
 
     const { signUp } = useAuth();
-
+    const [error, setError] = useState({error: false, errors:[]});
     const [showPassword, setShowPassword] = useState(true);
     const [user, setUser] = useState({
         name: '',
@@ -17,6 +18,7 @@ function SignUpScreen({ navigation }) {
     const { name, email, password } = user;
 
     const onChangeText = (text, name) => {
+        setError({error: false, errors:[]});
         setUser({
             ...user,
             [name]: text 
@@ -24,12 +26,15 @@ function SignUpScreen({ navigation }) {
     }
 
     const createUser = async () => {
-        if(name.length === 0 || email.length === 0 || password.length === 0) {
+        if(name.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0) {
             alert('Please fill all fields');
             return;
         }
         else 
-            signUp(user);
+            signUp(user)
+                .catch(error => {
+                    setError(error)
+                });
     }
 
     return (
@@ -40,12 +45,22 @@ function SignUpScreen({ navigation }) {
                         {i18n.t('signUp.form.enterCredentials')}
                     </Text>
                 </View>
+
                 <TextInput
                     onChangeText={(e) => onChangeText(e, 'name')}
                     value={name}
                     style={styles.input}
                     placeholder={i18n.t('signUp.form.name')}
                 />
+                {
+                    error?.errors?.map(error => error.attribute === "email" ?  
+                        <View style={styles.errorContainer} key={error.attribute}>
+                            <Text style={styles.error}>
+                                    <Text>{error.errorMessage}</Text>
+                            </Text>
+                        </View>
+                    :null) 
+                }
                 <TextInput
                     onChangeText={(e) => onChangeText(e, 'email')}
                     value={email}
@@ -53,6 +68,16 @@ function SignUpScreen({ navigation }) {
                     name="email"
                     placeholder={i18n.t('signUp.form.email')}
                 />
+
+                {
+                    error?.errors?.map(error => error.attribute === "password" ?  
+                        <View style={styles.errorContainer} key={error.attribute}>
+                            <Text style={styles.error}>
+                                    <Text>{error.errorMessage}</Text>
+                            </Text>
+                        </View>
+                    :null) 
+                }
                 <View style={styles.passwordContainer}>
                     <TextInput
                         onChangeText={(e) => onChangeText(e, 'password')}
@@ -78,14 +103,14 @@ function SignUpScreen({ navigation }) {
                 </View>
 
                 <Button
-                    onPress={() => createUser()}
-                    title={i18n.t('signUp.title')}
+                    onPress={createUser}
+                    text={i18n.t('signUp.title')}
                 />
             </View>
             <View style={styles.button}>
                 <Button
                     onPress={() => navigation.navigate('SignIn')}
-                    title={i18n.t('signUp.goToSignIn')}
+                    text={i18n.t('signUp.goToSignIn')}
                 />
             </View>
         </View>
@@ -120,9 +145,19 @@ const styles = StyleSheet.create({
     input: {
         height: 40, 
         marginBottom: 15,
-        borderWidth: 1,
-        borderRadius: 10,
+        borderBottomWidth: 1,
+        borderRadius: 5,
         paddingLeft: 10,
+    },
+    error: {
+        color: 'red',
+    },
+    errorContainer: {
+        marginBottom: 15,
+        borderWidth: 1,
+        borderColor: 'red',
+        backgroundColor:'#ff00001c',
+        padding: 5,
     }
 })
 

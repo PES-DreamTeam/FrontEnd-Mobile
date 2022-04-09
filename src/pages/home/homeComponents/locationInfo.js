@@ -131,7 +131,6 @@ const ChargeStationInfo = (stationInfo) => {
 }
 
 const BikeStationInfo = (stationInfo) => {
-    console.log(stationInfo);
     return (
         <View style ={styles.bikeStationContent}> 
             <View style = {styles.bikeContent}>

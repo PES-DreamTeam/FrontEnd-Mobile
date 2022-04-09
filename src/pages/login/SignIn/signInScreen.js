@@ -1,7 +1,8 @@
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useContext } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import i18n from 'i18n-js';
+import Button from '../../../utils/button';
 
 function SignInScreen({ navigation }) {
 
@@ -99,19 +100,23 @@ function SignInScreen({ navigation }) {
                 </View>
                 <Button
                     onPress={()=> SignIn()}
-                    title={isLoading ? i18n.t('miscelaneus.loading') : i18n.t('signIn.title')}
+                    text={isLoading ? i18n.t('miscelaneus.loading') : i18n.t('signIn.title')}
                     disabled={isLoading}
                 />
+
             </View>
             <Text>
                 {i18n.t('signIn.otherSocial')}
             </Text>
             <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
                 <Button
-                title='Facebook'
+                    text='Facebook'
+                    customStyles={styles.button}
                 />
+
                 <Button
-                title='Google'
+                    text='Google'
+                    customStyles={styles.button}
                 />
             </View>
             <View style={{flexDirection: 'row'}}>
@@ -138,6 +143,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     topContainer: {
+        width: "100%"
     },
     showPwd: {
         width: 40,
@@ -159,8 +165,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     button: {
-        width: '50%',
-        alignSelf: 'center',
+        width: 150,
     },
     passwordContainer: {
         flexDirection: 'row',
