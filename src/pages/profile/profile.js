@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import useUserSettings from '../../hooks/useUserSettings';
 import CarInfoItem from './profileComponents/CarInfoItem';
 import Carousel from 'react-native-snap-carousel';
+import UploadImage from './profileComponents/UploadImage';
 
 function ProfileScreen({ navigation }) {
 
@@ -31,10 +32,10 @@ function ProfileScreen({ navigation }) {
     return(
         <View style={styles.container}>
             {/* Imagen de perfil */}
-            <Image 
-                source={require('../../../assets/images/user_profile.jpg')} 
-                style={[styles.profileImage]}
-            />
+            <View style={styles.uploadImage} >
+                <UploadImage/>
+
+            </View>
             {/* Nombre de perfil */}
             <Text style = {[styles.title]}>
                 {nickname}
@@ -80,6 +81,11 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         padding: 20,
+    },
+    uploadImage: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 10,
     },
     informationContainer: {
         flexDirection: 'row',  

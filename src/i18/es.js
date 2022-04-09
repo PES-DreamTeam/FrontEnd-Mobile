@@ -84,6 +84,10 @@ const es = {
 		electrical: "Electricas",
 		parking: "Estacionamientos",
 		getThere: "¡Llévame!",
+	}, 
+	uploadImage: {
+		editImage: "Editar Imagen",
+		uploadImage: "Añadir Imagen",
 	}
 }
 export{ es }

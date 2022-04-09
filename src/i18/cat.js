@@ -84,6 +84,10 @@ const cat = {
 		electrical: "Elèctriques",
 		parking: "Aparcaments",
 		getThere: "Porta-m'hi!",
+	}, 
+	uploadImage: {
+		editImage: "Editar Imatge",
+		uploadImage: "Afegir Imatge",
 	}
 }
 export{ cat }

@@ -84,6 +84,10 @@ const en = {
 		electrical: "Electrical",
 		parking: "Parkings",
 		getThere: "Get there!",
+	}, 
+	uploadImage: {
+		editImage: "Edit Image",
+		uploadImage: "Upload Image",
 	}
 }
 export{ en }
