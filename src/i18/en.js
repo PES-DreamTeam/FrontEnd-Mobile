@@ -77,12 +77,17 @@ const en = {
 		settings: "Settings",
 		tellAFriend: "Share it with a friend!",
 		logOut: "Log Out",
+		shareMessage: "Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.",
 	}, 
 	locationInfo: {
 		mechanical: "Mechanical",
 		electrical: "Electrical",
-		available: "Available",
+		parking: "Parkings",
 		getThere: "Get there!",
+	}, 
+	uploadImage: {
+		editImage: "Edit Image",
+		uploadImage: "Upload Image",
 	}
 }
 export{ en }

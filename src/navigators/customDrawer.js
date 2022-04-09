@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Share,
   View,
   Text,
   ImageBackground,
@@ -10,16 +11,29 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-
 import useAuth from '../hooks/useAuth';
 import i18n from 'i18n-js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import files64 from '../../assets/filesBase64';
 
 function CustomDrawer(props) {
 
-    const { auth, signOut } = useAuth();
+  const TellAFriend = async () => {
+    const shareOptions = {
+      message: `${i18n.t('drawer.shareMessage')}`,
+      url: files64.ecoRoadsLogo,
+    }
+    try {
+      const shareResponse = await Share.share(shareOptions);
+      //Sumar puntos por compartir
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-    const {user} = auth;
+  const { auth, signOut } = useAuth();
+
+  const {user} = auth;
 
   return (
     <View style={{flex: 1}}>
@@ -47,7 +61,7 @@ function CustomDrawer(props) {
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
-        <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
+        <TouchableOpacity onPress={TellAFriend} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="share-social-outline" size={22} />
             <Text

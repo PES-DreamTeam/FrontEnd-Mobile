@@ -77,12 +77,17 @@ const es = {
 		settings: "Ajustes",
 		tellAFriend: "Compartelo con un amigo!",
 		logOut: "Cerrar sesión",
+		shareMessage: "Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.",
 	}, 
 	locationInfo: {
 		mechanical: "Mecanicas",
 		electrical: "Electricas",
-		available: "Disponibles",
+		parking: "Estacionamientos",
 		getThere: "¡Llévame!",
+	}, 
+	uploadImage: {
+		editImage: "Editar Imagen",
+		uploadImage: "Añadir Imagen",
 	}
 }
 export{ es }

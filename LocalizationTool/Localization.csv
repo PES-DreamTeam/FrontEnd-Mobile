@@ -65,9 +65,13 @@ profile,Profile,Perfil,Perfil
 settings,Settings,Ajustes,Configuració
 tellAFriend,Share it with a friend!,Compartelo con un amigo!,Comparteix amb un amic!
 logOut,Log Out,Cerrar sesión,Tancar sessió
-,,,
+shareMessage,Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.,Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.,Descobreix EcoRoads | Una aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient.
 PAGE_locationInfo,,,
 mechanical,Mechanical,Mecanicas,Mecàniques
 electrical,Electrical,Electricas,Elèctriques
-available,Available,Disponibles,Disponibles
+parking,Parkings,Estacionamientos,Aparcaments
 getThere,Get there!,¡Llévame!,Porta-m'hi!
+,,,
+PAGE_uploadImage,,,
+editImage,Edit Image,Editar Imagen,Editar Imatge
+uploadImage,Upload Image,Añadir Imagen,Afegir Imatge
