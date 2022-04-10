@@ -44,7 +44,7 @@ function CustomDrawer(props) {
           source={require('../../assets/images/menu-bg.jpeg')}
           style={{padding: 20}}>
           <Image
-            source={require('../../assets/images/user_profile.jpg')}
+            source={{uri: user.profilePicture}}
             style={{height: 80, width: 80, borderRadius: 40, marginBottom: 10}}
           />
           <Text

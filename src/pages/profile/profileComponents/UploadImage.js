@@ -3,15 +3,16 @@ import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react
 import { AntDesign } from '@expo/vector-icons';
 import i18n from 'i18n-js';
 import * as ImagePicker from 'expo-image-picker';
-
+import useAuth from '../../../hooks/useAuth';
 
 export default function UploadImage() {
-
+    const { auth } = useAuth();
+    
     useEffect( async() => {
         await ImagePicker.getMediaLibraryPermissionsAsync();
     }, []);
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(auth.user.profilePicture);
     const addImage= async ()=>{
     let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,

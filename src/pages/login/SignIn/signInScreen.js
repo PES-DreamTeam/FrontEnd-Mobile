@@ -6,7 +6,7 @@ import Button from '../../../utils/button';
 
 function SignInScreen({ navigation }) {
 
-    const { signIn } = useAuth();
+    const { signIn, loginWithFacebook } = useAuth();
 
     const [showPassword, setShowPassword] = useState(true);
     const [user, setUser] = useState({
@@ -112,6 +112,7 @@ function SignInScreen({ navigation }) {
                 <Button
                     text='Facebook'
                     customStyles={styles.button}
+                    onPress={loginWithFacebook}
                 />
 
                 <Button
