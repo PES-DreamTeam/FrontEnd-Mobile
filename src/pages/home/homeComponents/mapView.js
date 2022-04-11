@@ -21,6 +21,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
 
   const [chargePoints, setChargePoints] = useState([]);
 
+  const [shownChargePoints, setShown] = useState([]);
+
   const initialRegion = {
     latitude: location.latitude,
     longitude: location.longitude,
@@ -28,6 +30,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
     longitudeDelta: 0.0421,
   }
   useEffect(async () => {
+    
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
       setErrorMsg('Permission to access location was denied');
@@ -40,19 +43,34 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
       latitudeDelta:0.01,
       longitudeDelta:0.01
     })
+
+    let chargePoints = await getChargePoints('all');
+    let arrayPuntos = Object.entries(chargePoints);
+    setChargePoints(arrayPuntos);
+    setShown(arrayPuntos);
+    
+    const interval = setInterval(async () => {
+      console.log("hola");
+      let chargePoints = await getChargePoints('all');
+      let arrayPuntos = Object.entries(chargePoints);
+      setChargePoints(arrayPuntos);
+    }, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(async () => {
     setIsLoading(true);
-    setChargePoints([]);
-    if(mapFilter != "singleCharge"){
-        let infoPuntosCarga = await getChargePoints(mapFilter);
-        let arrayPuntos = Object.entries(infoPuntosCarga);
-        setChargePoints(arrayPuntos)
+    if(mapFilter == "singleCharge"){
+      let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id);
+      setShown(aux);  
+    }
+    else if (mapFilter == "" || mapFilter == "all"){
+      let aux = [...chargePoints];
+      setShown(aux);
     }
     else{      
-        let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id);
-        setChargePoints(aux);            
+      let aux = chargePoints?.filter(markers => markers[1].objectType == mapFilter);
+      setShown(aux);
     }
     setIsLoading(false);
   },[mapFilter]);
@@ -93,7 +111,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
           : null}
 
             <MapPoints
-              chargePoints={chargePoints}
+              chargePoints={shownChargePoints}
               OpenStationInfo={OpenStationInfo}
             />           
             <Marker 
