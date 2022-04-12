@@ -33,6 +33,7 @@ const CarTypeSelector = (props) => {
                 itemHeight={128}
                 keyExtractor={(item,index) => index}
                 onSnapToItem={props.onSnapToItem}
+                selectedItem={props.currentSelected}
             />
         </View>
     );

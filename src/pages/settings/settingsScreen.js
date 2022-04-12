@@ -53,6 +53,7 @@ function SettingsScreen() {
                         setIsModalVisible(!isModalVisible);
                         deleteAccount();
                     }} 
+                    handleCancel={()=>setIsModalVisible(!isModalVisible)}
                     onPress={()=> setIsModalVisible(!isModalVisible)}
                     title={i18n.t('settings.deleteAccountTitle')}
                     subtitle={i18n.t('settings.deleteAccountSubtitle')}

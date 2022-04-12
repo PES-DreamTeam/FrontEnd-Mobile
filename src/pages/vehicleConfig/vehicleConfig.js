@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, Pressable } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image, Pressable } from 'react-native';
 import React, { useState, useContext, useEffect } from 'react';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
@@ -105,7 +105,7 @@ function VehicleConfig({ navigation }) {
 
     return(
         <View style={styles.container}>
-            <View style={[styles.topContainer]}>
+            <ScrollView style={[styles.topContainer]}>
                 <Text style={styles.title}>{i18n.t('vehicleConfig.title')}</Text>
                 {error.error && error.attribute !== "NumberPlate" ?
                     <View style={styles.errorContainer}>
@@ -163,6 +163,7 @@ function VehicleConfig({ navigation }) {
                 <CarTypeSelector
                     vehicleColor={vehicleColor}
                     onSnapToItem={updateCurrentCarType}
+                    currentSelected={vehicleType}
                 />
                 <Button
                     title={ i18n.t('vehicleConfig.continue')}
@@ -187,7 +188,7 @@ function VehicleConfig({ navigation }) {
                         }
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     )
 }

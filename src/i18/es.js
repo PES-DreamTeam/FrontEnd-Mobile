@@ -42,6 +42,7 @@ const es = {
 	}, 
 	miscelaneus: {
 		loading: "Cargando...",
+		cancel: "Cancelar",
 		accept: "Aceptar",
 	}, 
 	vehicleConfig: {
@@ -84,10 +85,22 @@ const es = {
 		electrical: "Electricas",
 		parking: "Estacionamientos",
 		getThere: "¡Llévame!",
+		report: "Reportar",
 	}, 
 	uploadImage: {
 		editImage: "Editar Imagen",
 		uploadImage: "Añadir Imagen",
+	}, 
+	report: {
+		reportStation: {
+			title: "Reportar una estación",
+			subtitle: "",
+			placeholder: "Descripción del problema",
+			poorCondition: "Malas condiciones",
+			badInformation: "Información erronea",
+			dislike: "No me gusta",
+		}, 
+		send: "Enviar",
 	}
 }
 export{ es }

@@ -4,6 +4,8 @@ import { StyleSheet, Pressable, View, Text } from "react-native";
 import useAuth from "../../../hooks/useAuth";
 import ChargeStationInfo from "./stationComponents/chargeStationInfo";
 import BikeStationInfo from "./stationComponents/bikeStationInfo";
+import ReportStationModal from "./stationComponents/reportStationModal";
+import CustomButton from "../../../utils/button"
 
 function LocationInfo(props) {
   const { auth, updateUser } = useAuth();
@@ -13,6 +15,11 @@ function LocationInfo(props) {
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
   );
+
+  const [reportStationVisible, setReportStationVisible] = useState(false);
+
+
+
   useEffect(() => {
     if (props.stationInfo != null) {
       setStationInfoStyle(styles.locationInfoOpened);
@@ -34,6 +41,11 @@ function LocationInfo(props) {
   };
 
   const ChargeStationIcon = (chargerType) => {};
+
+  const ReportStation = (stationInfo) => {
+    console.log("Reporting station: ");
+    console.log(stationInfo);
+  };
 
   const HighlightInfo = () => {
     return <View style={styles.highlightContent}></View>;
@@ -69,8 +81,13 @@ function LocationInfo(props) {
       </View>
       {GenericLocationInfo()}
       <View style={styles.goThereContent}>
-        <Pressable
-          style={styles.goThereButton}
+        <CustomButton
+            customStyles={styles.goThereButton}
+            onPress={() => setReportStationVisible(!reportStationVisible)}
+            text={i18n.t("locationInfo.report")}
+        />
+        <CustomButton
+          customStyles={styles.goThereButton}
           onPress={() => {
             props.ActivateRoute({
               latitude: props?.stationInfo?.lat,
@@ -79,13 +96,23 @@ function LocationInfo(props) {
             });
             props.onChangeFilter("singleCharge");
           }}
-        >
-          <Text style={styles.buttonText}>
-            {" "}
-            {i18n.t("locationInfo.getThere")}
-          </Text>
-        </Pressable>
+          text={i18n.t("locationInfo.getThere")}
+        />
       </View>
+      <ReportStationModal
+      //tres botones:
+        //reportar mal estado de la estacion
+        //reportar información erronea
+        //no me gusta, no he tenido buena experiencia
+      //comentario extra
+        isVisible={reportStationVisible}
+        handleAccept={()=>{
+          setReportStationVisible(!reportStationVisible);
+        }} 
+        handleCancel={()=>setReportStationVisible(!reportStationVisible)}
+        onPress={()=> setReportStationVisible(!reportStationVisible)}
+        title={i18n.t('report.reportStation.title')}
+      />
     </View>
   );
 }
@@ -115,12 +142,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: "auto",
     marginTop: "auto",
+    
   },
   goThereButton: {
     backgroundColor: "#1D69A6",
     width: "33%",
     justifyContent: "center",
     alignItems: "center",
+    marginLeft: 5,
+    height: "100%",
   },
   buttonText: {
     color: "#FFFFFF",

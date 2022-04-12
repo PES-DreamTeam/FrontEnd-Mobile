@@ -42,6 +42,7 @@ const cat = {
 	}, 
 	miscelaneus: {
 		loading: "Carregant...",
+		cancel: "Cancel·lar",
 		accept: "Acceptar",
 	}, 
 	vehicleConfig: {
@@ -84,10 +85,22 @@ const cat = {
 		electrical: "Elèctriques",
 		parking: "Aparcaments",
 		getThere: "Porta-m'hi!",
+		report: "Reportar",
 	}, 
 	uploadImage: {
 		editImage: "Editar Imatge",
 		uploadImage: "Afegir Imatge",
+	}, 
+	report: {
+		reportStation: {
+			title: "Reportar una estació",
+			subtitle: "",
+			placeholder: "Descripció del problema",
+			poorCondition: "Males condicions",
+			badInformation: "Informació errònia",
+			dislike: "No m'agrada",
+		}, 
+		send: "Enviar",
 	}
 }
 export{ cat }

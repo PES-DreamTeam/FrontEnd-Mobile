@@ -33,6 +33,7 @@ form_name,Name:,Nombre:,Nom:
 goToSignIn,Go to Log In,Ir a Iniciar sesión,Anar a Inciar sessió
 PAGE_miscelaneus,,,
 loading,Loading...,Cargando...,Carregant...
+cancel,Cancel,Cancelar,Cancel·lar
 accept,Accept,Aceptar,Acceptar
 PAGE_vehicleConfig,,,
 title,Vehicle configuration,Configuracion del vehículo,Configuració del vehicle
@@ -71,7 +72,16 @@ mechanical,Mechanical,Mecanicas,Mecàniques
 electrical,Electrical,Electricas,Elèctriques
 parking,Parkings,Estacionamientos,Aparcaments
 getThere,Get there!,¡Llévame!,Porta-m'hi!
-,,,
+report,Report,Reportar,Reportar
 PAGE_uploadImage,,,
 editImage,Edit Image,Editar Imagen,Editar Imatge
 uploadImage,Upload Image,Añadir Imagen,Afegir Imatge
+,,,
+PAGE_report,,,
+reportStation_title,Report a Station,Reportar una estación,Reportar una estació
+reportStation_subtitle,,,
+reportStation_placeholder,Issue description,Descripción del problema,Descripció del problema
+reportStation_poorCondition,Poor conditions,Malas condiciones,Males condicions
+reportStation_badInformation,Incorrect Info,Información erronea,Informació errònia
+reportStaiton_dislike,Dislike,No me gusta,No m'agrada
+send,Send,Enviar,Enviar

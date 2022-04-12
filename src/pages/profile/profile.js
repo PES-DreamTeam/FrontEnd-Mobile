@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef} from 'react';
-import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions, ScrollView } from 'react-native';
 import i18n from 'i18n-js';
 import useAuth from '../../hooks/useAuth';
 import useUserSettings from '../../hooks/useUserSettings';
@@ -31,6 +31,7 @@ function ProfileScreen({ navigation }) {
 
     return(
         <View style={styles.container}>
+            <ScrollView>
             {/* Imagen de perfil */}
             <View style={styles.uploadImage} >
                 <UploadImage/>
@@ -73,6 +74,7 @@ function ProfileScreen({ navigation }) {
                     </Text>
                 </Pressable>
             </View>
+            </ScrollView>
         </View>
     )
 }
@@ -81,6 +83,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         padding: 20,
+        width: "100%"
     },
     uploadImage: {
         alignItems: 'center',
@@ -135,32 +138,35 @@ const styles = StyleSheet.create({
     image: {
         tintColor: '#16345D',
         alignSelf: 'center',
-        marginTop: 10,
     },
     editButton: {
         fontSize: 18,
         fontWeight: 'bold',
         backgroundColor: '#1D69A6',
-        margin: 25,
-        padding: 20,
-        alignSelf: 'center',
         borderRadius: 100/5,
+        width: "45%",
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center'
+        
     },
     addButton: {
         fontSize: 18,
         fontWeight: 'bold',
         backgroundColor: '#5CB362',
-        margin: 25,
-        padding: 20,
-        alignSelf: 'center',
         borderRadius: 100/5,
+        width: "45%",
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     buttonBar: {
-        marginTop: 20,
+        marginTop: '5%',
         width: '100%',
         textAlign: 'left',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between',
       },
 })
 

@@ -42,6 +42,7 @@ const en = {
 	}, 
 	miscelaneus: {
 		loading: "Loading...",
+		cancel: "Cancel",
 		accept: "Accept",
 	}, 
 	vehicleConfig: {
@@ -84,10 +85,22 @@ const en = {
 		electrical: "Electrical",
 		parking: "Parkings",
 		getThere: "Get there!",
+		report: "Report",
 	}, 
 	uploadImage: {
 		editImage: "Edit Image",
 		uploadImage: "Upload Image",
+	}, 
+	report: {
+		reportStation: {
+			title: "Report a Station",
+			subtitle: "",
+			placeholder: "Issue description",
+			poorCondition: "Poor conditions",
+			badInformation: "Incorrect Info",
+			dislike: "Dislike",
+		}, 
+		send: "Send",
 	}
 }
 export{ en }

@@ -123,10 +123,11 @@ function ChargeStationInfo(props) {
               </Text>
             </View>
             <View style={styles.socketsList}>
-              {GetAllSocketTypesMoto().map((socket) => (
+              {GetAllSocketTypesMoto().map((socket, index) => (
                 <Image
                   source={vehicleImages[socket - 1]}
                   style={styles.socketImage}
+                  key={index}
                 />
               ))}
             </View>
