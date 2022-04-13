@@ -1,7 +1,7 @@
 import MapViewDirections from 'react-native-maps-directions';
 import React, {useState, useEffect} from "react";
+import {API_KEY} from '@env';
 export default ({routeActivate, location, ChangeRoutingInfo}) => {
-    const GOOGLE_MAPS_APIKEY = 'AIzaSyC7PdTftO4QxOyM8vu3fSOCMlvOcuVmbk0'; 
     const destination = {latitude:routeActivate.latitude, longitude:routeActivate.longitude};
     const currentTransport = routeActivate.objectType == "vehicleStation" ? "DRIVING" : "BICYCLING";
     const [lineStyle, setLineStyle] = useState({width: 3, dash:null, mode:"DRIVING", color: "red"})
@@ -34,7 +34,7 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
             <MapViewDirections
             origin={location}
             destination={destination}
-            apikey={GOOGLE_MAPS_APIKEY}
+            apikey={API_KEY}
             mode={lineStyle.mode}
             strokeWidth={lineStyle.width}
             strokeColor={lineStyle.color}
