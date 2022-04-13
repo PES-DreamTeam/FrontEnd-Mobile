@@ -1,14 +1,13 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
 import { StyleSheet, ActivityIndicator, View, Image } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
-import MapViewDirections from 'react-native-maps-directions';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 import MapButton from './mapButton';
 import MapPoints from './mapPoints';
+import MapRoutes from './mapRoutes';
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate, ActivateRoute, onChangeFilter}) => {
-  const GOOGLE_MAPS_APIKEY = 'AIzaSyC7PdTftO4QxOyM8vu3fSOCMlvOcuVmbk0'; 
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate, ActivateRoute, onChangeFilter, ChangeRoutingInfo}) => {
   
   const { getChargePoints } = useChargePoints();
   const [location,setLocation] = useState({
@@ -50,7 +49,6 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
     setShown(arrayPuntos);
     
     const interval = setInterval(async () => {
-      console.log("hola");
       let chargePoints = await getChargePoints('all');
       let arrayPuntos = Object.entries(chargePoints);
       setChargePoints(arrayPuntos);
@@ -90,6 +88,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
   const cancelRoute = () => {
     ActivateRoute(null);
     onChangeFilter('all');
+    ChangeRoutingInfo(null);
   }
 
   return (
@@ -100,30 +99,30 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
           }}
           initialRegion={initialRegion}
         > 
-          { routeActivate ?
-            <MapViewDirections
-              origin={location}
-              destination={{latitude:routeActivate.latitude, longitude:routeActivate.longitude}}
-              apikey={GOOGLE_MAPS_APIKEY}
-              strokeWidth={3}
-              strokeColor="hotpink"
+          {routeActivate ? 
+            <MapRoutes
+            routeActivate={routeActivate}
+            location={location}
+            ChangeRoutingInfo={ChangeRoutingInfo}
             />
-          : null}
+          : null
+          }
 
-            <MapPoints
-              chargePoints={shownChargePoints}
-              OpenStationInfo={OpenStationInfo}
-            />           
-            <Marker 
-              coordinate={{
-                latitude: latitude, longitude: longitude
-              }}
-            >
+          <MapPoints
+            chargePoints={shownChargePoints}
+            OpenStationInfo={OpenStationInfo}
+          />  
+
+          <Marker 
+            coordinate={{
+              latitude: latitude, longitude: longitude
+            }}
+          >
               <Image
                 source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
                 style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
               />
-            </Marker>
+          </Marker>
             
         </MapView>
         <MapButton

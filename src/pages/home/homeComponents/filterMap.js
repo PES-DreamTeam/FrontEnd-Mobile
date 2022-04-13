@@ -3,14 +3,18 @@ import useUserSettings from '../../../hooks/useUserSettings';
 import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
 import i18n from 'i18n-js';
 
-const FilterMap = ({onChangeFilter}) => {
+const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute }) => {
     useUserSettings();
 
     return (
         <View style ={styles.filterContent}> 
             <Pressable 
                 style ={styles.filterButton}
-                onPress={() => onChangeFilter("")}
+                onPress={() => {
+                    onChangeFilter("");
+                    ChangeRoutingInfo(null);
+                    ActivateRoute(null);
+                }}
                 >
                     <Image
                         source={require('../../../../assets/images/icons/default.png')}
@@ -20,7 +24,11 @@ const FilterMap = ({onChangeFilter}) => {
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1}]}
-                onPress={() => onChangeFilter("vehicleStation")}
+                onPress={() =>{
+                 onChangeFilter("vehicleStation");
+                 ChangeRoutingInfo(null);
+                 ActivateRoute(null);
+                }}
                 >
                     <Image
                         source={require('../../../../assets/images/icons/station.png')}
@@ -30,7 +38,11 @@ const FilterMap = ({onChangeFilter}) => {
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1}]}
-                onPress={() => onChangeFilter("bikeStation")}
+                onPress={() =>{
+                    onChangeFilter("bikeStation")
+                    ChangeRoutingInfo(null);
+                    ActivateRoute(null);
+                } }
             >
                 <Image
                         source={require('../../../../assets/images/icons/bike.png')}
@@ -40,7 +52,11 @@ const FilterMap = ({onChangeFilter}) => {
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1}]}
-                onPress={() => onChangeFilter("highlight")}
+                onPress={() => {
+                    onChangeFilter("highlight")
+                    ChangeRoutingInfo(null);
+                    ActivateRoute(null);
+                } }
                 >
                     <Image
                         source={require('../../../../assets/images/icons/star.png')}

@@ -3,6 +3,7 @@ import { Dimensions, Pressable, StyleSheet, Text, View, Image, TextInput} from '
 import { CustomMapView, FilterMap, LocationInfo } from './homeComponents/';
 import useAuth from '../../hooks/useAuth';
 import i18n from 'i18n-js';
+import { RoutesInfo } from './homeComponents/RoutesInfo';
 
 
 export default function HomeScreen({ navigation }) {
@@ -22,6 +23,7 @@ export default function HomeScreen({ navigation }) {
   const [search, setSearch] = useState('');
   const [currentFilter, setCurrentFilter] = useState("");
   const [wantRoute, setWantRoute] = useState(null);
+  const [routeInfo, setRouteInfo] = useState(null);
   const [currentStationInfo, setStationInfo] = useState(null);
 
   useEffect(() => {setUser(auth.user)},[auth]);
@@ -49,22 +51,34 @@ export default function HomeScreen({ navigation }) {
     setWantRoute(coord_estacion);
   }
 
+  const changeRouteInfo = (newRouteInfo) => {
+    setRouteInfo(newRouteInfo);
+  }
+
   return (
     
     <View style={styles.container}>
-      <View style={styles.topBar}>
-        <Pressable style={styles.topBarMenuButton} onPress={()=>navigation.toggleDrawer()}>
-          <Image
-            source={require('../../../assets/images/desplegable.png')}
-          />
-        </Pressable>
-        <TextInput
-              onChangeText={(text) => onChangeText(text)}
-              value={search}
-              style={styles.searchBar}
-              name="search"
-              placeholder={`${i18n.t('home.searchBar')}`}
-          />
+      <View style={styles.top}>
+        <View style={styles.topBar}>
+          <Pressable style={styles.topBarMenuButton} onPress={()=>navigation.toggleDrawer()}>
+            <Image
+              source={require('../../../assets/images/desplegable.png')}
+            />
+          </Pressable>
+          <TextInput
+                onChangeText={(text) => onChangeText(text)}
+                value={search}
+                style={styles.searchBar}
+                name="search"
+                placeholder={`${i18n.t('home.searchBar')}`}
+            />
+        </View>
+        
+        <RoutesInfo 
+          routeActivate={wantRoute}
+          ActivateRoute={ActivateRoute}
+          routingInfo={routeInfo}
+        />
       </View>
       <CustomMapView 
         color={vehicleConfig[0]?.color ?? '#000000'}
@@ -75,6 +89,7 @@ export default function HomeScreen({ navigation }) {
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
         onChangeFilter={ChangeFilter}
+        ChangeRoutingInfo={changeRouteInfo}
       />
 
       <LocationInfo
@@ -82,9 +97,12 @@ export default function HomeScreen({ navigation }) {
         ActivateRoute={ActivateRoute}
         onChangeFilter={ChangeFilter}
       /> 
+      
 
       <FilterMap
         onChangeFilter={ChangeFilter}
+        ChangeRoutingInfo={changeRouteInfo}
+        ActivateRoute={ActivateRoute}
       />
 
     </View>
@@ -93,6 +111,12 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  top: {
+    marginTop: 20,
+    width: '100%',
+    textAlign: 'left',
+    alignItems: 'center'
+  },
   topBar: {
     marginTop: 20,
     height: 60,

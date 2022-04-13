@@ -93,6 +93,7 @@ function LocationInfo(props) {
               latitude: props?.stationInfo?.lat,
               longitude: props?.stationInfo?.lng,
               id: props?.stationInfo?.id,
+              objectType: props?.stationInfo?.objectType,
             });
             props.onChangeFilter("singleCharge");
           }}
