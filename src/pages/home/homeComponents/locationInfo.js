@@ -5,20 +5,20 @@ import useAuth from "../../../hooks/useAuth";
 import ChargeStationInfo from "./stationComponents/chargeStationInfo";
 import BikeStationInfo from "./stationComponents/bikeStationInfo";
 import ReportStationModal from "./stationComponents/reportStationModal";
-import CustomButton from "../../../utils/button"
+import CustomButton from "../../../utils/button";
+/* import useChargePoints from "../../../hooks/useChargePoints"; */
 
 function LocationInfo(props) {
-  const { auth, updateUser } = useAuth();
-  const [isFavourite, toggleFavourite] = useState(
-    auth.user?.favourite_stations?.includes(props?.stationInfo?.id)
-  );
+  const { auth, updateUser, getFavourites, treatFavourite } = useAuth();
+  /*   const { updateStation } = useChargePoints(); */
+  const [isFavourite, toggleFavourite] = useState(false);
+  const likes = 45; //Hardcoded for now
+  const [isLiked, toggleLiked] = useState(false);
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
   );
 
   const [reportStationVisible, setReportStationVisible] = useState(false);
-
-
 
   useEffect(() => {
     if (props.stationInfo != null) {
@@ -30,14 +30,24 @@ function LocationInfo(props) {
 
   const handleFavourite = () => {
     toggleFavourite(!isFavourite);
-    if (!isFavourite) {
-      /* auth.user.favourite_stations = auth.user.favourite_stations.filter(id => id != stationInfo?.stationInfo?.id); */
+    /* treatFavourite(isFavourite, props.stationInfo.id); */
+  };
+
+  const handleLike = () => {
+    toggleLiked(!isLiked);
+    if (!isLiked) {
+      /* auth.user.liked_stations = auth.user.favourite_stations.filter(id => id != props?.stationInfo?.id); */
+      /* treure like a la estació*/
+      /*       console.log(props.stationInfo);
+      console.log(auth.user); */
       console.log("quito like");
     } else {
-      /* auth.user.favourite_stations.push(stationInfo?.stationInfo?.id); */
+      /* auth.user.liked_stations.push(props?.stationInfo?.id); */
+      /* afegir like a la estació*/
       console.log("pongo like");
     }
     updateUser(auth.user);
+    /*     updateStation(props.stationInfo); */
   };
 
   const ChargeStationIcon = (chargerType) => {};
@@ -59,6 +69,8 @@ function LocationInfo(props) {
             stationInfo={props.stationInfo}
             isFavourite={isFavourite}
             handleFavourite={handleFavourite}
+            isLiked={isLiked}
+            handleLike={handleLike}
           />
         );
       case "bikeStation":
@@ -67,6 +79,8 @@ function LocationInfo(props) {
             stationInfo={props.stationInfo}
             isFavourite={isFavourite}
             handleFavourite={handleFavourite}
+            isLiked={isLiked}
+            handleLike={handleLike}
           />
         );
       default:
@@ -78,13 +92,14 @@ function LocationInfo(props) {
     <View style={stationInfoStyle}>
       <View style={styles.locationAddressContent}>
         <Text style={{ color: "#1D69A6" }}>{props?.stationInfo?.address}</Text>
+        <Text style={{ color: "#1D69A6" }}>{likes} Likes</Text>
       </View>
       {GenericLocationInfo()}
       <View style={styles.goThereContent}>
         <CustomButton
-            customStyles={styles.goThereButton}
-            onPress={() => setReportStationVisible(!reportStationVisible)}
-            text={i18n.t("locationInfo.report")}
+          customStyles={styles.goThereButton}
+          onPress={() => setReportStationVisible(!reportStationVisible)}
+          text={i18n.t("locationInfo.report")}
         />
         <CustomButton
           customStyles={styles.goThereButton}
@@ -101,18 +116,18 @@ function LocationInfo(props) {
         />
       </View>
       <ReportStationModal
-      //tres botones:
+        //tres botones:
         //reportar mal estado de la estacion
         //reportar información erronea
         //no me gusta, no he tenido buena experiencia
-      //comentario extra
+        //comentario extra
         isVisible={reportStationVisible}
-        handleAccept={()=>{
+        handleAccept={() => {
           setReportStationVisible(!reportStationVisible);
-        }} 
-        handleCancel={()=>setReportStationVisible(!reportStationVisible)}
-        onPress={()=> setReportStationVisible(!reportStationVisible)}
-        title={i18n.t('report.reportStation.title')}
+        }}
+        handleCancel={() => setReportStationVisible(!reportStationVisible)}
+        onPress={() => setReportStationVisible(!reportStationVisible)}
+        title={i18n.t("report.reportStation.title")}
       />
     </View>
   );
@@ -130,7 +145,10 @@ const styles = StyleSheet.create({
   },
   locationAddressContent: {
     height: "15%",
-    justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     borderBottomWidth: 1,
     borderEndColor: "grey",
   },
@@ -143,7 +161,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: "auto",
     marginTop: "auto",
-    
   },
   goThereButton: {
     backgroundColor: "#1D69A6",

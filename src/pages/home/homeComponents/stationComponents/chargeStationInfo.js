@@ -136,19 +136,31 @@ function ChargeStationInfo(props) {
           <View />
         )}
       </View>
-      <Pressable
-        onPressOut={props.handleFavourite}
-        style={styles.favouriteButton}
-      >
-        <Image
-          source={
-            props.isFavourite
-              ? require("../../../../../assets/images/blank-favourite.png")
-              : require("../../../../../assets/images/favourite.png")
-          }
-          style={styles.heartIcon}
-        ></Image>
-      </Pressable>
+      <View style={styles.buttons}>
+        <Pressable onPress={props.handleLike} style={styles.favouriteButton}>
+          <Image
+            source={
+              props.isLiked
+                ? require("../../../../../assets/images/blank-like.png")
+                : require("../../../../../assets/images/like.png")
+            }
+            style={styles.likeIcon}
+          ></Image>
+        </Pressable>
+        <Pressable
+          onPress={props.handleFavourite}
+          style={styles.favouriteButton}
+        >
+          <Image
+            source={
+              props.isFavourite
+                ? require("../../../../../assets/images/blank-favourite.png")
+                : require("../../../../../assets/images/favourite.png")
+            }
+            style={styles.heartIcon}
+          ></Image>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -164,7 +176,7 @@ const styles = StyleSheet.create({
   chargersDisplay: {
     display: "flex",
     flexDirection: "column",
-    maxWidth: "70%",
+    maxWidth: "60%",
   },
   chargerAvailability: {
     display: "flex",
@@ -197,6 +209,17 @@ const styles = StyleSheet.create({
   heartIcon: {
     height: 40,
     width: 40,
+  },
+  likeIcon: {
+    height: 32,
+    width: 32,
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "30%",
+    marginLeft: "auto",
   },
   socketImage: {
     height: 50,
