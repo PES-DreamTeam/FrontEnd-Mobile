@@ -61,6 +61,19 @@ function CustomDrawer(props) {
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
+      <TouchableOpacity onPress={()=>props.navigation.navigate("ReportAplicationScreen")} style={{paddingVertical: 15}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Ionicons name="megaphone-outline" size={22} />
+            <Text
+              style={{
+                fontSize: 15,
+                marginLeft: 5,
+              }}>
+              Report
+            </Text>
+          </View>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={TellAFriend} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="share-social-outline" size={22} />

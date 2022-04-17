@@ -3,13 +3,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigator } from './mainNavigator';
-import { ProfileScreen, SettingsScreen, VehicleConfig } from '../pages';
+import { ProfileScreen,SettingsScreen, VehicleConfig } from '../pages';
 import useAuth from '../hooks/useAuth';
 import useUserSettings from '../hooks/useUserSettings';
 import { CustomDrawer } from './customDrawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import i18n from 'i18n-js';
-
+import { ReportAplicationScreen } from '../pages/reportScreen/ReportAplicationScreen';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -51,6 +51,9 @@ function SidebarNavigator (){
                         }}                   
                     />
                     <Stack.Screen name="VehicleConfig" component={VehicleConfig}options={{drawerItemStyle: { display: "none" }}}/>
+                    <Stack.Screen name="ReportAplicationScreen" component={ReportAplicationScreen}options={{drawerItemStyle: { display: "none" }}}/>
+
+                    
                 </Drawer.Navigator>
                     
             </NavigationContainer>
