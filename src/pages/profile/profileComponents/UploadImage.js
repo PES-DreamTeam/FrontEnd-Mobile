@@ -4,10 +4,13 @@ import { AntDesign } from '@expo/vector-icons';
 import i18n from 'i18n-js';
 import * as ImagePicker from 'expo-image-picker';
 import useAuth from '../../../hooks/useAuth';
+import useUser from '../../../hooks/useUser';
 
 export default function UploadImage() {
     const { auth } = useAuth();
     
+    const { updateProfilePicture } = useUser();
+
     useEffect( async() => {
         await ImagePicker.getMediaLibraryPermissionsAsync();
     }, []);
@@ -19,9 +22,11 @@ export default function UploadImage() {
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
+        base64: true,
     });
     if (!result.cancelled) {
         setImage(result.uri);
+        updateProfilePicture(result.base64);
     }
     };
 

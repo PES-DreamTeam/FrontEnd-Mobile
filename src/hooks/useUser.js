@@ -2,8 +2,10 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import {API_HOST} from '@env';
+import {API_HOST, IMGBB_API_KEY} from '@env';
 import { AuthContext } from '../context/authContext';
+
+
 const useUser = () => {
 
     const { auth } = useContext(AuthContext);
@@ -16,7 +18,32 @@ const useUser = () => {
         return (data.user);
     }
 
-    return { getUserInfo };
+    const updateProfilePicture = async (image64) => {
+        try {
+            var bodyData = new FormData();
+            bodyData.append('image', image64);
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                method: 'POST',
+                body: bodyData
+            });
+            const data = await response.json();
+            const imageUrl = data.data.display_url;
+            console.log(imageUrl);
+            /* const decodedToken = jwt_decode(auth.token);
+            const id = decodedToken._id;
+            const res = await axios.post(`${API_HOST}/api/users/${id}/profilePicture`, {      
+                image: imageUrl
+            }); 
+            return res.data; */
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    return { 
+        getUserInfo,
+        updateProfilePicture
+    };
 }
 
 export default useUser;
