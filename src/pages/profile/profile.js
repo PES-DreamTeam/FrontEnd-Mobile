@@ -1,11 +1,32 @@
 import React, { useEffect, useState, useRef} from 'react';
-import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, Pressable, FlatList, useWindowDimensions, ScrollView } from 'react-native';
 import i18n from 'i18n-js';
 import useAuth from '../../hooks/useAuth';
 import useUserSettings from '../../hooks/useUserSettings';
 import CarInfoItem from './profileComponents/CarInfoItem';
 import Carousel from 'react-native-snap-carousel';
 import UploadImage from './profileComponents/UploadImage';
+
+function TextEditableLabel({editable, textValue, labelName, style, ChangeText, localizationKey}) {
+    if(editable) {
+        return (
+            <TextInput
+                onChangeText={(text) => ChangeText(text, labelName)}
+                value={textValue}
+                style={[style]}
+                name= {labelName}
+                placeholder= {i18n.t(localizationKey)}
+            />
+        );
+    }
+    else {
+        return (
+            <Text style = {[style]}>
+                {textValue}
+            </Text>
+        );
+    }
+}
 
 function ProfileScreen({ navigation }) {
 
@@ -29,6 +50,21 @@ function ProfileScreen({ navigation }) {
 
     const{id,email,nickname, vehicleConfig} = user;
 
+    const [editProfile,setEditProfile] = useState({
+        editProfile:false,
+    });
+
+    function EnableEditProfile(enabled) {
+        setEditProfile(enabled);
+    }
+
+    const onChangeText = (text, name) => {
+        setUser({
+            ...user,
+            [name]: text 
+        })
+    }
+
     return(
         <View style={styles.container}>
             <ScrollView>
@@ -38,13 +74,18 @@ function ProfileScreen({ navigation }) {
 
             </View>
             {/* Nombre de perfil */}
-            <Text style = {[styles.title]}>
-                {nickname}
-               
-            </Text>
-            <Text style = {[styles.subtitle]}>
-                {email}
-            </Text>
+            <TextEditableLabel
+                editable={editProfile}
+                ChangeText={(text) => onChangeText(text, 'nickname')}
+                textValue={nickname}
+                style={styles.title}
+            />
+            <TextEditableLabel
+                editable={editProfile}
+                ChangeText={(text) => onChangeText(text, 'email')}
+                textValue={email}
+                style = {[styles.subtitle]}
+            />
             <Text style = {[styles.header]}>
                 {i18n.t('profile.yourVehicle')}
             </Text>
@@ -63,7 +104,7 @@ function ProfileScreen({ navigation }) {
                 </View> 
             ) : <Text>  {i18n.t('profile.vehicleNotDef')} </Text>}
             <View style={styles.buttonBar}>
-                <Pressable style={styles.editButton} onPress={()=>("")}>
+                <Pressable style={styles.editButton} onPress={()=>EnableEditProfile(!editProfile)}>
                     <Text style={{color:"white", fontWeight: 'bold'}}>
                         {i18n.t('profile.editProfile')}
                     </Text>
