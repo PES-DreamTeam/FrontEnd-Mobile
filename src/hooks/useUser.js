@@ -38,13 +38,10 @@ const useUser = () => {
       );
       const data = await response.json();
       const imageUrl = data.data.display_url;
-      console.log(imageUrl);
-      /* const decodedToken = jwt_decode(auth.token);
-            const id = decodedToken._id;
-            const res = await axios.post(`${API_HOST}/api/users/${id}/profilePicture`, {      
-                image: imageUrl
-            }); 
-            return res.data; */
+      const res = await axios.post(`${API_HOST}/api/users/${auth.user._id}/profilePicture`, {      
+        image: imageUrl
+      }); 
+      return res.data;
     } catch (error) {
       console.log(error);
     }
