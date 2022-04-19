@@ -38,11 +38,41 @@ const useChargePoints = () => {
     /*     console.log(response.data.user.likes); */
   };
 
+  const sendReport = async (station_id, reportType, reportMsg) => {
+    try {
+      const response = await axios.put(
+        `${API_HOST}/api/chargePoints/${station_id}/report/`,
+        {
+          reportType: reportType,
+          reportMsg: reportMsg
+        }
+      );
+    }
+    catch(err) {
+      let errors = [];
+      if (err.response.status === 403) {
+        err.response.data.errors.map((error) => {
+          errors.push(error);
+        });
+        throw {
+          error: true,
+          errors: errors,
+        };
+      } else
+        throw {
+          error: true,
+          errors: ["Something went wrong. Try again later."],
+        };
+    }
+
+  }
+
   return {
     getChargePoints,
     getSingleChargePoint,
     getChargePointLikes,
     sendStationLike,
+    sendReport,
   };
 };
 

@@ -14,12 +14,12 @@ function LocationInfo(props) {
   const { sendFavourite } = useUser();
   const { getChargePointLikes, sendStationLike } = useChargePoints();
   const [isFavourite, toggleFavourite] = useState(
-    auth.user.favourites.includes(props?.stationInfo?.id?.toString())
+    auth?.user?.favouToBackrites?.includes(props?.stationInfo?.id?.toString())
   );
   const [stationLikes, setStationLikes] = useState();
   /*     getChargePointLikes(props?.stationInfo?.id) */
   const [isLiked, toggleLiked] = useState(
-    auth.user.likes.includes(props?.stationInfo?.id?.toString())
+    auth?.user?.likes?.includes(props?.stationInfo?.id?.toString())
   );
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
@@ -38,9 +38,9 @@ function LocationInfo(props) {
   useEffect(() => {
     if (props.stationInfo != null) {
       toggleFavourite(
-        auth.user.favourites.includes(props?.stationInfo?.id?.toString())
+        auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString())
       );
-      toggleLiked(auth.user.likes.includes(props?.stationInfo?.id));
+      toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id));
     } /*     console.log(props.stationInfo); */
     /*     setStationLikes(await getChargePointLikes(props?.stationInfo?.id));
      */
@@ -61,7 +61,7 @@ function LocationInfo(props) {
   const handleLike = async () => {
     /*     await sendStationLike(props.stationInfo.id);
      */ toggleLiked(!isLiked);
-    let likes = auth.user.likes;
+    let likes = auth?.user?.likes;
     if (!isLiked) {
       likes.push(props.stationInfo.id);
     } else {
@@ -148,11 +148,6 @@ function LocationInfo(props) {
         />
       </View>
       <ReportStationModal
-        //tres botones:
-        //reportar mal estado de la estacion
-        //reportar información erronea
-        //no me gusta, no he tenido buena experiencia
-        //comentario extra
         isVisible={reportStationVisible}
         handleAccept={() => {
           setReportStationVisible(!reportStationVisible);
@@ -160,6 +155,7 @@ function LocationInfo(props) {
         handleCancel={() => setReportStationVisible(!reportStationVisible)}
         onPress={() => setReportStationVisible(!reportStationVisible)}
         title={i18n.t("report.reportStation.title")}
+        stationID={props?.stationInfo?.id}
       />
     </View>
   );
