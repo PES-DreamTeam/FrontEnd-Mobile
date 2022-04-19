@@ -1,27 +1,49 @@
-
-import React, { useContext } from 'react';
-import axios from 'axios';
-import {API_HOST} from '@env';
-import { AuthContext } from '../context/authContext';
+import React, { useContext } from "react";
+import axios from "axios";
+import { API_HOST } from "@env";
+import { AuthContext } from "../context/authContext";
 const useChargePoints = () => {
+  const getChargePoints = async (filter) => {
+    // console.log(`/api/chargePoints?groupBy=id&objectType=`+filter);
+    const response = await axios.get(
+      `${API_HOST}/api/chargePoints?groupBy=id&objectType=` + filter
+    );
+    const data = response.data;
+    return data.chargePoints;
+  };
 
+  const getSingleChargePoint = async (id_charge) => {
+    const response = await axios.get(
+      `${API_HOST}/api/chargePoints/${id_charge}`
+    );
+    const data = response.data;
+    console.log("hola");
+    console.log(data);
+    console.log("adeu");
+    return data.chargePoint;
+  };
 
-    const getChargePoints = async (filter) => {
-       // console.log(`/api/chargePoints?groupBy=id&objectType=`+filter);
-        const response = await axios.get(`${API_HOST}/api/chargePoints?groupBy=id&objectType=`+filter);
-        const data = response.data;
-        return (data.chargePoints);
-        
-    }
+  const getChargePointLikes = async (id_station) => {
+    const response = await axios.get(
+      `${API_HOST}/api/chargePoints/${id_station}/info`
+    );
+    const data = response.data.chargePoint.likes;
+    return data;
+  };
 
-    
-    const getSingleChargePoint = async (id_charge) => {
-        const response = await axios.get(`${API_HOST}/api/chargePoints/${id_charge}`);
-        const data = response.data;
-        return (data.chargePoint);
-    }
+  const sendStationLike = async (station_id) => {
+    const response = await axios.put(
+      `${API_HOST}/api/chargePoints/${station_id}/vote`
+    );
+    /*     console.log(response.data.user.likes); */
+  };
 
-    return {  getChargePoints, getSingleChargePoint};
-}
+  return {
+    getChargePoints,
+    getSingleChargePoint,
+    getChargePointLikes,
+    sendStationLike,
+  };
+};
 
 export default useChargePoints;

@@ -141,8 +141,8 @@ function ChargeStationInfo(props) {
           <Image
             source={
               props.isLiked
-                ? require("../../../../../assets/images/blank-like.png")
-                : require("../../../../../assets/images/like.png")
+                ? require("../../../../../assets/images/like.png")
+                : require("../../../../../assets/images/blank-like.png")
             }
             style={styles.likeIcon}
           ></Image>
@@ -154,8 +154,8 @@ function ChargeStationInfo(props) {
           <Image
             source={
               props.isFavourite
-                ? require("../../../../../assets/images/blank-favourite.png")
-                : require("../../../../../assets/images/favourite.png")
+                ? require("../../../../../assets/images/favourite.png")
+                : require("../../../../../assets/images/blank-favourite.png")
             }
             style={styles.heartIcon}
           ></Image>

@@ -2,18 +2,25 @@ import i18n from "i18n-js";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Pressable, View, Text } from "react-native";
 import useAuth from "../../../hooks/useAuth";
+import useUser from "../../../hooks/useUser";
 import ChargeStationInfo from "./stationComponents/chargeStationInfo";
 import BikeStationInfo from "./stationComponents/bikeStationInfo";
 import ReportStationModal from "./stationComponents/reportStationModal";
 import CustomButton from "../../../utils/button";
-/* import useChargePoints from "../../../hooks/useChargePoints"; */
+import useChargePoints from "../../../hooks/useChargePoints";
 
 function LocationInfo(props) {
-  const { auth, updateUser, getFavourites, treatFavourite } = useAuth();
-  /*   const { updateStation } = useChargePoints(); */
-  const [isFavourite, toggleFavourite] = useState(false);
-  const likes = 45; //Hardcoded for now
-  const [isLiked, toggleLiked] = useState(false);
+  const { auth, setAuth, updateUser } = useAuth();
+  const { sendFavourite } = useUser();
+  const { getChargePointLikes, sendStationLike } = useChargePoints();
+  const [isFavourite, toggleFavourite] = useState(
+    auth.user.favourites.includes(props?.stationInfo?.id?.toString())
+  );
+  const [stationLikes, setStationLikes] = useState();
+  /*     getChargePointLikes(props?.stationInfo?.id) */
+  const [isLiked, toggleLiked] = useState(
+    auth.user.likes.includes(props?.stationInfo?.id?.toString())
+  );
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
   );
@@ -28,26 +35,51 @@ function LocationInfo(props) {
     }
   }, [props]);
 
-  const handleFavourite = () => {
+  useEffect(() => {
+    if (props.stationInfo != null) {
+      toggleFavourite(
+        auth.user.favourites.includes(props?.stationInfo?.id?.toString())
+      );
+      toggleLiked(auth.user.likes.includes(props?.stationInfo?.id));
+    } /*     console.log(props.stationInfo); */
+    /*     setStationLikes(await getChargePointLikes(props?.stationInfo?.id));
+     */
+  }, [props.stationInfo?.id]);
+
+  /*   useEffect(() => {
+  }, [stationLikes]); */
+
+  const handleFavourite = async () => {
+    const user = await sendFavourite(props.stationInfo.id);
     toggleFavourite(!isFavourite);
-    /* treatFavourite(isFavourite, props.stationInfo.id); */
+    setAuth({
+      ...auth,
+      user: user,
+    });
   };
 
-  const handleLike = () => {
-    toggleLiked(!isLiked);
+  const handleLike = async () => {
+    /*     await sendStationLike(props.stationInfo.id);
+     */ toggleLiked(!isLiked);
+    let likes = auth.user.likes;
     if (!isLiked) {
-      /* auth.user.liked_stations = auth.user.favourite_stations.filter(id => id != props?.stationInfo?.id); */
-      /* treure like a la estació*/
-      /*       console.log(props.stationInfo);
-      console.log(auth.user); */
-      console.log("quito like");
+      likes.push(props.stationInfo.id);
     } else {
-      /* auth.user.liked_stations.push(props?.stationInfo?.id); */
-      /* afegir like a la estació*/
-      console.log("pongo like");
+      likes = likes.filter((id) => id != props.stationInfo.id);
     }
-    updateUser(auth.user);
-    /*     updateStation(props.stationInfo); */
+
+    /*     console.log(likes);
+    console.log(auth.user.likes); */
+
+    /*
+    setAuth({
+      ...auth,
+      user: {
+        ...auth.user,
+        likes,
+      },
+    });*/
+    await updateUser(auth.user);
   };
 
   const ChargeStationIcon = (chargerType) => {};
@@ -92,7 +124,7 @@ function LocationInfo(props) {
     <View style={stationInfoStyle}>
       <View style={styles.locationAddressContent}>
         <Text style={{ color: "#1D69A6" }}>{props?.stationInfo?.address}</Text>
-        <Text style={{ color: "#1D69A6" }}>{likes} Likes</Text>
+        <Text style={{ color: "#1D69A6" }}>{stationLikes} Likes</Text>
       </View>
       {GenericLocationInfo()}
       <View style={styles.goThereContent}>
