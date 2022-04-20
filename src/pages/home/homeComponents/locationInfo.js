@@ -13,23 +13,19 @@ function LocationInfo(props) {
   const { auth, setAuth, updateUser } = useAuth();
   const { sendFavourite } = useUser();
   const { getChargePointLikes, sendStationLike } = useChargePoints();
-  const [isFavourite, toggleFavourite] = useState(
-    auth?.user?.favouToBackrites?.includes(props?.stationInfo?.id?.toString())
-  );
+  const [isFavourite, toggleFavourite] = useState();
   const [stationLikes, setStationLikes] = useState();
-  /*     getChargePointLikes(props?.stationInfo?.id) */
-  const [isLiked, toggleLiked] = useState(
-    auth?.user?.likes?.includes(props?.stationInfo?.id?.toString())
-  );
+  const [isLiked, toggleLiked] = useState();
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
   );
 
   const [reportStationVisible, setReportStationVisible] = useState(false);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (props.stationInfo != null) {
       setStationInfoStyle(styles.locationInfoOpened);
+      setStationLikes(await getChargePointLikes(props?.stationInfo?.id));
     } else {
       setStationInfoStyle(styles.locationInfoClosed);
     }
@@ -41,13 +37,14 @@ function LocationInfo(props) {
         auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString())
       );
       toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id));
-    } /*     console.log(props.stationInfo); */
-    /*     setStationLikes(await getChargePointLikes(props?.stationInfo?.id));
-     */
+      /*       console.log(auth?.user?.likes);
+      console.log(props?.stationInfo?.id);
+      console.log(
+        auth?.user?.likes?.includes(props?.stationInfo?.id.toString())
+      );
+      console.log(auth?.user?.likes?.includes(props?.stationInfo?.id)); */
+    }
   }, [props.stationInfo?.id]);
-
-  /*   useEffect(() => {
-  }, [stationLikes]); */
 
   const handleFavourite = async () => {
     const user = await sendFavourite(props.stationInfo.id);
@@ -59,27 +56,22 @@ function LocationInfo(props) {
   };
 
   const handleLike = async () => {
-    /*     await sendStationLike(props.stationInfo.id);
-     */ toggleLiked(!isLiked);
+    await sendStationLike(props.stationInfo.id);
     let likes = auth?.user?.likes;
     if (!isLiked) {
       likes.push(props.stationInfo.id);
     } else {
       likes = likes.filter((id) => id != props.stationInfo.id);
     }
+    toggleLiked(!isLiked);
 
-    /*     console.log(likes);
-    console.log(auth.user.likes); */
-
-    /*
     setAuth({
       ...auth,
       user: {
         ...auth.user,
-        likes,
+        likes: likes,
       },
-    });*/
-    await updateUser(auth.user);
+    });
   };
 
   const ChargeStationIcon = (chargerType) => {};
