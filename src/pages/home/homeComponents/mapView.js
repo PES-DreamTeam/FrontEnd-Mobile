@@ -1,11 +1,15 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
-import { StyleSheet, ActivityIndicator, View, Image } from 'react-native';
+import {Dimensions, StyleSheet, ActivityIndicator, View, Image, TextInput, Text } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 import MapButton from './mapButton';
 import MapPoints from './mapPoints';
 import MapRoutes from './mapRoutes';
+import SearchBar from './searchBar';
+import i18n from 'i18n-js';
+import Autocomplete from 'react-native-autocomplete-input';
+
 
 const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate, ActivateRoute, onChangeFilter, ChangeRoutingInfo}) => {
   
@@ -92,7 +96,9 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
   }
 
   return (
-      <View style ={styles.mapContent}> 
+      <View style ={styles.mapContent}>
+      
+      <SearchBar shownChargePoints={shownChargePoints}/>
         <MapView style ={styles.map} ref={mapRef}
           onPress={ () =>{
             CloseStationInfo();
@@ -191,7 +197,15 @@ const styles = StyleSheet.create({
     },
     leftFloat: {
       left: 25
-    }
+    },
+    searchBar: {
+      width: Dimensions.get('window').width - 160,
+      borderRadius: 60,
+      paddingLeft: 10,
+      borderColor: 'gray',
+      borderWidth: 1,
+    
+    },
 })
 
 export { CustomMapView };

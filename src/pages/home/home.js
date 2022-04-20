@@ -20,7 +20,6 @@ export default function HomeScreen({ navigation }) {
   const { auth } = useAuth();
 
   const [user,setUser] = useState(auth?.user);
-  const [search, setSearch] = useState('');
   const [currentFilter, setCurrentFilter] = useState("");
   const [wantRoute, setWantRoute] = useState(null);
   const [routeInfo, setRouteInfo] = useState(null);
@@ -30,9 +29,6 @@ export default function HomeScreen({ navigation }) {
 
   const{ vehicleConfig } = user;
 
-  const onChangeText = (text) => {  
-    setSearch(text);  
-  }
 
   const ChangeFilter = (filter) => {
     setCurrentFilter(filter);
@@ -65,13 +61,7 @@ export default function HomeScreen({ navigation }) {
               source={require('../../../assets/images/desplegable.png')}
             />
           </Pressable>
-          <TextInput
-                onChangeText={(text) => onChangeText(text)}
-                value={search}
-                style={styles.searchBar}
-                name="search"
-                placeholder={`${i18n.t('home.searchBar')}`}
-            />
+          
         </View>
         
         <RoutesInfo 
