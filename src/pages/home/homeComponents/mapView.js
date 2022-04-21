@@ -26,6 +26,17 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
 
   const [shownChargePoints, setShown] = useState([]);
 
+  const handleOnSearch = (nameStation) =>{
+    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);
+    //console.log(stationSearched[0][1]);
+    
+    let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
+    console.log(statlocation);
+    //console.log(mapRef);
+    mapRef.current.animateToRegion(statlocation, 1500)
+    OpenStationInfo(stationSearched[0][1]);
+  }
+
   const initialRegion = {
     latitude: location.latitude,
     longitude: location.longitude,
@@ -98,7 +109,13 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
   return (
       <View style ={styles.mapContent}>
       
-      <SearchBar shownChargePoints={shownChargePoints}/>
+       <SearchBar 
+       shownChargePoints={shownChargePoints}
+       handleOnSearch={handleOnSearch}
+       />
+
+
+
         <MapView style ={styles.map} ref={mapRef}
           onPress={ () =>{
             CloseStationInfo();

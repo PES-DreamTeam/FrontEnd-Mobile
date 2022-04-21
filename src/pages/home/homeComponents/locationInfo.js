@@ -122,6 +122,7 @@ function LocationInfo(props) {
 
   return (
     <View style={stationInfoStyle}>
+      
       <View style={styles.locationAddressContent}>
         <Text style={{ color: "#1D69A6" }}>{props?.stationInfo?.address}</Text>
         <Text style={{ color: "#1D69A6" }}>{stationLikes} Likes</Text>

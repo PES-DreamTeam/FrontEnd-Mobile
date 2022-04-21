@@ -3,20 +3,17 @@ import {Dimensions, StyleSheet, ActivityIndicator, View, TouchableOpacity, Text 
 import i18n from 'i18n-js';
 import Autocomplete from 'react-native-autocomplete-input';
 
-const SearchBar = ({shownChargePoints}) => {
+const SearchBar = ({shownChargePoints, handleOnSearch}) => {
     const [filteredStat, setFilteredStat] = useState([]);
     const [open, setOpen] = useState("none");
+    const [text, setText] = useState(null);
     const findStation = (search) => {
-        // Method called every time when we change the value of the input
         if (search) {
-          // Making a case insensitive regular expression
           const regex = new RegExp(`${search.trim()}`, 'i');
-          // Setting the filtered film array according the query
           setFilteredStat(
               shownChargePoints.filter((chargePoint) => chargePoint[1].name.search(regex) >= 0).map(chargePoint => chargePoint[1].name )
           );
         } else {
-          // If the query is null then return blank
           setFilteredStat([]);
         }
       };
@@ -26,15 +23,24 @@ const SearchBar = ({shownChargePoints}) => {
         <View style={styles.autocompleteContainer}>
             <Autocomplete
             onChangeText={(text) => {
-                text != "" ? setOpen(null) : setOpen("none")
-                findStation(text)
+                text != "" ? setOpen(null) : setOpen("none");
+                findStation(text);
+                setText(text);
             }}
             data={filteredStat}
             name="search"
+            value={text}
             placeholder={`${i18n.t('home.searchBar')}`}
-            listContainerStyle={[styles.listContainer, {display:open}]}
+            listContainerStyle={[styles.listContainer, {display:open}]} 
             flatListProps={{
-                renderItem:({item}) => <TouchableOpacity><Text>{item}</Text></TouchableOpacity>,
+                keyExtractor: (item, idx) => item+idx,
+                renderItem:({item, index}) =>
+                <TouchableOpacity
+                    onPress={() => {console.log(item); handleOnSearch(item); setOpen("none"); setText(null);}}
+                >
+                        <Text>{item}</Text>
+                </TouchableOpacity>
+            
             }}
             />
          </View>
