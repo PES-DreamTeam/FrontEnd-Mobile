@@ -15,7 +15,7 @@ export default ({chargePoints, OpenStationInfo}) => {
     const { auth } = useAuth();
 
     const IsFavStation = (station) => {
-        let ret = auth?.user?.favourites.includes(station?.id.toString());
+        let ret = auth?.user?.favourites?.includes(station?.id?.toString());
         return ret;
     }
 
