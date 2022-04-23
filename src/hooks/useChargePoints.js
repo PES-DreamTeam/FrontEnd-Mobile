@@ -6,7 +6,7 @@ const useChargePoints = () => {
   const getChargePoints = async (filter) => {
     // console.log(`/api/chargePoints?groupBy=id&objectType=`+filter);
     const response = await axios.get(
-      `${API_HOST}/api/chargePoints?groupBy=id&objectType=` + filter
+      `${API_HOST}/api/chargePoints?groupBy=id&objectType[]=` + filter
     );
     const data = response.data;
     return data.chargePoints;
