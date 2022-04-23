@@ -16,13 +16,19 @@ const useUser = () => {
   };
 
   const sendFavourite = async (station_id) => {
-    const response = await axios.put(
-      `${API_HOST}/api/users/${auth.user.id}/favourites`,
-      {
-        station_id,
-      }
-    );
-    return response.data.user;
+    try{
+      const response = await axios.put(
+        `${API_HOST}/api/users/${auth.user._id}/favourites`,
+        {
+          station_id,
+        }
+      );
+      console.log(response);
+      return response.data.user;
+    }
+    catch(err) {
+      console.log(err);
+    }
   };
 
   const updateProfilePicture = async (image64) => {
