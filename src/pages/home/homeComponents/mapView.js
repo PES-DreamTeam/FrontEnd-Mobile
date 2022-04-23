@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, useRef } from 'react';
+import React, { Component, useEffect, useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import { StyleSheet, ActivityIndicator, View, Image } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
@@ -6,8 +6,9 @@ import * as Location from 'expo-location';
 import MapButton from './mapButton';
 import MapPoints from './mapPoints';
 import MapRoutes from './mapRoutes';
+import useAuth from '../../../hooks/useAuth'
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate, ActivateRoute, onChangeFilter, ChangeRoutingInfo}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
   
   const { getChargePoints } = useChargePoints();
   const [location,setLocation] = useState({
@@ -22,12 +23,15 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
 
   const [shownChargePoints, setShown] = useState([]);
 
+  const { auth } = useAuth();
+
   const initialRegion = {
     latitude: location.latitude,
     longitude: location.longitude,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   }
+
   useEffect(async () => {
     
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -42,36 +46,26 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
       latitudeDelta:0.01,
       longitudeDelta:0.01
     })
-
-    let chargePoints = await getChargePoints('all');
-    let arrayPuntos = Object.entries(chargePoints);
-    setChargePoints(arrayPuntos);
-    setShown(arrayPuntos);
     
     const interval = setInterval(async () => {
-      let chargePoints = await getChargePoints('all');
+      /*let chargePoints = await getChargePoints(mapFilter);
       let arrayPuntos = Object.entries(chargePoints);
-      setChargePoints(arrayPuntos);
+      setChargePoints(arrayPuntos);*/
     }, 60000);
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); 
   }, []);
+
 
   useEffect(async () => {
     setIsLoading(true);
-    if(mapFilter == "singleCharge"){
-      let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id);
-      setShown(aux);  
-    }
-    else if (mapFilter == "" || mapFilter == "all"){
-      let aux = [...chargePoints];
-      setShown(aux);
-    }
-    else{      
-      let aux = chargePoints?.filter(markers => markers[1].objectType == mapFilter);
-      setShown(aux);
-    }
+    console.log("Filter changed to: " + mapFilter);
+    console.log(auth?.user);
+    let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
+    let temp = Object.entries(pointsToShow);
+    setChargePoints(temp);
+    setShown(temp);
     setIsLoading(false);
-  },[mapFilter]);
+  }, [mapFilter]);
 
   const {latitude,longitude} = location;
 
@@ -194,4 +188,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export { CustomMapView };
+export {CustomMapView};

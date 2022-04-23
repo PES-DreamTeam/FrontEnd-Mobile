@@ -5,6 +5,7 @@ const cat = {
 			map: "Mapa",
 			vehicle: "Vehícle",
 			bike: "Bici",
+			favs: "Preferits",
 			highlight: "Destacats",
 		}, 
 		searchBar: "Buscar:",
@@ -80,6 +81,7 @@ const cat = {
 		tellAFriend: "Comparteix amb un amic!",
 		logOut: "Tancar sessió",
 		shareMessage: "Descobreix EcoRoads | Una aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient.",
+		achievements: "Assoliments",
 	}, 
 	locationInfo: {
 		mechanical: "Mecàniques",
@@ -102,6 +104,9 @@ const cat = {
 			dislike: "No m'agrada",
 		}, 
 		send: "Enviar",
+	}, 
+	achievementScreen: {
+		subtitle: "Els teus assoliments:",
 	}
 }
 export{ cat }

@@ -21,10 +21,15 @@ export default function HomeScreen({ navigation }) {
 
   const [user,setUser] = useState(auth?.user);
   const [search, setSearch] = useState('');
-  const [currentFilter, setCurrentFilter] = useState("");
+  const [currentFilter, setCurrentFilter] = useState(["vehicleStation"]);
   const [wantRoute, setWantRoute] = useState(null);
   const [routeInfo, setRouteInfo] = useState(null);
   const [currentStationInfo, setStationInfo] = useState(null);
+
+  const [filterVehicle, setFilterVehicle] = useState(true);
+  const [filterBike, setFilterBike] = useState(false);
+  const [filterHighlight, setFilterHighlight] = useState(false);
+  const [filterFavs, setFilterFavs] = useState(false);
 
   useEffect(() => {setUser(auth.user)},[auth]);
 
@@ -34,8 +39,32 @@ export default function HomeScreen({ navigation }) {
     setSearch(text);  
   }
 
+  
+
   const ChangeFilter = (filter) => {
-    setCurrentFilter(filter);
+    let temp = JSON.parse(JSON.stringify(currentFilter));
+    let index = temp.indexOf(filter);
+    if(index !== -1) {
+      temp.splice(index, 1);
+    }
+    else {
+      temp.push(filter);
+    }
+    switch(filter) {
+      case "vehicleStation":
+        setFilterVehicle(!filterVehicle);
+        break;
+      case "bikeStation":
+        setFilterBike(!filterBike);
+        break;
+      case "highlight":
+        setFilterHighlight(!filterHighlight);
+        break;
+      case "favs":
+        setFilterFavs(!filterFavs);
+        break;
+    }
+    setCurrentFilter(temp);
     CloseStationInfo();
   }
 
@@ -81,6 +110,7 @@ export default function HomeScreen({ navigation }) {
         />
       </View>
       <CustomMapView 
+        //ref={mapViewRef}
         color={vehicleConfig[0]?.color ?? '#000000'}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
@@ -103,6 +133,10 @@ export default function HomeScreen({ navigation }) {
         onChangeFilter={ChangeFilter}
         ChangeRoutingInfo={changeRouteInfo}
         ActivateRoute={ActivateRoute}
+        filterVehicle={filterVehicle}
+        filterBike={filterBike}
+        filterHighlight={filterHighlight}
+        filterFavs={filterFavs}
       />
 
     </View>

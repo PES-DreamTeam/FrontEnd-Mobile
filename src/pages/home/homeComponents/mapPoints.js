@@ -37,7 +37,6 @@ export default ({chargePoints, OpenStationInfo}) => {
         }
         }
     }
-
     return(
         chargePoints?.map(chargePoint => 
             <Marker

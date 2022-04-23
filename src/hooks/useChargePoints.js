@@ -2,10 +2,23 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
+import useAuth from '../hooks/useAuth';
+
 const useChargePoints = () => {
-  const getChargePoints = async (filter) => {
+  const getChargePoints = async (filter, userId) => {
+    let filterText = "";
+    if(filter !== null && filter !== "all" && filter !== []) {
+      for(let i = 0; i < filter.length; ++i) {
+        if(filter[i] != "favs") {
+          filterText += "&objectType[]=" + filter[i];
+        }
+        else {
+          filterText += "&userId=" + userId;
+        }
+      }
+    }
     const response = await axios.get(
-      `${API_HOST}/api/chargePoints?groupBy=id${(filter === null || filter === "all") ? "" : `&objectType[]=${filter}`}` 
+      `${API_HOST}/api/chargePoints?groupBy=id${(filter === null || filter === "all" || filter === []) ? "" : filterText}`
     );
     const data = response.data;
     return data.chargePoints;
