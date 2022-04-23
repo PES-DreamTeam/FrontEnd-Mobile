@@ -20,7 +20,7 @@ export default function UploadImage() {
     let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [1, 1],
         quality: 1,
         base64: true,
     });
@@ -48,15 +48,15 @@ export default function UploadImage() {
 
 const styles=StyleSheet.create({
     profileImage: {
-    width: 125, 
-    height: 125, 
-    borderRadius: 125/ 2,
-    alignSelf: 'center',
+        width: 150, 
+        height: 150, 
+        borderRadius: 150/ 2,
+        alignSelf: 'center',
     }, 
     container:{
         elevation: 2,
-        height: 150,
-        width: 150,
+        height: 200,
+        width: 200,
         backgroundColor: '#efefef',
         position: 'relative',
         borderRadius: 150/2,

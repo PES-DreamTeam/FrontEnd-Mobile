@@ -55,6 +55,7 @@ yourVehicle,Your vehicles information,Información de tus vehículos,Informació
 title,Profile,Perfil,Perfil
 vehicleNotDef,Vehicle not defined yet,Vehículo no definido,Vehicle no definit
 addNewVehicle,Add a new vehicle,Añade un vehículo,Afegeix un vehicle
+saveChanges,Save changes,Guardar cambios,Desa els canvis
 editProfile,Edit your profile,Edita tu perfil,Edita el teu perfil
 PAGE_carInfoItem,,,
 nickname,Nickname:,Apodo:,Sobrenom:

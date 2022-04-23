@@ -14,7 +14,6 @@ const useAuth = () => {
     });
     let data = response.data;
     data.isSignedIn = true;
-    console.log(data);
     setAuth(data);
   };
 

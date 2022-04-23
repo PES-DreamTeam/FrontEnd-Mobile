@@ -1,79 +1,128 @@
 import React, { useEffect, useState, useRef} from 'react';
-import { View, Text, StyleSheet, Image, Pressable, FlatList, useWindowDimensions, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, Pressable, FlatList, useWindowDimensions, ScrollView } from 'react-native';
 import i18n from 'i18n-js';
 import useAuth from '../../hooks/useAuth';
 import useUserSettings from '../../hooks/useUserSettings';
 import CarInfoItem from './profileComponents/CarInfoItem';
 import Carousel from 'react-native-snap-carousel';
 import UploadImage from './profileComponents/UploadImage';
+import CustomButton from '../../utils/button'
+
+function TextEditableLabel({editable, textValue, labelName, normalStyle, editableStyle, ChangeText, localizationKey}) {
+    if(editable) {
+        return (
+            <TextInput
+                onChangeText={(text) => ChangeText(text, labelName)}
+                value={textValue}
+                style={[editableStyle]}
+                name= {labelName}
+                placeholder= {i18n.t(localizationKey)}
+            />
+        );
+    }
+    else {
+        return (
+            <Text style = {[normalStyle]}>
+                {textValue}
+            </Text>
+        );
+    }
+}
 
 function ProfileScreen({ navigation }) {
 
-    const {auth} = useAuth();
+    const {auth, updateUser} = useAuth();
     useUserSettings(); 
 
     const [user,setUser] = useState({
         id:auth.user._id,
         email:auth.user.email,
-        nickname:auth.user.nickname,
+        name:auth.user.nickname,
         vehicleConfig: auth.user.vehicleConfig 
     })
     useEffect(()=>{setUser({
         id:auth.user._id,
         email:auth.user.email,
-        nickname:auth.user.nickname,
+        name:auth.user.nickname,
         vehicleConfig: auth.user.vehicleConfig 
     })},[auth])
 
     const {width} = useWindowDimensions();
 
-    const{id,email,nickname, vehicleConfig} = user;
+    const{id,email,name, vehicleConfig} = user;
+
+    const [editProfile,setEditProfile] = useState({
+        editProfile:false,
+    });
+
+    function EnableEditProfile(enabled) {
+        if(!enabled) {
+            console.log("letsgo");
+            updateUser({...auth.user, nickname: user.name, email: user.email});
+        }
+        console.log(name);
+        setEditProfile(enabled);
+    }
+
+    const onChangeText = (text, name) => {
+        setUser({
+            ...user,
+            [name]: text 
+        })
+    }
 
     return(
         <View style={styles.container}>
             <ScrollView>
             {/* Imagen de perfil */}
-            <View style={styles.uploadImage} >
-                <UploadImage/>
+                <View style={styles.uploadImage} >
+                    <UploadImage/>
 
-            </View>
-            {/* Nombre de perfil */}
-            <Text style = {[styles.title]}>
-                {nickname}
-               
-            </Text>
-            <Text style = {[styles.subtitle]}>
-                {email}
-            </Text>
-            <Text style = {[styles.header]}>
-                {i18n.t('profile.yourVehicle')}
-            </Text>
+                </View>
+                {/* Nombre de perfil */}
+                <TextEditableLabel
+                    editable={editProfile}
+                    ChangeText={(text) => onChangeText(text, 'name')}
+                    textValue={name}
+                    normalStyle={styles.name}
+                    editableStyle={styles.editableName}
+                />
+                <TextEditableLabel
+                    editable={editProfile}
+                    ChangeText={(text) => onChangeText(text, 'email')}
+                    textValue={email}
+                    normalStyle = {[styles.subtitle]}
+                    editableStyle={[styles.editableSubtitle]}
+                />
+                <Text style = {[styles.header]}>
+                    {i18n.t('profile.yourVehicle')}
+                </Text>
 
-            {vehicleConfig.length > 0 ? (
-                <View>
-                    <Carousel
-                        data = {vehicleConfig}
-                        renderItem = {({item}) => <CarInfoItem item = {item} />}
-                        sliderWidth={320}
-                        sliderHeight={128}
-                        itemWidth={320}
-                        itemHeight={128}
-                        keyExtractor={(item,index) => index}
+                {vehicleConfig.length > 0 ? (
+                    <View>
+                        <Carousel
+                            data = {vehicleConfig}
+                            renderItem = {({item}) => <CarInfoItem item = {item} />}
+                            sliderWidth={320}
+                            sliderHeight={128}
+                            itemWidth={320}
+                            itemHeight={128}
+                            keyExtractor={(item,index) => index}
+                        />
+                    </View> 
+                ) : <Text>  {i18n.t('profile.vehicleNotDef')} </Text>}
+                <View style={styles.buttonBar}>
+                    <CustomButton
+                        customStyles={styles.editButton}
+                        onPress={()=>EnableEditProfile(!editProfile)}
+                        text={editProfile? i18n.t('profile.saveChanges'): i18n.t('profile.editProfile')}
                     />
-                </View> 
-            ) : <Text>  {i18n.t('profile.vehicleNotDef')} </Text>}
-            <View style={styles.buttonBar}>
-                <Pressable style={styles.editButton} onPress={()=>("")}>
-                    <Text style={{color:"white", fontWeight: 'bold'}}>
-                        {i18n.t('profile.editProfile')}
-                    </Text>
-                </Pressable>
-                <Pressable style={styles.addButton} onPress={() => {navigation.navigate("VehicleConfig")}}>
-                    <Text style={{color:"white", fontWeight: 'bold'}}>
-                        {i18n.t('profile.addNewVehicle')}
-                    </Text>
-                </Pressable>
-            </View>
+                    <CustomButton
+                        customStyles={styles.addButton}
+                        onPress={() => {navigation.navigate("VehicleConfig")}}
+                        text={ i18n.t('profile.addNewVehicle')}
+                    />
+                </View>
             </ScrollView>
         </View>
     )
@@ -108,17 +157,29 @@ const styles = StyleSheet.create({
         borderRadius: 125/ 2,
         alignSelf: 'center',
     }, 
-    title: {
+    name: {
         fontSize: 25,
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
         alignSelf: 'center',
     },
+    editableName: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+        borderWidth: 1,
+    },
     subtitle: {
         fontSize: 18,
         marginBottom: 25,
         alignSelf: 'center',
+    },
+    editableSubtitle: {
+        fontSize: 18,
+        marginBottom: 25,
+        borderWidth: 1,
     },
     header: {
         fontSize: 18,
@@ -167,7 +228,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-      },
+    },
+
+
 })
 
 export { ProfileScreen }

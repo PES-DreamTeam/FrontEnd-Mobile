@@ -157,7 +157,7 @@ function ChargeStationInfo(props) {
                 ? require("../../../../../assets/images/favourite.png")
                 : require("../../../../../assets/images/blank-favourite.png")
             }
-            style={styles.heartIcon}
+            style={styles.favIcon}
           ></Image>
         </Pressable>
       </View>
@@ -206,13 +206,13 @@ const styles = StyleSheet.create({
   favouriteButton: {
     marginLeft: "auto",
   },
-  heartIcon: {
-    height: 40,
-    width: 40,
+  favIcon: {
+    height: 36,
+    width: 36,
   },
   likeIcon: {
-    height: 32,
-    width: 32,
+    height: 40,
+    width: 40,
   },
   buttons: {
     display: "flex",
