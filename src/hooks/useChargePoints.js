@@ -2,23 +2,24 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
-import useAuth from '../hooks/useAuth';
+import useAuth from "../hooks/useAuth";
 
 const useChargePoints = () => {
   const getChargePoints = async (filter, userId) => {
     let filterText = "";
-    if(filter !== null && filter !== "all" && filter !== []) {
-      for(let i = 0; i < filter.length; ++i) {
-        if(filter[i] != "favs") {
+    if (filter !== null && filter !== "all" && filter !== []) {
+      for (let i = 0; i < filter.length; ++i) {
+        if (filter[i] != "favs") {
           filterText += "&objectType[]=" + filter[i];
-        }
-        else {
+        } else {
           filterText += "&userId=" + userId;
         }
       }
     }
     const response = await axios.get(
-      `${API_HOST}/api/chargePoints?groupBy=id${(filter === null || filter === "all" || filter === []) ? "" : filterText}`
+      `${API_HOST}/api/chargePoints?groupBy=id${
+        filter === null || filter === "all" || filter === [] ? "" : filterText
+      }`
     );
     const data = response.data;
     return data.chargePoints;
@@ -29,9 +30,6 @@ const useChargePoints = () => {
       `${API_HOST}/api/chargePoints/${id_charge}`
     );
     const data = response.data;
-    console.log("hola");
-    console.log(data);
-    console.log("adeu");
     return data.chargePoint;
   };
 
@@ -47,7 +45,7 @@ const useChargePoints = () => {
     const response = await axios.put(
       `${API_HOST}/api/chargePoints/${station_id}/vote`
     );
-    /*     console.log(response.data.user.likes); */
+    return response.data.likedStations;
   };
 
   const sendReport = async (station_id, reportType, reportMsg) => {
@@ -56,11 +54,10 @@ const useChargePoints = () => {
         `${API_HOST}/api/chargePoints/${station_id}/report/`,
         {
           reportType: reportType,
-          reportMsg: reportMsg
+          reportMsg: reportMsg,
         }
       );
-    }
-    catch(err) {
+    } catch (err) {
       let errors = [];
       if (err.response.status === 403) {
         err.response.data.errors.map((error) => {
@@ -76,8 +73,7 @@ const useChargePoints = () => {
           errors: ["Something went wrong. Try again later."],
         };
     }
-
-  }
+  };
 
   return {
     getChargePoints,
