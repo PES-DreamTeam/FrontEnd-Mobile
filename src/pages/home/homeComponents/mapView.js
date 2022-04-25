@@ -20,12 +20,10 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
       longitudeDelta:0.01
   });
   const [isLoading, setIsLoading] = useState(false);
-
   const [chargePoints, setChargePoints] = useState([]);
-
   const [shownChargePoints, setShown] = useState([]);
   const [searchedPoint, setSearchedPoint] = useState(null);
-
+  const [searchType, setSearchType] = useState(null);
 
   const handleOnSearch = (nameStation) =>{
     let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
@@ -110,43 +108,43 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
        <SearchBar 
        shownChargePoints={shownChargePoints}
        handleOnSearch={handleOnSearch}
+       routeActivate={routeActivate}
        />
 
+      <MapView style ={styles.map} ref={mapRef}
+        onPress={ () =>{
+          CloseStationInfo();
+        }}
+        initialRegion={initialRegion}
+      > 
+        {routeActivate ? 
+          <MapRoutes
+          routeActivate={routeActivate}
+          location={location}
+          ChangeRoutingInfo={ChangeRoutingInfo}
+          />
+        : null
+        }
 
+        <MapPoints
+          chargePoints={shownChargePoints}
+          OpenStationInfo={OpenStationInfo}
+          searchedPoint={searchedPoint}
+        />  
 
-        <MapView style ={styles.map} ref={mapRef}
-          onPress={ () =>{
-            CloseStationInfo();
+        <Marker 
+          coordinate={{
+            latitude: latitude, longitude: longitude
           }}
-          initialRegion={initialRegion}
-        > 
-          {routeActivate ? 
-            <MapRoutes
-            routeActivate={routeActivate}
-            location={location}
-            ChangeRoutingInfo={ChangeRoutingInfo}
+        >
+            <Image
+              source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
+              style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
             />
-          : null
-          }
-
-          <MapPoints
-            chargePoints={shownChargePoints}
-            OpenStationInfo={OpenStationInfo}
-            searchedPoint={searchedPoint}
-          />  
-
-          <Marker 
-            coordinate={{
-              latitude: latitude, longitude: longitude
-            }}
-          >
-              <Image
-                source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
-                style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
-              />
-          </Marker>
+        </Marker>
             
         </MapView>
+        
         <MapButton
           styles={[styles.floatingButton, styles.rightFloat]}
           onPress={centerPosition}
