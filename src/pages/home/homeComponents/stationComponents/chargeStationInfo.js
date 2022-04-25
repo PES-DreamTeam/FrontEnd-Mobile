@@ -211,8 +211,8 @@ const styles = StyleSheet.create({
     width: 36,
   },
   likeIcon: {
-    height: 40,
-    width: 40,
+    height: 36,
+    width: 36,
   },
   buttons: {
     display: "flex",

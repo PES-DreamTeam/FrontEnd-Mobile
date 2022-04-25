@@ -16,13 +16,25 @@ const useUser = () => {
   };
 
   const sendFavourite = async (station_id) => {
-    const response = await axios.put(
-      `${API_HOST}/api/users/${auth.user.id}/favourites`,
-      {
-        station_id,
-      }
+    try {
+      const response = await axios.put(
+        `${API_HOST}/api/users/${auth.user._id}/favourites`,
+        {
+          station_id,
+        }
+      );
+      return response.data.user;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getLikes = async () => {
+    const response = await axios.get(
+      `${API_HOST}/api/users/${auth.user._id}/likes`
     );
-    return response.data.user;
+    const data = response.data;
+    return data.likes;
   };
 
   const updateProfilePicture = async (image64) => {
@@ -38,9 +50,12 @@ const useUser = () => {
       );
       const data = await response.json();
       const imageUrl = data.data.display_url;
-      const res = await axios.post(`${API_HOST}/api/users/${auth.user._id}/profilePicture`, {      
-        image: imageUrl
-      }); 
+      const res = await axios.post(
+        `${API_HOST}/api/users/${auth.user._id}/profilePicture`,
+        {
+          image: imageUrl,
+        }
+      );
       return res.data;
     } catch (error) {
       console.log(error);
@@ -50,6 +65,7 @@ const useUser = () => {
   return {
     getUserInfo,
     sendFavourite,
+    getLikes,
     updateProfilePicture,
   };
 };

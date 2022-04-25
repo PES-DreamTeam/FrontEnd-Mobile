@@ -5,6 +5,7 @@ const es = {
 			map: "Mapa",
 			vehicle: "Vehículo",
 			bike: "Bici",
+			favs: "Favoritos",
 			highlight: "Destacados",
 		}, 
 		searchBar: "Buscar:",
@@ -80,6 +81,7 @@ const es = {
 		tellAFriend: "Compartelo con un amigo!",
 		logOut: "Cerrar sesión",
 		shareMessage: "Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.",
+		achievements: "Logros",
 	}, 
 	locationInfo: {
 		mechanical: "Mecanicas",
@@ -102,6 +104,9 @@ const es = {
 			dislike: "No me gusta",
 		}, 
 		send: "Enviar",
+	}, 
+	achievementScreen: {
+		subtitle: "Tus logros:",
 	}
 }
 export{ es }

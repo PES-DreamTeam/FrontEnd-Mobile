@@ -3,9 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet, Pressable, TextInput } from '
 
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ScrollView } from 'react-native-gesture-handler';
+import useReportAplication from '../../hooks/useReportAplication';
 import CustomButton from '../../utils/button';
 
 function ReportAplicationScreen({navigation}) {
+
+    const { sendReport } = useReportAplication();
 
     const [open, setOpen] = useState(false);
     const [pickerVal, setPickerVal] = useState(null);
@@ -24,7 +27,7 @@ function ReportAplicationScreen({navigation}) {
         subject: '',
         details: '',
     };
-
+    
     const [report, setReport] = useState(initialState);
     const {platform, osVersion, subject, details} = report;
     const [error, setError] = useState({
@@ -43,8 +46,8 @@ function ReportAplicationScreen({navigation}) {
         setReport(initialState);
         setPickerVal(null);
     }
-
-    const reportApp = () => {
+    
+    const reportApp = async ()  => {
         if (platform.trim().length === 0 || osVersion.trim().length === 0 ||
         subject.trim().length === 0 || details.trim().length === 0 || pickerVal === null) {
         setError({
@@ -52,13 +55,9 @@ function ReportAplicationScreen({navigation}) {
             message: 'Please fill in all fields'
         })
         }
-        else{
-            //console.log("succesful report")
-            clearAllFields();
-            setError({
-                error: false, 
-                message: ''
-            });
+        else{              
+            await sendReport(pickerVal,platform,osVersion,subject,details)
+            clearAllFields()
             navigation.navigate("Home");
         }
         
@@ -87,7 +86,7 @@ function ReportAplicationScreen({navigation}) {
                     items={items}
                     setOpen={setOpen}
                     setValue={setPickerVal}
-                    containerStyle={{width:320, marginBottom: 15}}
+                    containerStyle={{width:320, marginBottom: 15}}                    
                 />       
                 <Text style={styles.formTitle}>
                         Which mobile plataform are you inquiring about?

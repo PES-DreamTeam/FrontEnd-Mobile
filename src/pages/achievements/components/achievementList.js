@@ -22,7 +22,7 @@ function achievementList({ achievements }) {
 
 const styles = StyleSheet.create({
   achievementsList: {
-    height: "85%",
+    height: "90%",
   },
 });
 

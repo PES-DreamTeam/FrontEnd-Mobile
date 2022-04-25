@@ -4,6 +4,7 @@ title,Home,Inicio,Inici
 bottomBar_map,Map,Mapa,Mapa
 bottomBar_vehicle,Vehicle,Vehículo,Vehícle
 bottomBar_bike,Bike,Bici,Bici
+bottomBar_favs,Favs,Favoritos,Preferits
 bottomBar_highlight,Highlight,Destacados,Destacats
 searchBar,Search:,Buscar:,Buscar:
 PAGE_settings,,,
@@ -68,6 +69,7 @@ settings,Settings,Ajustes,Configuració
 tellAFriend,Share it with a friend!,Compartelo con un amigo!,Comparteix amb un amic!
 logOut,Log Out,Cerrar sesión,Tancar sessió
 shareMessage,Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.,Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.,Descobreix EcoRoads | Una aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient.
+achievements,Achievements,Logros,Assoliments
 PAGE_locationInfo,,,
 mechanical,Mechanical,Mecanicas,Mecàniques
 electrical,Electrical,Electricas,Elèctriques
@@ -86,3 +88,5 @@ reportStation_poorCondition,Poor conditions,Malas condiciones,Males condicions
 reportStation_badInformation,Incorrect Info,Información erronea,Informació errònia
 reportStaiton_dislike,Dislike,No me gusta,No m'agrada
 send,Send,Enviar,Enviar
+PAGE_achievementScreen,,,
+subtitle,Your achievements:,Tus logros:,Els teus assoliments:

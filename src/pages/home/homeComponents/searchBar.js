@@ -9,6 +9,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
     const [open, setOpen] = useState("none");
     const [text, setText] = useState(null);
     const [routeActive, setRouteActive] = useState(null);
+    
     const findStation = (search) => {
         if (search) {
           const regex = new RegExp(`${search.trim()}`, 'i');
@@ -20,7 +21,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
         }
       };
 
-      useEffect(() =>routeActivate ? setRouteActive("none"): setRouteActive(null) , [routeActivate]);
+      useEffect(() =>routeActivate ? setRouteActive("none") : setRouteActive(null), [routeActivate]);
 
       const separator = () => (<View style={{height:1, backgroundColor:"grey"}}></View>);
 
