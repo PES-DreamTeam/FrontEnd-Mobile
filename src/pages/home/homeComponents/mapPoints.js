@@ -1,5 +1,7 @@
 import { Marker } from 'react-native-maps';
-export default ({chargePoints, OpenStationInfo}) => {
+import React, {  useEffect } from 'react';
+
+export default ({chargePoints, OpenStationInfo, searchedPoint}) => {
     const stationColors = [
         '#629C44', //VERDE (>=90%)
         '#FFE608', //AMARILLO (>= 70%)
@@ -38,18 +40,26 @@ export default ({chargePoints, OpenStationInfo}) => {
         }
     }
 
+
+    const markers=[]
+
+    useEffect(() => markers.length === 2597 ? markers[searchedPoint].showCallout() : "",[searchedPoint])
+
+
     return(
         chargePoints?.map(chargePoint => 
             <Marker
-                key={chargePoint[1].id}
-                onPress={()=>OpenStationInfo(chargePoint[1])}
+            key={chargePoint[1].id}
+            ref={(ref) => markers[chargePoint[1].id] = ref}
+            onPress={()=>OpenStationInfo(chargePoint[1])}
                 pinColor={GetColorStation(chargePoint[1])}
                 coordinate={{
                     latitude: chargePoint[1].lat,
                     longitude: chargePoint[1].lng
                 }}
                 title={chargePoint[1].name}
-            />
+                />
+                
         )
-    )
+        )
 }

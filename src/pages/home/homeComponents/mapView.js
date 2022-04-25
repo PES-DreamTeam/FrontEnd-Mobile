@@ -12,7 +12,6 @@ import Autocomplete from 'react-native-autocomplete-input';
 
 
 const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate, ActivateRoute, onChangeFilter, ChangeRoutingInfo}) => {
-  
   const { getChargePoints } = useChargePoints();
   const [location,setLocation] = useState({
       latitude:41.3887900,
@@ -25,14 +24,13 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
   const [chargePoints, setChargePoints] = useState([]);
 
   const [shownChargePoints, setShown] = useState([]);
+  const [searchedPoint, setSearchedPoint] = useState(null);
+
 
   const handleOnSearch = (nameStation) =>{
-    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);
-    //console.log(stationSearched[0][1]);
-    
+    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
     let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
-    console.log(statlocation);
-    //console.log(mapRef);
+    setSearchedPoint(stationSearched[0][1].id);
     mapRef.current.animateToRegion(statlocation, 1500)
     OpenStationInfo(stationSearched[0][1]);
   }
@@ -134,6 +132,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
           <MapPoints
             chargePoints={shownChargePoints}
             OpenStationInfo={OpenStationInfo}
+            searchedPoint={searchedPoint}
           />  
 
           <Marker 
