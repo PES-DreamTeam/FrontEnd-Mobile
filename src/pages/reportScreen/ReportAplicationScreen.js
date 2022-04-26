@@ -49,7 +49,7 @@ function ReportAplicationScreen({navigation}) {
         subject.trim().length === 0 || details.trim().length === 0 || pickerVal === null) {
         setError({
             error: true,
-            message: 'Please fill in all fields'
+            message:  <Text>{i18n.t("report.ReportApplicationScreen.fillfields")}</Text>
         })
         }
         else{
@@ -69,7 +69,7 @@ function ReportAplicationScreen({navigation}) {
        <View style={styles.container}>
            <ScrollView style={[styles.topContainer]}>
                 <Text style={styles.title}>
-                    Pagina de Reporte
+                {i18n.t("report.ReportApplicationScreen.title")}
                 </Text>
                 {error.error ?
                         <View style={styles.errorContainer}>
@@ -79,7 +79,7 @@ function ReportAplicationScreen({navigation}) {
                         </View>
                 : null}
                 <Text style={styles.formTitle}>
-                    Type of Report 
+                    {i18n.t("report.ReportApplicationScreen.type")}
                 </Text>
                 <DropDownPicker
                     open={open}
@@ -90,7 +90,7 @@ function ReportAplicationScreen({navigation}) {
                     containerStyle={{width:320, marginBottom: 15}}
                 />       
                 <Text style={styles.formTitle}>
-                        Which mobile plataform are you inquiring about?
+                    {i18n.t("report.ReportApplicationScreen.mobilepl")}
                 </Text>
                 <TextInput
                     style={styles.input}
@@ -100,8 +100,7 @@ function ReportAplicationScreen({navigation}) {
                     placeholder= 'OS version'
                 />    
                 <Text style={styles.formTitle}>
-                    If applicable, which version of the OS
-                    are you currently running?
+                {i18n.t("report.ReportApplicationScreen.OSversion")}
                 </Text>
                 <TextInput
                         style={styles.input}
@@ -111,7 +110,7 @@ function ReportAplicationScreen({navigation}) {
                         placeholder= 'OS version'
                 />     
                 <Text style={styles.formTitle}>
-                        Subject of Inquiry
+                    {i18n.t("report.ReportApplicationScreen.subjectinquiry")}
                 </Text>
                 <TextInput
                         style={styles.input}
@@ -121,7 +120,7 @@ function ReportAplicationScreen({navigation}) {
                         placeholder= 'Inquiry subject'
                     />     
                 <Text style={styles.formTitle}>
-                    Details of Inquiry
+                    {i18n.t("report.ReportApplicationScreen.detailsinquiry")}
                 </Text>
                 <TextInput
                         style={styles.input}
