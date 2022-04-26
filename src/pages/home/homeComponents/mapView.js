@@ -66,14 +66,20 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
 
 
   useEffect(async () => {
-    setIsLoading(true);
-    console.log("Filter changed to: " + mapFilter);
-    console.log(auth?.user);
-    let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
-    let temp = Object.entries(pointsToShow);
-    setChargePoints(temp);
-    setShown(temp);
-    setIsLoading(false);
+    if(mapFilter.includes("singleCharge")){
+        let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id)
+        setShown(aux);
+    }
+    else{
+      setIsLoading(true);
+      console.log("Filter changed to: " + mapFilter);
+      //console.log(auth?.user);
+      let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
+      let temp = Object.entries(pointsToShow);
+      setChargePoints(temp);
+      setShown(temp);
+      setIsLoading(false);
+    }
   }, [mapFilter]);
 
   const {latitude,longitude} = location;
@@ -89,8 +95,9 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
   }
 
   const cancelRoute = () => {
+    console.log(mapFilter)
     ActivateRoute(null);
-    onChangeFilter('all');
+    onChangeFilter('singleCharge');
     ChangeRoutingInfo(null);
   }
 
@@ -144,7 +151,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
         />
 
         {/* When the route to point is activated */}
-        {mapFilter == "singleCharge" ? 
+        {mapFilter.includes("singleCharge") ? 
           <MapButton
             styles={[styles.floatingButton, styles.leftFloat]}
             onPress={cancelRoute}
