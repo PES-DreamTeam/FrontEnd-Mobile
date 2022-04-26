@@ -31,6 +31,8 @@ function TextEditableLabel({editable, textValue, labelName, normalStyle, editabl
 
 function ProfileScreen({ navigation }) {
 
+
+
     const {auth, updateUser} = useAuth();
     useUserSettings(); 
 
@@ -51,9 +53,7 @@ function ProfileScreen({ navigation }) {
 
     const{id,email,name, vehicleConfig} = user;
 
-    const [editProfile,setEditProfile] = useState({
-        editProfile:false,
-    });
+    const [editProfile,setEditProfile] = useState(false);
 
     function EnableEditProfile(enabled) {
         if(!enabled) {
@@ -73,7 +73,7 @@ function ProfileScreen({ navigation }) {
 
     return(
         <View style={styles.container}>
-            <ScrollView>
+            <ScrollView style={[styles.scroll]}>
             {/* Imagen de perfil */}
                 <View style={styles.uploadImage} >
                     <UploadImage/>
@@ -132,7 +132,12 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         padding: 20,
-        width: "100%"
+        width: "100%",
+        flexDirection: "column",
+        justifyContent: 'space-between',
+    },
+    scroll:{
+        alignSelf: 'center',
     },
     uploadImage: {
         alignItems: 'center',
@@ -223,7 +228,7 @@ const styles = StyleSheet.create({
     },
     buttonBar: {
         marginTop: '5%',
-        width: '100%',
+        width: 320,
         textAlign: 'left',
         flexDirection: 'row',
         alignItems: 'center',

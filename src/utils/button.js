@@ -1,19 +1,27 @@
-import { TouchableOpacity, Text, StyleSheet } from "react-native"
+import { TouchableOpacity, Text, StyleSheet, Image } from "react-native"
 import i18n from "i18n-js"
-export default ({onPress, text, customStyles, disabled}) => {
+export default ({onPress, text, customStyles, disabled, imageSrc, imageWidth, imageHeight}) => {
     return(
         <TouchableOpacity
             style={[styles.button, customStyles]}
             onPress={onPress}
             disabled={disabled}
+            imageSrc={imageSrc}
+            imageWidth={imageWidth}
+            imageHeight={imageHeight}
+
         >
             {
                 text ?
                 <Text style={{color: "white"}}>{text}</Text>
                 :
-                <Text style={{color: "white"}}>
-                    {i18n.t('miscelaneus.accept')}
-                </Text>
+                null
+            }
+            {
+                imageSrc ? 
+                <Image source={imageSrc} style={{width: imageWidth, height: imageHeight}}/>
+                :
+                null
             }
         </TouchableOpacity>
     )

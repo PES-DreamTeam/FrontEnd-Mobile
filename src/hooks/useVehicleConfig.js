@@ -38,7 +38,23 @@ const useVehicleConfig = () => {
         };
     }; 
 
-  return { sendConfig };
+    const deleteVehicleConfig = async (numberPlate) => {
+        const id = auth.user._id;
+        try {
+            console.log(numberPlate);
+            const response = await axios.delete(`${API_HOST}/api/users/${id}/vehicleConfig`, {
+                numberPlate: numberPlate.trim(),
+            });
+        } 
+        catch(error) {
+            throw {
+                attribute : "Unknown",
+                error: "Something went wrong. Try again later.",
+            }
+        };
+    };
+    
+  return { sendConfig, deleteVehicleConfig };
 };
 
 export default useVehicleConfig;
