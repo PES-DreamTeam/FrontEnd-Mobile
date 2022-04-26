@@ -22,6 +22,11 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
       };
 
       useEffect(() =>routeActivate ? setRouteActive("none") : setRouteActive(null), [routeActivate]);
+      useEffect(() => {
+          setOpen("none");
+          setText("");
+      }, [shownChargePoints]);
+
 
       const separator = () => (<View style={{height:1, backgroundColor:"grey"}}></View>);
 
