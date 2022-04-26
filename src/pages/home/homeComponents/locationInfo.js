@@ -10,7 +10,7 @@ import CustomButton from "../../../utils/button";
 import useChargePoints from "../../../hooks/useChargePoints";
 
 function LocationInfo(props) {
-  const { auth, setAuth, updateUser } = useAuth();
+  const { auth, setAuth } = useAuth();
   const { sendFavourite } = useUser();
   const { getChargePointLikes, sendStationLike } = useChargePoints();
   const [isFavourite, toggleFavourite] = useState();
@@ -36,13 +36,9 @@ function LocationInfo(props) {
       toggleFavourite(
         auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString())
       );
-      toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id));
-      /*       console.log(auth?.user?.likes);
-      console.log(props?.stationInfo?.id);
-      console.log(
+      toggleLiked(
         auth?.user?.likes?.includes(props?.stationInfo?.id.toString())
       );
-      console.log(auth?.user?.likes?.includes(props?.stationInfo?.id)); */
     }
   }, [props.stationInfo?.id]);
 
@@ -56,20 +52,14 @@ function LocationInfo(props) {
   };
 
   const handleLike = async () => {
-    await sendStationLike(props.stationInfo.id);
-    let likes = auth?.user?.likes;
-    if (!isLiked) {
-      likes.push(props.stationInfo.id);
-    } else {
-      likes = likes.filter((id) => id != props.stationInfo.id);
-    }
+    const likes = await sendStationLike(props.stationInfo.id);
     toggleLiked(!isLiked);
 
     setAuth({
       ...auth,
       user: {
         ...auth.user,
-        likes: likes,
+        likes,
       },
     });
   };
@@ -114,6 +104,7 @@ function LocationInfo(props) {
 
   return (
     <View style={stationInfoStyle}>
+      
       <View style={styles.locationAddressContent}>
         <Text style={{ color: "#1D69A6" }}>{props?.stationInfo?.address}</Text>
         <Text style={{ color: "#1D69A6" }}>{stationLikes} Likes</Text>

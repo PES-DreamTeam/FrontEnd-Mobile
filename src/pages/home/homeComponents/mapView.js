@@ -1,14 +1,16 @@
-import React, { Component, useEffect, useState, useRef } from 'react';
+import React, { Component, useEffect, useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import { StyleSheet, ActivityIndicator, View, Image } from 'react-native';
-import MapView, { Callout, Marker } from 'react-native-maps';
+import MapView, {  Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 import MapButton from './mapButton';
 import MapPoints from './mapPoints';
 import MapRoutes from './mapRoutes';
+import SearchBar from './searchBar';
+import useAuth from '../../../hooks/useAuth'
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, mapFilter, routeActivate, ActivateRoute, onChangeFilter, ChangeRoutingInfo}) => {
-  
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
+
   const { getChargePoints } = useChargePoints();
   const [location,setLocation] = useState({
       latitude:41.3887900,
@@ -17,10 +19,20 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
       longitudeDelta:0.01
   });
   const [isLoading, setIsLoading] = useState(false);
-
   const [chargePoints, setChargePoints] = useState([]);
-
   const [shownChargePoints, setShown] = useState([]);
+  const [searchedPoint, setSearchedPoint] = useState(null);
+  const [searchType, setSearchType] = useState(null);
+
+  const handleOnSearch = (nameStation) =>{
+    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
+    let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
+    setSearchedPoint(stationSearched[0][1].id);
+    mapRef.current.animateToRegion(statlocation, 1500)
+    OpenStationInfo(stationSearched[0][1]);
+  }
+
+  const { auth } = useAuth();
 
   const initialRegion = {
     latitude: location.latitude,
@@ -28,6 +40,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   }
+
   useEffect(async () => {
     
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -42,36 +55,32 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
       latitudeDelta:0.01,
       longitudeDelta:0.01
     })
-
-    let chargePoints = await getChargePoints('all');
-    let arrayPuntos = Object.entries(chargePoints);
-    setChargePoints(arrayPuntos);
-    setShown(arrayPuntos);
     
     const interval = setInterval(async () => {
-      let chargePoints = await getChargePoints('all');
+      /*let chargePoints = await getChargePoints(mapFilter);
       let arrayPuntos = Object.entries(chargePoints);
-      setChargePoints(arrayPuntos);
+      setChargePoints(arrayPuntos);*/
     }, 60000);
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); 
   }, []);
 
+
   useEffect(async () => {
-    setIsLoading(true);
-    if(mapFilter == "singleCharge"){
-      let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id);
-      setShown(aux);  
+    if(mapFilter.includes("singleCharge")){
+        let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id)
+        setShown(aux);
     }
-    else if (mapFilter == "" || mapFilter == "all"){
-      let aux = [...chargePoints];
-      setShown(aux);
+    else{
+      setIsLoading(true);
+      console.log("Filter changed to: " + mapFilter);
+      //console.log(auth?.user);
+      let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
+      let temp = Object.entries(pointsToShow);
+      setChargePoints(temp);
+      setShown(temp);
+      setIsLoading(false);
     }
-    else{      
-      let aux = chargePoints?.filter(markers => markers[1].objectType == mapFilter);
-      setShown(aux);
-    }
-    setIsLoading(false);
-  },[mapFilter]);
+  }, [mapFilter]);
 
   const {latitude,longitude} = location;
 
@@ -86,45 +95,55 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
   }
 
   const cancelRoute = () => {
+    console.log(mapFilter)
     ActivateRoute(null);
-    onChangeFilter('all');
+    onChangeFilter('singleCharge');
     ChangeRoutingInfo(null);
   }
 
   return (
-      <View style ={styles.mapContent}> 
-        <MapView style ={styles.map} ref={mapRef}
-          onPress={ () =>{
-            CloseStationInfo();
+      <View style ={styles.mapContent}>
+      
+       <SearchBar 
+       shownChargePoints={shownChargePoints}
+       handleOnSearch={handleOnSearch}
+       routeActivate={routeActivate}
+       />
+
+      <MapView style ={styles.map} ref={mapRef}
+        onPress={ () =>{
+          CloseStationInfo();
+        }}
+        initialRegion={initialRegion}
+      > 
+        {routeActivate ? 
+          <MapRoutes
+          routeActivate={routeActivate}
+          location={location}
+          ChangeRoutingInfo={ChangeRoutingInfo}
+          />
+        : null
+        }
+
+        <MapPoints
+          chargePoints={shownChargePoints}
+          OpenStationInfo={OpenStationInfo}
+          searchedPoint={searchedPoint}
+        />  
+
+        <Marker 
+          coordinate={{
+            latitude: latitude, longitude: longitude
           }}
-          initialRegion={initialRegion}
-        > 
-          {routeActivate ? 
-            <MapRoutes
-            routeActivate={routeActivate}
-            location={location}
-            ChangeRoutingInfo={ChangeRoutingInfo}
+        >
+            <Image
+              source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
+              style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
             />
-          : null
-          }
-
-          <MapPoints
-            chargePoints={shownChargePoints}
-            OpenStationInfo={OpenStationInfo}
-          />  
-
-          <Marker 
-            coordinate={{
-              latitude: latitude, longitude: longitude
-            }}
-          >
-              <Image
-                source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
-                style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
-              />
-          </Marker>
+        </Marker>
             
         </MapView>
+        
         <MapButton
           styles={[styles.floatingButton, styles.rightFloat]}
           onPress={centerPosition}
@@ -132,7 +151,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, m
         />
 
         {/* When the route to point is activated */}
-        {mapFilter == "singleCharge" ? 
+        {mapFilter.includes("singleCharge") ? 
           <MapButton
             styles={[styles.floatingButton, styles.leftFloat]}
             onPress={cancelRoute}
@@ -191,7 +210,7 @@ const styles = StyleSheet.create({
     },
     leftFloat: {
       left: 25
-    }
+    },
 })
 
-export { CustomMapView };
+export {CustomMapView};

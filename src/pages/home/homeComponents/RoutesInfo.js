@@ -98,8 +98,7 @@ const styles = StyleSheet.create({
     height: "50%",
     flexDirection: "row",
     marginLeft: "auto",
-    marginTop: "auto",
-    
+    marginTop: "auto",    
   },
   goThereButton: {
     backgroundColor: "#1D69A6",

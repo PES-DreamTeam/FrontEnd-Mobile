@@ -5,6 +5,7 @@ const en = {
 			map: "Map",
 			vehicle: "Vehicle",
 			bike: "Bike",
+			favs: "Favs",
 			highlight: "Highlight",
 		}, 
 		searchBar: "Search:",
@@ -80,6 +81,7 @@ const en = {
 		tellAFriend: "Share it with a friend!",
 		logOut: "Log Out",
 		shareMessage: "Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.",
+		achievements: "Achievements",
 	}, 
 	locationInfo: {
 		mechanical: "Mechanical",
@@ -102,6 +104,9 @@ const en = {
 			dislike: "Dislike",
 		}, 
 		send: "Send",
+	}, 
+	achievementScreen: {
+		subtitle: "Your achievements:",
 	}
 }
 export{ en }

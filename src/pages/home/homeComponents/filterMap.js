@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useUserSettings from '../../../hooks/useUserSettings';
 import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
 import i18n from 'i18n-js';
 
-const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute }) => {
+const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute, filterVehicle, filterBike, filterHighlight, filterFavs }) => {
     useUserSettings();
+
+    
 
     return (
         <View style ={styles.filterContent}> 
-            <Pressable 
+            {/* <Pressable 
                 style ={styles.filterButton}
                 onPress={() => {
                     onChangeFilter("");
@@ -21,9 +23,10 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute }) => {
                         style={styles.icon}
                     />
                 <Text>{i18n.t("home.bottomBar.map")}</Text>
-            </Pressable>
+            </Pressable> */}
             <Pressable 
-                style ={[styles.filterButton, {borderLeftWidth: 1}]}
+                style ={[styles.filterButton, 
+                     filterVehicle? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() =>{
                  onChangeFilter("vehicleStation");
                  ChangeRoutingInfo(null);
@@ -37,7 +40,8 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute }) => {
                 <Text>{i18n.t("home.bottomBar.vehicle")}</Text>
             </Pressable>
             <Pressable 
-                style ={[styles.filterButton, {borderLeftWidth: 1}]}
+                style ={[styles.filterButton, {borderLeftWidth: 1},
+                    filterBike? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() =>{
                     onChangeFilter("bikeStation")
                     ChangeRoutingInfo(null);
@@ -51,7 +55,8 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute }) => {
                 <Text>{i18n.t("home.bottomBar.bike")}</Text>
             </Pressable>
             <Pressable 
-                style ={[styles.filterButton, {borderLeftWidth: 1}]}
+                style ={[styles.filterButton, {borderLeftWidth: 1},
+                    filterHighlight? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() => {
                     onChangeFilter("highlight")
                     ChangeRoutingInfo(null);
@@ -59,10 +64,26 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute }) => {
                 } }
                 >
                     <Image
-                        source={require('../../../../assets/images/icons/star.png')}
+                        source={require('../../../../assets/images/icons/alert.png')}
                         style={styles.icon}
                     />
                 <Text>{i18n.t("home.bottomBar.highlight")}</Text>
+            </Pressable>
+
+            <Pressable 
+                style ={[styles.filterButton, {borderLeftWidth: 1},
+                    filterFavs? styles.selectedBottomButon : styles.unselectedBottomButon]}
+                onPress={() => {
+                    onChangeFilter("favs")
+                    ChangeRoutingInfo(null);
+                    ActivateRoute(null);
+                } }
+                >
+                    <Image
+                        source={require('../../../../assets/images/icons/star.png')} 
+                        style={styles.icon}
+                    />
+                <Text>{i18n.t("home.bottomBar.favs")}</Text>
             </Pressable>
           
         </View>
@@ -71,6 +92,12 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute }) => {
 
 const styles = StyleSheet.create({
     
+    selectedBottomButon: {
+        backgroundColor: 'grey',
+    },
+    unselectedBottomButon: {
+        backgroundColor: 'white',
+    },
     filterContent: {
         width: '100%',
         height: 60,
