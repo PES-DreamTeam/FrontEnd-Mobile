@@ -5,7 +5,7 @@ import CustomButton from '../../../utils/button'
 import useVehicleConfig from "../../../hooks/useVehicleConfig";
 
 
-export default CarInfoItem = ({item}) => {
+export default CarInfoItem = ({item, index, currentVehicle}) => {
     const {width} = useWindowDimensions();
 
     const {deleteVehicleConfig} = useVehicleConfig();
@@ -32,6 +32,7 @@ export default CarInfoItem = ({item}) => {
             <Image source = {vehicleImages[item.vehicleType]} style={[styles.image, {tintColor: item.color}, {width, resizeMode: 'contain'}, ]} />
             <View style = {[styles.infoContainer]}>
                 <View style={[styles.textContainer]}>
+                    {index == currentVehicle ? <Text style= {[styles.title]}>{"Vehículo predeterminado"} </Text> : <></>}
                     <Text style= {[styles.title]}>{item.brand} {item.model}</Text>
                     <Text style= {[styles.text]}> {i18n.t('carInfoItem.nickname')} "{item.nickname}"</Text>
                     <Text style= {[styles.text]}> {i18n.t('carInfoItem.numberPlate')} {item.numberPlate}</Text>

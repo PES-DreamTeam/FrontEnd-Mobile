@@ -33,7 +33,7 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {setUser(auth.user)},[auth]);
 
-  const{ vehicleConfig } = user;
+  const{ vehicleConfig, currentVehicle } = user;
 
 
   
@@ -103,10 +103,10 @@ export default function HomeScreen({ navigation }) {
       </View>
       <CustomMapView 
         //ref={mapViewRef}
-        color={vehicleConfig[0]?.color ?? '#000000'}
+        color={vehicleConfig[currentVehicle]?.color ?? '#000000'}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
-        vehicleType= {vehicleImages[vehicleConfig[0]?.vehicleType ?? 0]}
+        vehicleType= {vehicleImages[vehicleConfig[currentVehicle]?.vehicleType ?? 0]}
         mapFilter={currentFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}

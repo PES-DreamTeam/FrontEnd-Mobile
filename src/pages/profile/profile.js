@@ -31,8 +31,6 @@ function TextEditableLabel({editable, textValue, labelName, normalStyle, editabl
 
 function ProfileScreen({ navigation }) {
 
-
-
     const {auth, updateUser} = useAuth();
     useUserSettings(); 
 
@@ -40,27 +38,31 @@ function ProfileScreen({ navigation }) {
         id:auth.user._id,
         email:auth.user.email,
         name:auth.user.nickname,
-        vehicleConfig: auth.user.vehicleConfig 
+        vehicleConfig: auth.user.vehicleConfig,
+        currentVehicle: auth.user.currentVehicle 
     })
     useEffect(()=>{setUser({
         id:auth.user._id,
         email:auth.user.email,
         name:auth.user.nickname,
-        vehicleConfig: auth.user.vehicleConfig 
+        vehicleConfig: auth.user.vehicleConfig,
+        currentVehicle: auth.user.currentVehicle
     })},[auth])
 
     const {width} = useWindowDimensions();
 
     const{id,email,name, vehicleConfig} = user;
 
-    const [editProfile,setEditProfile] = useState(false);
+    const [editProfile,setEditProfile] = useState({
+        editProfile:false,
+    });
 
     function EnableEditProfile(enabled) {
         if(!enabled) {
             console.log("letsgo");
-            updateUser({...auth.user, nickname: user.name, email: user.email});
+            updateUser({...auth.user, nickname: user.name, email: user.email, currentVehicle:user.currentVehicle});
         }
-        console.log(name);
+        //console.log(name);
         setEditProfile(enabled);
     }
 
@@ -73,7 +75,7 @@ function ProfileScreen({ navigation }) {
 
     return(
         <View style={styles.container}>
-            <ScrollView style={[styles.scroll]}>
+            <ScrollView>
             {/* Imagen de perfil */}
                 <View style={styles.uploadImage} >
                     <UploadImage/>
@@ -94,20 +96,23 @@ function ProfileScreen({ navigation }) {
                     normalStyle = {[styles.subtitle]}
                     editableStyle={[styles.editableSubtitle]}
                 />
-                <Text style = {[styles.header]}>
-                    {i18n.t('profile.yourVehicle')}
-                </Text>
 
+                { editProfile 
+                    ?<Text style = {[styles.header]}>{"Escoge tu vehículo por defecto"}</Text>
+                    :<Text style = {[styles.header]}>{i18n.t('profile.yourVehicle')}</Text>
+                }
                 {vehicleConfig.length > 0 ? (
                     <View>
                         <Carousel
                             data = {vehicleConfig}
-                            renderItem = {({item}) => <CarInfoItem item = {item} />}
+                            renderItem = {({item, index}) => <CarInfoItem item = {item} index={index} currentVehicle={user.currentVehicle} />}
                             sliderWidth={320}
                             sliderHeight={128}
                             itemWidth={320}
                             itemHeight={128}
+                            firstItem={user.currentVehicle}
                             keyExtractor={(item,index) => index}
+                            onSnapToItem={(item) =>editProfile ? setUser({...user, ["currentVehicle"]:item}) : ""}
                         />
                     </View> 
                 ) : <Text>  {i18n.t('profile.vehicleNotDef')} </Text>}
@@ -132,12 +137,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         padding: 20,
-        width: "100%",
-        flexDirection: "column",
-        justifyContent: 'space-between',
-    },
-    scroll:{
-        alignSelf: 'center',
+        width: "100%"
     },
     uploadImage: {
         alignItems: 'center',
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     },
     buttonBar: {
         marginTop: '5%',
-        width: 320,
+        width: '100%',
         textAlign: 'left',
         flexDirection: 'row',
         alignItems: 'center',
