@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { AuthNavigator, SidebarNavigator } from "./navigators";
 import useAuth from "./hooks/useAuth";
 import { ToastProvider } from "react-native-toast-notifications";
-import AchievementToast from "./pages/achievements/components/achievementToast";
+import Toast from "./utils/toast";
 
 function Main() {
   //console.disableYellowBox = true;
@@ -19,7 +19,8 @@ function Main() {
       animationDuration={250}
       swipeEnabled={true}
       renderType={{
-        custom_type: (toast) => <AchievementToast message={toast.message} />,
+        type_achievement: (toast) => <Toast message={toast.message} title={toast.title} type="achievement" />,
+        type_report: (toast) => <Toast message={toast.message} title={toast.title} type="report" />,
       }}
     >
       <SidebarNavigator />

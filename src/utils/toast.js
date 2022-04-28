@@ -1,16 +1,22 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-function achievementToast(props) {
-  const { message } = props;
+function Toast(props) {
+  const { message, type, title } = props;
+
+  const image_type = () => {
+    if (type === "achievement") {
+      return require("../../../assets/images/medal.png");
+    } else {
+      return require("../../../assets/images/check.png");
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require("../../../../assets/images/medal.png")}
-      />
+      <Image style={styles.image} source={image_type()} />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Logro completado</Text>
+        <Text style={styles.title}>{title}</Text>
         <Text style={styles.description}>{message}</Text>
       </View>
     </View>
@@ -47,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default achievementToast;
+export default Toast;

@@ -7,6 +7,7 @@ import CarInfoItem from './profileComponents/CarInfoItem';
 import Carousel from 'react-native-snap-carousel';
 import UploadImage from './profileComponents/UploadImage';
 import CustomButton from '../../utils/button'
+import { useToast } from 'react-native-toast-notifications';
 
 function TextEditableLabel({editable, textValue, labelName, normalStyle, editableStyle, ChangeText, localizationKey}) {
     if(editable) {
@@ -32,6 +33,7 @@ function TextEditableLabel({editable, textValue, labelName, normalStyle, editabl
 function ProfileScreen({ navigation }) {
 
     const {auth, updateUser} = useAuth();
+    const toast = useToast();
     useUserSettings(); 
 
     const [user,setUser] = useState({
@@ -59,6 +61,10 @@ function ProfileScreen({ navigation }) {
         if(!enabled) {
             console.log("letsgo");
             updateUser({...auth.user, nickname: user.name, email: user.email, currentVehicle:user.currentVehicle});
+            toast.show(`Perfil editado correctamente`, {
+                type: "type_report",
+                title: "¡Éxito!",
+              });
         }
         //console.log(name);
         setEditProfile(enabled);
