@@ -1,68 +1,19 @@
 import i18n from "i18n-js";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Pressable, View, Text } from "react-native";
-import useAuth from "../../../hooks/useAuth";
-import useUser from "../../../hooks/useUser";
-import ChargeStationInfo from "./stationComponents/chargeStationInfo";
-import BikeStationInfo from "./stationComponents/bikeStationInfo";
+import GenericLocationInfo from "./stationComponents/genericLocationInfo";
 import ReportStationModal from "./stationComponents/reportStationModal";
 import CustomButton from "../../../utils/button";
-import useChargePoints from "../../../hooks/useChargePoints";
+
+import LocationModal from "./stationComponents/locationModal";
 
 function LocationInfo(props) {
-  const { auth, setAuth } = useAuth();
-  const { sendFavourite } = useUser();
-  const { getChargePointLikes, sendStationLike } = useChargePoints();
-  const [isFavourite, toggleFavourite] = useState();
-  const [stationLikes, setStationLikes] = useState();
-  const [isLiked, toggleLiked] = useState();
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
   );
 
+  const [locationModalOpened, setLocationModalOpened] = useState(false);
   const [reportStationVisible, setReportStationVisible] = useState(false);
-
-  useEffect(async () => {
-    if (props.stationInfo != null) {
-      setStationInfoStyle(styles.locationInfoOpened);
-      setStationLikes(await getChargePointLikes(props?.stationInfo?.id));
-    } else {
-      setStationInfoStyle(styles.locationInfoClosed);
-    }
-  }, [props]);
-
-  useEffect(() => {
-    if (props.stationInfo != null) {
-      toggleFavourite(
-        auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString())
-      );
-      toggleLiked(
-        auth?.user?.likes?.includes(props?.stationInfo?.id.toString())
-      );
-    }
-  }, [props.stationInfo?.id]);
-
-  const handleFavourite = async () => {
-    const user = await sendFavourite(props.stationInfo.id);
-    toggleFavourite(!isFavourite);
-    setAuth({
-      ...auth,
-      user: user,
-    });
-  };
-
-  const handleLike = async () => {
-    const likes = await sendStationLike(props.stationInfo.id);
-    toggleLiked(!isLiked);
-
-    setAuth({
-      ...auth,
-      user: {
-        ...auth.user,
-        likes,
-      },
-    });
-  };
 
   const ChargeStationIcon = (chargerType) => {};
 
@@ -71,51 +22,30 @@ function LocationInfo(props) {
     console.log(stationInfo);
   };
 
-  const HighlightInfo = () => {
-    return <View style={styles.highlightContent}></View>;
-  };
-
-  const GenericLocationInfo = () => {
-    switch (props?.stationInfo?.objectType) {
-      case "vehicleStation":
-        return (
-          <ChargeStationInfo
-            stationInfo={props.stationInfo}
-            isFavourite={isFavourite}
-            handleFavourite={handleFavourite}
-            isLiked={isLiked}
-            handleLike={handleLike}
-          />
-        );
-      case "bikeStation":
-        return (
-          <BikeStationInfo
-            stationInfo={props.stationInfo}
-            isFavourite={isFavourite}
-            handleFavourite={handleFavourite}
-            isLiked={isLiked}
-            handleLike={handleLike}
-          />
-        );
-      default:
-        return <HighlightInfo />;
+  useEffect(async () => {
+    if (props.stationInfo != null) {
+      setStationInfoStyle(styles.locationInfoOpened);
+      
+    } else {
+      setStationInfoStyle(styles.locationInfoClosed);
     }
-  };
+  }, [props]);
 
   return (
     <View style={stationInfoStyle}>
       
       <View style={styles.locationAddressContent}>
-        <Text style={{ color: "#1D69A6" }}>{props?.stationInfo?.address}</Text>
-        <Text style={{ color: "#1D69A6" }}>{stationLikes} Likes</Text>
-      </View>
-      {GenericLocationInfo()}
-      <View style={styles.goThereContent}>
+        <Text style={[styles.locationAddressName]}>{props?.stationInfo?.address}</Text>
         <CustomButton
-          customStyles={styles.goThereButton}
-          onPress={() => setReportStationVisible(!reportStationVisible)}
-          text={i18n.t("locationInfo.report")}
+          text="..."
+          customStyles={[styles.locationModalButton]}
+          onPress={() => setLocationModalOpened(true)}
         />
+      </View>
+      <GenericLocationInfo
+        stationInfo={props?.stationInfo}
+      />
+      <View style={styles.goThereContent}>
         <CustomButton
           customStyles={styles.goThereButton}
           onPress={() => {
@@ -130,6 +60,13 @@ function LocationInfo(props) {
           text={i18n.t("locationInfo.getThere")}
         />
       </View>
+      <LocationModal
+        isVisible={locationModalOpened}
+        stationInfo={props?.stationInfo}
+        handleReport={() => setReportStationVisible(!reportStationVisible)}
+        handleClose={() => setLocationModalOpened(false)}
+        
+      />
       <ReportStationModal
         isVisible={reportStationVisible}
         handleAccept={() => {
@@ -154,6 +91,15 @@ const styles = StyleSheet.create({
     height: 0,
     width: "100%",
   },
+  locationAddressName: {
+    width: "80%",
+    color: "#1D69A6",
+  },
+  locationModalButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },  
   locationAddressContent: {
     height: "15%",
     display: "flex",

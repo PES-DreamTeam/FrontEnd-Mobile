@@ -44,6 +44,8 @@ const en = {
 	miscelaneus: {
 		loading: "Loading...",
 		cancel: "Cancel",
+		back: "Back",
+		exit: "Exit",
 		accept: "Accept",
 	}, 
 	vehicleConfig: {
@@ -90,6 +92,8 @@ const en = {
 		electrical: "Electrical",
 		parking: "Parkings",
 		getThere: "Get there!",
+		likesNumber: "Likes",
+		reportsNumber: "Reports",
 		report: "Report",
 	}, 
 	uploadImage: {
@@ -109,6 +113,17 @@ const en = {
 	}, 
 	achievementScreen: {
 		subtitle: "Your achievements:",
+	}, 
+	reportApp: {
+		ReportApplicationScreen: {
+			fillfields: "Please fill in all fields",
+			OSversion: "Which version of the OS are you currently running?",
+			subjectinquiry: "Subject of Inquiry",
+			detailsinquiry: "Details of Inquiry",
+			title: "Report Screen",
+			mobilepl: "Which mobile plataform are you inquiring about?",
+			type: "Type of Report ",
+		}
 	}
 }
 export{ en }

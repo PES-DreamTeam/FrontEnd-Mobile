@@ -33,6 +33,13 @@ const useChargePoints = () => {
     return data.chargePoint;
   };
 
+  const getChargePointInfo = async (id_station) => {
+    const response = await axios.get(
+      `${API_HOST}/api/chargePoints/${id_station}/info`
+    );
+    return response.data.chargePoint;
+  };
+
   const getChargePointLikes = async (id_station) => {
     const response = await axios.get(
       `${API_HOST}/api/chargePoints/${id_station}/info`
@@ -79,6 +86,7 @@ const useChargePoints = () => {
     getChargePoints,
     getSingleChargePoint,
     getChargePointLikes,
+    getChargePointInfo,
     sendStationLike,
     sendReport,
   };

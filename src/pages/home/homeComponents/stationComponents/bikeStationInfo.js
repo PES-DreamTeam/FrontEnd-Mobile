@@ -5,31 +5,6 @@ import { StyleSheet, Pressable, View, Image, Text } from "react-native";
 function BikeStationInfo(props) {
   return (
     <View style={styles.bikeStationContent}>
-      <View style={styles.buttons}>
-        <Pressable onPress={props.handleLike} style={styles.favouriteButton}>
-          <Image
-            source={
-              props.isLiked
-                ? require("../../../../../assets/images/like.png")
-                : require("../../../../../assets/images/blank-like.png")
-            }
-            style={styles.likeIcon}
-          ></Image>
-        </Pressable>
-        <Pressable
-          onPress={props.handleFavourite}
-          style={styles.favouriteButton}
-        >
-          <Image
-            source={
-              props.isFavourite
-                ? require("../../../../../assets/images/favourite.png")
-                : require("../../../../../assets/images/blank-favourite.png")
-            }
-            style={styles.favIcon}
-          ></Image>
-        </Pressable>
-      </View>
       <View style={styles.bikeContent}>
         <View style={styles.bikeSlotType}>
           <Image
@@ -68,9 +43,11 @@ function BikeStationInfo(props) {
 
 const styles = StyleSheet.create({
   bikeStationContent: {
-    height: "65%",
-    width: "100%",
-    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    maxWidth: "100%",
+    marginTop: "1%",
   },
   bikeSlotType: {
     alignItems: "center",
@@ -90,22 +67,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   favouriteButton: {
-    marginLeft: "auto",
-  },
-  favIcon: {
-    height: 36,
-    width: 36,
-  },
-  likeIcon: {
-    height: 36,
-    width: 36,
-  },
-  buttons: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "30%",
     marginLeft: "auto",
   },
 });
