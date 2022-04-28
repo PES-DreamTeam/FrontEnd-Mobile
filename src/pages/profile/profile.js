@@ -61,9 +61,11 @@ function ProfileScreen({ navigation }) {
         if(!enabled) {
             console.log("letsgo");
             updateUser({...auth.user, nickname: user.name, email: user.email, currentVehicle:user.currentVehicle});
-            toast.show(`Perfil editado correctamente`, {
-                type: "type_report",
-                title: "¡Éxito!",
+            toast.show("", {
+                title: i18n.t("reportToast.title"),
+                message: i18n.t("reportToast.message"),
+                type: "custom_type",
+                location: "report",
               });
         }
         //console.log(name);

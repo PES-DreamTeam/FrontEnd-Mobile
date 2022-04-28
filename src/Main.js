@@ -19,8 +19,7 @@ function Main() {
       animationDuration={250}
       swipeEnabled={true}
       renderType={{
-        type_achievement: (toast) => <Toast message={toast.message} title={toast.title} type="achievement" />,
-        type_report: (toast) => <Toast message={toast.message} title={toast.title} type="report" />,
+        custom_type: (toast) => <Toast title={toast.title} message={toast.message} type={toast.location} />,
       }}
     >
       <SidebarNavigator />
