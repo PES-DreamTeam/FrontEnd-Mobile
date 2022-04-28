@@ -87,8 +87,10 @@ const useAuth = () => {
     await axios.put(`${API_HOST}/api/users`, user);
   };
 
-  const updateUser = async (user) => {
-    await updateUserAsync(user);
+  const updateUser = async (user, updateBack = true) => {
+    if(updateBack) {
+      await updateUserAsync(user);
+    }
     setAuth({ ...auth, user });
   };
 

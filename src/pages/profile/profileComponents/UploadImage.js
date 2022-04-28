@@ -7,7 +7,9 @@ import useAuth from '../../../hooks/useAuth';
 import useUser from '../../../hooks/useUser';
 
 export default function UploadImage() {
-    const { auth } = useAuth();
+
+
+    const { auth, updateUser } = useAuth();
     
     const { updateProfilePicture } = useUser();
 
@@ -16,6 +18,10 @@ export default function UploadImage() {
     }, []);
 
     const [image, setImage] = useState(auth.user.profilePicture);
+
+    useEffect(()=>{
+        setImage(auth.user.profilePicture);
+    },[auth]);
     const addImage= async ()=>{
     let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -25,8 +31,10 @@ export default function UploadImage() {
         base64: true,
     });
     if (!result.cancelled) {
-        setImage(result.uri);
-        updateProfilePicture(result.base64);
+        let temp = await updateProfilePicture(result.base64);
+        let userTemp = auth.user;
+        userTemp.profilePicture = temp;
+        updateUser(userTemp, false);
     }
     };
 

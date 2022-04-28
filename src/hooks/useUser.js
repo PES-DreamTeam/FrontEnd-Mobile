@@ -56,7 +56,7 @@ const useUser = () => {
           image: imageUrl,
         }
       );
-      return res.data;
+      return imageUrl;
     } catch (error) {
       console.log(error);
     }
