@@ -69,10 +69,12 @@ const es = {
 		addNewVehicle: "Añade un vehículo",
 		saveChanges: "Guardar cambios",
 		editProfile: "Edita tu perfil",
+		vehicleDef: "Elige tu vehículo por defecto",
 	}, 
 	carInfoItem: {
 		nickname: "Apodo:",
 		numberPlate: "Matricula:",
+		default:"Vehículo predeterminado",
 	}, 
 	drawer: {
 		home: "Inicio",

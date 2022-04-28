@@ -69,10 +69,12 @@ const cat = {
 		addNewVehicle: "Afegeix un vehicle",
 		saveChanges: "Desa els canvis",
 		editProfile: "Edita el teu perfil",
+		vehicleDef: "Tria el teu vehicle per defecte",
 	}, 
 	carInfoItem: {
 		nickname: "Sobrenom:",
 		numberPlate: "Matricula:",
+		default:"Vehicle predeterminat"
 	}, 
 	drawer: {
 		home: "Inici",
