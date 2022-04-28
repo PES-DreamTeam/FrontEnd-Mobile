@@ -35,6 +35,8 @@ goToSignIn,Go to Log In,Ir a Iniciar sesión,Anar a Inciar sessió
 PAGE_miscelaneus,,,
 loading,Loading...,Cargando...,Carregant...
 cancel,Cancel,Cancelar,Cancel·lar
+back,Back,Atrás,Enrere
+exit,Exit,Salir,Sortir
 accept,Accept,Aceptar,Acceptar
 PAGE_vehicleConfig,,,
 title,Vehicle configuration,Configuracion del vehículo,Configuració del vehicle
@@ -75,6 +77,8 @@ mechanical,Mechanical,Mecanicas,Mecàniques
 electrical,Electrical,Electricas,Elèctriques
 parking,Parkings,Estacionamientos,Aparcaments
 getThere,Get there!,¡Llévame!,Porta-m'hi!
+likesNumber,Likes,Me gustas,M'agrades
+reportsNumber,Reports,Reportes,Incidències
 report,Report,Reportar,Reportar
 PAGE_uploadImage,,,
 editImage,Edit Image,Editar Imagen,Editar Imatge
@@ -90,3 +94,15 @@ reportStaiton_dislike,Dislike,No me gusta,No m'agrada
 send,Send,Enviar,Enviar
 PAGE_achievementScreen,,,
 subtitle,Your achievements:,Tus logros:,Els teus assoliments:
+,,,
+,,,
+,,,
+,,,
+PAGE_reportApp,,,
+ReportApplicationScreen_fillfields,Please fill in all fields,Porfavor rellena todos los campos,Si us plau emplena tots els camps
+ReportApplicationScreen_OSversion,Which version of the OS are you currently running?,¿Qué versión del SO esta usando?,Quina versió del SO esta fent servir?
+ReportApplicationScreen_subjectinquiry,Subject of Inquiry,Tema de consulta,Tema de consulta
+ReportApplicationScreen_detailsinquiry,Details of Inquiry,Detalles de la consulta,Detalls de la consulta
+ReportApplicationScreen_title,Report Screen,Pagina de Reporte,Pantalla d'Incidències
+ReportApplicationScreen_mobilepl,Which mobile plataform are you inquiring about?,¿Desde que plataforma mobil estas haciendo la consulta?,Desde quina plataforma mòvil està fent la consulta?
+ReportApplicationScreen_type,Type of Report ,Tipo de Reporte,Tipus de Incidència

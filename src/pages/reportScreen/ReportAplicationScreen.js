@@ -66,7 +66,7 @@ function ReportAplicationScreen({navigation}) {
     return(
     
        <View style={styles.container}>
-           <ScrollView style={[styles.topContainer]}>
+           <View style={styles.preScroll}>
                 <Text style={styles.title}>
                 {i18n.t("report.ReportApplicationScreen.title")}
                 </Text>
@@ -88,6 +88,9 @@ function ReportAplicationScreen({navigation}) {
                     setValue={setPickerVal}
                     containerStyle={{width:320, marginBottom: 15}}                    
                 />       
+            </View>
+           <ScrollView style={[styles.topContainer]}>
+                
                 <Text style={styles.formTitle}>
                     {i18n.t("report.ReportApplicationScreen.mobilepl")}
                 </Text>
@@ -129,7 +132,7 @@ function ReportAplicationScreen({navigation}) {
                         placeholder= 'Inquiry details'
                         multiline={true}
                         numberOfLines={10}
-                    />     
+                    />      
                 <CustomButton
                     customStyles={styles.button}
                     text="Send"
@@ -146,6 +149,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 20,
+    },
+    preScroll:{
+        width: '100%',
+        zIndex: 5
+    },
+    topContainer:{
+        width: '100%',
     },
     title: {
         fontSize: 25,

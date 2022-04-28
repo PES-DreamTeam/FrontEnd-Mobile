@@ -44,6 +44,8 @@ const cat = {
 	miscelaneus: {
 		loading: "Carregant...",
 		cancel: "Cancel·lar",
+		back: "Enrere",
+		exit: "Sortir",
 		accept: "Acceptar",
 	}, 
 	vehicleConfig: {
@@ -88,6 +90,8 @@ const cat = {
 		electrical: "Elèctriques",
 		parking: "Aparcaments",
 		getThere: "Porta-m'hi!",
+		likesNumber: "M'agrades",
+		reportsNumber: "Incidències",
 		report: "Reportar",
 	}, 
 	uploadImage: {
@@ -107,6 +111,17 @@ const cat = {
 	}, 
 	achievementScreen: {
 		subtitle: "Els teus assoliments:",
+	}, 
+	reportApp: {
+		ReportApplicationScreen: {
+			fillfields: "Si us plau emplena tots els camps",
+			OSversion: "Quina versió del SO esta fent servir?",
+			subjectinquiry: "Tema de consulta",
+			detailsinquiry: "Detalls de la consulta",
+			title: "Pantalla d'Incidències",
+			mobilepl: "Desde quina plataforma mòvil està fent la consulta?",
+			type: "Tipus de Incidència",
+		}
 	}
 }
 export{ cat }

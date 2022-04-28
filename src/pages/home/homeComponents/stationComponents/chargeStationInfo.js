@@ -136,31 +136,6 @@ function ChargeStationInfo(props) {
           <View />
         )}
       </View>
-      <View style={styles.buttons}>
-        <Pressable onPress={props.handleLike} style={styles.favouriteButton}>
-          <Image
-            source={
-              props.isLiked
-                ? require("../../../../../assets/images/like.png")
-                : require("../../../../../assets/images/blank-like.png")
-            }
-            style={styles.likeIcon}
-          ></Image>
-        </Pressable>
-        <Pressable
-          onPress={props.handleFavourite}
-          style={styles.favouriteButton}
-        >
-          <Image
-            source={
-              props.isFavourite
-                ? require("../../../../../assets/images/favourite.png")
-                : require("../../../../../assets/images/blank-favourite.png")
-            }
-            style={styles.favIcon}
-          ></Image>
-        </Pressable>
-      </View>
     </View>
   );
 }
