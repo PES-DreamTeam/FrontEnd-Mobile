@@ -103,10 +103,10 @@ export default function HomeScreen({ navigation }) {
       </View>
       <CustomMapView 
         //ref={mapViewRef}
-        color={vehicleConfig[currentVehicle]?.color ?? '#000000'}
+        color={vehicleConfig[currentVehicle ?? 0]?.color ?? '#000000'}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
-        vehicleType= {vehicleImages[vehicleConfig[currentVehicle]?.vehicleType ?? 0]}
+        vehicleType= {vehicleImages[vehicleConfig[currentVehicle ?? 0]?.vehicleType ?? 0]}
         mapFilter={currentFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}

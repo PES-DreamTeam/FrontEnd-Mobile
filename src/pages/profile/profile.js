@@ -39,23 +39,21 @@ function ProfileScreen({ navigation }) {
         email:auth.user.email,
         name:auth.user.nickname,
         vehicleConfig: auth.user.vehicleConfig,
-        currentVehicle: auth.user.currentVehicle 
+        currentVehicle: auth.user.currentVehicle ?? 0
     })
     useEffect(()=>{setUser({
         id:auth.user._id,
         email:auth.user.email,
         name:auth.user.nickname,
         vehicleConfig: auth.user.vehicleConfig,
-        currentVehicle: auth.user.currentVehicle
-    })},[auth])
+        currentVehicle: auth.user.currentVehicle ?? 0
+    }); console.log(auth.user)},[auth])
 
     const {width} = useWindowDimensions();
 
     const{id,email,name, vehicleConfig} = user;
 
-    const [editProfile,setEditProfile] = useState({
-        editProfile:false,
-    });
+    const [editProfile,setEditProfile] = useState(false);
 
     function EnableEditProfile(enabled) {
         if(!enabled) {
