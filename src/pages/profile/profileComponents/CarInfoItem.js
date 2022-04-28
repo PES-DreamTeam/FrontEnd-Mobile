@@ -32,7 +32,7 @@ export default CarInfoItem = ({item, index, currentVehicle}) => {
             <Image source = {vehicleImages[item.vehicleType]} style={[styles.image, {tintColor: item.color}, {width, resizeMode: 'contain'}, ]} />
             <View style = {[styles.infoContainer]}>
                 <View style={[styles.textContainer]}>
-                    {index == currentVehicle ? <Text style= {[styles.title]}>{"Vehículo predeterminado"} </Text> : <></>}
+                    {index == currentVehicle ? <Text style= {[styles.title]}>{i18n.t("carInfoItem.default")} </Text> : <></>}
                     <Text style= {[styles.title]}>{item.brand} {item.model}</Text>
                     <Text style= {[styles.text]}> {i18n.t('carInfoItem.nickname')} "{item.nickname}"</Text>
                     <Text style= {[styles.text]}> {i18n.t('carInfoItem.numberPlate')} {item.numberPlate}</Text>

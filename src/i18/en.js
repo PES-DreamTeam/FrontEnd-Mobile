@@ -69,10 +69,12 @@ const en = {
 		addNewVehicle: "Add a new vehicle",
 		saveChanges: "Save changes",
 		editProfile: "Edit your profile",
+		vehicleDef: "Choose your default vehicle",
 	}, 
 	carInfoItem: {
 		nickname: "Nickname:",
 		numberPlate: "Number Plate:",
+		default:"Default vehicle",
 	}, 
 	drawer: {
 		home: "Home",
