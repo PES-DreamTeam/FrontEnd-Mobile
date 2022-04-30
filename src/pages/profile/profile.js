@@ -49,7 +49,7 @@ function ProfileScreen({ navigation }) {
         name:auth.user.nickname,
         vehicleConfig: auth.user.vehicleConfig,
         currentVehicle: auth.user.currentVehicle ?? 0
-    }); console.log(auth.user)},[auth])
+    }); (auth.user)},[auth])
 
     const {width} = useWindowDimensions();
 
@@ -102,11 +102,12 @@ function ProfileScreen({ navigation }) {
                     normalStyle = {[styles.subtitle]}
                     editableStyle={[styles.editableSubtitle]}
                 />
-
+                <View style ={styles.informationContainer}>
                 { editProfile 
-                    ?<Text style = {[styles.header]}>{"Escoge tu vehículo por defecto"}</Text>
+                    ?<Text style = {[styles.header]}>{"Desliza para escoger tu vehículo por defecto"}</Text>
                     :<Text style = {[styles.header]}>{i18n.t('profile.yourVehicle')}</Text>
                 }
+                </View>       
                 {vehicleConfig.length > 0 ? (
                     <View>
                         <Carousel
@@ -120,7 +121,9 @@ function ProfileScreen({ navigation }) {
                             keyExtractor={(item,index) => index}
                             onSnapToItem={(item) =>editProfile ? setUser({...user, ["currentVehicle"]:item}) : ""}
                         />
+                        
                     </View> 
+                    
                 ) : <Text>  {i18n.t('profile.vehicleNotDef')} </Text>}
                 <View style={styles.buttonBar}>
                     <CustomButton
@@ -196,6 +199,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         textDecorationLine: 'underline',
+        marginLeft: 10,
+        
     },
     text: {
         fontSize: 16,
@@ -210,6 +215,9 @@ const styles = StyleSheet.create({
     image: {
         tintColor: '#16345D',
         alignSelf: 'center',
+    },
+    imageC:{
+        marginLeft: 50,
     },
     editButton: {
         fontSize: 18,
