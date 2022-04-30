@@ -7,7 +7,10 @@ function Toast(props) {
   const image_type = () => {
     if (type === "achievement") {
       return require("../../assets/images/medal.png");
-    } else {
+    } else if(type === "report") {
+      return require("../../assets/images/check.png");
+    }
+    else{
       return require("../../assets/images/check.png");
     }
   };

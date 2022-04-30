@@ -1,13 +1,15 @@
 import React,{useState} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Pressable, TextInput } from 'react-native';
-
+import i18n from 'i18n-js';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import useReportAplication from '../../hooks/useReportAplication';
 import CustomButton from '../../utils/button';
+import { useToast } from 'react-native-toast-notifications';
 
 function ReportAplicationScreen({navigation}) {
 
+    const toast = useToast();
     const { sendReport } = useReportAplication();
 
     const [open, setOpen] = useState(false);
@@ -59,6 +61,12 @@ function ReportAplicationScreen({navigation}) {
             await sendReport(pickerVal,platform,osVersion,subject,details)
             clearAllFields()
             navigation.navigate("Home");
+            toast.show("", {
+                title: i18n.t("reportAppToast.title"),
+                message: i18n.t("reportAppToast.message"),
+                type: "custom_type",
+                location: "reportApp",
+              });
         }
         
     }        
@@ -89,8 +97,7 @@ function ReportAplicationScreen({navigation}) {
                     containerStyle={{width:320, marginBottom: 15}}                    
                 />       
             </View>
-           <ScrollView style={[styles.topContainer]}>
-                
+           <ScrollView style={[styles.topContainer]}>                
                 <Text style={styles.formTitle}>
                     {i18n.t("report.ReportApplicationScreen.mobilepl")}
                 </Text>
@@ -99,7 +106,7 @@ function ReportAplicationScreen({navigation}) {
                     value={platform}
                     onChangeText={(text) => onChangeText(text, 'platform')}
                     name="reportMessage"
-                    placeholder= 'OS version'
+                    placeholder= 'Tablet, phone'
                 />    
                 <Text style={styles.formTitle}>
                 {i18n.t("report.ReportApplicationScreen.OSversion")}
