@@ -66,23 +66,22 @@ const es = {
 	}, 
 	profile: {
 		yourVehicle: "Información de tus vehículos",
+		changeVehicle: "Desliza para cambiar tu vehículo por defecto",
 		title: "Perfil",
 		vehicleNotDef: "Vehículo no definido",
 		addNewVehicle: "Añade un vehículo",
 		saveChanges: "Guardar cambios",
 		editProfile: "Edita tu perfil",
-		vehicleDef: "Elige tu vehículo por defecto",
 	}, 
 	carInfoItem: {
 		nickname: "Apodo:",
 		numberPlate: "Matricula:",
-		default:"Vehículo predeterminado",
 	}, 
 	drawer: {
 		home: "Inicio",
 		profile: "Perfil",
 		settings: "Ajustes",
-		tellAFriend: "Compartelo con un amigo!",
+		tellAFriend: "¡Compártelo con un amigo!",
 		logOut: "Cerrar sesión",
 		shareMessage: "Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.",
 		achievements: "Logros",
@@ -123,7 +122,14 @@ const es = {
 			title: "Pagina de Reporte",
 			mobilepl: "¿Desde que plataforma mobil estas haciendo la consulta?",
 			type: "Tipo de Reporte",
-		}
+		}, 
+	}, 
+	achievementToast: {
+		title: "¡Logro completado!",
+	}, 
+	reportToast: {
+		title: "Cambios guardados",
+		message: "Tu perfil ha sido correctamente actualizado .",
 	}
 }
 export{ es }

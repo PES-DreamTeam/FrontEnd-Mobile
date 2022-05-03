@@ -8,37 +8,41 @@ import i18n from "i18n-js";
 
 const useAchievements = () => {
   const toast = useToast();
-  const { auth, setAuth } = useAuth();
+  const { auth, updateUser } = useAuth();
 
-  const updateAchievement = async (id) => {
+  const updateAchievement = async (id, levels) => {
     let myAchievements = auth?.user.achievements;
     // Buscar quin achievement te el id desitjat
-    for (let i = id; i < id + 3; i++) {
-      if (myAchievements[i].actualProgress < myAchievements[i].total) {
+    for (let i = id; i < id + levels; i++) {
+      if (myAchievements[i].progress < myAchievements[i].objective) {
         id = i;
         break;
       }
     }
 
-    myAchievements[id].actualProgress++;
-    setAuth({
-      ...auth,
-      user: {
-        ...auth.user,
-        achievements: myAchievements,
-      },
+    if (myAchievements[i].progress === myAchievements[i].objective) {
+      return;
+    }
+    myAchievements[id].progress++;
+
+    updateUser({
+      ...auth.user,
+      achievements: myAchievements,
     });
 
-    if (myAchievements[id].actualProgress < myAchievements[id].total) {
+    if (myAchievements[id].progress < myAchievements[id].objective) {
       return;
     }
 
     /* actualiza achievement en backend con axios */
-    await completeAchievement(id, myAchievements[id].actualProgress);
+    const achievement = await completeAchievement(
+      id,
+      myAchievements[id].objective
+    );
 
     toast.show("", {
-      title: i18n.t("achievementToast.title"),
-      message: `¡A robar ${id} bicis!`,
+      title: `${i18n.t("achievementToast.title")}`,
+      message: achievement.description,
       type: "custom_type",
       location: "achievement",
     });
@@ -53,6 +57,7 @@ const useAchievements = () => {
           totalProgress,
         }
       );
+      return res;
     } catch (error) {
       console.log(error);
     }

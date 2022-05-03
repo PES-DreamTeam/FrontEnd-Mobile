@@ -66,17 +66,16 @@ const cat = {
 	}, 
 	profile: {
 		yourVehicle: "Informació dels teus vehicles",
+		changeVehicle: "Llisca per canviar el teu vehicle per defecte",
 		title: "Perfil",
 		vehicleNotDef: "Vehicle no definit",
 		addNewVehicle: "Afegeix un vehicle",
 		saveChanges: "Desa els canvis",
 		editProfile: "Edita el teu perfil",
-		vehicleDef: "Tria el teu vehicle per defecte",
 	}, 
 	carInfoItem: {
 		nickname: "Sobrenom:",
 		numberPlate: "Matricula:",
-		default:"Vehicle predeterminat"
 	}, 
 	drawer: {
 		home: "Inici",
@@ -123,7 +122,14 @@ const cat = {
 			title: "Pantalla d'Incidències",
 			mobilepl: "Desde quina plataforma mòvil està fent la consulta?",
 			type: "Tipus de Incidència",
-		}
+		}, 
+	}, 
+	achievementToast: {
+		title: "Assoliment completat!",
+	}, 
+	reportToast: {
+		title: "Canvis guardats",
+		message: "S'ha actualitzat correctament el teu perfil.",
 	}
 }
 export{ cat }

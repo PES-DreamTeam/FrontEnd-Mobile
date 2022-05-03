@@ -55,6 +55,7 @@ cancel,Cancel,Cancelar,Cancel·lar
 skip,Skip,Saltar,Salta
 PAGE_profile,,,
 yourVehicle,Your vehicles information,Información de tus vehículos,Informació dels teus vehicles
+changeVehicle,Swipe to change your default vehicle,Desliza para cambiar tu vehículo por defecto,Llisca per canviar el teu vehicle per defecte
 title,Profile,Perfil,Perfil
 vehicleNotDef,Vehicle not defined yet,Vehículo no definido,Vehicle no definit
 addNewVehicle,Add a new vehicle,Añade un vehículo,Afegeix un vehicle
@@ -68,7 +69,7 @@ PAGE_drawer,,,
 home,Home,Inicio,Inici
 profile,Profile,Perfil,Perfil
 settings,Settings,Ajustes,Configuració
-tellAFriend,Share it with a friend!,Compartelo con un amigo!,Comparteix amb un amic!
+tellAFriend,Share it with a friend!,¡Compártelo con un amigo!,Comparteix amb un amic!
 logOut,Log Out,Cerrar sesión,Tancar sessió
 shareMessage,Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.,Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.,Descobreix EcoRoads | Una aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient.
 achievements,Achievements,Logros,Assoliments
@@ -106,3 +107,9 @@ ReportApplicationScreen_detailsinquiry,Details of Inquiry,Detalles de la consult
 ReportApplicationScreen_title,Report Screen,Pagina de Reporte,Pantalla d'Incidències
 ReportApplicationScreen_mobilepl,Which mobile plataform are you inquiring about?,¿Desde que plataforma mobil estas haciendo la consulta?,Desde quina plataforma mòvil està fent la consulta?
 ReportApplicationScreen_type,Type of Report ,Tipo de Reporte,Tipus de Incidència
+,,,
+PAGE_achievementToast,,,
+title,Achievement completed!,¡Logro completado!,Assoliment completat!
+PAGE_reportToast,,,
+title,Changes saved,Cambios guardados,Canvis guardats
+message,Your profile was updated successfully.,Tu perfil ha sido correctamente actualizado .,S'ha actualitzat correctament el teu perfil.

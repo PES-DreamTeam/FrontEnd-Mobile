@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 
 function AchievementsScreen() {
   const { updateAchievement } = useAchievements();
+  const { auth } = useAuth();
   const achievements = [
     {
       title: "Cargar el coche 4 veces - 1/4",
@@ -94,6 +95,9 @@ function AchievementsScreen() {
   useEffect(() => {
     /* updateAchievement(24);
      */
+    /*     console.log("====================================");
+    console.log(auth?.user);
+    console.log("===================================="); */
   }, []);
 
   return (

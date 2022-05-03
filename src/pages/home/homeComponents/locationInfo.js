@@ -6,15 +6,16 @@ import ReportStationModal from "./stationComponents/reportStationModal";
 import CustomButton from "../../../utils/button";
 
 import LocationModal from "./stationComponents/locationModal";
+import useAchievements from "../../../hooks/useAchievements";
 
 function LocationInfo(props) {
+  const { updateAchievement } = useAchievements();
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
   );
   const [modalButtonStyle, setModalButtonStyle] = useState(
     styles.locationInfoClosed
   );
-
   const [locationModalOpened, setLocationModalOpened] = useState(false);
   const [reportStationVisible, setReportStationVisible] = useState(false);
 
@@ -29,7 +30,6 @@ function LocationInfo(props) {
     if (props.stationInfo != null) {
       setStationInfoStyle(styles.locationInfoOpened);
       setModalButtonStyle(styles.locationModalButton);
-      
     } else {
       setStationInfoStyle(styles.locationInfoClosed);
       setModalButtonStyle(styles.locationInfoClosed);
@@ -38,9 +38,10 @@ function LocationInfo(props) {
 
   return (
     <View style={stationInfoStyle}>
-      
       <View style={styles.locationAddressContent}>
-        <Text style={[styles.locationAddressName]}>{props?.stationInfo?.address}</Text>
+        <Text style={[styles.locationAddressName]}>
+          {props?.stationInfo?.address}
+        </Text>
         <CustomButton
           text="· · ·"
           customStyles={modalButtonStyle}
@@ -48,9 +49,9 @@ function LocationInfo(props) {
         />
       </View>
       <View style={styles.locationInfo}>
-        <GenericLocationInfo stationInfo={props?.stationInfo}/>
+        <GenericLocationInfo stationInfo={props?.stationInfo} />
       </View>
-        
+
       <View style={styles.goThereContent}>
         <CustomButton
           customStyles={styles.goThereButton}
@@ -62,6 +63,7 @@ function LocationInfo(props) {
               objectType: props?.stationInfo?.objectType,
             });
             props.onChangeFilter("singleCharge");
+            //updateAchievement(2, 3);
           }}
           text={i18n.t("locationInfo.getThere")}
         />
@@ -71,7 +73,6 @@ function LocationInfo(props) {
         stationInfo={props?.stationInfo}
         handleReport={() => setReportStationVisible(!reportStationVisible)}
         handleClose={() => setLocationModalOpened(false)}
-        
       />
       <ReportStationModal
         isVisible={reportStationVisible}
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 80,
-  },  
+  },
   locationAddressContent: {
     height: "15%",
     display: "flex",

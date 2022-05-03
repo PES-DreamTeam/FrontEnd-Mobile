@@ -66,17 +66,16 @@ const en = {
 	}, 
 	profile: {
 		yourVehicle: "Your vehicles information",
+		changeVehicle: "Swipe to change your default vehicle",
 		title: "Profile",
 		vehicleNotDef: "Vehicle not defined yet",
 		addNewVehicle: "Add a new vehicle",
 		saveChanges: "Save changes",
 		editProfile: "Edit your profile",
-		vehicleDef: "Choose your default vehicle",
 	}, 
 	carInfoItem: {
 		nickname: "Nickname:",
 		numberPlate: "Number Plate:",
-		default:"Default vehicle",
 	}, 
 	drawer: {
 		home: "Home",
@@ -123,7 +122,14 @@ const en = {
 			title: "Report Screen",
 			mobilepl: "Which mobile plataform are you inquiring about?",
 			type: "Type of Report ",
-		}
+		}, 
+	}, 
+	achievementToast: {
+		title: "Achievement completed!",
+	}, 
+	reportToast: {
+		title: "Changes saved",
+		message: "Your profile was updated successfully.",
 	}
 }
 export{ en }
