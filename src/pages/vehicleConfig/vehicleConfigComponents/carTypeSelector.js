@@ -10,6 +10,9 @@ const CarTypeSelector = (props) => {
             require( '../../../../assets/images/carTypes/carType_3.png'),
             require( '../../../../assets/images/carTypes/carType_4.png'),
             require( '../../../../assets/images/carTypes/carType_5.png'),
+            require( '../../../../assets/images/carTypes/carType_6.png'),
+            require( '../../../../assets/images/carTypes/carType_7.png'),
+            require( '../../../../assets/images/carTypes/carType_8.png'),
         ]
     );
 

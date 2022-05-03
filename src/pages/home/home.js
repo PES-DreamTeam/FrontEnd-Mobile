@@ -14,7 +14,7 @@ export default function HomeScreen({ navigation }) {
     require( '../../../assets/images/carTypes/icons/carType_2.png'),
     require( '../../../assets/images/carTypes/icons/carType_3.png'),
     require( '../../../assets/images/carTypes/icons/carType_4.png'),
-    require( '../../../assets/images/carTypes/icons/carType_5.png'),
+    require( '../../../assets/images/carTypes/icons/carType_8.png'),
 ]
 
   const { auth } = useAuth();
@@ -103,10 +103,10 @@ export default function HomeScreen({ navigation }) {
       </View>
       <CustomMapView 
         //ref={mapViewRef}
-        color={vehicleConfig[currentVehicle ?? 0]?.color ?? '#000000'}
+        color={vehicleConfig[currentVehicle ?? 8]?.color ?? '#000000'}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
-        vehicleType= {vehicleImages[vehicleConfig[currentVehicle ?? 0]?.vehicleType ?? 0]}
+        vehicleType= {vehicleImages[vehicleConfig[currentVehicle ?? 8]?.vehicleType ?? 8]}
         mapFilter={currentFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}

@@ -72,8 +72,6 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
     }
     else{
       setIsLoading(true);
-      console.log("Filter changed to: " + mapFilter);
-      //console.log(auth?.user);
       let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
       let temp = Object.entries(pointsToShow);
       setChargePoints(temp);
@@ -95,7 +93,6 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
   }
 
   const cancelRoute = () => {
-    console.log(mapFilter)
     ActivateRoute(null);
     onChangeFilter('singleCharge');
     ChangeRoutingInfo(null);
@@ -137,7 +134,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
           }}
         >
             <Image
-              source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_0.png'))}
+              source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_8.png'))}
               style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
             />
         </Marker>

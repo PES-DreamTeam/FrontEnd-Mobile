@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     maxWidth: "100%",
-    marginTop: "1%",
   },
   bikeSlotType: {
     alignItems: "center",
@@ -55,6 +54,7 @@ const styles = StyleSheet.create({
   bikeContent: {
     flexDirection: "row",
     width: "100%",
+    alignSelf: "center",
     justifyContent: "space-between",
   },
   vehicleIcon: {

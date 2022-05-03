@@ -101,9 +101,11 @@ export default (props) => {
                             {props?.stationInfo?.address}
                         </Text>
                     </View>  
-                    <GenericLocationInfo
-                        stationInfo={props?.stationInfo}
-                    />
+                    <View style={styles.locationInfo}>
+                        <GenericLocationInfo
+                            stationInfo={props?.stationInfo}
+                        />
+                    </View>
                     <View style={styles.extraInfo}>
                         <View style={styles.likesInfoContainer}>
                             <View style={styles.likeButtonContainer}>
@@ -171,6 +173,9 @@ const styles = StyleSheet.create({
         //alignItems: 'center',
         //justifyContent: 'center',
         // backgroundColor: 'blue',
+    },
+    locationInfo: {
+        width: '100%',
     },
     favButtonContainer: {
         display: "flex",

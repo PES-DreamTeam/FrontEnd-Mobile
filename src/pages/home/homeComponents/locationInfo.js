@@ -11,6 +11,9 @@ function LocationInfo(props) {
   const [stationInfoStyle, setStationInfoStyle] = useState(
     styles.locationInfoClosed
   );
+  const [modalButtonStyle, setModalButtonStyle] = useState(
+    styles.locationInfoClosed
+  );
 
   const [locationModalOpened, setLocationModalOpened] = useState(false);
   const [reportStationVisible, setReportStationVisible] = useState(false);
@@ -25,9 +28,11 @@ function LocationInfo(props) {
   useEffect(async () => {
     if (props.stationInfo != null) {
       setStationInfoStyle(styles.locationInfoOpened);
+      setModalButtonStyle(styles.locationModalButton);
       
     } else {
       setStationInfoStyle(styles.locationInfoClosed);
+      setModalButtonStyle(styles.locationInfoClosed);
     }
   }, [props]);
 
@@ -37,14 +42,15 @@ function LocationInfo(props) {
       <View style={styles.locationAddressContent}>
         <Text style={[styles.locationAddressName]}>{props?.stationInfo?.address}</Text>
         <CustomButton
-          text="..."
-          customStyles={[styles.locationModalButton]}
+          text="· · ·"
+          customStyles={modalButtonStyle}
           onPress={() => setLocationModalOpened(true)}
         />
       </View>
-      <GenericLocationInfo
-        stationInfo={props?.stationInfo}
-      />
+      <View style={styles.locationInfo}>
+        <GenericLocationInfo stationInfo={props?.stationInfo}/>
+      </View>
+        
       <View style={styles.goThereContent}>
         <CustomButton
           customStyles={styles.goThereButton}
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
   },
   locationInfoClosed: {
     height: 0,
-    width: "100%",
+    width: 0,
   },
   locationAddressName: {
     width: "80%",
@@ -98,7 +104,7 @@ const styles = StyleSheet.create({
   locationModalButton: {
     width: 30,
     height: 30,
-    borderRadius: 15,
+    borderRadius: 80,
   },  
   locationAddressContent: {
     height: "15%",
@@ -110,6 +116,10 @@ const styles = StyleSheet.create({
     borderEndColor: "grey",
   },
   highlightContent: {
+    height: "65%",
+    width: "100%",
+  },
+  locationInfo: {
     height: "65%",
     width: "100%",
   },

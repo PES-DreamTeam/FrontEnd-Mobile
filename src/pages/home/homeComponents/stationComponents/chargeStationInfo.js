@@ -145,17 +145,20 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    maxWidth: "100%",
-    marginTop: "1%",
+    maxWidth: "80%",
+    alignSelf: "center",
+    alignItems: "center",
   },
   chargersDisplay: {
     display: "flex",
     flexDirection: "column",
-    maxWidth: "60%",
+    width: "100%",
+
   },
   chargerAvailability: {
-    display: "flex",
-    flexDirection: "row",
+    textAlign: "center",
+    justifyContent: "center",
+
   },
   socketsTypesContent: {
     display: "flex",
@@ -163,7 +166,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     flexDirection: "row",
-    marginBottom: "3%",
   },
   socketsList: {
     height: 50,
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   availabilityText: {
-    marginTop: "5%",
+    alignSelf: "center",
   },
   favouriteButton: {
     marginLeft: "auto",
