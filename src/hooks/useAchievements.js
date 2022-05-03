@@ -10,9 +10,17 @@ const useAchievements = () => {
   const toast = useToast();
   const { auth, setAuth } = useAuth();
 
-  const updateAchievement = (id) => {
+  const updateAchievement = async (id) => {
     let myAchievements = auth?.user.achievements;
-    myAchievements.actualProgress += 1;
+    // Buscar quin achievement te el id desitjat
+    for (let i = id; i < id + 3; i++) {
+      if (myAchievements[i].actualProgress < myAchievements[i].total) {
+        id = i;
+        break;
+      }
+    }
+
+    myAchievements[id].actualProgress++;
     setAuth({
       ...auth,
       user: {
@@ -21,12 +29,12 @@ const useAchievements = () => {
       },
     });
 
-/*     if (myAchievements[id].actualProgress < myAchievements[id].total) {
+    if (myAchievements[id].actualProgress < myAchievements[id].total) {
       return;
-    }  */
+    }
 
     /* actualiza achievement en backend con axios */
-    /*  */
+    await completeAchievement(id, myAchievements[id].actualProgress);
 
     toast.show("", {
       title: i18n.t("achievementToast.title"),
@@ -34,6 +42,20 @@ const useAchievements = () => {
       type: "custom_type",
       location: "achievement",
     });
+  };
+
+  const completeAchievement = async (achievementId, totalProgress) => {
+    try {
+      const res = await axios.put(
+        `${API_HOST}/api/users/${auth.user.id}/achievements/`,
+        {
+          achievementId,
+          totalProgress,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return {

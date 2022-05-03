@@ -4,9 +4,10 @@ import AchievementList from "./components/achievementList";
 import i18n from "i18n-js";
 import { useToast } from "react-native-toast-notifications";
 import useAchievements from "../../hooks/useAchievements";
+import useAuth from "../../hooks/useAuth";
 
 function AchievementsScreen() {
-  const {updateAchievement} = useAchievements();
+  const { updateAchievement } = useAchievements();
   const achievements = [
     {
       title: "Cargar el coche 4 veces - 1/4",
@@ -91,11 +92,8 @@ function AchievementsScreen() {
   const toast = useToast();
 
   useEffect(() => {
-    /*     toast.show("¡A robar bicis!", {
-      type: "custom_type",
-    }); */
-    updateAchievement(24);
-
+    /* updateAchievement(24);
+     */
   }, []);
 
   return (
