@@ -43,8 +43,17 @@ export default function HomeScreen({ navigation }) {
 
   const { vehicleConfig, currentVehicle } = user;
 
+  const deleteSingle = (temp) => {
+    let index = temp.indexOf("singleCharge");
+    if (index !== -1) {
+      temp.splice(index, 1);
+      return temp;
+    }
+  };
+
   const ChangeFilter = (filter) => {
     let temp = JSON.parse(JSON.stringify(currentFilter));
+    temp = temp.indexOf("singleCharge") !== -1 ? deleteSingle(temp) : temp;
     let index = temp.indexOf(filter);
     if (index !== -1) {
       temp.splice(index, 1);

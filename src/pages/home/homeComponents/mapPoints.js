@@ -71,7 +71,7 @@ export default ({chargePoints, OpenStationInfo,searchedPoint}) => {
 
     const markers=[]
 
-    useEffect(() => markers.length === 2597 ? markers[searchedPoint].showCallout() : "",[searchedPoint])
+    useEffect(() => markers.length === 2597 ? markers[searchedPoint]?.showCallout() : "",[searchedPoint])
 
 
     return(

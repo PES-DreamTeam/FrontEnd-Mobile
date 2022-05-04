@@ -94,7 +94,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
 
   const cancelRoute = () => {
     ActivateRoute(null);
-    onChangeFilter('singleCharge');
+    onChangeFilter((mapFilter));
     ChangeRoutingInfo(null);
   }
 
