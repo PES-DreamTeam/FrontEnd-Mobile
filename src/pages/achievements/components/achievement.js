@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 function Achievement(props) {
-  const { title, actualProgress, total, url } = props;
-  const progress = (actualProgress / total) * 100;
+  const { description, actualProgress, objective, url } = props;
+  const progress = (actualProgress / objective) * 100;
   const isCompleted = Math.floor(progress) === 100;
   return (
     <View style={styles.achievementBox}>
@@ -16,7 +16,12 @@ function Achievement(props) {
         style={styles.image}
       ></Image>
       <View style={styles.achievementInfo}>
-        <Text style={styles.achievementTitle}>{title}</Text>
+        <View style={styles.textView}>
+          <Text style={styles.achievementTitle}>{description}</Text>
+          <Text style={styles.achievementTitle}>
+            {actualProgress}/{objective}
+          </Text>
+        </View>
         <View style={styles.progressBar}>
           <View
             style={
@@ -50,6 +55,8 @@ const styles = StyleSheet.create({
   image: {
     maxWidth: "12%",
     aspectRatio: 1,
+    marginLeft: "auto",
+    marginRight: "auto",
     flex: 0.15,
   },
   achievementInfo: {
@@ -61,15 +68,22 @@ const styles = StyleSheet.create({
     padding: "1%",
     justifyContent: "space-between",
   },
+  textView: {
+    marginHorizontal: "3%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   achievementTitle: {
     fontSize: 13,
   },
   progressBar: {
     flexDirection: "row",
     height: 20,
-    width: "100%",
+    width: "95%",
     backgroundColor: "white",
     borderColor: "#000",
+    marginLeft: "auto",
+    marginRight: "auto",
     borderWidth: 2,
     borderRadius: 5,
   },

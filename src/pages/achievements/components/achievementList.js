@@ -1,28 +1,44 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import useAchievements from "../../../hooks/useAchievements";
+import useAuth from "../../../hooks/useAuth";
 import { Achievement } from "./achievement";
 
-function achievementList({ achievements }) {
+function achievementList(props) {
+  const { achievementsInfo } = props;
+  const { auth } = useAuth();
+  const myAchievements = auth?.user?.achievements;
+  const findAchievement = (id) => achievementsInfo.find((achievement) => achievement.achievement_id == id);
+
   return (
-    <View style={{ borderWidth: 1, marginTop: "5%" }}>
+    <View style={styles.listContainer}>
       <ScrollView style={styles.achievementsList}>
-        {achievements.map((achievement, index) => (
-          <Achievement
-            key={index}
-            title={achievement.title}
-            actualProgress={achievement.actualProgress}
-            total={achievement.total}
-            url={achievement.url}
-          />
-        ))}
+        {myAchievements.map((achievement, index) => {
+          let achievementInfo = findAchievement(achievement.achievement_id);
+          return (
+            <Achievement
+              key={index}
+              description={achievementInfo.description}
+              actualProgress={achievement.progress}
+              objective={achievement.objective}
+              url={achievementInfo.image}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
+  listContainer: { 
+    borderWidth: 1, 
+    marginTop: "5%" 
+  },
   achievementsList: {
-    height: "90%",
+    /*     maxHeight: "90%", */
   },
 });
 
