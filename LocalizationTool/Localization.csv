@@ -95,7 +95,7 @@ reportStaiton_dislike,Dislike,No me gusta,No m'agrada
 send,Send,Enviar,Enviar
 PAGE_achievementScreen,,,
 subtitle,Your achievements:,Tus logros:,Els teus assoliments:
-,,,
+shareMessage,I have completed this achievement on EcoRoads. Check it out: ,He completado este logro en EcoRoads. Échale un vistazo: ,He completat aquest assoliment a EcoRoads. Fes-li una ullada: 
 ,,,
 ,,,
 ,,,
@@ -113,3 +113,4 @@ title,Achievement completed!,¡Logro completado!,Assoliment completat!
 PAGE_reportToast,,,
 title,Changes saved,Cambios guardados,Canvis guardats
 message,Your profile was updated successfully.,Tu perfil ha sido correctamente actualizado .,S'ha actualitzat correctament el teu perfil.
+PAGE_routeInfo,,,

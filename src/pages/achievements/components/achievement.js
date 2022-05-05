@@ -1,10 +1,25 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable, Share } from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import i18n from "i18n-js";
+
 
 function Achievement(props) {
   const { description, actualProgress, objective, url } = props;
+
+  const shareAchievement = async () => {
+    console.log("Share achievement");
+    const shareOptions = {
+      message: `${i18n.t('achievementScreen.shareMessage')}` + "'" + `${description}` + "'.",
+    }
+    try {
+      const shareResponse = await Share.share(shareOptions);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const progress = (actualProgress / objective) * 100;
-  const isCompleted = Math.floor(progress) === 100;
   return (
     <View style={styles.achievementBox}>
       <Image
@@ -31,14 +46,10 @@ function Achievement(props) {
           />
         </View>
       </View>
-      <Image
-        source={
-          isCompleted
-            ? require("../../../../assets/images/check.png")
-            : require("../../../../assets/images/blank-check.png")
-        }
-        style={styles.image}
-      ></Image>
+      <Pressable style={styles.image} onPress={shareAchievement} >
+        <Ionicons style={styles.shareIcon} name="share-social-outline" size={35}/>
+      </Pressable>
+      
     </View>
   );
 }
@@ -58,6 +69,14 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     flex: 0.15,
+  },
+  shareIcon: {
+    /*display: "flex",
+    justifyContent: "center",
+    alignSelf : "center",*/
+    marginRight: "auto",
+    marginTop: "auto",
+    marginBottom: "auto",
   },
   achievementInfo: {
     display: "flex",

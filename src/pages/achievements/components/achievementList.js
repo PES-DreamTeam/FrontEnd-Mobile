@@ -16,13 +16,14 @@ function achievementList(props) {
       <ScrollView style={styles.achievementsList}>
         {myAchievements.map((achievement, index) => {
           let achievementInfo = findAchievement(achievement.achievement_id);
+          console.log(achievementInfo);
           return (
             <Achievement
               key={index}
-              description={achievementInfo.description}
+              description={"achievementInfo.description"}
               actualProgress={achievement.progress}
               objective={achievement.objective}
-              url={achievementInfo.image}
+              url={"achievementInfo.image"}
             />
           );
         })}

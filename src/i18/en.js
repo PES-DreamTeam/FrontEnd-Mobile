@@ -112,6 +112,7 @@ const en = {
 	}, 
 	achievementScreen: {
 		subtitle: "Your achievements:",
+		shareMessage: "I have completed this achievement on EcoRoads. Check it out: ",
 	}, 
 	reportApp: {
 		ReportApplicationScreen: {
@@ -130,6 +131,8 @@ const en = {
 	reportToast: {
 		title: "Changes saved",
 		message: "Your profile was updated successfully.",
+	}, 
+	routeInfo: {
 	}
 }
 export{ en }

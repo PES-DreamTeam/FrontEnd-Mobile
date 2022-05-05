@@ -112,6 +112,7 @@ const cat = {
 	}, 
 	achievementScreen: {
 		subtitle: "Els teus assoliments:",
+		shareMessage: "He completat aquest assoliment a EcoRoads. Fes-li una ullada: ",
 	}, 
 	reportApp: {
 		ReportApplicationScreen: {
@@ -130,6 +131,8 @@ const cat = {
 	reportToast: {
 		title: "Canvis guardats",
 		message: "S'ha actualitzat correctament el teu perfil.",
+	}, 
+	routeInfo: {
 	}
 }
 export{ cat }
