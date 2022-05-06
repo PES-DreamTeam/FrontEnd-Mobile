@@ -12,6 +12,7 @@ import { CustomMapView, FilterMap, LocationInfo } from "./homeComponents/";
 import useAuth from "../../hooks/useAuth";
 import i18n from "i18n-js";
 import { RoutesInfo } from "./homeComponents/RoutesInfo";
+import  useMap  from "../../hooks/useMap";
 
 export default function HomeScreen({ navigation }) {
   var vehicleImages = [
@@ -23,19 +24,14 @@ export default function HomeScreen({ navigation }) {
     require("../../../assets/images/carTypes/icons/carType_8.png"),
   ];
 
+ 
+
   const { auth } = useAuth();
+  const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, 
+    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, } = useMap();
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
-  const [currentFilter, setCurrentFilter] = useState(["vehicleStation"]);
-  const [wantRoute, setWantRoute] = useState(null);
-  const [routeInfo, setRouteInfo] = useState(null);
-  const [currentStationInfo, setStationInfo] = useState(null);
-
-  const [filterVehicle, setFilterVehicle] = useState(true);
-  const [filterBike, setFilterBike] = useState(false);
-  const [filterHighlight, setFilterHighlight] = useState(false);
-  const [filterFavs, setFilterFavs] = useState(false);
 
   useEffect(() => {
     setUser(auth.user);
@@ -49,33 +45,6 @@ export default function HomeScreen({ navigation }) {
       temp.splice(index, 1);
       return temp;
     }
-  };
-
-  const ChangeFilter = (filter) => {
-    let temp = JSON.parse(JSON.stringify(currentFilter));
-    temp = temp.indexOf("singleCharge") !== -1 ? deleteSingle(temp) : temp;
-    let index = temp.indexOf(filter);
-    if (index !== -1) {
-      temp.splice(index, 1);
-    } else {
-      temp.push(filter);
-    }
-    switch (filter) {
-      case "vehicleStation":
-        setFilterVehicle(!filterVehicle);
-        break;
-      case "bikeStation":
-        setFilterBike(!filterBike);
-        break;
-      case "highlight":
-        setFilterHighlight(!filterHighlight);
-        break;
-      case "favs":
-        setFilterFavs(!filterFavs);
-        break;
-    }
-    setCurrentFilter(temp);
-    CloseStationInfo();
   };
 
   const OpenStationInfo = (station) => {
@@ -113,6 +82,7 @@ export default function HomeScreen({ navigation }) {
           routingInfo={routeInfo}
         />
       </View>
+      {
       <CustomMapView
         //ref={mapViewRef}
         color={vehicleConfig[currentVehicle ?? 8]?.color ?? "#000000"}
@@ -121,27 +91,23 @@ export default function HomeScreen({ navigation }) {
         vehicleType={
           vehicleImages[vehicleConfig[currentVehicle ?? 8]?.vehicleType ?? 8]
         }
-        mapFilter={currentFilter}
+        mapFilter={mapFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
-        onChangeFilter={ChangeFilter}
+        onChangeFilter={ChangeMapFilter}
         ChangeRoutingInfo={changeRouteInfo}
       />
+      }
 
       <LocationInfo
         stationInfo={currentStationInfo}
         ActivateRoute={ActivateRoute}
-        onChangeFilter={ChangeFilter}
+        onChangeFilter={ChangeMapFilter}
       />
 
       <FilterMap
-        onChangeFilter={ChangeFilter}
         ChangeRoutingInfo={changeRouteInfo}
         ActivateRoute={ActivateRoute}
-        filterVehicle={filterVehicle}
-        filterBike={filterBike}
-        filterHighlight={filterHighlight}
-        filterFavs={filterFavs}
       />
     </View>
   );

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import useUserSettings from '../../../hooks/useUserSettings';
 import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
 import i18n from 'i18n-js';
+import useMap from '../../../hooks/useMap';
 
-const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute, filterVehicle, filterBike, filterHighlight, filterFavs }) => {
+const FilterMap = ({ChangeRoutingInfo, ActivateRoute}) => {
     useUserSettings();
 
-    
+    const {ChangeMapFilter, mapFilter} = useMap();
 
     return (
         <View style ={styles.filterContent}> 
@@ -26,9 +27,9 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute, filterVehi
             </Pressable> */}
             <Pressable 
                 style ={[styles.filterButton, 
-                     filterVehicle? styles.selectedBottomButon : styles.unselectedBottomButon]}
+                    mapFilter?.includes("vehicleStation")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() =>{
-                 onChangeFilter("vehicleStation");
+                    ChangeMapFilter("vehicleStation");
                  ChangeRoutingInfo(null);
                  ActivateRoute(null);
                 }}
@@ -41,9 +42,9 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute, filterVehi
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1},
-                    filterBike? styles.selectedBottomButon : styles.unselectedBottomButon]}
+                    mapFilter?.includes("bikeStation")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() =>{
-                    onChangeFilter("bikeStation")
+                    ChangeMapFilter("bikeStation")
                     ChangeRoutingInfo(null);
                     ActivateRoute(null);
                 } }
@@ -56,9 +57,9 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute, filterVehi
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1},
-                    filterHighlight? styles.selectedBottomButon : styles.unselectedBottomButon]}
+                    mapFilter?.includes("highlight")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() => {
-                    onChangeFilter("highlight")
+                    ChangeMapFilter("highlight")
                     ChangeRoutingInfo(null);
                     ActivateRoute(null);
                 } }
@@ -72,9 +73,9 @@ const FilterMap = ({onChangeFilter, ChangeRoutingInfo, ActivateRoute, filterVehi
 
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1},
-                    filterFavs? styles.selectedBottomButon : styles.unselectedBottomButon]}
+                    mapFilter?.includes("favs")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() => {
-                    onChangeFilter("favs")
+                    ChangeMapFilter("favs");
                     ChangeRoutingInfo(null);
                     ActivateRoute(null);
                 } }

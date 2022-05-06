@@ -7,6 +7,8 @@ import Toast from "./utils/toast";
 function Main() {
   //console.disableYellowBox = true;
   const { isSignedIn, auth } = useAuth();
+  
+
   useEffect(() => {}, [auth]);
 
   return !isSignedIn() ? (

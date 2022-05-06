@@ -7,7 +7,7 @@ import useAuth from "../hooks/useAuth";
 const useChargePoints = () => {
   const getChargePoints = async (filter, userId) => {
     let filterText = "";
-    if (filter !== null && filter !== "all" && filter !== []) {
+    if (filter !== undefined && filter !== null && filter !== "all" && filter !== []) {
       for (let i = 0; i < filter.length; ++i) {
         if (filter[i] != "favs") {
           filterText += "&objectType[]=" + filter[i];
