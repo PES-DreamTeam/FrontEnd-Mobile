@@ -71,9 +71,6 @@ const styles = StyleSheet.create({
     flex: 0.15,
   },
   shareIcon: {
-    /*display: "flex",
-    justifyContent: "center",
-    alignSelf : "center",*/
     marginRight: "auto",
     marginTop: "auto",
     marginBottom: "auto",

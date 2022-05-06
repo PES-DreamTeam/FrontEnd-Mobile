@@ -7,23 +7,17 @@ import { Achievement } from "./achievement";
 
 function achievementList(props) {
   const { achievementsInfo } = props;
-  const { auth } = useAuth();
-  const myAchievements = auth?.user?.achievements;
-  const findAchievement = (id) => achievementsInfo.find((achievement) => achievement.achievement_id == id);
-
   return (
     <View style={styles.listContainer}>
       <ScrollView style={styles.achievementsList}>
-        {myAchievements.map((achievement, index) => {
-          let achievementInfo = findAchievement(achievement.achievement_id);
-          console.log(achievementInfo);
+        {achievementsInfo.map((achievement, index) => {
           return (
             <Achievement
               key={index}
-              description={"achievementInfo.description"}
+              description={achievement.description}
               actualProgress={achievement.progress}
               objective={achievement.objective}
-              url={"achievementInfo.image"}
+              url={achievement.image}
             />
           );
         })}

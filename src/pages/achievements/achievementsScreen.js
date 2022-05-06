@@ -19,7 +19,7 @@ function AchievementsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{i18n.t("achievementScreen.subtitle")}</Text>
-      <AchievementList achievementsInfo={achievements} />
+{      <AchievementList achievementsInfo={achievements} />}
     </View>
   );
 }

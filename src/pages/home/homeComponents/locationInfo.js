@@ -22,8 +22,8 @@ function LocationInfo(props) {
   const ChargeStationIcon = (chargerType) => {};
 
   const ReportStation = (stationInfo) => {
-    console.log("Reporting station: ");
-    console.log(stationInfo);
+/*     console.log("Reporting station: ");
+    console.log(stationInfo); */
   };
 
   useEffect(async () => {
@@ -63,7 +63,7 @@ function LocationInfo(props) {
               objectType: props?.stationInfo?.objectType,
             });
             props.onChangeFilter("singleCharge");
-            //updateAchievement(2, 3);
+            updateAchievement(1, 3); // 2 - 1
           }}
           text={i18n.t("locationInfo.getThere")}
         />
