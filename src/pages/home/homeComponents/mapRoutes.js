@@ -28,7 +28,7 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
             }
         }
     }
-   
+    console.log(API_KEY);
     return(
        
             <MapViewDirections

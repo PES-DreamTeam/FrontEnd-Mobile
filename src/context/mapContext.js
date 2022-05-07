@@ -89,7 +89,7 @@ const MapContextProvider = ({ children }) => {
                 setRouteInfo,
                 currentStationInfo,
                 setStationInfo,
-
+                ReloadUserLocation,
             }
         }>
             {children}

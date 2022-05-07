@@ -6,11 +6,14 @@ import { MapContext } from "../context/mapContext";
 
 const useMap = () => {
   const { map, userLocation, shownChargePoints, searchedPoint, mapFilter, setMapFilter, searchType,
-    wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo, } = useContext(MapContext);
+    wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo, ReloadUserLocation} = useContext(MapContext);
 
   const ChangeMapFilter = (filter) => {
     let temp = JSON.parse(JSON.stringify(mapFilter));
-    temp = temp.indexOf("singleCharge") !== -1 ? deleteSingle(temp) : temp;
+    let single = temp.indexOf("singleCharge");
+    if(single !== -1) {
+      temp.splice(single, 1);
+    }
     let index = temp.indexOf(filter);
     if (index !== -1) {
       temp.splice(index, 1);
@@ -20,8 +23,12 @@ const useMap = () => {
     setMapFilter(temp);
   } 
 
+  const recalcUserLocation = async () => {
+    await ReloadUserLocation();
+  }
+
   return {
-    shownChargePoints, userLocation, mapFilter, ChangeMapFilter,
+    shownChargePoints, userLocation, mapFilter, ChangeMapFilter, recalcUserLocation,
     wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo,
   };
 };

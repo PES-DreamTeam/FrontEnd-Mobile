@@ -61,19 +61,6 @@ function RoutesInfo(props) {
               });           
             }}
         />
-        <CustomButton
-            customStyles={styles.goThereButton}
-            text={"transporte"}
-            routeActivate={props.routeActivate}
-            onPress={() => {
-              props.ActivateRoute({
-              latitude:props?.routeActivate?.latitude,
-              longitude: props?.routeActivate?.longitude,
-              id: props?.routeActivate?.id,
-              objectType: "transport"
-              });
-            }}
-        />
       </View>
       <View style={styles.routeInfo}>
         <Text>{ "Time:"+ (props?.routingInfo?.duration) + " min" }</Text>
@@ -86,9 +73,10 @@ function RoutesInfo(props) {
 
 const styles = StyleSheet.create({
   routeInfoOpened: {
-    height: 60,
+    height: 80,
     width: "100%",
     padding: 5,
+    justifyContent: "center",
   },
   routeInfoClosed: {
     height: 0,
@@ -96,13 +84,14 @@ const styles = StyleSheet.create({
   },
   goThereContent: {
     height: "50%",
+    width: "90%",
     flexDirection: "row",
-    marginLeft: "auto",
-    marginTop: "auto",    
+    justifyContent: "space-around",
+    alignSelf: "center",
   },
   goThereButton: {
     backgroundColor: "#1D69A6",
-    width: "20%",
+    width: "25%",
     height: "100%",
     justifyContent: "center",
     alignItems: "center",

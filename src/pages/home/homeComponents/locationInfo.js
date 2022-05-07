@@ -27,7 +27,7 @@ function LocationInfo(props) {
   };
 
   useEffect(async () => {
-    if (props.stationInfo != null) {
+    if (props.stationInfo != null && (props.routeActivate === null || props.routeActivate === undefined)) {
       setStationInfoStyle(styles.locationInfoOpened);
       setModalButtonStyle(styles.locationModalButton);
     } else {

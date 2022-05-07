@@ -13,6 +13,7 @@ import useAuth from "../../hooks/useAuth";
 import i18n from "i18n-js";
 import { RoutesInfo } from "./homeComponents/RoutesInfo";
 import  useMap  from "../../hooks/useMap";
+import SearchBar from './homeComponents/searchBar';
 
 export default function HomeScreen({ navigation }) {
   var vehicleImages = [
@@ -27,7 +28,7 @@ export default function HomeScreen({ navigation }) {
  
 
   const { auth } = useAuth();
-  const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, 
+  const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
     routeInfo, setRouteInfo, currentStationInfo, setStationInfo, } = useMap();
 
   const [user, setUser] = useState(auth?.user);
@@ -64,23 +65,41 @@ export default function HomeScreen({ navigation }) {
     setRouteInfo(newRouteInfo);
   };
 
+  const handleOnSearch = (nameStation) =>{
+    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
+    let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
+    setSearchedPoint(stationSearched[0][1].id);
+    mapRef.current.animateToRegion(statlocation, 1500)
+    OpenStationInfo(stationSearched[0][1]);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
         <View style={styles.topBar}>
-          <Pressable
-            style={styles.topBarMenuButton}
-            onPress={() => navigation.toggleDrawer()}
-          >
-            <Image source={require("../../../assets/images/desplegable.png")} />
-          </Pressable>
+          <View style={styles.topBarMenuButtonContainer}>
+            <Pressable
+              style={styles.topBarMenuButton}
+              onPress={() => navigation.toggleDrawer()}
+            >
+              <Image source={require("../../../assets/images/desplegable.png")} />
+            </Pressable>
+          </View>
+          <View style={styles.searchBarContainer}>
+            <SearchBar 
+              shownChargePoints={shownChargePoints}
+              handleOnSearch={handleOnSearch}
+              routeActivate={wantRoute}
+            />
+          </View>
         </View>
-
-        <RoutesInfo
-          routeActivate={wantRoute}
-          ActivateRoute={ActivateRoute}
-          routingInfo={routeInfo}
-        />
+        <View style={styles.routesInfoContainer}>
+          <RoutesInfo
+            routeActivate={wantRoute}
+            ActivateRoute={ActivateRoute}
+            routingInfo={routeInfo}
+          />
+        </View>
       </View>
       {
       <CustomMapView
@@ -101,6 +120,7 @@ export default function HomeScreen({ navigation }) {
 
       <LocationInfo
         stationInfo={currentStationInfo}
+        routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
         onChangeFilter={ChangeMapFilter}
       />
@@ -119,6 +139,7 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "left",
     alignItems: "center",
+    zIndex: 10,
   },
   topBar: {
     marginTop: 20,
@@ -129,11 +150,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   topBarMenuButton: {
-    width: 80,
+    width: "100%",
+    height: "100%",
+    /*     alignItems: "center", */
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  searchBarContainer: {
+    width: "85%",
     height: "100%",
     justifyContent: "center",
-    /*     alignItems: "center", */
-    marginLeft: "3%",
+    
+  },
+  routesInfoContainer: {
+    width: "100%",
+    
+  },
+  topBarMenuButtonContainer: {
+    width: "15%",
+    height: "100%",
   },
   container: {
     flex: 1,

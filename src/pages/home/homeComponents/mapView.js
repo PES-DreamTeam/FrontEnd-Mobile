@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState, useRef, useImperativeHandle, forwardRef } from 'react';
-import { StyleSheet, ActivityIndicator, View, Image } from 'react-native';
+import { StyleSheet, ActivityIndicator, View, Image, TouchableOpacity } from 'react-native';
 import MapView, {  Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
@@ -9,20 +9,14 @@ import MapRoutes from './mapRoutes';
 
 import useMap from "../../../hooks/useMap";
 
-import SearchBar from './searchBar';
+
 import useAuth from '../../../hooks/useAuth'
 
 const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
 
-  const { shownChargePoints, userLocation } = useMap();
+  const { shownChargePoints, userLocation, recalcUserLocation } = useMap();
 
-  const handleOnSearch = (nameStation) =>{
-    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
-    let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
-    setSearchedPoint(stationSearched[0][1].id);
-    mapRef.current.animateToRegion(statlocation, 1500)
-    OpenStationInfo(stationSearched[0][1]);
-  }
+  
   const searchedPoint= {};
   const isLoading = false;
 
@@ -38,6 +32,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
   
 
   useEffect(async () => {
+    await recalcUserLocation();
     centerPosition();
   }, []);
 
@@ -46,7 +41,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
 
   const mapRef = useRef(null);
   
-  const centerPosition = () => {
+  const centerPosition = async () => {
     mapRef.current.animateToRegion(
       userLocation
     , 1500)
@@ -58,18 +53,13 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
     ChangeRoutingInfo(null);
   }
 
+  console.log(mapFilter);
+
   return (
       <View style ={styles.mapContent}>
-      
-       <SearchBar 
-       shownChargePoints={shownChargePoints}
-       handleOnSearch={handleOnSearch}
-       routeActivate={routeActivate}
-       />
 
       <MapView style ={styles.map} ref={mapRef}
         onPress={ () =>{
-          initialRegion={initialRegion}
           CloseStationInfo();
         }}
       > 
@@ -132,7 +122,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
 const styles = StyleSheet.create({
     map: {
       width: '100%',
-      flex: 1
+      flex: 1,
+      zIndex: 1,
     },
     mapMarker: {
       height: 32,
@@ -163,6 +154,7 @@ const styles = StyleSheet.create({
       width: 60,
       height: 60,
       bottom:25,
+      zIndex: 100,
     },
     rightFloat: {
       right: 25
