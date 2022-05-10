@@ -38,17 +38,20 @@ const useAchievements = () => {
     /* actualiza achievement en backend con axios */
     const achievement = await completeAchievement(
       id,
-      achievementIP.progress
+      achievementIP.progress,
+      achievementIP.objective
     );
+
+    console.log(achievement);
 
     if (achievementIP.progress == achievementIP.objective) {
       //si té un nivell superior al actual, guarda el progres en el següent achievement
-      if (actualLevel < levels) {
+/*       if (actualLevel < levels) {
           await completeAchievement(id + 1, achievementIP.progress);
-      }
+      } */
       toast.show("", {
         title: `${i18n.t("achievementToast.title")}`,
-        message: "achievement.description",
+        message: achievement.description,
         type: "custom_type",
         location: "achievement",
       });
@@ -66,19 +69,19 @@ const useAchievements = () => {
     });
   };
 
-  const completeAchievement = async (achievement_id, progress) => {
+  const completeAchievement = async (achievement_id, progress, objective) => {
     try {
       const res = await axios.put(
-        `${API_HOST}/api/users/${auth.user._id}/achievements/`,
+        `${API_HOST}/api/users/${auth.user._id}/achievements`,
         {
           achievement_id,
           progress,
+          objective
         }
       );
-      console.log("xd");
-      return res.data;
+      return res.data.achievement;
     } catch (error) {
-      console.log("tonto");
+      console.log(error.toString());
     }
   };
 
