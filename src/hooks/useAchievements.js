@@ -9,22 +9,26 @@ import i18n from "i18n-js";
 const useAchievements = () => {
   const toast = useToast();
   const { auth, updateUser } = useAuth();
+  let myAchievements = auth?.user.achievements;
 
   const updateAchievement = async (id, levels) => {
-    let myAchievements = auth?.user.achievements;
     let actualLevel;
+    let inProgress = false;
+    let achievementIP;
     // Buscar quin achievement te el id desitjat
     for (actualLevel = 1; actualLevel <= levels; actualLevel++) {
-      if (myAchievements[id].progress < myAchievements[id].objective) {
+      achievementIP = findMyAchievement(id);
+      if (achievementIP.progress < achievementIP.objective) {
+        inProgress = true;
         break;
       }
       id++;
     }
 
-    if (id >= id + levels) {
+    if (!inProgress) {
       return;
     }
-    myAchievements[id].progress++;
+    achievementIP.progress++;
 
     updateUser({
       ...auth.user,
@@ -34,51 +38,65 @@ const useAchievements = () => {
     /* actualiza achievement en backend con axios */
     const achievement = await completeAchievement(
       id,
-      myAchievements[id].progress
+      achievementIP.progress
     );
 
-/*     console.log("actual level: " + actualLevel); */
-    //si té un nivell superior al actual, guarda el progres en el següent achievement
-    if (actualLevel < levels) {
-      for(let i = 0; i < levels - actualLevel; i++) {
-        await completeAchievement(id + i, myAchievements[id].progress);
+    if (achievementIP.progress == achievementIP.objective) {
+      //si té un nivell superior al actual, guarda el progres en el següent achievement
+      if (actualLevel < levels) {
+          await completeAchievement(id + 1, achievementIP.progress);
       }
+      toast.show("", {
+        title: `${i18n.t("achievementToast.title")}`,
+        message: "achievement.description",
+        type: "custom_type",
+        location: "achievement",
+      });
     }
+  };
 
-    toast.show("", {
-      title: `${i18n.t("achievementToast.title")}`,
-      message: "achievement.description",
-      type: "custom_type",
-      location: "achievement",
+  const resetAchievements = async () => {
+    for (let i = 0; i < myAchievements.length; i++) {
+      myAchievements[i].progress = 0;
+      await completeAchievement(i, 0);
+    }
+    updateUser({
+      ...auth.user,
+      achievements: myAchievements,
     });
   };
 
-  const completeAchievement = async (achievementId, progress) => {
+  const completeAchievement = async (achievement_id, progress) => {
     try {
       const res = await axios.put(
-        `${API_HOST}/api/users/${auth.user.id}/achievements/`,
+        `${API_HOST}/api/users/${auth.user._id}/achievements/`,
         {
-          achievementId,
+          achievement_id,
           progress,
         }
       );
+      console.log("xd");
+      return res.data;
     } catch (error) {
-      console.log(error);
+      console.log("tonto");
     }
   };
 
-  const getAchievementInfo = async (id) => {
+  const getAchievementInfo = async () => {
     try {
-      const res = await axios.get(`${API_HOST}/api/users/achievements/${id}`);
-      return res;
+      console.log(`${API_HOST}/api/achievements/`);
+      const res = await axios.get(`${API_HOST}/api/achievements/`);
+      return res.data;
     } catch (error) {
-      console.log(error);
+      console.log("infoo no va");
     }
   };
 
   const getAllAchievements = async () => {
     try {
-      const res = await axios.get(`${API_HOST}/api/users/${auth.user.id}/achievements/`);
+      const res = await axios.get(
+        `${API_HOST}/api/users/${auth.user._id}/achievements/`
+      );
       const data = res.data.achievements;
       return data;
     } catch (error) {
@@ -86,10 +104,18 @@ const useAchievements = () => {
     }
   };
 
+  const findMyAchievement = (id) => {
+    return myAchievements.find(
+      (achievement) => achievement.achievement_id == id
+    );
+  };
+
   return {
     updateAchievement,
     getAchievementInfo,
     getAllAchievements,
+    findMyAchievement,
+    resetAchievements,
   };
 };
 

@@ -63,7 +63,7 @@ function LocationInfo(props) {
               objectType: props?.stationInfo?.objectType,
             });
             props.onChangeFilter("singleCharge");
-            updateAchievement(1, 3); // 2 - 1
+            updateAchievement(2, 3);
           }}
           text={i18n.t("locationInfo.getThere")}
         />
