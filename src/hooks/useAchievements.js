@@ -46,9 +46,13 @@ const useAchievements = () => {
 
     if (achievementIP.progress == achievementIP.objective) {
       //si té un nivell superior al actual, guarda el progres en el següent achievement
-/*       if (actualLevel < levels) {
-          await completeAchievement(id + 1, achievementIP.progress);
-      } */
+      if (actualLevel < levels) {
+        await completeAchievement(
+          id + 1,
+          achievementIP.progress,
+          achievementIP.objective
+        );
+      }
       toast.show("", {
         title: `${i18n.t("achievementToast.title")}`,
         message: achievement.description,
@@ -76,7 +80,7 @@ const useAchievements = () => {
         {
           achievement_id,
           progress,
-          objective
+          objective,
         }
       );
       return res.data.achievement;

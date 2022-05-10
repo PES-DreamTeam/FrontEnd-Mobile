@@ -9,7 +9,6 @@ import LocationModal from "./stationComponents/locationModal";
 import useAchievements from "../../../hooks/useAchievements";
 import useExternalService from "../../../hooks/useExternalService";
 
-
 function LocationInfo(props) {
   const { updateAchievement } = useAchievements();
   const { getStationPollution } = useExternalService();
@@ -25,35 +24,38 @@ function LocationInfo(props) {
   const [pollution, setPollution] = useState();
   const [pollutionColor, setPollutionColor] = useState("#fff300");
 
-
   const ChargeStationIcon = (chargerType) => {};
 
   const ReportStation = (stationInfo) => {
-/*     console.log("Reporting station: ");
+    /*     console.log("Reporting station: ");
     console.log(stationInfo); */
   };
 
   function perc2color(perc) {
     perc *= 4;
     perc = 100 - perc;
-    let r, g, b = 0;
-    if(perc < 50) {
-        r = 255;
-        g = Math.round(5.1 * perc);
-    }
-    else {
-        g = 255;
-        r = Math.round(510 - 5.10 * perc);
+    let r,
+      g,
+      b = 0;
+    if (perc < 50) {
+      r = 255;
+      g = Math.round(5.1 * perc);
+    } else {
+      g = 255;
+      r = Math.round(510 - 5.1 * perc);
     }
     let h = r * 0x10000 + g * 0x100 + b * 0x1;
-    return '#' + ('000000' + h.toString(16)).slice(-6);
+    return "#" + ("000000" + h.toString(16)).slice(-6);
   }
 
   useEffect(async () => {
     if (props.stationInfo != null) {
       setStationInfoStyle(styles.locationInfoOpened);
       setModalButtonStyle(styles.locationModalButton);
-      let temp = (await getStationPollution(props?.stationInfo?.lat, props?.stationInfo?.lng));
+      let temp = await getStationPollution(
+        props?.stationInfo?.lat,
+        props?.stationInfo?.lng
+      );
       temp *= 100;
       temp = Math.round(temp * 100) / 100;
       setPollution(temp);
@@ -62,7 +64,6 @@ function LocationInfo(props) {
       setStationInfoStyle(styles.locationInfoClosed);
       setModalButtonStyle(styles.locationInfoClosed);
     }
-    
   }, [props]);
 
   return (
@@ -82,7 +83,9 @@ function LocationInfo(props) {
       </View>
 
       <View style={styles.goThereContent}>
-        <Text style={{backgroundColor: pollutionColor, color: "black"}}>
+        <Text
+          style={styles.pollutionText(pollutionColor)}
+        >
           {pollution}
         </Text>
         <CustomButton
@@ -173,6 +176,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
   },
+  pollutionText: pollutionColor => ({
+    backgroundColor: pollutionColor,
+    color: "black",
+    alignSelf: "center",
+    padding: "2%",
+    borderRadius: 10,
+  }),
 });
 
 export { LocationInfo };
