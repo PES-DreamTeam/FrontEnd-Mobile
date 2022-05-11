@@ -94,10 +94,13 @@ function ReportAplicationScreen({navigation}) {
                     items={items}
                     setOpen={setOpen}
                     setValue={setPickerVal}
-                    containerStyle={{width:320, marginBottom: 15}}                    
+                    containerStyle={
+                        open? {width:320,marginBottom: 2500} : {width:320}} 
+                    zIndex={20}
+                    itemProps={{style: {zIndex: 26, height: 50}}}                  
                 />       
             </View>
-           <ScrollView style={[styles.topContainer]}>                
+           <ScrollView style={[styles.topContainer]} keyboardShouldPersistTaps={true}>                
                 <Text style={styles.formTitle}>
                     {i18n.t("report.ReportApplicationScreen.mobilepl")}
                 </Text>
@@ -159,10 +162,10 @@ const styles = StyleSheet.create({
     },
     preScroll:{
         width: '100%',
-        zIndex: 5
+        zIndex: 19,
     },
     topContainer:{
-        width: '100%',
+        width: '100%'
     },
     title: {
         fontSize: 25,

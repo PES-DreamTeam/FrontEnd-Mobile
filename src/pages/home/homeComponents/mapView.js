@@ -1,96 +1,67 @@
 import React, { Component, useEffect, useState, useRef, useImperativeHandle, forwardRef } from 'react';
-import { StyleSheet, ActivityIndicator, View, Image } from 'react-native';
+import { StyleSheet, ActivityIndicator, View, Image, TouchableOpacity } from 'react-native';
 import MapView, {  Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
 import MapButton from './mapButton';
 import MapPoints from './mapPoints';
 import MapRoutes from './mapRoutes';
-import SearchBar from './searchBar';
+
+import useMap from "../../../hooks/useMap";
+
+
 import useAuth from '../../../hooks/useAuth'
 
 const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
 
-  const { getChargePoints } = useChargePoints();
-  const [location,setLocation] = useState({
-      latitude:41.3887900,
-      longitude:2.1589900,
-      latitudeDelta:0.01,
-      longitudeDelta:0.01
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [chargePoints, setChargePoints] = useState([]);
-  const [shownChargePoints, setShown] = useState([]);
-  const [searchedPoint, setSearchedPoint] = useState(null);
-  const [searchType, setSearchType] = useState(null);
+  const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
 
-  const handleOnSearch = (nameStation) =>{
-    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
-    let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
-    setSearchedPoint(stationSearched[0][1].id);
-    mapRef.current.animateToRegion(statlocation, 1500)
-    OpenStationInfo(stationSearched[0][1]);
-  }
+  
+  const searchedPoint= {};
+  const isLoading = false;
 
   const { auth } = useAuth();
 
   const initialRegion = {
-    latitude: location.latitude,
-    longitude: location.longitude,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  }
+    latitude:41.3887900,
+    longitude:2.1589900,
+    latitudeDelta:0.01,
+    longitudeDelta:0.01
+}
+
+  
 
   useEffect(async () => {
-    
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied');
-      return;
-    }
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta:0.01,
-      longitudeDelta:0.01
-    })
-    
-    const interval = setInterval(async () => {
-      /*let chargePoints = await getChargePoints(mapFilter);
-      let arrayPuntos = Object.entries(chargePoints);
-      setChargePoints(arrayPuntos);*/
-    }, 60000);
-    return () => clearInterval(interval); 
+    await recalcUserLocation();
+    centerPosition();
   }, []);
 
-
-  useEffect(async () => {
-    if(mapFilter.includes("singleCharge")){
-        let aux = chargePoints?.filter(markers => markers[1].id == routeActivate.id)
-        setShown(aux);
-    }
-    else{
-      setIsLoading(true);
-      let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
-      let temp = Object.entries(pointsToShow);
-      setChargePoints(temp);
-      setShown(temp);
-      setIsLoading(false);
-    }
-  }, [mapFilter]);
-
-  const {latitude,longitude} = location;
+  useEffect(() => {
+    centerPositionOnStation();
+  }, [currentStationInfo]);
 
   //0 -> Available, 1 -> Occupied, 2 -> Faulted, 
   //3 -> Unavailable, 4 -> Reserved, 5 -> Charging
 
   const mapRef = useRef(null);
-  const centerPosition = () => {
+  
+  const centerPosition = async () => {
+    console.log("CENTER POSITION");
     mapRef.current.animateToRegion(
-      location
-    , 1500)
+      userLocation,
+      1500)
   }
+
+  const centerPositionOnStation = async () => {
+    console.log("CENTER ON STATION");
+    mapRef.current.animateToRegion(
+      {
+      latitude:currentStationInfo?.lat,
+        longitude:currentStationInfo?.lng,
+        latitudeDelta:0.01,
+        longitudeDelta:0.01
+      }, 1500)
+    }
 
   const cancelRoute = () => {
     ActivateRoute(null);
@@ -100,23 +71,16 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
 
   return (
       <View style ={styles.mapContent}>
-      
-       <SearchBar 
-       shownChargePoints={shownChargePoints}
-       handleOnSearch={handleOnSearch}
-       routeActivate={routeActivate}
-       />
 
       <MapView style ={styles.map} ref={mapRef}
         onPress={ () =>{
           CloseStationInfo();
         }}
-        initialRegion={initialRegion}
       > 
         {routeActivate ? 
           <MapRoutes
           routeActivate={routeActivate}
-          location={location}
+          location={userLocation}
           ChangeRoutingInfo={ChangeRoutingInfo}
           />
         : null
@@ -128,9 +92,10 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
           searchedPoint={searchedPoint}
         />  
 
+
         <Marker 
           coordinate={{
-            latitude: latitude, longitude: longitude
+            latitude: userLocation?.latitude, longitude: userLocation?.longitude
           }}
         >
             <Image
@@ -138,6 +103,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
               style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
             />
         </Marker>
+        
             
         </MapView>
         
@@ -170,7 +136,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
 const styles = StyleSheet.create({
     map: {
       width: '100%',
-      flex: 1
+      flex: 1,
+      zIndex: 1,
     },
     mapMarker: {
       height: 32,
@@ -201,6 +168,7 @@ const styles = StyleSheet.create({
       width: 60,
       height: 60,
       bottom:25,
+      zIndex: 100,
     },
     rightFloat: {
       right: 25

@@ -10,7 +10,8 @@ function achievementList(props) {
   return (
     <View style={styles.listContainer}>
       <ScrollView style={styles.achievementsList}>
-        {achievementsInfo.map((achievement, index) => {
+        {myAchievements?.map((achievement, index) => {
+          let achievementInfo = findAchievement(achievement.achievement_id);
           return (
             <Achievement
               key={index}

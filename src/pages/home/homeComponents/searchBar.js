@@ -4,9 +4,9 @@ import i18n from 'i18n-js';
 import Autocomplete from 'react-native-autocomplete-input';
 import {Divider} from "react-native-elements";
 
-const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType}) => {
+const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearchBar, setOpenSearchBar, searchType}) => {
     const [filteredStat, setFilteredStat] = useState([]);
-    const [open, setOpen] = useState("none");
+    
     const [text, setText] = useState(null);
     const [routeActive, setRouteActive] = useState(null);
     
@@ -23,7 +23,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
 
       useEffect(() =>routeActivate ? setRouteActive("none") : setRouteActive(null), [routeActivate]);
       useEffect(() => {
-          setOpen("none");
+            setOpenSearchBar("none");
           setText("");
       }, [shownChargePoints]);
 
@@ -40,7 +40,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
         <View style={styles.autocompleteContainer}>
             <Autocomplete
             onChangeText={(text) => {
-                text != "" ? setOpen(null) : setOpen("none");
+                text != "" ? setOpenSearchBar(null) : setOpenSearchBar("none");
                 findStation(text);
                 setText(text);
             }}
@@ -48,23 +48,23 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
             name="search"
             value={text}
             placeholder={`${i18n.t('home.searchBar')}`}
-            containerStyle={[{display:routeActive}]}
-            listContainerStyle={[styles.listContainer, {display:open}]} 
             inputContainerStyle={styles.searchBar}
+            listContainerStyle={[styles.listContainer, {display:openSearchBar}]} 
+            
             flatListProps={{
                 keyExtractor: (item, idx) => item+idx,
                 ItemSeparatorComponent:separator,
                 renderItem:({item, index}) =>(
-                <View style={styles.listItem}>
-                    <TouchableOpacity onPress={() => {
+                <View>
+                    <TouchableOpacity 
+                    style={styles.listItem}
+                    onPress={() => {
                         //console.log(item); 
                         handleOnSearch(item);
-                        setOpen("none");
+                        setOpenSearchBar("none");
                         setText(null);
                         }}
                     >
-                       
-                        <Text style={styles.text}>{item}</Text>
                         {getStationType(item) == "bikeStation" 
                          ? 
                             <Image
@@ -77,11 +77,9 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
                                 style={styles.icon} 
                             />
                          }
+                         <Text style={styles.text}>{item}</Text>
                     </TouchableOpacity>   
                 </View>),
-                
-               
-            
             }}
             />
          </View>
@@ -91,41 +89,46 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
 
 const styles = StyleSheet.create({
     searchBar: {
-      width: Dimensions.get('window').width - 70,
-      paddingLeft: 10,
+      width: "100%",
+      height: 50,
+      alignSelf: "center",
+      justifyContent: "center",
+      backfaceVisibility: "hidden",
+      padding: 10,
+      borderWidth: 1,
+        borderRadius: 50,
+        borderColor: "black",
     },
     autocompleteContainer: {
         flex: 1,
-        left: 50,
-        position: 'absolute',
-        right: 0,
-        top:-60,
-        zIndex: 1,
-        padding: 10,
+        width: "90%",
+        height: "100%",
+        alignSelf: "center",
+        justifyContent: "center",
+        
     },
     listContainer:{
         backgroundColor:'#F5FCFF',
-        zIndex:1,
-        paddingTop:0,
-        borderRadius: 20,
-        paddingLeft: 10,
-        height: Dimensions.get('window').height - 500,
-        width: Dimensions.get('window').width - 70,
+        marginTop: 10,
+        width: "100%",
+        height: 400,
+        alignSelf: "center",
+        justifyContent: "center",
 
     },
     listItem:{
-
         paddingTop:5,
-        paddingBottom:5,
+        flexDirection: "row",
+        width: "100%",
+        height: 50,
     },
     icon: {
-        position:"absolute",
-        top:3,
         width: 16,
-        height: 16
+        height: 16,
+        marginLeft: 5,
     },
     text:{
-        paddingLeft: 20,
+        paddingLeft: 5,
     }
      
    

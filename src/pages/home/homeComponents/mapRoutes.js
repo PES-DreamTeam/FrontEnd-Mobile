@@ -28,7 +28,6 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
             }
         }
     }
-   
     return(
        
             <MapViewDirections

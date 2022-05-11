@@ -74,7 +74,6 @@ function ProfileScreen({ navigation }) {
 
   function EnableEditProfile(enabled) {
     if (!enabled) {
-      console.log("letsgo");
       updateUser({
         ...auth.user,
         nickname: user.name,

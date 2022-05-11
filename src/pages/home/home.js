@@ -12,6 +12,8 @@ import { CustomMapView, FilterMap, LocationInfo } from "./homeComponents/";
 import useAuth from "../../hooks/useAuth";
 import i18n from "i18n-js";
 import { RoutesInfo } from "./homeComponents/RoutesInfo";
+import  useMap  from "../../hooks/useMap";
+import SearchBar from './homeComponents/searchBar';
 
 export default function HomeScreen({ navigation }) {
   var vehicleImages = [
@@ -23,19 +25,14 @@ export default function HomeScreen({ navigation }) {
     require("../../../assets/images/carTypes/icons/carType_8.png"),
   ];
 
+  const [openSearchBar, setOpenSearchBar] = useState("none");
+
   const { auth } = useAuth();
+  const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
+    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint } = useMap();
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
-  const [currentFilter, setCurrentFilter] = useState(["vehicleStation"]);
-  const [wantRoute, setWantRoute] = useState(null);
-  const [routeInfo, setRouteInfo] = useState(null);
-  const [currentStationInfo, setStationInfo] = useState(null);
-
-  const [filterVehicle, setFilterVehicle] = useState(true);
-  const [filterBike, setFilterBike] = useState(false);
-  const [filterHighlight, setFilterHighlight] = useState(false);
-  const [filterFavs, setFilterFavs] = useState(false);
 
   useEffect(() => {
     setUser(auth.user);
@@ -49,33 +46,6 @@ export default function HomeScreen({ navigation }) {
       temp.splice(index, 1);
       return temp;
     }
-  };
-
-  const ChangeFilter = (filter) => {
-    let temp = JSON.parse(JSON.stringify(currentFilter));
-    temp = temp.indexOf("singleCharge") !== -1 ? deleteSingle(temp) : temp;
-    let index = temp.indexOf(filter);
-    if (index !== -1) {
-      temp.splice(index, 1);
-    } else {
-      temp.push(filter);
-    }
-    switch (filter) {
-      case "vehicleStation":
-        setFilterVehicle(!filterVehicle);
-        break;
-      case "bikeStation":
-        setFilterBike(!filterBike);
-        break;
-      case "highlight":
-        setFilterHighlight(!filterHighlight);
-        break;
-      case "favs":
-        setFilterFavs(!filterFavs);
-        break;
-    }
-    setCurrentFilter(temp);
-    CloseStationInfo();
   };
 
   const OpenStationInfo = (station) => {
@@ -95,24 +65,44 @@ export default function HomeScreen({ navigation }) {
     setRouteInfo(newRouteInfo);
   };
 
+  const handleOnSearch = (nameStation) =>{
+    let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
+    let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
+    setSearchedPoint(stationSearched[0][1].id);
+    OpenStationInfo(stationSearched[0][1]);
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
+      <View style={openSearchBar? styles.top : styles.topSearch}>
         <View style={styles.topBar}>
-          <Pressable
-            style={styles.topBarMenuButton}
-            onPress={() => navigation.toggleDrawer()}
-          >
-            <Image source={require("../../../assets/images/desplegable.png")} />
-          </Pressable>
+          <View style={styles.topBarMenuButtonContainer}>
+            <Pressable
+              style={styles.topBarMenuButton}
+              onPress={() => navigation.toggleDrawer()}
+            >
+              <Image source={require("../../../assets/images/desplegable.png")} />
+            </Pressable>
+          </View>
+          <View style={styles.searchBarContainer}>
+            <SearchBar 
+              shownChargePoints={shownChargePoints}
+              handleOnSearch={handleOnSearch}
+              routeActivate={wantRoute}
+              openSearchBar={openSearchBar}
+              setOpenSearchBar={setOpenSearchBar}
+            />
+          </View>
         </View>
-
-        <RoutesInfo
-          routeActivate={wantRoute}
-          ActivateRoute={ActivateRoute}
-          routingInfo={routeInfo}
-        />
+        <View style={styles.routesInfoContainer}>
+          <RoutesInfo
+            routeActivate={wantRoute}
+            ActivateRoute={ActivateRoute}
+            routingInfo={routeInfo}
+          />
+        </View>
       </View>
+      {
       <CustomMapView
         //ref={mapViewRef}
         color={vehicleConfig[currentVehicle ?? 8]?.color ?? "#000000"}
@@ -121,27 +111,24 @@ export default function HomeScreen({ navigation }) {
         vehicleType={
           vehicleImages[vehicleConfig[currentVehicle ?? 8]?.vehicleType ?? 8]
         }
-        mapFilter={currentFilter}
+        mapFilter={mapFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
-        onChangeFilter={ChangeFilter}
+        onChangeFilter={ChangeMapFilter}
         ChangeRoutingInfo={changeRouteInfo}
       />
+      }
 
       <LocationInfo
-        stationInfo={currentStationInfo}
+        stationInfo={openSearchBar? currentStationInfo : null}
+        routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
-        onChangeFilter={ChangeFilter}
+        onChangeFilter={ChangeMapFilter}
       />
 
       <FilterMap
-        onChangeFilter={ChangeFilter}
         ChangeRoutingInfo={changeRouteInfo}
         ActivateRoute={ActivateRoute}
-        filterVehicle={filterVehicle}
-        filterBike={filterBike}
-        filterHighlight={filterHighlight}
-        filterFavs={filterFavs}
       />
     </View>
   );
@@ -151,23 +138,42 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 20,
     width: "100%",
+    minHeight: 80,
+    height: "10%",
     textAlign: "left",
-    alignItems: "center",
+  },
+  topSearch: {
+    marginTop: 20,
+    minHeight: 150,
+    width: "100%",
+    height: "50%",
+    textAlign: "left",
   },
   topBar: {
     marginTop: 20,
-    height: 60,
+    height: "100%",
     width: "100%",
     textAlign: "left",
     flexDirection: "row",
-    alignItems: "center",
   },
   topBarMenuButton: {
-    width: 80,
+    width: "100%",
+    height: "100%",
+    /*     alignItems: "center", */
+    alignItems: "center",
+  },
+  searchBarContainer: {
+    width: "85%",
     height: "100%",
     justifyContent: "center",
-    /*     alignItems: "center", */
-    marginLeft: "3%",
+  },
+  routesInfoContainer: {
+    width: "100%",
+    
+  },
+  topBarMenuButtonContainer: {
+    width: "15%",
+    height: "100%",
   },
   container: {
     flex: 1,
