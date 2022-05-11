@@ -56,10 +56,15 @@ function LocationInfo(props) {
         props?.stationInfo?.lat,
         props?.stationInfo?.lng
       );
-      temp *= 100;
-      temp = Math.round(temp * 100) / 100;
-      setPollution(temp);
-      setPollutionColor(perc2color(temp));
+      if(temp == null || temp == undefined){
+        setPollution(i18n.t('miscelaneus.loading'));
+        setPollutionColor("#ffffff");
+      }else{
+        temp *= 100;
+        temp = Math.round(temp * 100) / 100;
+        setPollution(temp);
+        setPollutionColor(perc2color(temp));
+      }
     } else {
       setStationInfoStyle(styles.locationInfoClosed);
       setModalButtonStyle(styles.locationInfoClosed);
@@ -82,11 +87,11 @@ function LocationInfo(props) {
         <GenericLocationInfo stationInfo={props?.stationInfo} />
       </View>
 
-      <View style={styles.goThereContent}>
+      <View style={styles.botBarContent}>
         <Text
           style={styles.pollutionText(pollutionColor)}
         >
-          {pollution}
+          {i18n.t('locationInfo.pollutionLevel')}: {pollution}
         </Text>
         <CustomButton
           customStyles={styles.goThereButton}
@@ -159,9 +164,11 @@ const styles = StyleSheet.create({
     height: "65%",
     width: "100%",
   },
-  goThereContent: {
+  botBarContent: {
+    width: "100%",
     height: "15%",
     flexDirection: "row",
+    justifyContent: "space-between",
     marginLeft: "auto",
     marginTop: "auto",
   },

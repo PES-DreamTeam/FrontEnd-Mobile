@@ -94,6 +94,7 @@ const en = {
 		likesNumber: "Likes",
 		reportsNumber: "Reports",
 		report: "Report",
+		pollutionLevel: "Pollution level",
 	}, 
 	uploadImage: {
 		editImage: "Edit Image",
@@ -114,7 +115,7 @@ const en = {
 		subtitle: "Your achievements:",
 		shareMessage: "I have completed this achievement on EcoRoads. Check it out: ",
 	}, 
-	reportApp: {
+	report: {
 		ReportApplicationScreen: {
 			fillfields: "Please fill in all fields",
 			OSversion: "Which version of the OS are you currently running?",

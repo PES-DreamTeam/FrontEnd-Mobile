@@ -94,6 +94,7 @@ const cat = {
 		likesNumber: "M'agrades",
 		reportsNumber: "Incidències",
 		report: "Reportar",
+		pollutionLevel: "Nivell de contaminació",
 	}, 
 	uploadImage: {
 		editImage: "Editar Imatge",
@@ -114,7 +115,7 @@ const cat = {
 		subtitle: "Els teus assoliments:",
 		shareMessage: "He completat aquest assoliment a EcoRoads. Fes-li una ullada: ",
 	}, 
-	reportApp: {
+	report: {
 		ReportApplicationScreen: {
 			fillfields: "Si us plau emplena tots els camps",
 			OSversion: "Quina versió del SO esta fent servir?",

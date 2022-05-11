@@ -81,6 +81,7 @@ getThere,Get there!,¡Llévame!,Porta-m'hi!
 likesNumber,Likes,Me gustas,M'agrades
 reportsNumber,Reports,Reportes,Incidències
 report,Report,Reportar,Reportar
+pollutionLevel,Pollution level,Nivel de contaminación,Nivell de contaminació
 PAGE_uploadImage,,,
 editImage,Edit Image,Editar Imagen,Editar Imatge
 uploadImage,Upload Image,Añadir Imagen,Afegir Imatge
@@ -99,7 +100,7 @@ shareMessage,I have completed this achievement on EcoRoads. Check it out: ,He co
 ,,,
 ,,,
 ,,,
-PAGE_reportApp,,,
+PAGE_report,,,
 ReportApplicationScreen_fillfields,Please fill in all fields,Porfavor rellena todos los campos,Si us plau emplena tots els camps
 ReportApplicationScreen_OSversion,Which version of the OS are you currently running?,¿Qué versión del SO esta usando?,Quina versió del SO esta fent servir?
 ReportApplicationScreen_subjectinquiry,Subject of Inquiry,Tema de consulta,Tema de consulta
