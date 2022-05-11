@@ -10,7 +10,10 @@ import { CustomDrawer } from "./customDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import i18n from "i18n-js";
 import { ReportAplicationScreen } from "../pages/reportScreen/ReportAplicationScreen";
+import { ChatScreen } from "../pages/chat/chatScreen";
 import { AchievementsScreen } from "../pages/achievements/achievementsScreen";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -61,6 +64,16 @@ function SidebarNavigator() {
             title: `${i18n.t("drawer.settings")}`,
             drawerIcon: ({ color }) => (
               <Ionicons name="settings-outline" size={22} color={color} />
+            ),
+          }}
+        />
+          <Drawer.Screen
+          name="Chat"
+          component={ChatScreen}
+          options={{
+            title: `${i18n.t("drawer.chat")}`,
+            drawerIcon: ({ color }) => (
+              <Icon name="chat-alert-outline" size={22} color={color} />
             ),
           }}
         />
