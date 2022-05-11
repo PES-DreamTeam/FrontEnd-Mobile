@@ -4,9 +4,9 @@ import i18n from 'i18n-js';
 import Autocomplete from 'react-native-autocomplete-input';
 import {Divider} from "react-native-elements";
 
-const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType}) => {
+const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearchBar, setOpenSearchBar, searchType}) => {
     const [filteredStat, setFilteredStat] = useState([]);
-    const [open, setOpen] = useState("none");
+    
     const [text, setText] = useState(null);
     const [routeActive, setRouteActive] = useState(null);
     
@@ -23,7 +23,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
 
       useEffect(() =>routeActivate ? setRouteActive("none") : setRouteActive(null), [routeActivate]);
       useEffect(() => {
-          setOpen("none");
+            setOpenSearchBar("none");
           setText("");
       }, [shownChargePoints]);
 
@@ -40,7 +40,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
         <View style={styles.autocompleteContainer}>
             <Autocomplete
             onChangeText={(text) => {
-                text != "" ? setOpen(null) : setOpen("none");
+                text != "" ? setOpenSearchBar(null) : setOpenSearchBar("none");
                 findStation(text);
                 setText(text);
             }}
@@ -48,8 +48,9 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
             name="search"
             value={text}
             placeholder={`${i18n.t('home.searchBar')}`}
-            listContainerStyle={[styles.listContainer, {display:open}]} 
             inputContainerStyle={styles.searchBar}
+            listContainerStyle={[styles.listContainer, {display:openSearchBar}]} 
+            
             flatListProps={{
                 keyExtractor: (item, idx) => item+idx,
                 ItemSeparatorComponent:separator,
@@ -60,7 +61,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
                     onPress={() => {
                         //console.log(item); 
                         handleOnSearch(item);
-                        setOpen("none");
+                        setOpenSearchBar("none");
                         setText(null);
                         }}
                     >
@@ -79,9 +80,6 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
                          <Text style={styles.text}>{item}</Text>
                     </TouchableOpacity>   
                 </View>),
-                
-               
-            
             }}
             />
          </View>
@@ -91,38 +89,38 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, searchType
 
 const styles = StyleSheet.create({
     searchBar: {
-      width: "90%",
-      height: "100%",
+      width: "100%",
+      height: 50,
       alignSelf: "center",
       justifyContent: "center",
-      borderWidth: 0,
-      marginBottom: 5,
-    },
-    autocompleteContainer: {
-        width: "90%",
-        height: "75%",
-        zIndex: 15,
-        alignSelf: "center",
-        justifyContent: "center",
-        borderWidth: 1,
+      backfaceVisibility: "hidden",
+      padding: 10,
+      borderWidth: 1,
         borderRadius: 50,
         borderColor: "black",
     },
+    autocompleteContainer: {
+        flex: 1,
+        width: "90%",
+        height: "100%",
+        alignSelf: "center",
+        justifyContent: "center",
+        
+    },
     listContainer:{
         backgroundColor:'#F5FCFF',
-        zIndex:15,
-        paddingTop:0,
+        marginTop: 10,
         width: "100%",
-        height: 200,
+        height: 400,
         alignSelf: "center",
         justifyContent: "center",
 
     },
     listItem:{
-        zIndex:20,
         paddingTop:5,
-        paddingBottom:5,
         flexDirection: "row",
+        width: "100%",
+        height: 50,
     },
     icon: {
         width: 16,

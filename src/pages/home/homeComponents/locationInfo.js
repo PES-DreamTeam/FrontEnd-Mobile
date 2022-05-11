@@ -22,8 +22,6 @@ function LocationInfo(props) {
   const ChargeStationIcon = (chargerType) => {};
 
   const ReportStation = (stationInfo) => {
-    console.log("Reporting station: ");
-    console.log(stationInfo);
   };
 
   useEffect(async () => {

@@ -25,11 +25,11 @@ export default function HomeScreen({ navigation }) {
     require("../../../assets/images/carTypes/icons/carType_8.png"),
   ];
 
- 
+  const [openSearchBar, setOpenSearchBar] = useState("none");
 
   const { auth } = useAuth();
   const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
-    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, } = useMap();
+    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint } = useMap();
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
@@ -69,13 +69,12 @@ export default function HomeScreen({ navigation }) {
     let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
     let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
     setSearchedPoint(stationSearched[0][1].id);
-    mapRef.current.animateToRegion(statlocation, 1500)
     OpenStationInfo(stationSearched[0][1]);
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
+      <View style={openSearchBar? styles.top : styles.topSearch}>
         <View style={styles.topBar}>
           <View style={styles.topBarMenuButtonContainer}>
             <Pressable
@@ -90,6 +89,8 @@ export default function HomeScreen({ navigation }) {
               shownChargePoints={shownChargePoints}
               handleOnSearch={handleOnSearch}
               routeActivate={wantRoute}
+              openSearchBar={openSearchBar}
+              setOpenSearchBar={setOpenSearchBar}
             />
           </View>
         </View>
@@ -119,7 +120,7 @@ export default function HomeScreen({ navigation }) {
       }
 
       <LocationInfo
-        stationInfo={currentStationInfo}
+        stationInfo={openSearchBar? currentStationInfo : null}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
         onChangeFilter={ChangeMapFilter}
@@ -137,30 +138,34 @@ const styles = StyleSheet.create({
   top: {
     marginTop: 20,
     width: "100%",
+    minHeight: 80,
+    height: "10%",
     textAlign: "left",
-    alignItems: "center",
-    zIndex: 10,
+  },
+  topSearch: {
+    marginTop: 20,
+    minHeight: 150,
+    width: "100%",
+    height: "50%",
+    textAlign: "left",
   },
   topBar: {
     marginTop: 20,
-    height: 60,
+    height: "100%",
     width: "100%",
     textAlign: "left",
     flexDirection: "row",
-    alignItems: "center",
   },
   topBarMenuButton: {
     width: "100%",
     height: "100%",
     /*     alignItems: "center", */
-    justifyContent: "center",
     alignItems: "center",
   },
   searchBarContainer: {
     width: "85%",
     height: "100%",
     justifyContent: "center",
-    
   },
   routesInfoContainer: {
     width: "100%",

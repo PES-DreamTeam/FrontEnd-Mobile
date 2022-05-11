@@ -14,7 +14,7 @@ import useAuth from '../../../hooks/useAuth'
 
 const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
 
-  const { shownChargePoints, userLocation, recalcUserLocation } = useMap();
+  const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
 
   
   const searchedPoint= {};
@@ -36,24 +36,38 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
     centerPosition();
   }, []);
 
+  useEffect(() => {
+    centerPositionOnStation();
+  }, [currentStationInfo]);
+
   //0 -> Available, 1 -> Occupied, 2 -> Faulted, 
   //3 -> Unavailable, 4 -> Reserved, 5 -> Charging
 
   const mapRef = useRef(null);
   
   const centerPosition = async () => {
+    console.log("CENTER POSITION");
     mapRef.current.animateToRegion(
-      userLocation
-    , 1500)
+      userLocation,
+      1500)
   }
+
+  const centerPositionOnStation = async () => {
+    console.log("CENTER ON STATION");
+    mapRef.current.animateToRegion(
+      {
+      latitude:currentStationInfo?.lat,
+        longitude:currentStationInfo?.lng,
+        latitudeDelta:0.01,
+        longitudeDelta:0.01
+      }, 1500)
+    }
 
   const cancelRoute = () => {
     ActivateRoute(null);
     onChangeFilter((mapFilter));
     ChangeRoutingInfo(null);
   }
-
-  console.log(mapFilter);
 
   return (
       <View style ={styles.mapContent}>

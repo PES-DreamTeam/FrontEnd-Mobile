@@ -5,7 +5,7 @@ import { API_HOST, IMGBB_API_KEY } from "@env";
 import { MapContext } from "../context/mapContext";
 
 const useMap = () => {
-  const { map, userLocation, shownChargePoints, searchedPoint, mapFilter, setMapFilter, searchType,
+  const { map, userLocation, shownChargePoints, searchedPoint, mapFilter, setMapFilter, searchType, setSearchedPoint,
     wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo, ReloadUserLocation} = useContext(MapContext);
 
   const ChangeMapFilter = (filter) => {
@@ -28,7 +28,7 @@ const useMap = () => {
   }
 
   return {
-    shownChargePoints, userLocation, mapFilter, ChangeMapFilter, recalcUserLocation,
+    shownChargePoints, userLocation, mapFilter, ChangeMapFilter, recalcUserLocation, setSearchedPoint,
     wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo,
   };
 };

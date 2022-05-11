@@ -94,7 +94,8 @@ function ReportAplicationScreen({navigation}) {
                     items={items}
                     setOpen={setOpen}
                     setValue={setPickerVal}
-                    containerStyle={{width:320, marginBottom: 15}} 
+                    containerStyle={
+                        open? {width:320,marginBottom: 2500} : {width:320}} 
                     zIndex={20}
                     itemProps={{style: {zIndex: 26, height: 50}}}                  
                 />       

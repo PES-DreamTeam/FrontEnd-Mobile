@@ -31,9 +31,6 @@ export default (props) => {
     
     useEffect(() => {
         if (props.stationInfo != null) {
-            console.log(props?.stationInfo?.id);
-            console.log(auth?.user?.likes);
-            console.log(auth?.user?.likes?.includes(props?.stationInfo?.id?.toString()));
             toggleFavourite(
                 auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString())
             );
