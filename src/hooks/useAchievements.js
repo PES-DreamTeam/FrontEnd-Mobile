@@ -95,7 +95,7 @@ const useAchievements = () => {
       const res = await axios.get(`${API_HOST}/api/achievements/`);
       return res.data;
     } catch (error) {
-      console.log("infoo no va");
+      console.log(error);
     }
   };
 
