@@ -65,7 +65,7 @@ const es = {
 		skip: "Saltar",
 	}, 
 	profile: {
-		yourVehicle: "Información de tus vehículos",
+		yourVehicle: "Tu garaje",
 		changeVehicle: "Desliza para cambiar tu vehículo por defecto",
 		title: "Perfil",
 		vehicleNotDef: "Vehículo no definido",
@@ -100,17 +100,6 @@ const es = {
 		editImage: "Editar Imagen",
 		uploadImage: "Añadir Imagen",
 	}, 
-	report: {
-		reportStation: {
-			title: "Reportar una estación",
-			subtitle: "",
-			placeholder: "Descripción del problema",
-			poorCondition: "Malas condiciones",
-			badInformation: "Información erronea",
-			dislike: "No me gusta",
-		}, 
-		send: "Enviar",
-	}, 
 	achievementScreen: {
 		subtitle: "Tus logros:",
 		shareMessage: "He completado este logro en EcoRoads. Échale un vistazo: ",
@@ -118,12 +107,29 @@ const es = {
 	report: {
 		ReportApplicationScreen: {
 			fillfields: "Porfavor rellena todos los campos",
-			OSversion: "¿Qué versión del SO esta usando?",
+			OSversion: "Sistema Operativo",
 			subjectinquiry: "Tema de consulta",
 			detailsinquiry: "Detalles de la consulta",
 			title: "Pagina de Reporte",
-			mobilepl: "¿Desde que plataforma mobil estas haciendo la consulta?",
+			mobilepl: "Tipo de dispositivo",
 			type: "Tipo de Reporte",
+			smartphone: "Smartphone",
+			tablet: "Tablet",
+			ios: "iOS",
+			android: "Android",
+			bug: "Bug",
+			generalHelp: "Ayuda general",
+			featureRequest: "Solicitud de funcionalidad",
+			feedback: "Comentario",
+		}, 
+		send: "Enviar",
+		reportStation: {
+			title: "Reportar una estación",
+			subtitle: "",
+			placeholder: "Descripción del problema",
+			poorCondition: "Malas condiciones",
+			badInformation: "Información erronea",
+			dislike: "No me gusta",
 		}, 
 	}, 
 	achievementToast: {

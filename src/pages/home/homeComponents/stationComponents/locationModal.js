@@ -127,8 +127,7 @@ export default (props) => {
                                     customStyles={styles.reportButton}
                                     onPress={props.handleReport}
                                     imageSrc={require("../../../../../assets/images/icons/flag.png")}
-                                    imageWidth={20}
-                                    imageHeight={20}
+                                    imageStyle={{with: 20, height: 20}}
                                 />
                             </View>
                             <View styles={styles.reportsInfo}>

@@ -65,7 +65,7 @@ const en = {
 		skip: "Skip",
 	}, 
 	profile: {
-		yourVehicle: "Your vehicles information",
+		yourVehicle: "Your Garage",
 		changeVehicle: "Swipe to change your default vehicle",
 		title: "Profile",
 		vehicleNotDef: "Vehicle not defined yet",
@@ -100,17 +100,6 @@ const en = {
 		editImage: "Edit Image",
 		uploadImage: "Upload Image",
 	}, 
-	report: {
-		reportStation: {
-			title: "Report a Station",
-			subtitle: "",
-			placeholder: "Issue description",
-			poorCondition: "Poor conditions",
-			badInformation: "Incorrect Info",
-			dislike: "Dislike",
-		}, 
-		send: "Send",
-	}, 
 	achievementScreen: {
 		subtitle: "Your achievements:",
 		shareMessage: "I have completed this achievement on EcoRoads. Check it out: ",
@@ -118,12 +107,29 @@ const en = {
 	report: {
 		ReportApplicationScreen: {
 			fillfields: "Please fill in all fields",
-			OSversion: "Which version of the OS are you currently running?",
+			OSversion: "Operating System",
 			subjectinquiry: "Subject of Inquiry",
 			detailsinquiry: "Details of Inquiry",
 			title: "Report Screen",
-			mobilepl: "Which mobile plataform are you inquiring about?",
+			mobilepl: "Device type",
 			type: "Type of Report ",
+			smartphone: "Smartphone",
+			tablet: "Tablet",
+			ios: "iOS",
+			android: "Android",
+			bug: "Bug",
+			generalHelp: "General help",
+			featureRequest: "Feature request",
+			feedback: "Feedback",
+		}, 
+		send: "Send",
+		reportStation: {
+			title: "Report a Station",
+			subtitle: "",
+			placeholder: "Issue description",
+			poorCondition: "Poor conditions",
+			badInformation: "Incorrect Info",
+			dislike: "Dislike",
 		}, 
 	}, 
 	achievementToast: {

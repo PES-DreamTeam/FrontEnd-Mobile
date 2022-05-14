@@ -54,7 +54,7 @@ notEV,Don't have an EV?,¿No tienes un VE?,No tens un VE?
 cancel,Cancel,Cancelar,Cancel·lar
 skip,Skip,Saltar,Salta
 PAGE_profile,,,
-yourVehicle,Your vehicles information,Información de tus vehículos,Informació dels teus vehicles
+yourVehicle,Your Garage,Tu garaje,El teu garatge
 changeVehicle,Swipe to change your default vehicle,Desliza para cambiar tu vehículo por defecto,Llisca per canviar el teu vehicle per defecte
 title,Profile,Perfil,Perfil
 vehicleNotDef,Vehicle not defined yet,Vehículo no definido,Vehicle no definit
@@ -86,14 +86,7 @@ PAGE_uploadImage,,,
 editImage,Edit Image,Editar Imagen,Editar Imatge
 uploadImage,Upload Image,Añadir Imagen,Afegir Imatge
 ,,,
-PAGE_report,,,
-reportStation_title,Report a Station,Reportar una estación,Reportar una estació
-reportStation_subtitle,,,
-reportStation_placeholder,Issue description,Descripción del problema,Descripció del problema
-reportStation_poorCondition,Poor conditions,Malas condiciones,Males condicions
-reportStation_badInformation,Incorrect Info,Información erronea,Informació errònia
-reportStaiton_dislike,Dislike,No me gusta,No m'agrada
-send,Send,Enviar,Enviar
+,,,
 PAGE_achievementScreen,,,
 subtitle,Your achievements:,Tus logros:,Els teus assoliments:
 shareMessage,I have completed this achievement on EcoRoads. Check it out: ,He completado este logro en EcoRoads. Échale un vistazo: ,He completat aquest assoliment a EcoRoads. Fes-li una ullada: 
@@ -102,12 +95,27 @@ shareMessage,I have completed this achievement on EcoRoads. Check it out: ,He co
 ,,,
 PAGE_report,,,
 ReportApplicationScreen_fillfields,Please fill in all fields,Porfavor rellena todos los campos,Si us plau emplena tots els camps
-ReportApplicationScreen_OSversion,Which version of the OS are you currently running?,¿Qué versión del SO esta usando?,Quina versió del SO esta fent servir?
+ReportApplicationScreen_OSversion,Operating System,Sistema Operativo,Sistema Operatiu
 ReportApplicationScreen_subjectinquiry,Subject of Inquiry,Tema de consulta,Tema de consulta
 ReportApplicationScreen_detailsinquiry,Details of Inquiry,Detalles de la consulta,Detalls de la consulta
 ReportApplicationScreen_title,Report Screen,Pagina de Reporte,Pantalla d'Incidències
-ReportApplicationScreen_mobilepl,Which mobile plataform are you inquiring about?,¿Desde que plataforma mobil estas haciendo la consulta?,Desde quina plataforma mòvil està fent la consulta?
+ReportApplicationScreen_mobilepl,Device type,Tipo de dispositivo,Tipus de dispositiu
 ReportApplicationScreen_type,Type of Report ,Tipo de Reporte,Tipus de Incidència
+ReportApplicationScreen_smartphone,Smartphone,Smartphone,Smartphone
+ReportApplicationScreen_tablet,Tablet,Tablet,Tauleta
+ReportApplicationScreen_ios,iOS,iOS,iOS
+ReportApplicationScreen_android,Android,Android,Android
+ReportApplicationScreen_bug,Bug,Bug,Bug
+ReportApplicationScreen_generalHelp,General help,Ayuda general,Ajuda general
+ReportApplicationScreen_featureRequest,Feature request,Solicitud de funcionalidad,Sol·licitud de funcionalitat
+ReportApplicationScreen_feedback,Feedback,Comentario,Comentari
+send,Send,Enviar,Enviar
+reportStation_title,Report a Station,Reportar una estación,Reportar una estació
+reportStation_subtitle,,,
+reportStation_placeholder,Issue description,Descripción del problema,Descripció del problema
+reportStation_poorCondition,Poor conditions,Malas condiciones,Males condicions
+reportStation_badInformation,Incorrect Info,Información erronea,Informació errònia
+reportStaiton_dislike,Dislike,No me gusta,No m'agrada
 ,,,
 PAGE_achievementToast,,,
 title,Achievement completed!,¡Logro completado!,Assoliment completat!

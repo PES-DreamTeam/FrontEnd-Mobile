@@ -1,25 +1,25 @@
 import { TouchableOpacity, Text, StyleSheet, Image } from "react-native"
 import i18n from "i18n-js"
-export default ({onPress, text, customStyles, disabled, imageSrc, imageWidth, imageHeight}) => {
+export default ({onPress, text, textStyle, customStyles, disabled, imageSrc, imageStyle}) => {
+    const customStyle = require('./customStyleSheet');
+    
     return(
         <TouchableOpacity
             style={[styles.button, customStyles]}
             onPress={onPress}
             disabled={disabled}
             imageSrc={imageSrc}
-            imageWidth={imageWidth}
-            imageHeight={imageHeight}
 
         >
             {
                 text ?
-                <Text style={{color: "white"}}>{text}</Text>
+                <Text style={!textStyle? customStyle.submitButtonText : textStyle}>{text}</Text>
                 :
                 null
             }
             {
                 imageSrc ? 
-                <Image source={imageSrc} style={{width: imageWidth, height: imageHeight}}/>
+                <Image source={imageSrc} style={imageStyle}/>
                 :
                 null
             }

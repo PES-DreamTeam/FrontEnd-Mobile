@@ -46,8 +46,7 @@ export default CarInfoItem = ({item, index, currentVehicle}) => {
                     <CustomButton
                         customStyles={styles.deleteButton}
                         imageSrc={require('../../../../assets/images/icons/delete.png')}
-                        imageHeight={35}
-                        imageWidth={35}
+                        imageStyle={{height: 35, width: 35}}
                         onPress={() => {deleteConfig(item.numberPlate)}}
                     />
                 </View>

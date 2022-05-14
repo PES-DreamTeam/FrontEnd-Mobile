@@ -5,6 +5,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import useReportAplication from '../../hooks/useReportAplication';
 import CustomButton from '../../utils/button';
+import CustomDropDown from "../../utils/customDropDown";
 import { useToast } from 'react-native-toast-notifications';
 
 function ReportAplicationScreen({navigation}) {
@@ -12,15 +13,10 @@ function ReportAplicationScreen({navigation}) {
     const toast = useToast();
     const { sendReport } = useReportAplication();
 
-    const [open, setOpen] = useState(false);
-    const [pickerVal, setPickerVal] = useState(null);
-    const [items, setItems] = useState([
-        {label:"Bug", value:"bug"},
-        {label:"General Help", value:"general help"},
-        {label:"Feature Request ", value:"feature request"},
-        {label:"Feedback", value:"feedback"}
+    const customStyle = require('../../utils/customStyleSheet');
 
-      ]);
+    const [open, setOpen] = useState(false);
+    const [pickerVal, setPickerVal] = useState("bug");
 
 
       const initialState = {
@@ -73,76 +69,82 @@ function ReportAplicationScreen({navigation}) {
     
     return(
     
-       <View style={styles.container}>
-           <View style={styles.preScroll}>
-                <Text style={styles.title}>
-                {i18n.t("report.ReportApplicationScreen.title")}
-                </Text>
-                {error.error ?
+       <View style={customStyle.formContainer}>
+           {error.error ?
                         <View style={styles.errorContainer}>
                             <Text style={styles.error}>
                                 {error.message}
                             </Text>
                         </View>
                 : null}
-                <Text style={styles.formTitle}>
-                    {i18n.t("report.ReportApplicationScreen.type")}
-                </Text>
-                <DropDownPicker
-                    open={open}
-                    value={pickerVal}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setPickerVal}
-                    containerStyle={
-                        open? {width:320,marginBottom: 2500} : {width:320}} 
-                    zIndex={20}
-                    itemProps={{style: {zIndex: 26, height: 50}}}                  
-                />       
-            </View>
-           <ScrollView style={[styles.topContainer]} keyboardShouldPersistTaps={true}>                
-                <Text style={styles.formTitle}>
-                    {i18n.t("report.ReportApplicationScreen.mobilepl")}
-                </Text>
-                <TextInput
-                    style={styles.input}
-                    value={platform}
-                    onChangeText={(text) => onChangeText(text, 'platform')}
-                    name="reportMessage"
-                    placeholder= 'Tablet, phone'
-                />    
-                <Text style={styles.formTitle}>
-                {i18n.t("report.ReportApplicationScreen.OSversion")}
-                </Text>
-                <TextInput
-                        style={styles.input}
-                        value={osVersion}
-                        onChangeText={(text) => onChangeText(text, 'osVersion')}
-                        name="reportMessage"
-                        placeholder= 'OS version'
-                />     
-                <Text style={styles.formTitle}>
-                    {i18n.t("report.ReportApplicationScreen.subjectinquiry")}
-                </Text>
-                <TextInput
-                        style={styles.input}
+           
+           <ScrollView style={[styles.topContainer]} keyboardShouldPersistTaps="always">  
+                <View style={customStyle.formInputContainer}>           
+                    <Text style={customStyle.formInputTitle}>
+                        {i18n.t("report.ReportApplicationScreen.type")}
+                    </Text>
+                    <CustomDropDown
+                        options={[
+                            i18n.t("report.ReportApplicationScreen.bug"),
+                            i18n.t("report.ReportApplicationScreen.generalHelp"),
+                            i18n.t("report.ReportApplicationScreen.featureRequest"),
+                            i18n.t("report.ReportApplicationScreen.feedback")
+
+                        ]}
+                        changeSelected={setPickerVal}
+                    />
+                </View>
+                <View style={customStyle.formInputContainer}> 
+                    <Text style={customStyle.formInputTitle}>
+                        {i18n.t("report.ReportApplicationScreen.mobilepl")}
+                    </Text>
+                    <CustomDropDown
+                        options={[
+                            i18n.t("report.ReportApplicationScreen.smartphone"),
+                            i18n.t("report.ReportApplicationScreen.tablet"),
+                        ]}
+                        changeSelected={setPickerVal}
+                    />
+                </View>
+                <View style={customStyle.formInputContainer}> 
+                    <Text style={customStyle.formInputTitle}>
+                        {i18n.t("report.ReportApplicationScreen.OSversion")}
+                    </Text>
+                    <CustomDropDown
+                        options={[
+                            i18n.t("report.ReportApplicationScreen.ios"),
+                            i18n.t("report.ReportApplicationScreen.android"),
+                        ]}
+                        changeSelected={setPickerVal}
+                    />  
+                </View>
+                <View style={customStyle.formInputContainer}> 
+                    <Text style={customStyle.formInputTitle}>
+                        {i18n.t("report.ReportApplicationScreen.subjectinquiry")}
+                    </Text>
+                    <TextInput
+                        style={[customStyle.formInputText, {textAlignVertical: "center"}]}
                         name="reportMessage"
                         value={subject}
                         onChangeText={(text) => onChangeText(text, 'subject')}
                         placeholder= 'Inquiry subject'
-                    />     
-                <Text style={styles.formTitle}>
-                    {i18n.t("report.ReportApplicationScreen.detailsinquiry")}
-                </Text>
-                <TextInput
-                        style={styles.input}
+                    />    
+                </View> 
+                <View style={customStyle.formInputContainer}> 
+                    <Text style={customStyle.formInputTitle}>
+                        {i18n.t("report.ReportApplicationScreen.detailsinquiry")}
+                    </Text>
+                    <TextInput
+                        style={customStyle.formInputText}
                         name="reportMessage"
                         value={details}
                         onChangeText={(text) => onChangeText(text, 'details')}
                         placeholder= 'Inquiry details'
                         multiline={true}
-                        numberOfLines={10}
+                        numberOfLines={5}
+                            
                     />      
+                </View>
                 <CustomButton
                     customStyles={styles.button}
                     text="Send"

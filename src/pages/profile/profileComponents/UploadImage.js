@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import useAuth from '../../../hooks/useAuth';
 import useUser from '../../../hooks/useUser';
 
-export default function UploadImage() {
+export default function UploadImage({editable}) {
 
 
     const { auth, updateUser } = useAuth();
@@ -41,14 +41,17 @@ export default function UploadImage() {
     return (
     <View style={styles.container}>
         {
-            image  &&<Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+            image && <Image source={{ uri: image }} style={styles.profileImage} />
         }
+        {editable ? (
         <View style={styles.uploadBtnContainer}>
             <TouchableOpacity onPress={addImage} style={styles.uploadBtn} >
             <Text style={styles.imageText}>{image ? `${i18n.t('uploadImage.editImage')}` : `${i18n.t('uploadImage.uploadImage')}`}</Text>
             <AntDesign name="camera" size={20} color="black" />
             </TouchableOpacity>
         </View>
+        ) : null
+        }
     </View>
 
     );
@@ -56,18 +59,17 @@ export default function UploadImage() {
 
 const styles=StyleSheet.create({
     profileImage: {
-        width: 150, 
-        height: 150, 
-        borderRadius: 150/ 2,
+        width: "100%",
+        height: "100%", 
         alignSelf: 'center',
     }, 
     container:{
         elevation: 2,
-        height: 200,
-        width: 200,
+        height: "100%",
+        width: "100%",
         backgroundColor: '#efefef',
         position: 'relative',
-        borderRadius: 150/2,
+        borderRadius: 100,
         overflow: 'hidden',
     },
     uploadBtnContainer:{

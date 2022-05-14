@@ -1,17 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthNavigator, SidebarNavigator } from "./navigators";
 import useAuth from "./hooks/useAuth";
 import { ToastProvider } from "react-native-toast-notifications";
 import Toast from "./utils/toast";
+import * as Font from 'expo-font';
 
 function Main() {
   //console.disableYellowBox = true;
   const { isSignedIn, auth } = useAuth();
-  
+
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  async function loadFonts() {
+    await Font.loadAsync({
+      'Montserrat-Regular': require('../assets/fonts/Montserrat/Montserrat-Regular.ttf'),
+    });
+    await Font.loadAsync({
+      'Montserrat-Thin': require('../assets/fonts/Montserrat/Montserrat-Thin.ttf'),
+    });
+    await Font.loadAsync({
+      'Montserrat-Bold': require('../assets/fonts/Montserrat/Montserrat-Bold.ttf'),
+    });
+    await Font.loadAsync({
+      'Montserrat-Italic': require('../assets/fonts/Montserrat/Montserrat-Italic.ttf'),
+    });
+    setFontsLoaded(true);
+  }
 
   useEffect(() => {}, [auth]);
 
-  return !isSignedIn() ? (
+  useEffect(async () => {
+    setFontsLoaded(false); 
+    await loadFonts();
+  }, []);
+  
+  return fontsLoaded ? (
+  
+  !isSignedIn() ? (
     <AuthNavigator />
   ) : (
     <ToastProvider
@@ -26,7 +51,7 @@ function Main() {
     >
       <SidebarNavigator />
     </ToastProvider>
-  );
+  )): null
 }
 
 export { Main };

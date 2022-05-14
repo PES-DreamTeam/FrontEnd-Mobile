@@ -65,7 +65,7 @@ const cat = {
 		skip: "Salta",
 	}, 
 	profile: {
-		yourVehicle: "Informació dels teus vehicles",
+		yourVehicle: "El teu garatge",
 		changeVehicle: "Llisca per canviar el teu vehicle per defecte",
 		title: "Perfil",
 		vehicleNotDef: "Vehicle no definit",
@@ -100,17 +100,6 @@ const cat = {
 		editImage: "Editar Imatge",
 		uploadImage: "Afegir Imatge",
 	}, 
-	report: {
-		reportStation: {
-			title: "Reportar una estació",
-			subtitle: "",
-			placeholder: "Descripció del problema",
-			poorCondition: "Males condicions",
-			badInformation: "Informació errònia",
-			dislike: "No m'agrada",
-		}, 
-		send: "Enviar",
-	}, 
 	achievementScreen: {
 		subtitle: "Els teus assoliments:",
 		shareMessage: "He completat aquest assoliment a EcoRoads. Fes-li una ullada: ",
@@ -118,12 +107,29 @@ const cat = {
 	report: {
 		ReportApplicationScreen: {
 			fillfields: "Si us plau emplena tots els camps",
-			OSversion: "Quina versió del SO esta fent servir?",
+			OSversion: "Sistema Operatiu",
 			subjectinquiry: "Tema de consulta",
 			detailsinquiry: "Detalls de la consulta",
 			title: "Pantalla d'Incidències",
-			mobilepl: "Desde quina plataforma mòvil està fent la consulta?",
+			mobilepl: "Tipus de dispositiu",
 			type: "Tipus de Incidència",
+			smartphone: "Smartphone",
+			tablet: "Tauleta",
+			ios: "iOS",
+			android: "Android",
+			bug: "Bug",
+			generalHelp: "Ajuda general",
+			featureRequest: "Sol·licitud de funcionalitat",
+			feedback: "Comentari",
+		}, 
+		send: "Enviar",
+		reportStation: {
+			title: "Reportar una estació",
+			subtitle: "",
+			placeholder: "Descripció del problema",
+			poorCondition: "Males condicions",
+			badInformation: "Informació errònia",
+			dislike: "No m'agrada",
 		}, 
 	}, 
 	achievementToast: {
