@@ -13,6 +13,7 @@ import { ReportAplicationScreen } from "../pages/reportScreen/ReportAplicationSc
 import { ChatScreen } from "../pages/chat/chatScreen";
 import { AchievementsScreen } from "../pages/achievements/achievementsScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import HelpScreen from "../pages/info/helpScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -68,13 +69,14 @@ function SidebarNavigator() {
           }}
         />
           <Drawer.Screen
-          name="Chat"
-          component={ChatScreen}
+          name="Help"
+          component={HelpScreen}
           options={{
-            title: `${i18n.t("drawer.chat")}`,
+            title: `${i18n.t("drawer.help")}`,
             drawerIcon: ({ color }) => (
               <Icon name="chat-alert-outline" size={22} color={color} />
             ),
+            headerShown: false,
           }}
         />
         <Stack.Screen
