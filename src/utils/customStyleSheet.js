@@ -20,8 +20,27 @@ module.exports = StyleSheet.create({
         padding: 10,
         textAlignVertical: "top",
     },
+    modalContainer: {
+        justifyContent: 'space-evenly',
+        backgroundColor: '#fff',
+        width: '100%',
+        height: '50%',
+        borderRadius: 20,
+        padding: 20,
+        // backgroundColor: 'red'
+    },
+    bigTitle: {
+        fontSize: 25,
+        fontFamily: 'Montserrat-Bold',
+        color: "black",
+    },
     title: {
         fontSize: 20,
+        fontFamily: 'Montserrat-Bold',
+        color: "black",
+    },
+    subtitle: {
+        fontSize: 17,
         fontFamily: 'Montserrat-Bold',
         color: "black",
     },

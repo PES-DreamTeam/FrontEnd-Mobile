@@ -13,7 +13,7 @@ import {
 import i18n from "i18n-js";
 import useAuth from "../../hooks/useAuth";
 import useUserSettings from "../../hooks/useUserSettings";
-import CarInfoItem from "./profileComponents/CarInfoItem";
+import CarInfoModal from "./profileComponents/carInfoModal";
 import Carousel from "react-native-snap-carousel";
 import UploadImage from "./profileComponents/UploadImage";
 import CustomButton from "../../utils/button";
@@ -62,6 +62,7 @@ function ProfileScreen({ navigation }) {
   const customStyle = require('../../utils/customStyleSheet');
 
   const { auth, updateUser } = useAuth();
+  const [ vehicleModalOpened, setVehicleModalOpened ] = useState(false);
   const toast = useToast();
   useUserSettings();
 
@@ -85,7 +86,11 @@ function ProfileScreen({ navigation }) {
     for(let i = 0; i < vehicleConfig.length; i++){
       let tempObj = {
         imageSrc: vehicleImages[vehicleConfig[i].vehicleType],
-        imageStyle: {width: '100%', height:'50%', tintColor: vehicleConfig[i].color, alignSelf: "center"}
+        imageStyle: {width: '100%', height:'50%', tintColor: vehicleConfig[i].color, alignSelf: "center"},
+        onPress: () => {
+          setVehicleSelected(i);
+          setVehicleModalOpened(true);
+        },
       };
       temp.push(tempObj);
     }
@@ -101,6 +106,8 @@ function ProfileScreen({ navigation }) {
   const { width } = useWindowDimensions();
 
   const { id, email, name, vehicleConfig } = user;
+
+  const [vehicleSelected, setVehicleSelected] = useState(0);
 
   const [garageInfo, setGarageInfo] = useState([]);
 
@@ -153,14 +160,14 @@ function ProfileScreen({ navigation }) {
             ChangeText={(text) => onChangeText(text, "name")}
             textValue={name}
             normalStyle={[customStyle.title, {textAlign:"center", fontSize:20}]}
-            editableStyle={styles.editableName}
+            editableStyle={[customStyle.formInputText, {marginBottom: 10, textAlignVertical:"center"}]}
           />
           <TextEditableLabel
             editable={editProfile}
             ChangeText={(text) => onChangeText(text, "email")}
             textValue={email}
             normalStyle={[customStyle.normalText, {textAlign:"center", fontSize:15}]}
-            editableStyle={[styles.editableSubtitle]}
+            editableStyle={[customStyle.formInputText, {textAlignVertical:"center"}]}
           />
         </View>
         <View style={styles.garageContainer}>
@@ -177,36 +184,21 @@ function ProfileScreen({ navigation }) {
             currentSelected={user.currentVehicle}
           />
         </View>
-        {/*
-        {vehicleConfig.length > 0 ? (
-          <View>
-            <Carousel
-              data={vehicleConfig}
-              renderItem={({ item, index }) => (
-                <CarInfoItem
-                  item={item}
-                  index={index}
-                  currentVehicle={user.currentVehicle}
-                />
-              )}
-              sliderWidth={320}
-              sliderHeight={128}
-              itemWidth={320}
-              itemHeight={128}
-              firstItem={user.currentVehicle}
-              keyExtractor={(item, index) => index}
-              onSnapToItem={(item) =>
-                editProfile
-                  ? setUser({ ...user, ["currentVehicle"]: item })
-                  : ""
-              }
-            />
-          </View>
-        ) : (
-          <Text> {i18n.t("profile.vehicleNotDef")} </Text>
-        )}
-        */}
       </ScrollView>
+      <CarInfoModal
+        isVisible={vehicleModalOpened}
+        onHandleAccept={() => setVehicleModalOpened(false)}
+        onHandleFav={() => {
+          setUser({ ...user, ["currentVehicle"]: vehicleSelected });
+          updateUser({
+            ...auth.user,
+            currentVehicle: vehicleSelected,
+          });
+        }}
+        isFav={user.currentVehicle == vehicleSelected}
+        vehicleInfo={vehicleConfig[vehicleSelected]}
+      />
+
     </View>
   );
 }

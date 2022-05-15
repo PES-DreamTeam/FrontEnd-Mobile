@@ -10,7 +10,7 @@ export default ({isVisible, handleOnSelect, options}) => {
 
     return(
         <Modal isVisible={isVisible}>
-            <View style={styles.modal}>
+            <View style={customStyle.modalContainer}>
                 {
                     options.map((option, index) => 
                         <CustomButton
@@ -28,15 +28,7 @@ export default ({isVisible, handleOnSelect, options}) => {
 }
 
 const styles = StyleSheet.create({
-    modal: {
-        justifyContent: 'space-evenly',
-        backgroundColor: '#fff',
-        width: '100%',
-        height: '50%',
-        borderRadius: 20,
-        padding: 20,
-        // backgroundColor: 'red'
-    },
+    
     modalTitle:{
         alignItems: 'center',
         justifyContent: 'center',

@@ -3,12 +3,14 @@ import {View, Text, StyleSheet, Image, useWindowDimensions} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import i18n from 'i18n-js';
 import CustomButton from '../../../utils/button'
+import Modal from 'react-native-modal';
 import useVehicleConfig from "../../../hooks/useVehicleConfig";
 
 
-export default CarInfoItem = ({item, index, currentVehicle}) => {
-    const {width} = useWindowDimensions();
+export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, index, vehicleInfo, isFav}) => {
     
+    const customStyle = require('../../../utils/customStyleSheet');
+
     const {deleteVehicleConfig} = useVehicleConfig();
 
     const deleteConfig = (numberPlate) => {
@@ -26,34 +28,48 @@ export default CarInfoItem = ({item, index, currentVehicle}) => {
         require( '../../../../assets/images/carTypes/carType_7.png'),
         require( '../../../../assets/images/carTypes/carType_8.png'),
     ]
-
-    if(item.vehicleType === undefined){
-        item.vehicleType = 0;
-    }
     
     return (
-        <View style ={[styles.container]}>
-            {index == currentVehicle ? <Image style= {[styles.imageC]} source= {require( '../../../../assets/images/alfiler.png')} /> : <></>}
-            <Image source = {vehicleImages[item.vehicleType]} style={[styles.image, {tintColor: item.color}, {width, resizeMode: 'contain'}, ]} />           
-            <View style = {[styles.infoContainer]}>
-                <View style={[styles.textContainer]}>
-                    {index == currentVehicle ? <Animatable.Text animation="slideInDown" duration={500}  direction="alternate" style= {[styles.titleD]}>{i18n.t("carInfoItem.default")} </Animatable.Text> : <></>}
-                    <Text style= {[styles.title]}>{item.brand} {item.model}</Text>
-                    <Text style= {[styles.text]}> {i18n.t('carInfoItem.nickname')} "{item.nickname}"</Text>
-                    <Text style= {[styles.text]}> {i18n.t('carInfoItem.numberPlate')} {item.numberPlate}</Text>
+        <Modal isVisible={isVisible}>
+            <View style={[customStyle.modalContainer, {height: "65%", marginBottom: 20}]}>
+                <CustomButton
+                    onPress={onHandleFav}
+                    imageSrc={isFav ? require('../../../../assets/images/favourite.png') : require('../../../../assets/images/blank-favourite.png')}
+                    imageStyle={{width: 30, height: 30}}
+                    customStyles={{backgroundColor: 'transparent', width: 30, height: 30, alignSelf: 'flex-end'}}
+                />
+                <Text style={customStyle.bigTitle}>
+                    {vehicleInfo.brand} {vehicleInfo.model}
+                </Text>
+                <View style={[customStyle.blockContainer, {marginBottom: 20}]}>
+                    <View style={{marginBottom: 15}}>
+                        <Text style={customStyle.subtitle}>
+                            {i18n.t('vehicleConfig.vehicleNickname')}
+                        </Text>
+                        <Text style={customStyle.normalText}>
+                            {vehicleInfo.nickname}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={customStyle.subtitle}>
+                            {i18n.t('vehicleConfig.vehicleNumPlate')}
+                        </Text>
+                        <Text style={customStyle.normalText}>
+                            {vehicleInfo.numberPlate}
+                        </Text>
+                    </View>
                 </View>
-                <View style={[styles.buttonContainer]}>    
-                    <CustomButton
-                        customStyles={styles.deleteButton}
-                        imageSrc={require('../../../../assets/images/icons/delete.png')}
-                        imageStyle={{height: 35, width: 35}}
-                        onPress={() => {deleteConfig(item.numberPlate)}}
-                    />
-                </View>
-                
-            </View>
+                <Image
+                    source={vehicleImages[vehicleInfo.vehicleType]}
+                    style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleInfo.color}}
 
-        </View>
+                />
+                <CustomButton
+                    onPress={() => onHandleAccept()}
+                    text={i18n.t('miscelaneus.back')}
+                />
+            </View>
+        </Modal>
     );
 }
 
