@@ -4,6 +4,10 @@ import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
 import useVehicleConfig from '../../hooks/useVehicleConfig';
 import i18n from 'i18n-js';
+import CustomButton from "../../utils/button";
+import ButtonTable from "../../utils/buttonTable";
+import CarSelectorModal from './vehicleConfigComponents/carSelectorModal';
+
 
 function VehicleConfig({ navigation }) {    
 
@@ -19,6 +23,10 @@ function VehicleConfig({ navigation }) {
         Green:  '#296E01'
     };
 
+    const[vehicleTypes, setVehicleTypes] = useState(); 
+
+    const customStyle = require('../../utils/customStyleSheet');
+
     const { auth, setAuth, updateUser } = useAuth();
 
     const initialState = {
@@ -31,7 +39,44 @@ function VehicleConfig({ navigation }) {
     };
 
     const [vehicle, setVehicle] = useState(initialState);
-    useEffect(()=>{setVehicle(initialState)},[])
+    const [modalOpen, setModalOpen] = useState(false);
+    
+    const onAcceptVehicle = (color) => {
+        updateCurrentCarType(currentVehicleType)
+        setCurrentColor(color)
+        setModalOpen(false)
+    }
+
+    var vehicleImages = [
+        require( '../../../assets/images/carTypes/carType_0.png'),
+        require( '../../../assets/images/carTypes/carType_1.png'),
+        require( '../../../assets/images/carTypes/carType_2.png'),
+        require( '../../../assets/images/carTypes/carType_3.png'),
+        require( '../../../assets/images/carTypes/carType_4.png'),
+        require( '../../../assets/images/carTypes/carType_5.png'),
+        require( '../../../assets/images/carTypes/carType_6.png'),
+        require( '../../../assets/images/carTypes/carType_7.png'),
+        require( '../../../assets/images/carTypes/carType_8.png'),
+    ]
+    
+    useEffect(()=>{
+        setVehicle(initialState);
+        let temp = [];
+        for(let i = 0; i < vehicleImages.length; i++){
+            let tempObj = {
+              imageSrc: vehicleImages[i],
+              imageStyle: {width: '100%', height:'50%', tintColor: 'black', alignSelf: "center"},
+              onPress: () => {
+                setCurrentVehicleType(i);
+                setModalOpen(true);
+              },
+            };
+            temp.push(tempObj);
+        }
+        setVehicleTypes(temp);
+        
+    },[])
+
     const [error, setError] = useState({
         error: false, 
         attribute: '',
@@ -39,6 +84,8 @@ function VehicleConfig({ navigation }) {
     });
 
     const [currentColor, setCurrentColor] = useState(carColors.White);
+    const [currentVehicleType, setCurrentVehicleType] = useState(0);
+    
 
     const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor, numberPlate } = vehicle;
 
@@ -104,9 +151,8 @@ function VehicleConfig({ navigation }) {
     }
 
     return(
-        <View style={styles.container}>
+        <View style={customStyle.formContainer}>
             <ScrollView style={[styles.topContainer]}>
-                <Text style={styles.title}>{i18n.t('vehicleConfig.title')}</Text>
                 {error.error && error.attribute !== "NumberPlate" ?
                     <View style={styles.errorContainer}>
                         <Text style={styles.error}>
@@ -114,22 +160,27 @@ function VehicleConfig({ navigation }) {
                         </Text>
                     </View>
                 : null}
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleBrand')}</Text>
-                <TextInput
-                    onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
-                    value={vehicleBrand}
-                    style={styles.input}
-                    name= "vehicleBrand"
-                    placeholder= {i18n.t('vehicleConfig.vehicleBrandPlaceholder')}
-                />
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
+                <View style={customStyle.formInputContainer}>
+                    <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleBrand')}</Text>
+                    <TextInput
+                        onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
+                        value={vehicleBrand}
+                        style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
+                        name= "vehicleBrand"
+                        placeholder= {i18n.t('vehicleConfig.vehicleBrandPlaceholder')}
+                        />
+                </View>
+                <View style={customStyle.formInputContainer}>
+                <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleModel')}
                     value={vehicleModel}
-                    style={styles.input}
+                    style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
                     name="vehicleModel"
                     placeholder= {i18n.t('vehicleConfig.vehicleModelPlaceholder')}
                 />
+                </View>
+                <View style={customStyle.formInputContainer}>
                 {error.error && error.attribute === "NumberPlate" ?
                     <View style={styles.errorContainer}>
                         <Text style={styles.error}>
@@ -137,36 +188,44 @@ function VehicleConfig({ navigation }) {
                         </Text>
                     </View>
                 : null}
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNumPlate')} </Text>
+                <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleNumPlate')} </Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'numberPlate')}
                     value={numberPlate}
-                    style={styles.input}
+                    style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
                     name="numberPlate"
                     placeholder= {i18n.t('vehicleConfig.vehicleNumPlatePlaceholder')}
                 />
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
-
-                <CircularColorBtnList
-                    carColors = {carColors}
-                    onChangeColor = {onChangeColor}
-                />
-                
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNickname')}</Text>
+                </View>
+                <View style={customStyle.formInputContainer}>
+                <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleNickname')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleNickname')}
                     value={vehicleNickname}
-                    style={styles.input}
+                    style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
                     name="vehicleNickname"
                     placeholder= {i18n.t('vehicleConfig.vehicleNicknamePlaceholder')}
                 />
-                <CarTypeSelector
+                </View>
+                <ButtonTable
+                    buttonsInfo={vehicleTypes}
+                    rowSize={3}
+                    currentSelected={vehicle.vehicleType}
+                />
+
+                {/* <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
+                <CircularColorBtnList
+                    carColors = {carColors}
+                    onChangeColor = {onChangeColor}
+                /> */}
+                {/* <CarTypeSelector
                     vehicleColor={vehicleColor}
                     onSnapToItem={updateCurrentCarType}
                     currentSelected={vehicleType}
-                />
-                <Button
-                    title={ i18n.t('vehicleConfig.continue')}
+                /> */}
+
+                <CustomButton
+                    text={ i18n.t('vehicleConfig.continue')}
                     onPress={() => {
                         validateInformation();
                     }}
@@ -189,6 +248,12 @@ function VehicleConfig({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
+            <CarSelectorModal
+                vehicleType={currentVehicleType}
+                isVisible={modalOpen}
+                onHandleCancel={() => setModalOpen(false)}
+                onHandleAccept={onAcceptVehicle}
+            />
         </View>
     )
 }

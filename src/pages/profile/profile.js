@@ -57,7 +57,7 @@ function ProfileScreen({ navigation }) {
     require( '../../../assets/images/carTypes/carType_6.png'),
     require( '../../../assets/images/carTypes/carType_7.png'),
     require( '../../../assets/images/carTypes/carType_8.png'),
-]
+  ]
 
   const customStyle = require('../../utils/customStyleSheet');
 

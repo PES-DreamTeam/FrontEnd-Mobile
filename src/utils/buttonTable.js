@@ -10,9 +10,9 @@ export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, }) => {
 
     var buttons = [];
     var table=[];
-    for(let i = 0; i < 1 + buttonsInfo.length / rowSize; i++){
+    for(let i = 0; i < 1 + buttonsInfo?.length / rowSize; i++){
         buttons.push([]);
-        for(let j = 0; j < Math.min(3, buttonsInfo.length - i * rowSize); j++) {
+        for(let j = 0; j < Math.min(3, buttonsInfo?.length - i * rowSize); j++) {
             buttons[i].push(
                 <CustomButton
                     key={i*rowSize+j}

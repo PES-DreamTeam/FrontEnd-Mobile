@@ -113,4 +113,8 @@ module.exports = StyleSheet.create({
         backgroundColor: "#eee",
 
     },
+    buttonRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    }
 });
