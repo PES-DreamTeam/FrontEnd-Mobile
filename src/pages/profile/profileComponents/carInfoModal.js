@@ -31,43 +31,46 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
     
     return (
         <Modal isVisible={isVisible}>
-            <View style={[customStyle.modalContainer, {height: "65%", marginBottom: 20}]}>
-                <CustomButton
-                    onPress={onHandleFav}
-                    imageSrc={isFav ? require('../../../../assets/images/favourite.png') : require('../../../../assets/images/blank-favourite.png')}
-                    imageStyle={{width: 30, height: 30}}
-                    customStyles={{backgroundColor: 'transparent', width: 30, height: 30, alignSelf: 'flex-end'}}
-                />
-                <Text style={customStyle.bigTitle}>
-                    {vehicleInfo.brand} {vehicleInfo.model}
-                </Text>
-                <View style={[customStyle.blockContainer, {marginBottom: 20}]}>
-                    <View style={{marginBottom: 15}}>
-                        <Text style={customStyle.subtitle}>
-                            {i18n.t('vehicleConfig.vehicleNickname')}
-                        </Text>
-                        <Text style={customStyle.normalText}>
-                            {vehicleInfo.nickname}
-                        </Text>
+            <View style={[customStyle.modalContainer]}>
+                <View style={[customStyle.modalContentContainer, {marginTop: 0}]}>
+                    <CustomButton
+                        onPress={onHandleFav}
+                        imageSrc={isFav ? require('../../../../assets/images/icons/bookmark_toggled.png') : require('../../../../assets/images/icons/bookmark.png')}
+                        imageStyle={{width: 30, height: 40}}
+                        customStyles={{backgroundColor: 'transparent', width: 30, height: 40, alignSelf: 'flex-end'}}
+                        />
+                    <Text style={customStyle.bigTitle}>
+                        {vehicleInfo.brand} {vehicleInfo.model}
+                    </Text>
+                    <View style={[customStyle.blockContainer, {marginBottom: 20}]}>
+                        <View style={{marginBottom: 15}}>
+                            <Text style={customStyle.subtitle}>
+                                {i18n.t('vehicleConfig.vehicleNickname')}
+                            </Text>
+                            <Text style={customStyle.normalText}>
+                                {vehicleInfo.nickname}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text style={customStyle.subtitle}>
+                                {i18n.t('vehicleConfig.vehicleNumPlate')}
+                            </Text>
+                            <Text style={customStyle.normalText}>
+                                {vehicleInfo.numberPlate}
+                            </Text>
+                        </View>
                     </View>
-                    <View>
-                        <Text style={customStyle.subtitle}>
-                            {i18n.t('vehicleConfig.vehicleNumPlate')}
-                        </Text>
-                        <Text style={customStyle.normalText}>
-                            {vehicleInfo.numberPlate}
-                        </Text>
-                    </View>
+                    <Image
+                        source={vehicleImages[vehicleInfo.vehicleType]}
+                        style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleInfo.color}}
+                        
+                        />
+                    <CustomButton
+                        onPress={() => onHandleAccept()}
+                        text={i18n.t('miscelaneus.back')}
+                        customStyles={{marginBottom: 20, marginTop: 20}}
+                    />
                 </View>
-                <Image
-                    source={vehicleImages[vehicleInfo.vehicleType]}
-                    style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleInfo.color}}
-
-                />
-                <CustomButton
-                    onPress={() => onHandleAccept()}
-                    text={i18n.t('miscelaneus.back')}
-                />
             </View>
         </Modal>
     );

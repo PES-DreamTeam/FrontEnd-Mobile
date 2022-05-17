@@ -12,16 +12,6 @@ import CarSelectorModal from './vehicleConfigComponents/carSelectorModal';
 function VehicleConfig({ navigation }) {    
 
     const { sendConfig } = useVehicleConfig();
-    
-    const carColors = { 
-        White:  '#DDDDDD',
-        Grey:   '#4E4E4E',
-        Black:  '#222222',
-        Red:    '#871614', 
-        Blue:   '#16345D',
-        Yellow: '#FDCC0D',
-        Green:  '#296E01'
-    };
 
     const[vehicleTypes, setVehicleTypes] = useState(); 
 
@@ -34,7 +24,7 @@ function VehicleConfig({ navigation }) {
         vehicleModel: '',
         vehicleNickname: '',
         vehicleType: 0,
-        vehicleColor: carColors.White,
+        vehicleColor: '#DDDDDD',
         numberPlate: '',
     };
 
@@ -42,9 +32,25 @@ function VehicleConfig({ navigation }) {
     const [modalOpen, setModalOpen] = useState(false);
     
     const onAcceptVehicle = (color) => {
-        updateCurrentCarType(currentVehicleType)
         setCurrentColor(color)
         setModalOpen(false)
+        let temp = vehicleTypes
+        let tempObj = {
+            imageSrc: vehicleImages[currentVehicleType],
+            imageStyle: {width: '100%', height:'50%', tintColor: color, alignSelf: "center"},
+            onPress: () => {
+              setCurrentVehicleType(currentVehicleType);
+              setModalOpen(true);
+            },
+        }
+        temp[currentVehicleType] = tempObj;
+        setVehicleTypes(temp);
+        setVehicle({
+            ...vehicle,
+            vehicleColor: color ,
+            vehicleType: currentVehicleType
+        })
+
     }
 
     var vehicleImages = [
@@ -83,7 +89,7 @@ function VehicleConfig({ navigation }) {
         message: ''
     });
 
-    const [currentColor, setCurrentColor] = useState(carColors.White);
+    const [currentColor, setCurrentColor] = useState('#DDDDDD');
     const [currentVehicleType, setCurrentVehicleType] = useState(0);
     
 
@@ -94,10 +100,6 @@ function VehicleConfig({ navigation }) {
             ...vehicle,
             [name]: text 
         })
-    }
-
-    const onChangeColor = (color) => {
-        setVehicle({...vehicle, ['vehicleColor']: color});
     }
 
     const updateCurrentCarType = (index) => {
@@ -118,12 +120,13 @@ function VehicleConfig({ navigation }) {
         }else {
             sendConfig(vehicle)
                 .then(user => {
+                    console.log(user);                                               
                     setAuth({
                         ...auth,
                         user: user
                     });
                     setVehicle(initialState);
-                    navigation.navigate("Home");
+                    navigation.navigate("Profile");
                 })
                 .catch(err => {
                     setError({
@@ -212,18 +215,6 @@ function VehicleConfig({ navigation }) {
                     rowSize={3}
                     currentSelected={vehicle.vehicleType}
                 />
-
-                {/* <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
-                <CircularColorBtnList
-                    carColors = {carColors}
-                    onChangeColor = {onChangeColor}
-                /> */}
-                {/* <CarTypeSelector
-                    vehicleColor={vehicleColor}
-                    onSnapToItem={updateCurrentCarType}
-                    currentSelected={vehicleType}
-                /> */}
-
                 <CustomButton
                     text={ i18n.t('vehicleConfig.continue')}
                     onPress={() => {
@@ -248,12 +239,12 @@ function VehicleConfig({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
-            <CarSelectorModal
+            {<CarSelectorModal
                 vehicleType={currentVehicleType}
                 isVisible={modalOpen}
                 onHandleCancel={() => setModalOpen(false)}
                 onHandleAccept={onAcceptVehicle}
-            />
+            />}
         </View>
     )
 }

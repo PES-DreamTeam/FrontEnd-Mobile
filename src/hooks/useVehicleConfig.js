@@ -21,7 +21,8 @@ const useVehicleConfig = () => {
                 numberPlate: numberPlate.trim(),
                 vehicleType: vehicleType,
             });        
-            return response.data.user;
+            const user = await axios.get(`${API_HOST}/api/users/${id}`);
+            return user.data.user;
         } catch(error) {
             if(error.response.status === 409) {
                 throw { 

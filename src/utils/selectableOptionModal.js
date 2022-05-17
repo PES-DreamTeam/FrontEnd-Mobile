@@ -11,17 +11,19 @@ export default ({isVisible, handleOnSelect, options}) => {
     return(
         <Modal isVisible={isVisible}>
             <View style={customStyle.modalContainer}>
-                {
-                    options.map((option, index) => 
+                <View style={customStyle.modalContentContainer}>
+                    {
+                        options.map((option, index) => 
                         <CustomButton
-                            key={index}
-                            onPress={() => handleOnSelect(option)}
-                            customStyles={customStyle.dropDownModalButton}
-                            text={option}
-                            textStyle={customStyle.formSelectableButtonText}
+                        key={index}
+                        onPress={() => handleOnSelect(option)}
+                        customStyles={customStyle.dropDownModalButton}
+                        text={option}
+                        textStyle={customStyle.formSelectableButtonText}
                         />
-                    )
-                }
+                        )
+                    }
+                </View>
             </View>
         </Modal>
     )

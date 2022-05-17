@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {View, Text, StyleSheet, Image, useWindowDimensions} from 'react-native';
-import * as Animatable from 'react-native-animatable';
 import i18n from 'i18n-js';
 import CustomButton from '../../../utils/button'
 import Modal from 'react-native-modal';
-import CircularColorBtnList from '.'
+import CircularColorBtnList from './circularColorBtnList'
 
-export default CarInfoItem = ({vehicleType, isVisible, onHandleAccept, onHandleCancel}) => {
+export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHandleCancel}) => {
     
     const customStyle = require('../../../utils/customStyleSheet');
 
@@ -32,10 +31,26 @@ export default CarInfoItem = ({vehicleType, isVisible, onHandleAccept, onHandleC
         Green:  '#296E01'
     };
 
-    const [vehicleColor, setVehicleColor] = useState('black')
+    const [vehicleColors, setVehicleColors] = useState([
+        carColors.Black,
+        carColors.Black,
+        carColors.Black,
 
+        carColors.Black,
+        carColors.Black,
+        carColors.Black,
+
+        carColors.Black,
+        carColors.Black,
+        carColors.Black,
+    ]);
+
+
+    
     const onChangeColor = (color) => {
-        setVehicleColor(color)
+        let temp = JSON.parse(JSON.stringify(vehicleColors));
+        temp[vehicleType] = color;
+        setVehicleColors(temp);
     }
     
     return (
@@ -46,16 +61,17 @@ export default CarInfoItem = ({vehicleType, isVisible, onHandleAccept, onHandleC
 */}                </Text>
                 <Image
                     source={vehicleImages[vehicleType]}
-                    style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleColor}}
+                    style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleColors[vehicleType]}}
                 />
                 <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
                 <CircularColorBtnList
                     carColors = {carColors}
                     onChangeColor = {onChangeColor}
+                    currentSelected = {vehicleColors[vehicleType]}
                 />
                 <View styles={customStyle.buttonRow}>    
                     <CustomButton
-                        onPress={() => onHandleAccept()}
+                        onPress={() => onHandleAccept(vehicleColors[vehicleType])}
                         text={i18n.t('miscelaneus.accept')}
                         />
                     <CustomButton

@@ -81,12 +81,11 @@ function ProfileScreen({ navigation }) {
       vehicleConfig: auth.user.vehicleConfig,
       currentVehicle: auth.user.currentVehicle ?? 0,
     });
-    auth.user;
     let temp = [];
-    for(let i = 0; i < vehicleConfig.length; i++){
+    for(let i = 0; i < auth.user.vehicleConfig.length; i++){
       let tempObj = {
-        imageSrc: vehicleImages[vehicleConfig[i].vehicleType],
-        imageStyle: {width: '100%', height:'50%', tintColor: vehicleConfig[i].color, alignSelf: "center"},
+        imageSrc: vehicleImages[auth.user.vehicleConfig[i].vehicleType],
+        imageStyle: {width: '100%', height:'50%', tintColor: auth.user.vehicleConfig[i].color, alignSelf: "center"},
         onPress: () => {
           setVehicleSelected(i);
           setVehicleModalOpened(true);
@@ -146,7 +145,8 @@ function ProfileScreen({ navigation }) {
           <CustomButton
             customStyles={styles.editButton}
             onPress={() => EnableEditProfile(!editProfile)}
-            imageSrc={require("../../../assets/images/pencil.png")}
+            
+            imageSrc={editProfile ? require("../../../assets/images/icons/save.png") : require("../../../assets/images/icons/pencil.png")}
             imageStyle={{ width: "100%", height: "100%" }}
           />
           <View style={styles.uploadImage}>
@@ -179,6 +179,7 @@ function ProfileScreen({ navigation }) {
               <Text style={[customStyle.title]}>{i18n.t("profile.yourVehicle")}</Text>
             )}
           <ButtonTable
+            deleteable={true}
             buttonsInfo={garageInfo}
             rowSize={3}
             currentSelected={user.currentVehicle}

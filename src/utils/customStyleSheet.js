@@ -21,18 +21,26 @@ module.exports = StyleSheet.create({
         textAlignVertical: "top",
     },
     modalContainer: {
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#fff',
         width: '100%',
-        height: '50%',
+        height: 'auto',
         borderRadius: 20,
-        padding: 20,
         // backgroundColor: 'red'
+    },
+    modalContentContainer: {
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        width: '90%',
+        marginTop: 20,
+        //backgroundColor: 'red'
     },
     bigTitle: {
         fontSize: 25,
         fontFamily: 'Montserrat-Bold',
         color: "black",
+        marginBottom: 15,
     },
     title: {
         fontSize: 20,
@@ -89,6 +97,7 @@ module.exports = StyleSheet.create({
         borderColor: "#bbb",
         backgroundColor: '#eee',
         alignSelf: "center",
+        marginBottom: 20,
         
     },
     formSelectableButtonText: {
