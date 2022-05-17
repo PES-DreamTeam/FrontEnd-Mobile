@@ -4,6 +4,7 @@ import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import useAuth from "../../hooks/useAuth";
 import useChats from "../../hooks/useChats"
+import { createdAt } from "expo-updates";
     
  function ChatScreen() {
       const [messages, setMessages] = useState([]);
@@ -12,9 +13,6 @@ import useChats from "../../hooks/useChats"
      const { sendChat } = useChats();
 
 
-        const envChat = async () =>{
-          await sendChat(messages[0]?.text, messages[0]?.createdAt)
-        }
 
       const [user, setUser] = useState({
         id: auth.user._id,
@@ -29,8 +27,8 @@ import useChats from "../../hooks/useChats"
 
   
 
-      console.log(messages[0]?.text)
-      console.log(user)
+    
+      //console.log(user)
 /*
       useLayoutEffect(() => {
 
@@ -54,22 +52,26 @@ import useChats from "../../hooks/useChats"
       useEffect(() => {
         setMessages([
           {
-            _id: 1,
+            _id: 2,
             text: 'Hello developer',
-            createdAt: new Date(),
+            createdAt: (new Date()+33242423432432),
             user: {
               _id: 2,
               name: 'React Native',
               avatar: 'https://placeimg.com/140/140/any',
-            },
-
+            }
           },
+        
         ])
       }, [])
     
-      const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-        const { _id, createdAt, text, user } = messages[0]; 
+      const onSend = async (message) => {
+        setMessages(previousMessages => GiftedChat.append(previousMessages, message))
+        message={...message[0],chat_id:auth.user._id, position:"right"}
+        await sendChat(message)
+       
+       // const { _id, createdAt, text, user } = messages[0]; 
+        
         /*   
         addDoc(collection(database, 'chats'), {
           _id,
@@ -78,15 +80,14 @@ import useChats from "../../hooks/useChats"
           user
         });
         */
-      }, []);
+      };
     
      
-      
+ 
       return (
         <GiftedChat
           messages={messages}
-          onSend={messages => onSend(messages)}
-         
+          onSend={messages => onSend(messages)}          
           user={{
             _id: auth.user._id,
           }}
