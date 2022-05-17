@@ -19,7 +19,7 @@ function HelpScreen({navigation}){
             title:"FAQ"
         }} />
         <Stack.Screen name="MainList" component={MainList}  options={{
-            title:""
+            title:"Sección de ayuda"
         }} />
         <Stack.Screen name="TutorialScreen" component={TutorialScreen}  options={{
             title:"Tutoriales"
