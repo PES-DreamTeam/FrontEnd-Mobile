@@ -1,43 +1,34 @@
-
 import { View, Text, StyleSheet } from "react-native";
-import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react'
-import { GiftedChat } from 'react-native-gifted-chat'
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+} from "react";
+import { GiftedChat } from "react-native-gifted-chat";
 import useAuth from "../../../hooks/useAuth";
 import useChats from "../../../hooks/useChats";
-import Icon from "react-native-vector-icons/Ionicons";
-    
- function ChatScreen({navigation}) {
-  useEffect(()=>{
-    navigation.setOptions({headerLeft: () =>(
-        <Icon name="arrow-back-outline" onPress={() => navigation.goBack()} size={25} />
-)})
-})
-      const [messages, setMessages] = useState([]);
-      const { auth, updateUser } = useAuth();
+import { createdAt } from "expo-updates";
 
-     const { sendChat } = useChats();
+function ChatScreen() {
+  const [messages, setMessages] = useState([]);
+  const { auth, updateUser } = useAuth();
 
+  const { sendChat } = useChats();
 
-        const envChat = async () =>{
-          await sendChat(messages[0]?.text, messages[0]?.createdAt)
-        }
+  const [user, setUser] = useState({
+    id: auth.user._id,
+  });
 
-      const [user, setUser] = useState({
-        id: auth.user._id,
-      });
+  useEffect(() => {
+    setUser({
+      id: auth.user._id,
+    });
+    auth.user;
+  }, [auth]);
 
-      useEffect(() => {
-        setUser({
-          id: auth.user._id,
-        });
-        auth.user;
-      }, [auth]);
-
-  
-
-      console.log(messages[0]?.text)
-      console.log(user)
-/*
+  //console.log(user)
+  /*
       useLayoutEffect(() => {
 
         const collectionRef = collection(database, 'chats');
@@ -57,26 +48,31 @@ import Icon from "react-native-vector-icons/Ionicons";
     return unsubscribe;
       }, []);
     */
-      useEffect(() => {
-        setMessages([
-          {
-            _id: 1,
-            text: 'Hello developer',
-            createdAt: new Date(),
-            user: {
-              _id: 2,
-              name: 'React Native',
-              avatar: 'https://placeimg.com/140/140/any',
-            },
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 2,
+        text: "Hello developer",
+        createdAt: new Date() + 33242423432432,
+        user: {
+          _id: 2,
+          name: "React Native",
+          avatar: "https://placeimg.com/140/140/any",
+        },
+      },
+    ]);
+  }, []);
 
-          },
-        ])
-      }, [])
-    
-      const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-        const { _id, createdAt, text, user } = messages[0]; 
-        /*   
+  const onSend = async (message) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, message)
+    );
+    message = { ...message[0], chat_id: auth.user._id, position: "right" };
+    await sendChat(message);
+
+    // const { _id, createdAt, text, user } = messages[0];
+
+    /*   
         addDoc(collection(database, 'chats'), {
           _id,
           createdAt,
@@ -84,20 +80,17 @@ import Icon from "react-native-vector-icons/Ionicons";
           user
         });
         */
-      }, []);
-    
-     
-      
-      return (
-        <GiftedChat
-          messages={messages}
-          onSend={messages => onSend(messages)}
-         
-          user={{
-            _id: auth.user._id,
-          }}
-        />
-      );
-    }
+  };
+
+  return (
+    <GiftedChat
+      messages={messages}
+      onSend={(messages) => onSend(messages)}
+      user={{
+        _id: auth.user._id,
+      }}
+    />
+  );
+}
 
 export { ChatScreen };
