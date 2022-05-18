@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
 import axios from "axios";
 
-const EXTERNAL_API = 'https://socialout-develop.herokuapp.com/v1/air';
+import { EXTERNAL_API_HOST } from "@env";
 
 const useExternalService = () => {
 
     const getStationPollution = async (lat,lng) => {
         try {
-            const res = await axios.get(`${EXTERNAL_API}/location?lat=${lat}&long=${lng}`);
+            const res = await axios.get(`${EXTERNAL_API_HOST}/location?lat=${lat}&long=${lng}`);
             return res.data.pollution;
         } catch (error) {
         console.log(error);
@@ -16,7 +15,7 @@ const useExternalService = () => {
 
     const getAllPollutionStations = async () => {
         try {
-            const res = await axios.get(`${EXTERNAL_API}/stations`);
+            const res = await axios.get(`${EXTERNAL_API_HOST}/stations`);
             console.log(res);
             return res;
         } catch (error) {

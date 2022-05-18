@@ -19,6 +19,7 @@ module.exports = StyleSheet.create({
         textAlign: "left",
         padding: 10,
         textAlignVertical: "top",
+        backgroundColor: "#eeffff",
     },
     modalContainer: {
         justifyContent: 'center',

@@ -11,13 +11,14 @@ PAGE_settings,,,
 title,Settings,Ajustes,Configuració
 subtitle,Welcome to settings,Bienvenido a los ajustes,Benvingut a la configuració
 logOut,Log Out,Cerrar sesión,Tancar sessió
-setEN,English language,Idioma Inglés,Idioma Anglès
-setCAT,Catalan language,Idioma Catalán,Idioma Català
-setES,Spanish language,Idioma Español,Idioma Espanyol
+setEN,English,Inglés,Anglès
+setCAT,Catalan,Catalán,Català
+setES,Spanish,Español,Espanyol
 deleteAccount,Delete your account,Borrar tu cuenta,Esborrar el teu compte
 deleteAccountTitle,Are you sure you want to delete you account?,¿Estás seguro de que quieres eliminar tu cuenta?,Estas segur de que vols eliminar el teu compte?
 deleteAccountSubtitle,This action is not reversible and you will lose future access to the app.,Esta acción no es reversible y perderás todo acceso futuro a la aplicación.,Aquesta acció no és reversible i perdràs accés futur a l'aplicació.
-,,,
+setLanguage,Set the language,Escoger idioma,Escollir idioma
+confirmDeleteAccount,To delete your account you must write down below your userame,Para eliminar tu cuenta debes escribir debajo tu nombre de usuario,Per eliminar el teu compte cal escriure a sota el teu nom d'usuari
 PAGE_signIn,,,
 title,Log In,Iniciar sesión,Iniciar sessió
 form_enterCredentials,Enter your credentials,Ingrese sus credenciales,Introdueix els credencials
@@ -38,6 +39,7 @@ cancel,Cancel,Cancelar,Cancel·lar
 back,Back,Atrás,Enrere
 exit,Exit,Salir,Sortir
 accept,Accept,Aceptar,Acceptar
+delete,Delete,Eliminar,Eliminar
 PAGE_vehicleConfig,,,
 title,Vehicle configuration,Configuracion del vehículo,Configuració del vehicle
 vehicleBrand,Vehicle brand,Marca del vehículo,Marca del vehicle
@@ -82,6 +84,10 @@ likesNumber,Likes,Me gustas,M'agrades
 reportsNumber,Reports,Reportes,Incidències
 report,Report,Reportar,Reportar
 pollutionLevel,Pollution level,Nivel de contaminación,Nivell de contaminació
+shareStation,Share station,Compartir estación,Compartir estació
+shareMessage,Hey! Check out,Ey! Echa un vistazo a,Ei! Fes-li una ullada a
+shareMessage2,station. Meet you there!,. Nos vemos ahí!,. Ens veiem allà!
+,,,
 PAGE_uploadImage,,,
 editImage,Edit Image,Editar Imagen,Editar Imatge
 uploadImage,Upload Image,Añadir Imagen,Afegir Imatge

@@ -14,6 +14,7 @@ import i18n from "i18n-js";
 import useAuth from "../../hooks/useAuth";
 import useUserSettings from "../../hooks/useUserSettings";
 import CarInfoModal from "./profileComponents/carInfoModal";
+import SettingsModal from "./profileComponents/settingsModal";
 import Carousel from "react-native-snap-carousel";
 import UploadImage from "./profileComponents/UploadImage";
 import CustomButton from "../../utils/button";
@@ -114,6 +115,8 @@ function ProfileScreen({ navigation }) {
 
   const [toDeleteElement, setToDeleteElement] = useState(-1);
 
+  const [settingsModalOpened, setSettingsModalOpened] = useState(false);
+
   async function DeletVehicle() {
     let temp = JSON.parse(JSON.stringify(user.vehicleConfig));
     let tempSelected = user.currentVehicle;
@@ -162,7 +165,7 @@ function ProfileScreen({ navigation }) {
     setGarageInfo(temp);
   }
 
-  async function EnableEditProfile(enabled) {
+  async function enableEditProfile(enabled) {
     if (!enabled) {
       await updateUser({
         ...auth.user,
@@ -190,18 +193,32 @@ function ProfileScreen({ navigation }) {
     });
   };
 
+  const OpenSettingsModal = () => {
+    setSettingsModalOpened(true);
+    setEditProfile(false);
+  }
+
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={customStyle.blockContainer}>
-          {/* Imagen de perfil */}
+          <View style={styles.topRow}>
           <CustomButton
             customStyles={styles.editButton}
-            onPress={() => EnableEditProfile(!editProfile)}
+            onPress={() => OpenSettingsModal()}
+            imageSrc={require("../../../assets/images/icons/settings.png")}
+            imageStyle={{ width: "100%", height: "100%" }}
+            />
+          <CustomButton
+            customStyles={styles.editButton}
+            onPress={() => enableEditProfile(!editProfile)}
             
             imageSrc={editProfile ? require("../../../assets/images/icons/save.png") : require("../../../assets/images/icons/pencil.png")}
             imageStyle={{ width: "100%", height: "100%" }}
-          />
+            />
+          </View>
+          {/* Imagen de perfil */}
           <View style={styles.uploadImage}>
             <UploadImage 
               editable={editProfile}
@@ -266,6 +283,14 @@ function ProfileScreen({ navigation }) {
         title={i18n.t("profile.deleteVehicle")}
       />
 
+      <SettingsModal
+        isVisible={settingsModalOpened}
+        handleCancel={() => {
+          setSettingsModalOpened(false);
+        }}
+        title={i18n.t("profile.deleteVehicle")}
+      />
+
     </View>
   );
 }
@@ -291,6 +316,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 10,
 
+  },
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
   },
   informationContainer: {
     flexDirection: "row",
