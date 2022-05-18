@@ -1,6 +1,6 @@
 import i18n from "i18n-js";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Pressable, View, Text } from "react-native";
+import { StyleSheet, Pressable, View, Text, Share } from "react-native";
 import GenericLocationInfo from "./stationComponents/genericLocationInfo";
 import ReportStationModal from "./stationComponents/reportStationModal";
 import CustomButton from "../../../utils/button";
@@ -27,6 +27,22 @@ function LocationInfo(props) {
   const ChargeStationIcon = (chargerType) => {};
 
   const ReportStation = (stationInfo) => {
+  };
+
+  const shareStation = async (stationInfo) => {
+    const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + stationInfo.name + "'" + `${i18n.t("locationInfo.shareMessage2")}`
+                  + "\n\n" +"https://maps.google.com/?q=" + stationInfo.lat + "," + stationInfo.lng;
+    const shareOptions = {
+      message: message,
+    };
+    try {
+      const shareResponse = await Share.share(shareOptions);
+      if (shareResponse.action === Share.sharedAction) {
+        //updateAchievement(1, 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function perc2color(perc) {
@@ -91,6 +107,11 @@ function LocationInfo(props) {
         >
           {i18n.t('locationInfo.pollutionLevel')}: {pollution}
         </Text>
+        <CustomButton
+          customStyles={styles.goThereButton}
+          onPress={() => shareStation(props?.stationInfo)}
+          text={i18n.t("locationInfo.shareStation")}
+        />
         <CustomButton
           customStyles={styles.goThereButton}
           onPress={() => {
