@@ -15,6 +15,9 @@ function AchievementsScreen() {
 
   useEffect(async () => {
     /* await resetAchievements(); */
+    console.log(await getAllAchievements());
+    console.log("se vienen los del user ahora")
+    console.log(auth.user.achievements);
     setAchievements(await getAllAchievements());
   }, [auth?.user]);
 

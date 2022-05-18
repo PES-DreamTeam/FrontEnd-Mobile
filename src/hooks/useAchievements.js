@@ -11,46 +11,43 @@ const useAchievements = () => {
   const { auth, updateUser } = useAuth();
   let myAchievements = auth?.user.achievements;
 
-  const updateAchievement = async (id, levels) => {
-    let actualLevel;
+  
+  const updateAchievement = async (id) => {
+    const idAchievements = filterById(id);
+    let actualLevel=1;
     let inProgress = false;
-    let achievementIP;
-    // Buscar quin achievement te el id desitjat
-    for (actualLevel = 1; actualLevel <= levels; actualLevel++) {
-      achievementIP = findMyAchievement(id);
-      if (achievementIP.progress < achievementIP.objective) {
+    idAchievements.forEach(achievement => {
+      if(achievement.progress < achievement.objective && !inProgress) {
         inProgress = true;
-        break;
+        actualLevel = achievement.achievement_tier;
+        achievement.progress++;
+
+        updateUser({
+          ...auth.user,
+          achievements: myAchievements,
+        });
       }
-      id++;
-    }
+    });
 
     if (!inProgress) {
       return;
     }
-    achievementIP.progress++;
 
-    updateUser({
-      ...auth.user,
-      achievements: myAchievements,
-    });
+    const achievementIP = findMyAchievement(id, actualLevel);
 
     /* actualiza achievement en backend con axios */
     const achievement = await completeAchievement(
       id,
       achievementIP.progress,
-      achievementIP.objective
     );
-
-    console.log(achievement);
 
     if (achievementIP.progress == achievementIP.objective) {
       //si té un nivell superior al actual, guarda el progres en el següent achievement
-      if (actualLevel < levels) {
+      if (actualLevel < 3) {
         await completeAchievement(
-          id + 1,
+          id,
+          tier + 1,
           achievementIP.progress,
-          achievementIP.objective
         );
       }
       toast.show("", {
@@ -73,14 +70,13 @@ const useAchievements = () => {
     });
   };
 
-  const completeAchievement = async (achievement_id, progress, objective) => {
+  const completeAchievement = async (achievement_id, progress) => {
     try {
       const res = await axios.put(
         `${API_HOST}/api/users/${auth.user._id}/achievements`,
         {
           achievement_id,
           progress,
-          objective,
         }
       );
       return res.data.achievement;
@@ -111,9 +107,15 @@ const useAchievements = () => {
     }
   };
 
-  const findMyAchievement = (id) => {
+  const filterById = (id) => {
+    return myAchievements.filter((achievement) => {
+      return achievement.id == id;
+    });
+  };
+
+  const findMyAchievement = (id, tier) => {
     return myAchievements.find(
-      (achievement) => achievement.achievement_id == id
+      (achievement) => {achievement.achievement_id == id && achievement.achievement_tier == tier}
     );
   };
 
