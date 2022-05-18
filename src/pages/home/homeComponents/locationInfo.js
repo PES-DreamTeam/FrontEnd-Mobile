@@ -26,8 +26,7 @@ function LocationInfo(props) {
 
   const ChargeStationIcon = (chargerType) => {};
 
-  const ReportStation = (stationInfo) => {
-  };
+  const ReportStation = (stationInfo) => {};
 
   function perc2color(perc) {
     perc *= 4;
@@ -47,17 +46,20 @@ function LocationInfo(props) {
   }
 
   useEffect(async () => {
-    if (props.stationInfo != null && (props.routeActivate === null || props.routeActivate === undefined)) {
+    if (
+      props.stationInfo != null &&
+      (props.routeActivate === null || props.routeActivate === undefined)
+    ) {
       setStationInfoStyle(styles.locationInfoOpened);
       setModalButtonStyle(styles.locationModalButton);
       let temp = await getStationPollution(
         props?.stationInfo?.lat,
         props?.stationInfo?.lng
       );
-      if(temp == null || temp == undefined){
-        setPollution(i18n.t('miscelaneus.loading'));
+      if (temp == null || temp == undefined) {
+        setPollution(i18n.t("miscelaneus.loading"));
         setPollutionColor("#ffffff");
-      }else{
+      } else {
         temp *= 100;
         temp = Math.round(temp * 100) / 100;
         setPollution(temp);
@@ -86,10 +88,8 @@ function LocationInfo(props) {
       </View>
 
       <View style={styles.botBarContent}>
-        <Text
-          style={styles.pollutionText(pollutionColor)}
-        >
-          {i18n.t('locationInfo.pollutionLevel')}: {pollution}
+        <Text style={styles.pollutionText(pollutionColor)}>
+          {i18n.t("locationInfo.pollutionLevel")}: {pollution}
         </Text>
         <CustomButton
           customStyles={styles.goThereButton}
@@ -101,7 +101,7 @@ function LocationInfo(props) {
               objectType: props?.stationInfo?.objectType,
             });
             props.onChangeFilter("singleCharge");
-            updateAchievement(2, 3);
+            updateAchievement(2);
           }}
           text={i18n.t("locationInfo.getThere")}
         />
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
   },
-  pollutionText: pollutionColor => ({
+  pollutionText: (pollutionColor) => ({
     backgroundColor: pollutionColor,
     color: "black",
     alignSelf: "center",

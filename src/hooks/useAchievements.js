@@ -11,44 +11,37 @@ const useAchievements = () => {
   const { auth, updateUser } = useAuth();
   let myAchievements = auth?.user.achievements;
 
-  
   const updateAchievement = async (id) => {
     const idAchievements = filterById(id);
-    let actualLevel=1;
+    let actualLevel = 1;
     let inProgress = false;
-    idAchievements.forEach(achievement => {
-      if(achievement.progress < achievement.objective && !inProgress) {
+    idAchievements.forEach((achievement) => {
+      if (achievement.progress < achievement.objective && !inProgress) {
         inProgress = true;
         actualLevel = achievement.achievement_tier;
         achievement.progress++;
-
         updateUser({
           ...auth.user,
           achievements: myAchievements,
         });
       }
     });
-
     if (!inProgress) {
       return;
     }
-
     const achievementIP = findMyAchievement(id, actualLevel);
-
     /* actualiza achievement en backend con axios */
-    const achievement = await completeAchievement(
-      id,
-      achievementIP.progress,
-    );
-
+    const achievement = await completeAchievement(id, achievementIP.progress);
     if (achievementIP.progress == achievementIP.objective) {
       //si té un nivell superior al actual, guarda el progres en el següent achievement
       if (actualLevel < 3) {
-        await completeAchievement(
-          id,
-          tier + 1,
-          achievementIP.progress,
-        );
+        const nextAchievement = findMyAchievement(id, actualLevel + 1);
+        nextAchievement.progress = achievementIP.progress;
+        updateUser({
+          ...auth.user,
+          achievements: myAchievements,
+        });
+        await completeAchievement(id, actualLevel + 1, achievementIP.progress);
       }
       toast.show("", {
         title: `${i18n.t("achievementToast.title")}`,
@@ -57,6 +50,30 @@ const useAchievements = () => {
         location: "achievement",
       });
     }
+  };
+
+  const displayAchievements = async () => {
+    const achievements = await getAllAchievements();
+    const newAchievements = [];
+    const unique = [
+      ...new Set(achievements.map((achievement) => achievement.achievement_id)),
+    ];
+    unique.forEach((id) => {
+      const idAchievements = achievements.filter(
+        (achievement) => achievement.achievement_id == id
+      );
+      let inProgress = false;
+      idAchievements.forEach((achievement) => {
+        if (achievement.progress < achievement.objective && !inProgress) {
+          newAchievements.push(achievement);
+          inProgress = true;
+        }
+        if (achievement.achievement_tier == 3 && !inProgress) {
+          newAchievements.push(achievement);
+        }
+      });
+    });
+    return newAchievements;
   };
 
   const resetAchievements = async () => {
@@ -70,12 +87,17 @@ const useAchievements = () => {
     });
   };
 
-  const completeAchievement = async (achievement_id, progress) => {
+  const completeAchievement = async (
+    achievement_id,
+    achievement_tier,
+    progress
+  ) => {
     try {
       const res = await axios.put(
         `${API_HOST}/api/users/${auth.user._id}/achievements`,
         {
           achievement_id,
+          achievement_tier,
           progress,
         }
       );
@@ -109,14 +131,16 @@ const useAchievements = () => {
 
   const filterById = (id) => {
     return myAchievements.filter((achievement) => {
-      return achievement.id == id;
+      return achievement.achievement_id == id;
     });
   };
 
   const findMyAchievement = (id, tier) => {
-    return myAchievements.find(
-      (achievement) => {achievement.achievement_id == id && achievement.achievement_tier == tier}
-    );
+    return myAchievements.find((achievement) => {
+      return (
+        achievement.achievement_id == id && achievement.achievement_tier == tier
+      );
+    });
   };
 
   return {
@@ -125,6 +149,7 @@ const useAchievements = () => {
     getAllAchievements,
     findMyAchievement,
     resetAchievements,
+    displayAchievements,
   };
 };
 
