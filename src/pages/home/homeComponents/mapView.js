@@ -69,6 +69,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
     ChangeRoutingInfo(null);
   }
 
+  console.log("vehicleType:", vehicleType)
+
   return (
       <View style ={styles.mapContent}>
 
@@ -99,7 +101,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
           }}
         >
             <Image
-              source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_8.png'))}
+              source = {(vehicleType)}
               style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
             />
         </Marker>

@@ -7,11 +7,15 @@ import i18n from 'i18n-js';
 import CustomButton from "../../utils/button";
 import ButtonTable from "../../utils/buttonTable";
 import CarSelectorModal from './vehicleConfigComponents/carSelectorModal';
+import useVehicle from '../../hooks/useVehicle';
+import CustomDropDown from '../../utils/customDropDown';
 
 
 function VehicleConfig({ navigation }) {    
 
     const { sendConfig } = useVehicleConfig();
+
+    const { getVehicleBrands, getVehicleModels} = useVehicle();
 
     const[vehicleTypes, setVehicleTypes] = useState(); 
 
@@ -30,6 +34,32 @@ function VehicleConfig({ navigation }) {
 
     const [vehicle, setVehicle] = useState(initialState);
     const [modalOpen, setModalOpen] = useState(false);
+
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedModel, setSelectedModel] = useState('');
+
+    const [vehicleBrands, setVehicleBrands] = useState();
+    const [vehicleModels, setVehicleModels] = useState();
+
+    useEffect (async () => {
+        if (selectedBrand !== '') {
+            let temp = await getVehicleModels(selectedBrand);
+            let models =  [...new Set(temp.map(item => item.model))];
+            console.log("holi");
+            console.log(models);
+            models?.sort();
+            setVehicleModels(models);
+            setVehicle({...vehicle, ['vehicleBrand']: selectedBrand});
+        }
+        
+    }, [selectedBrand]);
+
+    useEffect (async () => {
+        if (selectedModel !== '') {
+            setVehicle({...vehicle, ['vehicleModel']: selectedModel});
+        }
+        
+    }, [selectedModel]);
     
     const onAcceptVehicle = (color) => {
         setCurrentColor(color)
@@ -65,7 +95,13 @@ function VehicleConfig({ navigation }) {
         require( '../../../assets/images/carTypes/carType_8.png'),
     ]
     
-    useEffect(()=>{
+    useEffect(async ()=>{
+        let brands = await getVehicleBrands();
+        if(brands) {
+            brands?.sort();
+            setVehicleBrands(brands);
+            
+        }  
         setVehicle(initialState);
         let temp = [];
         for(let i = 0; i < vehicleImages.length; i++){
@@ -80,6 +116,7 @@ function VehicleConfig({ navigation }) {
             temp.push(tempObj);
         }
         setVehicleTypes(temp);
+
         
     },[])
 
@@ -106,8 +143,6 @@ function VehicleConfig({ navigation }) {
         setVehicle({...vehicle, ['vehicleType']: index});
     }
 
-
-
     const validateInformation = () => {
 
         if(vehicleBrand.trim().length === 0 || vehicleModel.trim().length === 0 ||
@@ -120,7 +155,7 @@ function VehicleConfig({ navigation }) {
         }else {
             sendConfig(vehicle)
                 .then(user => {
-                    console.log(user);                                               
+                    console.log(user);                                          
                     setAuth({
                         ...auth,
                         user: user
@@ -144,7 +179,6 @@ function VehicleConfig({ navigation }) {
     }
 
     const clearAllFields = () => {
-        brand = '';
         setVehicle(initialState);
     }
 
@@ -165,23 +199,17 @@ function VehicleConfig({ navigation }) {
                 : null}
                 <View style={customStyle.formInputContainer}>
                     <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleBrand')}</Text>
-                    <TextInput
-                        onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
-                        value={vehicleBrand}
-                        style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
-                        name= "vehicleBrand"
-                        placeholder= {i18n.t('vehicleConfig.vehicleBrandPlaceholder')}
-                        />
+                    <CustomDropDown
+                        options={vehicleBrands}
+                        changeSelected={setSelectedBrand}
+                    />
                 </View>
                 <View style={customStyle.formInputContainer}>
                 <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
-                <TextInput
-                    onChangeText={(text) => onChangeText(text, 'vehicleModel')}
-                    value={vehicleModel}
-                    style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
-                    name="vehicleModel"
-                    placeholder= {i18n.t('vehicleConfig.vehicleModelPlaceholder')}
-                />
+                    <CustomDropDown
+                        options={vehicleModels}
+                        changeSelected={setSelectedModel}
+                    />
                 </View>
                 <View style={customStyle.formInputContainer}>
                 {error.error && error.attribute === "NumberPlate" ?

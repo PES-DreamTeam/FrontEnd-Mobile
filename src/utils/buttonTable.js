@@ -4,7 +4,8 @@ import Modal from 'react-native-modal';
 import CustomButton from './button';
 import i18n from 'i18n-js';
 
-export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, deleteable, }) => {
+export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, deleteable, 
+    onDeleteElement }) => {
     
     const customStyle = require('./customStyleSheet');
 
@@ -13,14 +14,14 @@ export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, deleteab
     for(let i = 0; i < 1 + buttonsInfo?.length / rowSize; i++){
         buttons.push([]);
         for(let j = 0; j < Math.min(3, buttonsInfo?.length - i * rowSize); j++) {
-            let temp = [];
-            console.log(deleteable);
-            temp.push(
+            let tempButton = [];
+            
+            tempButton.push(
                     <CustomButton
                         key={i*rowSize+j}
                         customStyles={[styles.tableButton, 
-                            {width: 90.00 / parseFloat(rowSize) + "%",
-                            marginRight: 15,},
+                            {width: '100%',
+                            },
                             currentSelected == i*rowSize+j ? {borderColor: "blue"} : null]
                         }
                         
@@ -29,24 +30,34 @@ export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, deleteab
                         imageSrc={buttonsInfo[i*rowSize+j].imageSrc}
                         imageStyle={buttonsInfo[i*rowSize+j].imageStyle}
                         onPress={buttonsInfo[i*rowSize+j].onPress}
-                    />
+                    /> 
             )
-            if(deleteable) {
-                temp.push(
+            if(deleteable && buttonsInfo[i*rowSize+j].canBeDeleted) {
+                tempButton.push(
                 <CustomButton
-                    customStyles={{width: 20, height: 20}}
+                    key={i*rowSize+j+500}
+                    customStyles={styles.deleteButton}
+                    text={'-'}
+                    onPress={() => onDeleteElement(i*rowSize+j)}
                 />
                 )
             }
+
+            let tempView = [
+                <View style={[styles.tableButtonContainer, 
+                    {width: 90.00 / parseFloat(rowSize) + "%",}]}
+                    key={i*rowSize+j}>
+                    {tempButton}
+                </View>
+            ]
             
-            buttons[i].push(temp);
+            buttons[i].push(tempView);
         }
 
         table.push(
             <View 
                 key={i}
                 style={styles.row}>
-                
                 {buttons[i]}
             </View>
         )
@@ -66,6 +77,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 15,
     },
+    tableButtonContainer: {
+        height: 80,
+        width: '90%',
+        marginRight: 15,
+        flexDirection: 'column-reverse',
+    },
     tableButton: {
         width: 80,
         height: 80,
@@ -76,5 +93,14 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         flexDirection: 'column',
         padding: 10,
+    },
+    deleteButton: {
+        width: 25, 
+        height: 25, 
+        alignSelf: 'flex-end', 
+        marginBottom: -15,
+        backgroundColor: 'red',
+        textAlign: 'center',
+        justifyContent: 'center',
     },
 })

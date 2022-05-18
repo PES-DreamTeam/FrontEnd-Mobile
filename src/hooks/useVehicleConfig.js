@@ -44,12 +44,10 @@ const useVehicleConfig = () => {
         try {
             console.log(numberPlate);
             const response = await axios.delete(`${API_HOST}/api/users/${id}/vehicleConfig/${numberPlate.trim()}`);
+            console.log(response);
         } 
         catch(error) {
-            throw {
-                attribute : "Unknown",
-                error: "Something went wrong. Try again later.",
-            }
+            console.log(error);
         };
     };
     

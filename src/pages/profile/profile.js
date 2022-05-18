@@ -18,8 +18,11 @@ import Carousel from "react-native-snap-carousel";
 import UploadImage from "./profileComponents/UploadImage";
 import CustomButton from "../../utils/button";
 import { useToast } from "react-native-toast-notifications";
-
+import CustomModal from "../../utils/modal";
 import ButtonTable from "../../utils/buttonTable";
+import useUser from "../../hooks/useUser";
+
+import useVehicleConfig from "../../hooks/useVehicleConfig";
 
 function TextEditableLabel({
   editable,
@@ -59,12 +62,16 @@ function ProfileScreen({ navigation }) {
     require( '../../../assets/images/carTypes/carType_8.png'),
   ]
 
+  const {deleteVehicleConfig } = useVehicleConfig();
+
   const customStyle = require('../../utils/customStyleSheet');
 
   const { auth, updateUser } = useAuth();
+  const { getUserInfo } = useUser();
   const [ vehicleModalOpened, setVehicleModalOpened ] = useState(false);
   const toast = useToast();
   useUserSettings();
+
 
   const [user, setUser] = useState({
     id: auth.user._id,
@@ -73,6 +80,18 @@ function ProfileScreen({ navigation }) {
     vehicleConfig: auth.user.vehicleConfig,
     currentVehicle: auth.user.currentVehicle ?? 0,
   });
+
+  useEffect(() => {
+    CreateGrid(user.vehicleConfig);
+    setVehicleSelected(user.currentVehicle);
+  }, [user]);
+
+  useEffect(() => {
+    if(editProfile && vehicleModalOpened) {
+      setVehicleModalOpened(false);
+    }
+  }, [vehicleModalOpened]);
+
   useEffect(() => {
     setUser({
       id: auth.user._id,
@@ -81,25 +100,6 @@ function ProfileScreen({ navigation }) {
       vehicleConfig: auth.user.vehicleConfig,
       currentVehicle: auth.user.currentVehicle ?? 0,
     });
-    let temp = [];
-    for(let i = 0; i < auth.user.vehicleConfig.length; i++){
-      let tempObj = {
-        imageSrc: vehicleImages[auth.user.vehicleConfig[i].vehicleType],
-        imageStyle: {width: '100%', height:'50%', tintColor: auth.user.vehicleConfig[i].color, alignSelf: "center"},
-        onPress: () => {
-          setVehicleSelected(i);
-          setVehicleModalOpened(true);
-        },
-      };
-      temp.push(tempObj);
-    }
-    temp.push({
-      imageSrc: require('../../../assets/images/plus.png'),
-      imageStyle: {width: 30, height: 30},
-      onPress: () => navigation.navigate("VehicleConfig"),
-    })
-    setGarageInfo(temp);
-
   }, [auth]);
 
   const { width } = useWindowDimensions();
@@ -112,14 +112,66 @@ function ProfileScreen({ navigation }) {
 
   const [editProfile, setEditProfile] = useState(false);
 
-  function EnableEditProfile(enabled) {
+  const [toDeleteElement, setToDeleteElement] = useState(-1);
+
+  async function DeletVehicle() {
+    let temp = JSON.parse(JSON.stringify(user.vehicleConfig));
+    let tempSelected = user.currentVehicle;
+    console.log(tempSelected, vehicleSelected);
+    if(tempSelected == vehicleSelected) {
+      tempSelected = 0;
+    }
+    console.log(tempSelected, vehicleSelected);
+    
+    await deleteVehicleConfig(user.vehicleConfig[vehicleSelected].numberPlate);
+    temp.splice(toDeleteElement, 1);
+    setUser({
+      ...user,
+      vehicleConfig: temp,
+      currentVehicle: tempSelected,
+    });
+    
+  }
+
+  function GoToVehicleConfigScreen () {
+    if(!editProfile) {
+      navigation.navigate("VehicleConfig");
+    }
+  }
+
+  function CreateGrid(array) {
+    let temp = [];
+    for(let i = 0; i < array.length; i++){
+      let tempObj = {
+        canBeDeleted: true,
+        imageSrc: vehicleImages[array[i].vehicleType],
+        imageStyle: {width: '100%', height:'50%', tintColor: array[i].color, alignSelf: "center"},
+        onPress: () => {
+          setVehicleSelected(i);
+          setVehicleModalOpened(true);
+        },
+      };
+      temp.push(tempObj);
+    }
+    temp.push({
+      canBeDeleted: false,
+      imageSrc: require('../../../assets/images/plus.png'),
+      imageStyle: {width: 30, height: 30},
+      onPress: () => GoToVehicleConfigScreen(),
+    })
+    setGarageInfo(temp);
+  }
+
+  async function EnableEditProfile(enabled) {
     if (!enabled) {
-      updateUser({
+      await updateUser({
         ...auth.user,
         nickname: user.name,
         email: user.email,
         currentVehicle: user.currentVehicle,
+        vehicleConfig: user.vehicleConfig,
       });
+      
       toast.show("", {
         title: i18n.t("reportToast.title"),
         message: i18n.t("reportToast.message"),
@@ -128,6 +180,7 @@ function ProfileScreen({ navigation }) {
       });
     }
     setEditProfile(enabled);
+    setVehicleModalOpened(false);
   }
 
   const onChangeText = (text, name) => {
@@ -179,15 +232,16 @@ function ProfileScreen({ navigation }) {
               <Text style={[customStyle.title]}>{i18n.t("profile.yourVehicle")}</Text>
             )}
           <ButtonTable
-            deleteable={true}
+            deleteable={editProfile}
             buttonsInfo={garageInfo}
             rowSize={3}
             currentSelected={user.currentVehicle}
+            onDeleteElement={setToDeleteElement}
           />
         </View>
       </ScrollView>
       <CarInfoModal
-        isVisible={vehicleModalOpened}
+        isVisible={vehicleModalOpened && !editProfile}
         onHandleAccept={() => setVehicleModalOpened(false)}
         onHandleFav={() => {
           setUser({ ...user, ["currentVehicle"]: vehicleSelected });
@@ -198,6 +252,18 @@ function ProfileScreen({ navigation }) {
         }}
         isFav={user.currentVehicle == vehicleSelected}
         vehicleInfo={vehicleConfig[vehicleSelected]}
+      />
+
+      <CustomModal
+        isVisible={toDeleteElement != -1}
+        handleAccept={() => {
+          DeleteVehicle(() => DeleteVehicle());
+          setToDeleteElement(-1);
+        }}
+        handleCancel={() => {
+          setToDeleteElement(-1);
+        }}
+        title={i18n.t("profile.deleteVehicle")}
       />
 
     </View>

@@ -40,7 +40,7 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
                         customStyles={{backgroundColor: 'transparent', width: 30, height: 40, alignSelf: 'flex-end'}}
                         />
                     <Text style={customStyle.bigTitle}>
-                        {vehicleInfo.brand} {vehicleInfo.model}
+                        {vehicleInfo?.brand} {vehicleInfo?.model}
                     </Text>
                     <View style={[customStyle.blockContainer, {marginBottom: 20}]}>
                         <View style={{marginBottom: 15}}>
@@ -48,7 +48,7 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
                                 {i18n.t('vehicleConfig.vehicleNickname')}
                             </Text>
                             <Text style={customStyle.normalText}>
-                                {vehicleInfo.nickname}
+                                {vehicleInfo?.nickname}
                             </Text>
                         </View>
                         <View>
@@ -56,13 +56,13 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
                                 {i18n.t('vehicleConfig.vehicleNumPlate')}
                             </Text>
                             <Text style={customStyle.normalText}>
-                                {vehicleInfo.numberPlate}
+                                {vehicleInfo?.numberPlate}
                             </Text>
                         </View>
                     </View>
                     <Image
-                        source={vehicleImages[vehicleInfo.vehicleType]}
-                        style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleInfo.color}}
+                        source={vehicleImages[vehicleInfo?.vehicleType]}
+                        style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleInfo?.color}}
                         
                         />
                     <CustomButton

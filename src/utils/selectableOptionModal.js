@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import CustomButton from './button';
 import i18n from 'i18n-js';
@@ -11,19 +11,19 @@ export default ({isVisible, handleOnSelect, options}) => {
     return(
         <Modal isVisible={isVisible}>
             <View style={customStyle.modalContainer}>
-                <View style={customStyle.modalContentContainer}>
+                <ScrollView style={customStyle.modalContentContainerScrollable}>
                     {
-                        options.map((option, index) => 
+                        options?.map((option, index) => 
                         <CustomButton
-                        key={index}
-                        onPress={() => handleOnSelect(option)}
-                        customStyles={customStyle.dropDownModalButton}
-                        text={option}
-                        textStyle={customStyle.formSelectableButtonText}
+                            key={index}
+                            onPress={() => handleOnSelect(option)}
+                            customStyles={customStyle.dropDownModalButton}
+                            text={option}
+                            textStyle={customStyle.formSelectableButtonText}
                         />
                         )
                     }
-                </View>
+                </ScrollView>
             </View>
         </Modal>
     )

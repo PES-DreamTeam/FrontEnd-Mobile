@@ -34,6 +34,11 @@ module.exports = StyleSheet.create({
         backgroundColor: '#fff',
         width: '90%',
         marginTop: 20,
+    },
+    modalContentContainerScrollable: {
+        backgroundColor: '#fff',
+        width: '90%',
+        marginTop: 20,
         //backgroundColor: 'red'
     },
     bigTitle: {

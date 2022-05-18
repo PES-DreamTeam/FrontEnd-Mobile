@@ -22,6 +22,9 @@ export default function HomeScreen({ navigation }) {
     require("../../../assets/images/carTypes/icons/carType_2.png"),
     require("../../../assets/images/carTypes/icons/carType_3.png"),
     require("../../../assets/images/carTypes/icons/carType_4.png"),
+    require("../../../assets/images/carTypes/icons/carType_5.png"),
+    require("../../../assets/images/carTypes/icons/carType_6.png"),
+    require("../../../assets/images/carTypes/icons/carType_7.png"),
     require("../../../assets/images/carTypes/icons/carType_8.png"),
   ];
 
@@ -47,6 +50,7 @@ export default function HomeScreen({ navigation }) {
       return temp;
     }
   };
+
 
   const OpenStationInfo = (station) => {
     //console.log(station);
@@ -105,11 +109,11 @@ export default function HomeScreen({ navigation }) {
       {
       <CustomMapView
         //ref={mapViewRef}
-        color={vehicleConfig[currentVehicle ?? 8]?.color ?? "#000000"}
+        color={vehicleConfig[currentVehicle]?.color ?? "#000000"}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
         vehicleType={
-          vehicleImages[vehicleConfig[currentVehicle ?? 8]?.vehicleType ?? 8]
+          vehicleImages[vehicleConfig[currentVehicle]?.vehicleType ?? 8]
         }
         mapFilter={mapFilter}
         routeActivate={wantRoute}

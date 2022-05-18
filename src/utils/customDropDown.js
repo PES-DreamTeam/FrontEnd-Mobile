@@ -8,7 +8,7 @@ export default ({changeSelected, options}) => {
     const [modalOpened, setModalOpened] = useState(false);
     const customStyle = require('./customStyleSheet');
 
-    const[currentSelected, setCurrentSelected] = useState(options[0]);
+    const[currentSelected, setCurrentSelected] = useState( options ? options[0] : 'Select');
 
     const onChangeSelected = (option) => {
         setCurrentSelected(option);
@@ -19,7 +19,7 @@ export default ({changeSelected, options}) => {
     return (
         <View>
             <CustomButton
-                onPress={() => setModalOpened(true)}
+                onPress={() => setModalOpened(options?.length > 0)}
                 text={currentSelected}
                 textStyle={customStyle.formSelectableButtonText}
                 customStyles={customStyle.formSelectableButton}
