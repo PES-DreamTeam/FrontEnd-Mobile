@@ -28,7 +28,7 @@ function CustomDrawer(props) {
     try {
       const shareResponse = await Share.share(shareOptions);
       if (shareResponse.action === Share.sharedAction) {
-        updateAchievement(1, 1);
+        updateAchievement(1);
       }
     } catch (error) {
       console.log(error);
