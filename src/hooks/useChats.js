@@ -5,11 +5,15 @@ import { AuthContext } from "../context/authContext";
 
 
 const useChats = () => { 
-  const sendChat = async (text,created_at) => {
+  const sendChat = async (messages) => {
+      console.log(messages)
+      
+  /*
     try {     
       const response = await axios.post(
         //`${API_HOST}/api/`,
         {
+          messages[0]?.text, messages[0]?.createdAt
           text: text,
           created_at: created_at
         } 
@@ -31,6 +35,7 @@ const useChats = () => {
             errors: ["Something went wrong. Try again later."],
           };
       }
+      */
   }
   return {
     sendChat

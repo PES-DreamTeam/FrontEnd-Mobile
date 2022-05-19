@@ -74,7 +74,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
   return (
       <View style ={styles.mapContent}>
 
-      <MapView style ={styles.map} ref={mapRef}
+      <MapView style ={styles.map} ref={mapRef} toolbarEnabled={false}
         onPress={ () =>{
           CloseStationInfo();
         }}

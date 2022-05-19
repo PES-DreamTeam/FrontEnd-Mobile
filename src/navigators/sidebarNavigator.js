@@ -10,7 +10,6 @@ import { CustomDrawer } from "./customDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import i18n from "i18n-js";
 import { ReportAplicationScreen } from "../pages/reportScreen/ReportAplicationScreen";
-import { ChatScreen } from "../pages/chat/chatScreen";
 import { AchievementsScreen } from "../pages/achievements/achievementsScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import HelpScreen from "../pages/info/helpScreen";
@@ -55,6 +54,16 @@ function SidebarNavigator() {
             title: `${i18n.t("drawer.achievements")}`,
             drawerIcon: ({ color }) => (
               <Ionicons name="trophy-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            title: `${i18n.t("drawer.settings")}`,
+            drawerIcon: ({ color }) => (
+              <Ionicons name="settings-outline" size={22} color={color} />
             ),
           }}
         />

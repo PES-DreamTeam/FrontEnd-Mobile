@@ -7,15 +7,19 @@ import useAchievements from "../../hooks/useAchievements";
 import useAuth from "../../hooks/useAuth";
 
 function AchievementsScreen() {
-  const { getAllAchievements, resetAchievements } = useAchievements();
+  const {
+    getAllAchievements,
+    resetAchievements,
+    displayAchievements,
+    findMyAchievement,
+  } = useAchievements();
   const { auth } = useAuth();
 
   const [achievements, setAchievements] = useState([]);
 
-
   useEffect(async () => {
     /* await resetAchievements(); */
-    setAchievements(await getAllAchievements());
+    setAchievements(await displayAchievements());
   }, [auth?.user]);
 
   return (
