@@ -13,13 +13,24 @@ module.exports = StyleSheet.create({
         fontSize: 13,
         color: "black",
         fontFamily: 'Montserrat-Regular',
-        borderWidth: 1,
-        borderRadius: 15,
-        borderColor: "#bbb",
         textAlign: "left",
-        padding: 10,
         textAlignVertical: "top",
-        backgroundColor: "#eeffff",
+        backgroundColor: "#ffffff",
+    },
+    blockTitleContainer: {
+        fontSize: 25,
+        fontFamily: 'Montserrat-Bold',
+        color: "black",
+        marginBottom: 15,
+        backgroundColor: "#f3edff",
+        padding: 10,
+        minHeight: 100,
+    },
+    blockImageContainer: {
+        marginRight: 20,
+        marginTop: -20,
+        width: "30%",
+        
     },
     modalContainer: {
         justifyContent: 'center',
@@ -131,5 +142,21 @@ module.exports = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-    }
+    },
+    progressBarBackground: {
+        width: "90%",
+        height: 50,
+        borderWidth: 1,
+        borderRadius: 15,
+        borderColor: "#bbb",
+        textAlign: 'left',
+        justifyContent: 'center',
+        backgroundColor: '#eee',
+
+    },
+    progressBarFill: {
+        backgroundColor: "#5CB362",
+        borderRadius: 15,
+        height: "100%",
+    },
 });

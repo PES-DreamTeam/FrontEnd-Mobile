@@ -2,9 +2,12 @@ import React from "react";
 import { View, Text, Image, StyleSheet, Pressable, Share } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import i18n from "i18n-js";
+import CustomProgressBar from "../../../utils/customProgressBar";
 
 
 function Achievement(props) {
+  const customStyle = require('../../../utils/customStyleSheet');
+
   const { description, actualProgress, objective, url } = props;
 
   const shareAchievement = async () => {
@@ -21,30 +24,28 @@ function Achievement(props) {
 
   const progress = (actualProgress / objective) * 100;
   return (
-    <View style={styles.achievementBox}>
+    <View style={customStyle.blockContainer}>
+      <View style={[customStyle.blockTitleContainer]}>
+        <Text style={customStyle.bigTitle}>{description}</Text>
+      </View>
       <Image
         source={
-          url !== ""
-            ? { uri: url }
-            : require("../../../../assets/images/icons/mechanical.png")
+          require("../../../../assets/images/icons/mechanical.png")
         }
         style={styles.image}
-      ></Image>
+      />
       <View style={styles.achievementInfo}>
         <View style={styles.textView}>
-          <Text style={styles.achievementTitle}>{description}</Text>
+          
           <Text style={styles.achievementTitle}>
             {actualProgress}/{objective}
           </Text>
         </View>
-        <View style={styles.progressBar}>
-          <View
-            style={
-              ([StyleSheet.absoluteFill],
-              { backgroundColor: "#8BED4F", width: `${progress}%` })
-            }
-          />
-        </View>
+        
+        <CustomProgressBar
+          percent={`${progress}`}
+          backgroundStyle={{height: 20, width: '100%'}}
+        />
       </View>
       <Pressable style={styles.image} onPress={shareAchievement} >
         <Ionicons style={styles.shareIcon} name="share-social-outline" size={35}/>
@@ -60,15 +61,16 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
     backgroundColor: "beige",
   },
+  imageContainer: {
+    width: "100%",
+    backgroundColor: "white",
+  },
   image: {
-    maxWidth: "12%",
-    aspectRatio: 1,
-    marginLeft: "auto",
-    marginRight: "auto",
-    flex: 0.15,
+    width: 50,
+    height: 50,
+    alignSelf: "flex-end",
   },
   shareIcon: {
     marginRight: "auto",
@@ -78,9 +80,7 @@ const styles = StyleSheet.create({
   achievementInfo: {
     display: "flex",
     flexDirection: "column",
-    flex: 0.7,
     maxWidth: "75%",
-    height: "100%",
     padding: "1%",
     justifyContent: "space-between",
   },
@@ -93,15 +93,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   progressBar: {
-    flexDirection: "row",
     height: 20,
     width: "95%",
-    backgroundColor: "white",
-    borderColor: "#000",
-    marginLeft: "auto",
-    marginRight: "auto",
-    borderWidth: 2,
-    borderRadius: 5,
   },
 });
 

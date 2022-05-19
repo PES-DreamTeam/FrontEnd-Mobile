@@ -13,11 +13,11 @@ function achievementList(props) {
         {achievementsInfo.map((achievement, index) => {
           return (
             <Achievement
-              key={index}
-              description={achievement.description}
-              actualProgress={achievement.progress}
-              objective={achievement.objective}
-              url={achievement.image}
+                key={index}
+                description={achievement.description}
+                actualProgress={achievement.progress}
+                objective={achievement.objective}
+                url={achievement.image}
             />
           );
         })}
@@ -29,11 +29,13 @@ function achievementList(props) {
 const styles = StyleSheet.create({
 
   listContainer: { 
-    borderWidth: 1, 
     marginTop: "5%" 
   },
   achievementsList: {
     /*     maxHeight: "90%", */
+  },
+  achievementContainer: {
+    height: 80,
   },
 });
 

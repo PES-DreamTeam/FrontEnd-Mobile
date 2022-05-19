@@ -33,7 +33,6 @@ function AchievementsScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingTop: "6%",
-    paddingHorizontal: "3%",
   },
   title: {
     fontSize: 25,

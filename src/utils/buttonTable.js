@@ -45,7 +45,10 @@ export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, deleteab
 
             let tempView = [
                 <View style={[styles.tableButtonContainer, 
-                    {width: 90.00 / parseFloat(rowSize) + "%",}]}
+                    {
+                        width: 90.00 / parseFloat(rowSize) + "%",
+                        height: '100%',
+                    }]}
                     key={i*rowSize+j}>
                     {tempButton}
                 </View>
@@ -72,13 +75,14 @@ export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, deleteab
     )
 }
 
+
 const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
-        marginBottom: 15,
+        marginBottom: 10,
     },
     tableButtonContainer: {
-        height: 80,
+        height: '90%',
         width: '90%',
         marginRight: 15,
         flexDirection: 'column-reverse',
