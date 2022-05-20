@@ -2,11 +2,12 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'reac
 import React, { useState, useContext } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import i18n from 'i18n-js';
-import Button from '../../../utils/button';
+import CustomButton from '../../../utils/button';
 
 function SignInScreen({ navigation }) {
 
     const { signIn, loginWithFacebook } = useAuth();
+    const customStyle = require('../../../utils/customStyleSheet');
 
     const [showPassword, setShowPassword] = useState(true);
     const [user, setUser] = useState({
@@ -52,84 +53,92 @@ function SignInScreen({ navigation }) {
                     style={[styles.logo]}
                 />
             </View>
-            <View style={[styles.topContainer]}>
-                <View>
-                    <Text style={styles.title}>
+            <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 0}]}>
+                <View style={[customStyle.coolBlockTitleContainer]}>
+                    <Text style={customStyle.bigTitle}>
                        {i18n.t('signIn.title')} 
                     </Text>
-                    <Text style={styles.subtitle}>
+                    <Text style={customStyle.subtitle}>
                         {i18n.t('signIn.form.enterCredentials')}
                     </Text>
                 </View>
-                {error.error ?
-                    <View style={styles.errorContainer}>
-                        <Text style={styles.error}>
-                            {error.message}
-                        </Text>
-                    </View>
-                : null}
-                <TextInput
-                    onChangeText={(text) => onChangeText(text, 'email')}
-                    value={email}
-                    style={styles.input}
-                    name="email"
-                    placeholder="Email:"
-                />
-                <View style={styles.passwordContainer}>
+                <View style={[{width: '90%', alignSelf: 'center'}]}>
+                    {error.error ?
+                        <View style={styles.errorContainer}>
+                            <Text style={styles.error}>
+                                {error.message}
+                            </Text>
+                        </View>
+                    : null}
                     <TextInput
-                        onChangeText={(text) => onChangeText(text, 'password')}
-                        value={password}
-                        style={[styles.input, {marginBottom: 0, width: '90%'}]}
-                        name="password"
-                        placeholder="Password:"
-                        textContentType="password"
-                        secureTextEntry={showPassword}
-                    />
-                    <View style={[]}>
-                        <TouchableOpacity
-                            activeOpacity={0.5}
-                            onPress={() => setShowPassword(!showPassword)}
-                        >
-                            <Image
-                                source={require('../../../../assets/images/showPwd.png')}
-                                style={styles.showPwd}
+                        onChangeText={(text) => onChangeText(text, 'email')}
+                        value={email}
+                        style={styles.input}
+                        name="email"
+                        placeholder="Email:"
+                        />
+                    <View style={styles.passwordContainer}>
+                        <TextInput
+                            onChangeText={(text) => onChangeText(text, 'password')}
+                            value={password}
+                            style={[styles.input, {marginBottom: 0, width: '90%'}]}
+                            name="password"
+                            placeholder="Password:"
+                            textContentType="password"
+                            secureTextEntry={showPassword}
                             />
-                        </TouchableOpacity>
+                        <View style={[]}>
+                            <TouchableOpacity
+                                activeOpacity={0.5}
+                                onPress={() => setShowPassword(!showPassword)}
+                                >
+                                <Image
+                                    source={require('../../../../assets/images/showPwd.png')}
+                                    style={styles.showPwd}
+                                    />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-
                 </View>
-                <Button
+                <CustomButton
                     onPress={()=> SignIn()}
                     text={isLoading ? i18n.t('miscelaneus.loading') : i18n.t('signIn.title')}
                     disabled={isLoading}
-                />
-
-            </View>
-            <Text>
-                {i18n.t('signIn.otherSocial')}
-            </Text>
-            <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
-                <Button
-                    text='Facebook'
-                    customStyles={styles.button}
-                    onPress={loginWithFacebook}
-                />
-
-                <Button
-                    text='Google'
-                    customStyles={styles.button}
+                    customStyles={[customStyle.button, {marginVertical: 20, width: '80%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
                 />
             </View>
-            <View style={{flexDirection: 'row'}}>
-                <Text>
-                    {i18n.t('signIn.noAccount')}
-                </Text>
-                <View style={{marginLeft: 5}}>
-                    <Text style={{color: 'blue'}} onPress={() => {navigation.navigate("SignUp")}}>
-                        {i18n.t('signUp.title')}
+            <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 20}]}>
+                <View style={[customStyle.coolBlockTitleContainerSmall]}>
+                    <Text style={customStyle.title}>
+                        {i18n.t('signIn.otherSocial')}
                     </Text>
                 </View>
+                <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
+                    <CustomButton
+                        text='Facebook'
+                        customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                        onPress={loginWithFacebook}
+
+                    />
+
+                    <CustomButton
+                        text='Google'
+                        customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                    />
+                </View>
             </View>
+                <View style={{flexDirection: 'row', marginBottom: 20}}>
+                    <Text style={{marginTop: 30}}>
+                        {i18n.t('signIn.noAccount')}
+                    </Text>
+                    <View style={{marginLeft: 15}}>
+                        <CustomButton
+                            text={i18n.t('signUp.title')}
+                            customStyles={[customStyle.button, {marginVertical: 20, width: '120%', height: '20%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                            onPress={() => {navigation.navigate("SignUp")}}
+                        />
+                    </View>
+                </View>
         </View>
     )
 }
@@ -151,7 +160,7 @@ const styles = StyleSheet.create({
         height: 40,
     },
     logoContainer: {
-        marginBottom: 20,
+        
     },
     logo: {
         width: 225,

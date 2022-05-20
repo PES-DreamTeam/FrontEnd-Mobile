@@ -51,21 +51,23 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
                         style={[customStyle.coolBlockImage, {tintColor: vehicleInfo?.color, width: '50%', height: '50%'}]}
                         />
                     </View>
-                    <View style={[{width: '10%'}, {justifyContent: 'center'}]}>
-                        <Image
-                            source={require('../../../../assets/images/matricula.png')}
-                            styles = {styles.matricula}
+                    <View style={[{marginTop: 20}]}>
+                        <View style={[styles.matriculaContainer]}>
+                            <Image
+                                source={require('../../../../assets/images/matricula.png')}
+                                styles = {styles.matricula}
+                            />
+                        </View>
+                        
+                        <Text style={styles.insideNumberPlate}>
+                            {vehicleInfo?.numberPlate}
+                        </Text>
+                        <CustomButton
+                            onPress={() => onHandleAccept()}
+                            text={i18n.t('miscelaneus.back')}
+                            customStyles={{marginBottom: 20, marginTop: 20}}
                         />
                     </View>
-                    
-                    <Text>
-                        {vehicleInfo?.numberPlate}
-                    </Text>
-                    <CustomButton
-                        onPress={() => onHandleAccept()}
-                        text={i18n.t('miscelaneus.back')}
-                        customStyles={{marginBottom: 20, marginTop: 20}}
-                    />
                 </View>
             </View>
         </Modal>
@@ -89,6 +91,11 @@ const styles = StyleSheet.create({
     textContainer: {
         width: '75%',
     },
+    matriculaContainer: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     image: {
         marginVertical: 30,
         justifyContent: 'center',
@@ -96,8 +103,14 @@ const styles = StyleSheet.create({
     },
     matricula: {
         width: 250,
-        height: 100,
-        alignSelf: 'center',
+        aspectRatio: 1,
+    },
+    insideNumberPlate: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: '#000',
+        textAlign: 'center',
+        top: '-25%',
     },
     imageC: {  
         position:'absolute',

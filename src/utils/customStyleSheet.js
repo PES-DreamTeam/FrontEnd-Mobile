@@ -49,6 +49,17 @@ module.exports = StyleSheet.create({
         borderTopLeftRadius: 18,
         borderTopRightRadius: 18,
     },
+    coolBlockTitleContainerSmall: {
+        fontSize: 25,
+        fontFamily: 'Montserrat-Bold',
+        color: "black",
+        backgroundColor: "#f3edff",
+        padding: 10,
+        paddingLeft: "5%",
+        minHeight: 0,
+        borderTopLeftRadius: 18,
+        borderTopRightRadius: 18,
+    },
     coolBlockImageContainer: {
         marginRight: "10%",
         marginTop: -50,
