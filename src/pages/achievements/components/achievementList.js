@@ -29,7 +29,6 @@ function achievementList(props) {
 const styles = StyleSheet.create({
 
   listContainer: { 
-    marginTop: "5%" 
   },
   achievementsList: {
     /*     maxHeight: "90%", */

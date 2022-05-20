@@ -28,29 +28,34 @@ function Achievement(props) {
       <View style={[customStyle.blockTitleContainer]}>
         <Text style={customStyle.bigTitle}>{description}</Text>
       </View>
-      <Image
+      <View style={customStyle.blockImageContainer}>
+        <Image
         source={
           require("../../../../assets/images/icons/mechanical.png")
         }
         style={styles.image}
-      />
-      <View style={styles.achievementInfo}>
-        <View style={styles.textView}>
-          
-          <Text style={styles.achievementTitle}>
-            {actualProgress}/{objective}
-          </Text>
-        </View>
-        
-        <CustomProgressBar
-          percent={`${progress}`}
-          backgroundStyle={{height: 20, width: '100%'}}
         />
       </View>
-      <Pressable style={styles.image} onPress={shareAchievement} >
-        <Ionicons style={styles.shareIcon} name="share-social-outline" size={35}/>
-      </Pressable>
-      
+      <View style={customStyle.blockContentContainer}>
+        <View style={styles.achievementInfo}>
+          <View style={styles.textView}>
+          </View>
+          <View style={styles.progressBarView}>
+            <View style={styles.progressView}>
+              <CustomProgressBar
+                text={actualProgress+"/"+objective}
+                percent={`${progress}`}
+                backgroundStyle={{height: 30, width: '100%'}}
+                />
+            </View>
+            <View style={styles.shareView}>
+              <Pressable style={styles.imag} onPress={shareAchievement} >
+                <Ionicons style={styles.shareIcon} name="share-social-outline" size={35}/>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
@@ -68,19 +73,18 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   image: {
-    width: 50,
-    height: 50,
-    alignSelf: "flex-end",
+    width: '70%',
+    height: '70%',
   },
   shareIcon: {
-    marginRight: "auto",
-    marginTop: "auto",
-    marginBottom: "auto",
+    right: 0,
+    aspectRatio: 1,
+    width: "50%",
   },
   achievementInfo: {
     display: "flex",
     flexDirection: "column",
-    maxWidth: "75%",
+    maxWidth: "100%",
     padding: "1%",
     justifyContent: "space-between",
   },
@@ -88,6 +92,18 @@ const styles = StyleSheet.create({
     marginHorizontal: "3%",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  progressBarView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: "2%",
+  },
+  progressView: {
+    width: "80%",
+  },
+  shareView: {
+    width: "20%",
+    alignItems: "center",
   },
   achievementTitle: {
     fontSize: 13,

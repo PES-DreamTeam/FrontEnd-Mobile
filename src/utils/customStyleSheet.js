@@ -27,10 +27,15 @@ module.exports = StyleSheet.create({
         minHeight: 100,
     },
     blockImageContainer: {
-        marginRight: 20,
-        marginTop: -20,
+        marginRight: "10%",
+        marginTop: -60,
         width: "30%",
-        
+        aspectRatio: 1,
+        backgroundColor: "#ffffff",
+        borderRadius: 2000,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "flex-end",
     },
     modalContainer: {
         justifyContent: 'center',
@@ -144,7 +149,7 @@ module.exports = StyleSheet.create({
         justifyContent: 'space-between',
     },
     progressBarBackground: {
-        width: "90%",
+        width: "100%",
         height: 50,
         borderWidth: 1,
         borderRadius: 15,
@@ -152,11 +157,21 @@ module.exports = StyleSheet.create({
         textAlign: 'left',
         justifyContent: 'center',
         backgroundColor: '#eee',
-
+        
     },
     progressBarFill: {
         backgroundColor: "#5CB362",
         borderRadius: 15,
+        textAlignVertical: 'center',
         height: "100%",
+
+    },
+    progressBarInternalText: {
+        fontSize: 15,
+        color: "black",
+        fontFamily: 'Montserrat-Bold',
+        textAlign: 'center',
+        height: "100%",
+        textAlignVertical: 'center',
     },
 });
