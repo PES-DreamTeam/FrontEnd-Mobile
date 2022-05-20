@@ -60,6 +60,17 @@ module.exports = StyleSheet.create({
         alignItems: "center",
         alignSelf: "flex-end",
     },
+    coolBlockImageContainerWide: {
+        marginRight: "5%",
+        marginTop: -30,
+        width: "45%",
+        aspectRatio: 2.5,
+        backgroundColor: "#ffffff",
+        borderRadius: 2000,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "flex-end",
+    },
     coolBlockImage: {
         width: '70%',
         height: '70%',

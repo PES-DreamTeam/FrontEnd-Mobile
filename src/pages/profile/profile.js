@@ -204,18 +204,17 @@ function ProfileScreen({ navigation }) {
       <ScrollView>
         <View style={customStyle.minimalistBlockContainer}>
           <View style={styles.topRow}>
-          <CustomButton
-            customStyles={styles.editButton}
-            onPress={() => OpenSettingsModal()}
-            imageSrc={require("../../../assets/images/icons/settings.png")}
-            imageStyle={{ width: "100%", height: "100%" }}
-            />
-          <CustomButton
-            customStyles={styles.editButton}
-            onPress={() => enableEditProfile(!editProfile)}
-            
-            imageSrc={editProfile ? require("../../../assets/images/icons/save.png") : require("../../../assets/images/icons/pencil.png")}
-            imageStyle={{ width: "100%", height: "100%" }}
+            <CustomButton
+              customStyles={styles.editButton}
+              onPress={() => OpenSettingsModal()}
+              imageSrc={require("../../../assets/images/icons/settings.png")}
+              imageStyle={{ width: "100%", height: "100%" }}
+              />
+            <CustomButton
+              customStyles={styles.editButton}
+              onPress={() => enableEditProfile(!editProfile)}
+              imageSrc={editProfile ? require("../../../assets/images/icons/save.png") : require("../../../assets/images/icons/pencil.png")}
+              imageStyle={{ width: "100%", height: "100%" }}
             />
           </View>
           {/* Imagen de perfil */}

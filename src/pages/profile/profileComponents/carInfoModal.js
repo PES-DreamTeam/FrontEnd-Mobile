@@ -38,33 +38,29 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
                         imageSrc={isFav ? require('../../../../assets/images/icons/bookmark_toggled.png') : require('../../../../assets/images/icons/bookmark.png')}
                         imageStyle={{width: 30, height: 40}}
                         customStyles={{backgroundColor: 'transparent', width: 30, height: 40, alignSelf: 'flex-end'}}
-                        />
-                    <Text style={customStyle.bigTitle}>
-                        {vehicleInfo?.brand} {vehicleInfo?.model}
-                    </Text>
-                    <View style={[customStyle.blockContainer, {marginBottom: 20}]}>
-                        <View style={{marginBottom: 15}}>
-                            <Text style={customStyle.subtitle}>
-                                {i18n.t('vehicleConfig.vehicleNickname')}
-                            </Text>
-                            <Text style={customStyle.normalText}>
-                                {vehicleInfo?.nickname}
-                            </Text>
-                        </View>
-                        <View>
-                            <Text style={customStyle.subtitle}>
-                                {i18n.t('vehicleConfig.vehicleNumPlate')}
-                            </Text>
-                            <Text style={customStyle.normalText}>
-                                {vehicleInfo?.numberPlate}
-                            </Text>
-                        </View>
+                    />
+                    <View style={customStyle.coolBlockTitleContainer}>
+                    <Text style={[customStyle.title]}>{vehicleInfo?.brand} {vehicleInfo?.model}</Text>
+                    <Text style={[customStyle.subtitle, {color: 'gray', fontStyle: 'italic', fontWeight: 'bold'}]}>"{vehicleInfo?.nickname}"</Text>
                     </View>
-                    <Image
-                        source={vehicleImages[vehicleInfo?.vehicleType]}
-                        style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleInfo?.color}}
-                        
+                    <View style={customStyle.coolBlockImageContainerWide}>
+                        <Image
+                        source={
+                            vehicleImages[vehicleInfo?.vehicleType]
+                        }
+                        style={[customStyle.coolBlockImage, {tintColor: vehicleInfo?.color, width: '50%', height: '50%'}]}
                         />
+                    </View>
+                    <View style={[{width: '10%'}, {justifyContent: 'center'}]}>
+                        <Image
+                            source={require('../../../../assets/images/matricula.png')}
+                            styles = {styles.matricula}
+                        />
+                    </View>
+                    
+                    <Text>
+                        {vehicleInfo?.numberPlate}
+                    </Text>
                     <CustomButton
                         onPress={() => onHandleAccept()}
                         text={i18n.t('miscelaneus.back')}
@@ -96,8 +92,12 @@ const styles = StyleSheet.create({
     image: {
         marginVertical: 30,
         justifyContent: 'center',
-        alignItems: 'center',
-       
+        alignItems: 'center', 
+    },
+    matricula: {
+        width: 250,
+        height: 100,
+        alignSelf: 'center',
     },
     imageC: {  
         position:'absolute',
