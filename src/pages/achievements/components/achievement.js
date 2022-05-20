@@ -24,16 +24,16 @@ function Achievement(props) {
 
   const progress = (actualProgress / objective) * 100;
   return (
-    <View style={customStyle.blockContainer}>
-      <View style={[customStyle.blockTitleContainer]}>
+    <View style={customStyle.coolBlockContainer}>
+      <View style={[customStyle.coolBlockTitleContainer]}>
         <Text style={customStyle.bigTitle}>{description}</Text>
       </View>
-      <View style={customStyle.blockImageContainer}>
+      <View style={customStyle.coolBlockImageContainer}>
         <Image
         source={
           require("../../../../assets/images/icons/mechanical.png")
         }
-        style={styles.image}
+        style={customStyle.coolBlockImage}
         />
       </View>
       <View style={customStyle.blockContentContainer}>
@@ -50,7 +50,7 @@ function Achievement(props) {
             </View>
             <View style={styles.shareView}>
               <Pressable style={styles.imag} onPress={shareAchievement} >
-                <Ionicons style={styles.shareIcon} name="share-social-outline" size={35}/>
+                <Ionicons style={styles.shareIcon} name="share-social-outline" size={25}/>
               </Pressable>
             </View>
           </View>

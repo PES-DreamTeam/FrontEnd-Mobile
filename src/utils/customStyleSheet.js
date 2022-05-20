@@ -9,26 +9,49 @@ PALETA DE COLORES
 */
 
 module.exports = StyleSheet.create({
-    blockContainer: {
+    mainContainer: {
         fontSize: 13,
         color: "black",
         fontFamily: 'Montserrat-Regular',
         textAlign: "left",
         textAlignVertical: "top",
         backgroundColor: "#ffffff",
+        width: "100%",
     },
-    blockTitleContainer: {
+    minimalistBlockContainer: {
+        width: "90%",
+        alignSelf: "center",
+        borderWidth: 2,
+        borderRadius: 20,
+        backgroundColor: "#f3edff",
+        borderColor: "#eae4f6",
+        padding: 20
+        
+    },
+    coolBlockContainer: {
+        marginTop: 20,
+        width: "90%",
+        alignSelf: "center",
+        borderWidth: 2,
+        borderRadius: 20,
+        backgroundColor: "#fff",
+        borderColor: "#eae4f6",
+        
+    },
+    coolBlockTitleContainer: {
         fontSize: 25,
         fontFamily: 'Montserrat-Bold',
         color: "black",
-        marginBottom: 15,
         backgroundColor: "#f3edff",
         padding: 10,
-        minHeight: 100,
+        paddingLeft: "5%",
+        minHeight: 80,
+        borderTopLeftRadius: 18,
+        borderTopRightRadius: 18,
     },
-    blockImageContainer: {
+    coolBlockImageContainer: {
         marginRight: "10%",
-        marginTop: -60,
+        marginTop: -50,
         width: "30%",
         aspectRatio: 1,
         backgroundColor: "#ffffff",
@@ -36,6 +59,15 @@ module.exports = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "flex-end",
+    },
+    coolBlockImage: {
+        width: '70%',
+        height: '70%',
+    },
+    blockContentContainer: {
+        width: "90%",
+        alignSelf: "center",
+        marginBottom: 30,
     },
     modalContainer: {
         justifyContent: 'center',

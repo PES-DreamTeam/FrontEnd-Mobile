@@ -6,9 +6,10 @@ import useAuth from "../../../hooks/useAuth";
 import { Achievement } from "./achievement";
 
 function achievementList(props) {
+  const customStyle = require('../../../utils/customStyleSheet');
   const { achievementsInfo } = props;
   return (
-    <View style={styles.listContainer}>
+    <View style={customStyle.mainContainer}>
       <ScrollView style={styles.achievementsList}>
         {achievementsInfo.map((achievement, index) => {
           return (

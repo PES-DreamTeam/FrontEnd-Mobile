@@ -200,9 +200,9 @@ function ProfileScreen({ navigation }) {
 
 
   return (
-    <View style={styles.container}>
+    <View style={[customStyle.mainContainer,{height: "100%"}]}>
       <ScrollView>
-        <View style={customStyle.blockContainer}>
+        <View style={customStyle.minimalistBlockContainer}>
           <View style={styles.topRow}>
           <CustomButton
             customStyles={styles.editButton}
@@ -240,21 +240,27 @@ function ProfileScreen({ navigation }) {
             editableStyle={[customStyle.formInputText, {textAlignVertical:"center"}]}
           />
         </View>
-        <View style={styles.garageContainer}>
-          {editProfile ? (
-              <Text style={[customStyle.title]}>
-                {i18n.t("profile.changeVehicle")}
-              </Text>
-            ) : (
-              <Text style={[customStyle.title]}>{i18n.t("profile.yourVehicle")}</Text>
-            )}
-          <ButtonTable
-            deleteable={editProfile}
-            buttonsInfo={garageInfo}
-            rowSize={3}
-            currentSelected={user.currentVehicle}
-            onDeleteElement={setToDeleteElement}
-          />
+        <View style={[customStyle.coolBlockContainer]}>
+          <View style={customStyle.coolBlockTitleContainer}>
+            <Text style={[customStyle.title]}>{i18n.t("profile.yourVehicle")}</Text>
+          </View>
+          <View style={customStyle.coolBlockImageContainer}>
+            <Image
+              source={
+                require("../../../assets/images/garage.png")
+              }
+              style={customStyle.coolBlockImage}
+            />
+          </View>
+          <View style={customStyle.blockContentContainer}>
+            <ButtonTable
+              deleteable={editProfile}
+              buttonsInfo={garageInfo}
+              rowSize={3}
+              currentSelected={user.currentVehicle}
+              onDeleteElement={setToDeleteElement}
+            />
+          </View>
         </View>
       </ScrollView>
       <CarInfoModal
