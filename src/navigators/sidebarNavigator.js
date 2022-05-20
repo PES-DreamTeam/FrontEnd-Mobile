@@ -58,16 +58,6 @@ function SidebarNavigator() {
           }}
         />
         <Drawer.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{
-            title: `${i18n.t("drawer.settings")}`,
-            drawerIcon: ({ color }) => (
-              <Ionicons name="settings-outline" size={22} color={color} />
-            ),
-          }}
-        />
-        <Drawer.Screen
           name="Help"
           component={HelpScreen}
           options={{

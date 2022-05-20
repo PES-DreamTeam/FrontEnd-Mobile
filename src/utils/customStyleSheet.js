@@ -179,6 +179,8 @@ module.exports = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        width: "90%",
+        alignSelf: "center",
     },
     progressBarBackground: {
         width: "100%",

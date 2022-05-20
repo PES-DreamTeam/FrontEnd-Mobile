@@ -26,20 +26,21 @@ export default ({isVisible, handleCancel}) => {
                     {i18n.t("settings.title")}
                 </Text>
                 <View style={[customStyle.modalContentContainer, {marginTop: 0}]}>
-                
-                    <View style={[customStyle.blockContainer, {marginBottom: 20}]}>
+                    <View style={[customStyle.coolBlockContainer, {width: '100%'}]}>
                         <View>
-                            <Text style={customStyle.subtitle}>
-                                {i18n.t("settings.setLanguage")} 
-                            </Text>
-                            <View style={customStyle.buttonRow}>
+                            <View style={[customStyle.coolBlockTitleContainer]}>
+                                <Text style={customStyle.subtitle}>
+                                    {i18n.t("settings.setLanguage")} 
+                                </Text>
+                            </View>
+                            <View style={[customStyle.buttonRow]}>
                                 <CustomButton
                                     onPress={() => setLanguage("en")}
                                     text={i18n.t("settings.setEN")}
                                     customStyles={[
                                         language == "en" ? 
                                         styles.selectedLanguageButton 
-                                        : {marginVertical: 20, width: '25%'},
+                                        : {marginVertical: 20, width: '25%', backgroundColor: '#dbcafc'},
                                     ]}
                                 />
                                 <CustomButton
@@ -48,7 +49,7 @@ export default ({isVisible, handleCancel}) => {
                                     customStyles={[
                                         language == "es" ? 
                                         styles.selectedLanguageButton 
-                                        : {marginVertical: 20, width: '25%'},
+                                        : {marginVertical: 20, width: '25%', backgroundColor: '#dbcafc'},
                                     ]}                                
                                 />
                                 <CustomButton
@@ -57,46 +58,49 @@ export default ({isVisible, handleCancel}) => {
                                     customStyles={[
                                         language == "cat" ? 
                                         styles.selectedLanguageButton 
-                                        : {marginVertical: 20, width: '25%'},
+                                        : {marginVertical: 20, width: '25%', backgroundColor: '#dbcafc'},
                                     ]}                                
                                 />
                             </View>
                         </View>
                     </View>
-                    <View style={[customStyle.blockContainer, {marginBottom: 20}]}>
+                    <View style={[customStyle.coolBlockContainer, {width: '100%'}]}>
                         <View>
-                            <Text style={customStyle.subtitle}>
-                                {i18n.t("settings.deleteAccount")} 
-                            </Text>
-                            <Text style={[customStyle.normalText,{textDecorationLine: "underline"}]}>
-                                {"\n"}
-                                {i18n.t("settings.deleteAccountSubtitle")}
-                            </Text>
-                            <Text style={customStyle.normalText}>
-                                {"\n"}
-                                {i18n.t("settings.confirmDeleteAccount")}: 
-                                {"\n"}
-                            </Text>
-                            <TextInput
-                                onChangeText={(text) => setNickname(text)}
-                                value={nickname}
-                                style={[customStyle.formInputText, {textAlignVertical: 'center', width: '100%'}]}
-                                name="numberPlate"
-                                placeholder= {auth.user.nickname}
-                            />
-                            <CustomButton
-                                onPress={onSubmitDelete}
-                                text={i18n.t("miscelaneus.delete")}
-                                customStyles={{marginVertical: 20, width: '100%', backgroundColor: 'red'}}
-                            />
-                            
+                            <View style={[customStyle.coolBlockTitleContainer]}>
+                                <Text style={customStyle.subtitle}>
+                                    {i18n.t("settings.deleteAccount")} 
+                                </Text>
+                            </View>
+                            <View style={[{width: '90%', alignSelf: 'center'}]}>
+                                <Text style={[customStyle.normalText,{textDecorationLine: "underline"}]}>
+                                    {"\n"}
+                                    {i18n.t("settings.deleteAccountSubtitle")}
+                                </Text>
+                                <Text style={customStyle.normalText}>
+                                    {"\n"}
+                                    {i18n.t("settings.confirmDeleteAccount")}: 
+                                    {"\n"}
+                                </Text>
+                                <TextInput
+                                    onChangeText={(text) => setNickname(text)}
+                                    value={nickname}
+                                    style={[customStyle.formInputText, {textAlignVertical: 'center', width: '100%'}]}
+                                    name="numberPlate"
+                                    placeholder= {auth.user.nickname}
+                                />
+                                <CustomButton
+                                    onPress={onSubmitDelete}
+                                    text={i18n.t("miscelaneus.delete")}
+                                    customStyles={{marginVertical: 20, width: '100%', backgroundColor: 'red'}}
+                                />
+                            </View>
                         </View>
                     </View>
                     
                     <CustomButton
                         onPress={() => handleCancel()}
                         text={i18n.t('miscelaneus.back')}
-                        customStyles={{marginBottom: 20, marginTop: 20}}
+                        customStyles={{marginBottom: 20, marginTop: 20, backgroundColor: '#b28dfc'}}
                     />
                 </View>
             </View>
@@ -163,9 +167,9 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     selectedLanguageButton: {
-        backgroundColor: "#006fc7",
-        borderColor: "black",
-        borderWidth: 2,
+        backgroundColor: "#c0a2fc",
+        borderColor: "#b28dfc",
+        borderWidth: 3,
         marginVertical: 20,
         width: '25%',
     },
