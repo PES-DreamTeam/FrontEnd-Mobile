@@ -14,10 +14,16 @@ function RoutesInfo(props) {
   useEffect(() => {
     if (props.routingInfo != null) {
       setRouteInfoStyle(styles.routeInfoOpened);
+      
     } else {
       setRouteInfoStyle(styles.routeInfoClosed);
+      
     }
   }, [props]);
+ 
+
+
+
 
   return (
     <View style={routeInfoStyle}>
@@ -77,6 +83,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 5,
     justifyContent: "center",
+    
   },
   routeInfoClosed: {
     height: 0,
