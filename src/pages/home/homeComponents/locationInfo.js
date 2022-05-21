@@ -9,7 +9,65 @@ import LocationModal from "./stationComponents/locationModal";
 import useAchievements from "../../../hooks/useAchievements";
 import useExternalService from "../../../hooks/useExternalService";
 
+import useAuth from "../../../hooks/useAuth";
+import useUser from "../../../hooks/useUser";
+import useChargePoints from "../../../hooks/useChargePoints";
+import CustomButtonTable from "../../../utils/buttonTable";
+
 function LocationInfo(props) {
+
+  const { auth, setAuth } = useAuth();
+  const { sendFavourite } = useUser();
+  const { getChargePointInfo, sendStationLike } = useChargePoints();
+
+  const [isLiked, toggleLiked] = useState();
+  const [isFavourite, toggleFavourite] = useState();
+  const [stationLikes, setStationLikes] = useState();
+  const [stationReports, setStationReports] = useState();
+
+  useEffect(async () => {
+    if (props.stationInfo != null) {
+      let info = await getChargePointInfo(props?.stationInfo?.id);
+      setStationLikes(info.likes);
+      setStationReports(info.reports);
+      
+    } 
+  }, [props]);
+
+  useEffect(() => {
+      if (props.stationInfo != null) {
+          toggleFavourite(
+              auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString())
+          );
+          toggleLiked(
+              auth?.user?.likes?.includes(props?.stationInfo?.id.toString())
+          );
+      }
+  }, [props.stationInfo?.id]);
+
+  const handleFavourite = async () => {
+      const user = await sendFavourite(props.stationInfo.id);
+      toggleFavourite(!isFavourite);
+      setAuth({
+          ...auth,
+          user: user,
+      });
+  };
+
+  const handleLike = async () => {
+      const likes = await sendStationLike(props.stationInfo.id);
+      toggleLiked(!isLiked);
+
+      setAuth({
+          ...auth,
+          user: {
+          ...auth.user,
+          likes,
+          },
+      });
+  };
+
+
   const customStyle = require('../../../utils/customStyleSheet');
 
   const { updateAchievement } = useAchievements();
@@ -75,16 +133,25 @@ function LocationInfo(props) {
 
   return (
     <View style={stationInfoStyle}>
-      <View style={customStyle.coolBlockTitleContainer}>
-        <Text style={customStyle.title}>
+      <View style={[customStyle.coolBlockTitleContainer,{flexDirection: 'row'}]}>
+        <Text style={[customStyle.title, {textAlignVertical: 'center'}]}>
           {props?.stationInfo?.address}
         </Text>
+        <CustomButton
+          imageSrc={isFavourite
+            ? require("../../../../assets/images/favourite.png")
+            : require("../../../../assets/images/blank-favourite.png")
+          }
+          onPress={handleFavourite}
+          customStyles={styles.favButtonContainer}
+          imageStyle={{width: "70%", height: "70%"}}
+        />
       </View>
       <View style={styles.locationInfo}>
         <GenericLocationInfo stationInfo={props?.stationInfo} />
       </View>
-
-      <View style={styles.botBarContent}>
+      
+      {/* <View style={styles.botBarContent}>
         <Text style={styles.pollutionText(pollutionColor)}>
           {i18n.t("locationInfo.pollutionLevel")}: {pollution}
         </Text>
@@ -102,13 +169,40 @@ function LocationInfo(props) {
           }}
           text={i18n.t("locationInfo.getThere")}
         />
+      </View> */}
+      <View style={styles.botBarContent}>
+        <CustomButton
+          imageSrc={isLiked
+            ? require("../../../../assets/images/like.png")
+            : require("../../../../assets/images/blank-like.png")
+          }
+          onPress={handleLike}
+          customStyles={styles.favButtonContainer}
+          imageStyle={{width: "70%", height: "70%"}}
+        />
+        <CustomButton
+          imageSrc={require("../../../../assets/images/icons/flag.png")}
+          onPress={() => setReportStationVisible(true)}
+          customStyles={styles.favButtonContainer}
+          imageStyle={{width: "70%", height: "70%"}}
+        />
+        <CustomButton
+          imageSrc={ require("../../../../assets/images/direction.png") }
+          onPress={handleLike}
+          customStyles={styles.favButtonContainer}
+          imageStyle={{width: "70%", height: "70%"}}
+        />
+        <CustomButton
+          imageSrc={isLiked
+            ? require("../../../../assets/images/like.png")
+            : require("../../../../assets/images/blank-like.png")
+          }
+          onPress={handleLike}
+          customStyles={styles.favButtonContainer}
+          imageStyle={{width: "70%", height: "70%"}}
+        />
+
       </View>
-      <LocationModal
-        isVisible={locationModalOpened}
-        stationInfo={props?.stationInfo}
-        handleReport={() => setReportStationVisible(!reportStationVisible)}
-        handleClose={() => setLocationModalOpened(false)}
-      />
       <ReportStationModal
         isVisible={reportStationVisible}
         handleAccept={() => {
@@ -171,6 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginLeft: "auto",
     marginTop: "auto",
+    borderWidth: 1,
   },
   goThereButton: {
     backgroundColor: "#1D69A6",
@@ -190,6 +285,16 @@ const styles = StyleSheet.create({
     padding: "2%",
     borderRadius: 10,
   }),
+  favButtonContainer: {
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  favButtonImage: {
+    
+  },
 });
 
 export { LocationInfo };
