@@ -13,7 +13,7 @@ export default ({isVisible, handleCancel}) => {
     const [nickname, setNickname] = useState('');
     const customStyle = require('../../../utils/customStyleSheet');
     const { setLanguage, language } = useUserSettings();
-    const { auth, deleteAccount } = useAuth();
+    const { auth, deleteAccount, updateUser } = useAuth();
     const onSubmitDelete = () => {
         if (nickname === auth.user.nickname) {
             deleteAccount();

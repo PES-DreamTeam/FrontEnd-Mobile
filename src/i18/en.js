@@ -70,10 +70,11 @@ const en = {
 		vehicleNickname: "Vehicle Nickname",
 		vehicleNicknamePlaceholder: "Car's nickname here",
 		continue: "Continue",
-		notEV: "Don't have an EV?",
+		notEV: "Don't have a vehicle to add?",
 		cancel: "Cancel",
 		skip: "Skip",
 		customize: "Customize your",
+		defaultVehicle: "This vehicle is set as the default.",
 	}, 
 	profile: {
 		yourVehicle: "Your Garage",
@@ -109,7 +110,7 @@ const en = {
 		pollutionLevel: "Pollution level",
 		shareStation: "Share station",
 		shareMessage: "Hey! Check out",
-		shareMessage2: "station. Meet you there!",
+		shareMessage2: " station. Meet you there!",
 	}, 
 	uploadImage: {
 		editImage: "Edit Image",
@@ -185,6 +186,27 @@ const en = {
 	reportToast: {
 		title: "Changes saved",
 		message: "Your profile was updated successfully.",
+	}, 
+	faq: {
+		FAQ: {
+			what: "What is EcoRoads?",
+			answer: "EcoRoads is personal mobility application, which puts at your disposal information and services to ease your electric vehicle traveling.",
+			more: "Will there be more services within EcoRoads?",
+			answer: "Yes, EcoRoads is an application under constant growth, always focused on delivering the best possible service.",
+			is: "Is there any payment within EcoRoads?",
+			answer: "The download and use of the application is completely free of charge.",
+			personalize: "Can I customize the map?",
+			answer: "Yes, you can easily filter on the map the information of the charging points you want at any time. You can also add stations to your favorites section and filter the map based on them.",
+			technical: "What do I do if I have a technical issue?",
+			answer1: "If it is a technical issue related to a charging point, you can access the additional information mode of that station to report directly the problem you are experiencing.",
+			answer2: "f it is a technical issue of the application itself, you can access the reports section of the application, located in the side navigation bar, to report the information you see fit.",
+			mandatory: "Do I need to register to use EcoRoads?",
+			answer: "Without a user account you will not be able to access EcoRoads functionalities, therefore it is essential that you register.",
+			safe: "Is my personal data secure in the system?",
+			answer: "Yes, all information is encrypted and meets the highest security standards.",
+			how: "What do I have to do if I want to cancel my EcoRoads account?",
+			answer: "You can do this from the app, in the settings section, in the side navigation bar. By clicking on the 'Delete Account' button, all your information will be removed from the EcoRoads database.",
+		}
 	}
 }
 export{ en }

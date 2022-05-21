@@ -35,12 +35,19 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
         <Modal isVisible={isVisible}>
             <View style={[customStyle.modalContainer]}>
                 <View style={[customStyle.modalContentContainer, {marginTop: 0}]}>
-                    <CustomButton
-                        onPress={onHandleFav}
-                        imageSrc={isFav ? require('../../../../assets/images/icons/bookmark_toggled.png') : require('../../../../assets/images/icons/bookmark.png')}
-                        imageStyle={{width: 30, height: 40}}
-                        customStyles={{backgroundColor: 'transparent', width: 30, height: 40, alignSelf: 'flex-end'}}
-                    />
+                    <View style={[{flexDirection: 'row', justifyContent: 'space-between'}]}>
+                        {
+                            isFav ?
+                            <Text style={[customStyle.subtitle, {textAlignVertical: 'center', color: 'gray', fontStyle: 'italic', fontWeight: 'bold', width: '80%'}]}>{i18n.t('vehicleConfig.defaultVehicle')}</Text>
+                            : <Text style={[customStyle.subtitle, {textAlignVertical: 'center', color: 'gray', fontStyle: 'italic', fontWeight: 'bold', width: '80%'}]}></Text>
+                        }
+                        <CustomButton
+                            onPress={onHandleFav}
+                            imageSrc={isFav ? require('../../../../assets/images/icons/bookmark_toggled.png') : require('../../../../assets/images/icons/bookmark.png')}
+                            imageStyle={{width: 30, height: 40, alignSelf: 'flex-end'}}
+                            customStyles={{backgroundColor: 'transparent', width: 30, height: 40, alignSelf: 'flex-end', right: 0}}
+                        />
+                    </View>
                     <View style={[customStyle.coolBlockContainer, {width: '100%'} ]}>
                         <View style={customStyle.coolBlockTitleContainer}>
                         <Text style={[customStyle.title]}>{vehicleInfo?.brand} {vehicleInfo?.model}</Text>
@@ -53,7 +60,7 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
                                     style={{height: '90%', aspectRatio: 0.5}}
                                 />
                             </View>
-                            <Text style={styles.matriculaText}>{vehicleInfo?.numberPlate}</Text>
+                            <Text style={styles.matriculaText}>{vehicleInfo?.numberPlate.toUpperCase()}</Text>
                             
                         </View>
                         <View style={[styles.vehicleContainer]}>
@@ -105,7 +112,7 @@ const styles = StyleSheet.create({
         width: '70%',
         height: '10%',
         borderColor: 'black',
-        borderWidth: 1,
+        borderWidth: 2,
         borderRadius: 10,
     },
     image: {
@@ -114,17 +121,18 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
     },
     matriculaText: {
-        height: '100%',
+        height: '99%',
         width: '80%',
         textAlignVertical: 'center',
-        fontSize: 20,
+        textAlign: 'center',
+        fontSize: 30,
         fontWeight: 'bold',
         backgroundColor: '#fff',
         borderBottomRightRadius: 8,
         borderTopRightRadius: 8,
     },
     matriculaEU: {
-        height: '100%',
+        height: '99%',
         width: '15%',
         borderBottomLeftRadius: 8,
         borderTopLeftRadius: 8,

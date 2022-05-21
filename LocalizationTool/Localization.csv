@@ -60,10 +60,11 @@ vehicleColor,Vehicle Color,Color del vehículo,Color del vehicle
 vehicleNickname,Vehicle Nickname,Apodo del vehículo,Sobrenom del vehicle
 vehicleNicknamePlaceholder,Car's nickname here,Introduce el apodo,Introdueix el sobrenom
 continue,Continue,Continuar,Continua
-notEV,Don't have an EV?,¿No tienes un VE?,No tens un VE?
+notEV,Don't have a vehicle to add?,¿No tienes un vehiculo para añadir?,No tens un vehicle per afegir?
 cancel,Cancel,Cancelar,Cancel·lar
 skip,Skip,Saltar,Salta
 customize,Customize your,Personaliza tu,Personalitza el teu
+defaultVehicle,This vehicle is set as the default.,Este vehículo está marcado como predeterminado.,Aquest vehicle està marcat com a predeterminat.
 PAGE_profile,,,
 yourVehicle,Your Garage,Tu garaje,El teu garatge
 changeVehicle,Swipe to change your default vehicle,Desliza para cambiar tu vehículo por defecto,Llisca per canviar el teu vehicle per defecte
@@ -96,7 +97,7 @@ report,Report,Reportar,Reportar
 pollutionLevel,Pollution level,Nivel de contaminación,Nivell de contaminació
 shareStation,Share station,Compartir estación,Compartir estació
 shareMessage,Hey! Check out,Ey! Echa un vistazo a,Ei! Fes-li una ullada a
-shareMessage2,station. Meet you there!,. Nos vemos ahí!,. Ens veiem allà!
+shareMessage2, station. Meet you there!,. Nos vemos ahí!,. Ens veiem allà!
 ,,,
 PAGE_uploadImage,,,
 editImage,Edit Image,Editar Imagen,Editar Imatge
@@ -166,3 +167,21 @@ title,Achievement completed!,¡Logro completado!,Assoliment completat!
 PAGE_reportToast,,,
 title,Changes saved,Cambios guardados,Canvis guardats
 message,Your profile was updated successfully.,Tu perfil ha sido correctamente actualizado.,S'ha actualitzat correctament el teu perfil.
+PAGE_faq,,,
+FAQ_what_is_ecoroads,What is EcoRoads?,¿Qué es EcoRoads?,Que és EcoRoads?
+FAQ_answer_what_is_ecoroads,"EcoRoads is personal mobility application, which puts at your disposal information and services to ease your electric vehicle traveling.","EcoRoads es una aplicación de movilidad personal, que pone a tu disposición información y servicios para facilitar tus viajes usando vehículos eléctricos","EcoRoads és una aplicació de mobilitat personal, que posa a la teva disposició informació i serveis per facilitar els teus viatges amb vehicles elèctrics"
+FAQ_more_services_ecoroads,Will there be more services within EcoRoads?,¿Habrá más servicios dentro de EcoRoads?,Hi hauran més serveis dins d'EcoRoads?
+FAQ_answer_more_services_ecoroads,"Yes, EcoRoads is an application under constant growth, always focused on delivering the best possible service.","Sí, EcoRoads es una aplicación que estará en constante crecimiento, con el fin de poder ofrecer en todo momento el mejor servicio posible.","Sí, EcoRoads és una aplicació que estarà en constant creixement, amb la finalitat de poder oferir en tot moment el millor servei possible."
+FAQ_is_there_cost,Is there any payment within EcoRoads?,¿Tiene algun coste utilizar EcoRoads?,Té algun cost utilitzar EcoRoads?
+FAQ_answer_is_there_cost,The download and use of the application is completely free of charge.,La descarga y el uso de la aplicación és completamente gratuito,La descàrrega i ús de l'aplicació és completament gratuït
+FAQ_personalize_map,Can I customize the map?,¿Puedo personalizar el mapa?,Puc personalitzar el mapa?
+FAQ_answer_personalize_map,"Yes, you can easily filter on the map the information of the charging points you want at any time. You can also add stations to your favorites section and filter the map based on them.","Sí, puedes filtrar fácilmente en el mapa la información de los puntos de carga que quieras en todo momento. Además puedes añadir estaciones a tu sección de favoritos y filtrar el mapa en base a estos.","Sí, pots filtrar fàcilment al mapa la informació dels punts de càrrega que vulguis en tot moment. A més pots afegir estacions a la teva secció de favorits i filtrar el mapa sobre la base d'aquests."
+FAQ_technical_incidence,What do I do if I have a technical issue?,¿Qué hago si tengo una incidencia técnica?,Què faig si tinc una incidència tècnica?
+FAQ_answer1_technical_incidence,"If it is a technical issue related to a charging point, you can access the additional information mode of that station to report directly the problem you are experiencing.","Si se trata de una incidencia técnica relacionada con algún punto de carga, puedes acceder al modal de información adicional de esa estación para reportar directamente el problema que tengas","Si es tracta d'una incidència tècnica relacionada amb algun punt de càrrega, podeu accedir al modal d'informació addicional d'aquesta estació per reportar directament el problema que tingueu"
+FAQ_answer2_technical_incidence,"f it is a technical issue of the application itself, you can access the reports section of the application, located in the side navigation bar, to report the information you see fit.","Si se trata de una incidencia técnica de la propia aplicación, puedes acceder a la sección de reportes de la aplicación, situada en la barra de navegación lateral, para reportar la información que veas conveniente.","Si es tracta d'una incidència tècnica de la pròpia aplicació, podeu accedir a la secció de reports de l'aplicació, situada a la barra de navegació lateral, per reportar la informació que veieu convenient."
+FAQ_mandatory_sign_in,Do I need to register to use EcoRoads?,¿Es necesario registrarse para utilizar EcoRoads?,És necessari registrar-se per utilitzar EcoRoads?
+FAQ_answer_mandatory_sign_in,"Without a user account you will not be able to access EcoRoads functionalities, therefore it is essential that you register.","Sin una cuenta de usuario no podrás acceder a las funcionalidades de EcoRoads, por lo tanto es imprescindible que te registres.","Sense un compte d'usuari no podràs accedir a les funcionalitats d'EcoRoads, per tant, és imprescindible que et registris."
+FAQ_safe_data,Is my personal data secure in the system?,¿Están seguros mis datos personales en el sistema?,Estan segures les meves dades personals al sistema?
+FAQ_answer_safe_data,"Yes, all information is encrypted and meets the highest security standards.","Sí, toda la información está encriptada y cumple con los estándares de seguridad más exigentes.","Sí, tota la informació està encriptada i compleix els estàndards de seguretat més exigents."
+FAQ_how_to_delete,What do I have to do if I want to cancel my EcoRoads account?,¿Qué tengo que hacer si quiero dar de baja mi cuenta en EcoRoads?,Què he de fer si vull donar de baixa el meu compte a EcoRoads?
+FAQ_answer_how_to_delete,"You can do this from the app, in the settings section, in the side navigation bar. By clicking on the 'Delete Account' button, all your information will be removed from the EcoRoads database.","Lo puedes hacer desde la app, en la sección de configuración, en la barra de navegación lateral. Pulsando en el botón de 'Eliminar Cuenta', toda tu información se eliminará de la base de datos de EcoRoads.","Ho pots fer des de l'app, a la secció de configuració, a la barra de navegació lateral. Fent clic al botó d''Eliminar Compte', tota la teva informació s'eliminarà de la base de dades d'EcoRoads."

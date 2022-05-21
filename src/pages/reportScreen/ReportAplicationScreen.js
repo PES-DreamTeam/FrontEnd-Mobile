@@ -192,8 +192,10 @@ const styles = StyleSheet.create({
     },
     error: {
         color: 'red',
+        textAlign: 'center',
     },
     errorContainer: {
+        marginTop: 15,
         marginBottom: 15,
         borderWidth: 1,
         borderColor: 'red',

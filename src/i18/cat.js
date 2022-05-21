@@ -70,10 +70,11 @@ const cat = {
 		vehicleNickname: "Sobrenom del vehicle",
 		vehicleNicknamePlaceholder: "Introdueix el sobrenom",
 		continue: "Continua",
-		notEV: "No tens un VE?",
+		notEV: "No tens un vehicle per afegir?",
 		cancel: "Cancel·lar",
 		skip: "Salta",
 		customize: "Personalitza el teu",
+		defaultVehicle: "Aquest vehicle està marcat com a predeterminat.",
 	}, 
 	profile: {
 		yourVehicle: "El teu garatge",
@@ -185,6 +186,27 @@ const cat = {
 	reportToast: {
 		title: "Canvis guardats",
 		message: "S'ha actualitzat correctament el teu perfil.",
+	}, 
+	faq: {
+		FAQ: {
+			what: "Que és EcoRoads?",
+			answer: "EcoRoads és una aplicació de mobilitat personal, que posa a la teva disposició informació i serveis per facilitar els teus viatges amb vehicles elèctrics",
+			more: "Hi hauran més serveis dins d'EcoRoads?",
+			answer: "Sí, EcoRoads és una aplicació que estarà en constant creixement, amb la finalitat de poder oferir en tot moment el millor servei possible.",
+			is: "Té algun cost utilitzar EcoRoads?",
+			answer: "La descàrrega i ús de l'aplicació és completament gratuït",
+			personalize: "Puc personalitzar el mapa?",
+			answer: "Sí, pots filtrar fàcilment al mapa la informació dels punts de càrrega que vulguis en tot moment. A més pots afegir estacions a la teva secció de favorits i filtrar el mapa sobre la base d'aquests.",
+			technical: "Què faig si tinc una incidència tècnica?",
+			answer1: "Si es tracta d'una incidència tècnica relacionada amb algun punt de càrrega, podeu accedir al modal d'informació addicional d'aquesta estació per reportar directament el problema que tingueu",
+			answer2: "Si es tracta d'una incidència tècnica de la pròpia aplicació, podeu accedir a la secció de reports de l'aplicació, situada a la barra de navegació lateral, per reportar la informació que veieu convenient.",
+			mandatory: "És necessari registrar-se per utilitzar EcoRoads?",
+			answer: "Sense un compte d'usuari no podràs accedir a les funcionalitats d'EcoRoads, per tant, és imprescindible que et registris.",
+			safe: "Estan segures les meves dades personals al sistema?",
+			answer: "Sí, tota la informació està encriptada i compleix els estàndards de seguretat més exigents.",
+			how: "Què he de fer si vull donar de baixa el meu compte a EcoRoads?",
+			answer: "Ho pots fer des de l'app, a la secció de configuració, a la barra de navegació lateral. Fent clic al botó d''Eliminar Compte', tota la teva informació s'eliminarà de la base de dades d'EcoRoads.",
+		}
 	}
 }
 export{ cat }
