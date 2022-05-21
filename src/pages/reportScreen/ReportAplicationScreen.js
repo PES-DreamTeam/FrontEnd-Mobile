@@ -7,7 +7,7 @@ import useReportAplication from '../../hooks/useReportAplication';
 import CustomButton from '../../utils/button';
 import { useToast } from 'react-native-toast-notifications';
 
-function ReportAplicationScreen({navigation}) {
+function ReportAplicationScreen({navigation, sendReport}) {
 
     const toast = useToast();
     const { sendReport } = useReportAplication();
@@ -54,7 +54,7 @@ function ReportAplicationScreen({navigation}) {
         subject.trim().length === 0 || details.trim().length === 0 || pickerVal === null) {
         setError({
             error: true,
-            message:  <Text>{i18n.t("report.ReportApplicationScreen.fillfields")}</Text>
+            message:  <Text testID="error">{i18n.t("report.ReportApplicationScreen.fillfields")}</Text>
         })
         }
         else{              
@@ -80,9 +80,10 @@ function ReportAplicationScreen({navigation}) {
                 </Text>
                 {error.error ?
                         <View style={styles.errorContainer}>
-                            <Text style={styles.error}>
+                            <Text style={styles.error} >
                                 {error.message}
                             </Text>
+                            {console.log(error.message.value)}
                         </View>
                 : null}
                 <Text style={styles.formTitle}>
