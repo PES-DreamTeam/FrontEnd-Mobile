@@ -88,6 +88,7 @@ const cat = {
 		logOut: "Tancar sessió",
 		shareMessage: "Descobreix EcoRoads | Una aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient.",
 		achievements: "Assoliments",
+		help: "Ajuda",
 	}, 
 	locationInfo: {
 		mechanical: "Mecàniques",
@@ -109,6 +110,20 @@ const cat = {
 	achievementScreen: {
 		subtitle: "Els teus assoliments:",
 		shareMessage: "He completat aquest assoliment a EcoRoads. Fes-li una ullada: ",
+		Achievements: {
+			tellAFriendTitle: "",
+			tellAFriendDescription: "",
+			firstRouteTitle: "",
+			firstRouteDescription: "",
+			firstSearchTitle: "",
+			firstSearchDescription: "",
+			shareAStationTitle: "",
+			shareStationDescription: "",
+			setStationAsFavouriteTitle: "",
+			setStationAsFavouriteDescription: "",
+			likeAStationTitle: "",
+			likeAStationDescription: "",
+		}, 
 	}, 
 	report: {
 		ReportApplicationScreen: {
@@ -144,8 +159,6 @@ const cat = {
 	reportToast: {
 		title: "Canvis guardats",
 		message: "S'ha actualitzat correctament el teu perfil.",
-	}, 
-	routeInfo: {
 	}
 }
 export{ cat }

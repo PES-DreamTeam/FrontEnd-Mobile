@@ -75,6 +75,7 @@ tellAFriend,Share it with a friend!,¡Compártelo con un amigo!,Comparteix amb u
 logOut,Log Out,Cerrar sesión,Tancar sessió
 shareMessage,Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.,Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.,Descobreix EcoRoads | Una aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient.
 achievements,Achievements,Logros,Assoliments
+help,Help,Ayuda,Ajuda
 PAGE_locationInfo,,,
 mechanical,Mechanical,Mecanicas,Mecàniques
 electrical,Electrical,Electricas,Elèctriques
@@ -96,6 +97,20 @@ uploadImage,Upload Image,Añadir Imagen,Afegir Imatge
 PAGE_achievementScreen,,,
 subtitle,Your achievements:,Tus logros:,Els teus assoliments:
 shareMessage,I have completed this achievement on EcoRoads. Check it out: ,He completado este logro en EcoRoads. Échale un vistazo: ,He completat aquest assoliment a EcoRoads. Fes-li una ullada: 
+Achievements_tellAFriendTitle,Tell a friend,Díselo a un amigo,
+Achievements_tellAFriendDescription,,"Descripción de un logro, probando comas.",
+Achievements_firstRouteTitle,,Tu primera ruta,
+Achievements_firstRouteDescription,,"Descripción de un logro, probando comas.",
+Achievements_firstSearchTitle,,Tu primera búsqueda,
+Achievements_firstSearchDescription,,"Descripción de un logro, probando comas.",
+Achievements_shareAStationTitle,,Comparte una estación,
+Achievements_shareStationDescription,,"Descripción de un logro, probando comas.",
+Achievements_setStationAsFavouriteTitle,,Añade una estación a favoritos,
+Achievements_setStationAsFavouriteDescription,,"Descripción de un logro, probando comas.",
+Achievements_likeAStationTitle,,Dále a Me gusta a una estación,
+Achievements_likeAStationDescription,,"Descripción de un logro, probando comas.",
+,,,
+,,,
 ,,,
 ,,,
 ,,,
@@ -128,4 +143,3 @@ title,Achievement completed!,¡Logro completado!,Assoliment completat!
 PAGE_reportToast,,,
 title,Changes saved,Cambios guardados,Canvis guardats
 message,Your profile was updated successfully.,Tu perfil ha sido correctamente actualizado .,S'ha actualitzat correctament el teu perfil.
-PAGE_routeInfo,,,

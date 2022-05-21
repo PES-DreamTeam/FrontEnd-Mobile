@@ -88,6 +88,7 @@ const es = {
 		logOut: "Cerrar sesión",
 		shareMessage: "Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.",
 		achievements: "Logros",
+		help: "Ayuda",
 	}, 
 	locationInfo: {
 		mechanical: "Mecanicas",
@@ -109,6 +110,20 @@ const es = {
 	achievementScreen: {
 		subtitle: "Tus logros:",
 		shareMessage: "He completado este logro en EcoRoads. Échale un vistazo: ",
+		Achievements: {
+			tellAFriendTitle: "Díselo a un amigo",
+			tellAFriendDescription: "Descripción de un logro, probando comas.",
+			firstRouteTitle: "Tu primera ruta",
+			firstRouteDescription: "Descripción de un logro, probando comas.",
+			firstSearchTitle: "Tu primera búsqueda",
+			firstSearchDescription: "Descripción de un logro, probando comas.",
+			shareAStationTitle: "Comparte una estación",
+			shareStationDescription: "Descripción de un logro, probando comas.",
+			setStationAsFavouriteTitle: "Añade una estación a favoritos",
+			setStationAsFavouriteDescription: "Descripción de un logro, probando comas.",
+			likeAStationTitle: "Dále a Me gusta a una estación",
+			likeAStationDescription: "Descripción de un logro, probando comas.",
+		}, 
 	}, 
 	report: {
 		ReportApplicationScreen: {
@@ -144,8 +159,6 @@ const es = {
 	reportToast: {
 		title: "Cambios guardados",
 		message: "Tu perfil ha sido correctamente actualizado .",
-	}, 
-	routeInfo: {
 	}
 }
 export{ es }

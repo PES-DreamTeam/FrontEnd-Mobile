@@ -16,6 +16,8 @@ const useChargePoints = () => {
         }
       }
     }
+
+    console.log(filter);
     const response = await axios.get(
       `${API_HOST}/api/chargePoints?groupBy=id${
         filter === null || filter === "all" || filter === [] ? "" : filterText

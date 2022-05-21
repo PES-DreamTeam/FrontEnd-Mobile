@@ -21,10 +21,7 @@ module.exports = StyleSheet.create({
     minimalistBlockContainer: {
         width: "90%",
         alignSelf: "center",
-        borderWidth: 2,
-        borderRadius: 20,
-        backgroundColor: "#f3edff",
-        borderColor: "#eae4f6",
+        backgroundColor: "#fff",
         padding: 20
         
     },
@@ -62,7 +59,7 @@ module.exports = StyleSheet.create({
     },
     coolBlockImageContainer: {
         marginRight: "10%",
-        marginTop: -50,
+        marginTop: -40,
         width: "30%",
         aspectRatio: 1,
         backgroundColor: "#ffffff",
@@ -229,5 +226,10 @@ module.exports = StyleSheet.create({
         textAlign: 'center',
         height: "100%",
         textAlignVertical: 'center',
+    },
+    bottomInfoDesplegable: {
+        width: "100%",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
     },
 });

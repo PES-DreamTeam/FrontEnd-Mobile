@@ -57,9 +57,9 @@ const FilterMap = ({ChangeRoutingInfo, ActivateRoute}) => {
             </Pressable>
             <Pressable 
                 style ={[styles.filterButton, {borderLeftWidth: 1},
-                    mapFilter?.includes("highlight")? styles.selectedBottomButon : styles.unselectedBottomButon]}
+                    mapFilter?.includes("highlights")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() => {
-                    ChangeMapFilter("highlight")
+                    ChangeMapFilter("highlights")
                     ChangeRoutingInfo(null);
                     ActivateRoute(null);
                 } }

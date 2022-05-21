@@ -26,7 +26,7 @@ function Achievement(props) {
   return (
     <View style={customStyle.coolBlockContainer}>
       <View style={[customStyle.coolBlockTitleContainer]}>
-        <Text style={customStyle.bigTitle}>{description}</Text>
+        <Text style={customStyle.title}>{i18n.t('achievementScreen.Achievements.' + description + "Title")}</Text>
       </View>
       <View style={customStyle.coolBlockImageContainer}>
         <Image
@@ -39,6 +39,7 @@ function Achievement(props) {
       <View style={customStyle.blockContentContainer}>
         <View style={styles.achievementInfo}>
           <View style={styles.textView}>
+            <Text style={customStyle.normalText}>{i18n.t('achievementScreen.Achievements.' + description + "Description")}</Text>
           </View>
           <View style={styles.progressBarView}>
             <View style={styles.progressView}>
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   progressBarView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: "2%",
+    marginTop: "5%",
   },
   progressView: {
     width: "80%",

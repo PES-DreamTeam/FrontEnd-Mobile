@@ -130,10 +130,11 @@ export default function HomeScreen({ navigation }) {
         onChangeFilter={ChangeMapFilter}
       />
 
-      <FilterMap
+      
+      {/* <FilterMap
         ChangeRoutingInfo={changeRouteInfo}
         ActivateRoute={ActivateRoute}
-      />
+      /> */}
     </View>
   );
 }

@@ -10,6 +10,8 @@ import useAchievements from "../../../hooks/useAchievements";
 import useExternalService from "../../../hooks/useExternalService";
 
 function LocationInfo(props) {
+  const customStyle = require('../../../utils/customStyleSheet');
+
   const { updateAchievement } = useAchievements();
   const { getStationPollution } = useExternalService();
 
@@ -73,15 +75,10 @@ function LocationInfo(props) {
 
   return (
     <View style={stationInfoStyle}>
-      <View style={styles.locationAddressContent}>
-        <Text style={[styles.locationAddressName]}>
+      <View style={customStyle.coolBlockTitleContainer}>
+        <Text style={customStyle.title}>
           {props?.stationInfo?.address}
         </Text>
-        <CustomButton
-          text="· · ·"
-          customStyles={modalButtonStyle}
-          onPress={() => setLocationModalOpened(true)}
-        />
       </View>
       <View style={styles.locationInfo}>
         <GenericLocationInfo stationInfo={props?.stationInfo} />
@@ -128,9 +125,16 @@ function LocationInfo(props) {
 
 const styles = StyleSheet.create({
   locationInfoOpened: {
-    height: "33%",
+    height: "45%",
     width: "100%",
-    padding: 5,
+    borderWidth: 1,
+    borderColor: "#eae4f6",
+    borderBottomColor: "transparent",
+    top: -30,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: "#fff",
+    zIndex: 10,
   },
   locationInfoClosed: {
     height: 0,
@@ -151,8 +155,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottomWidth: 1,
-    borderEndColor: "grey",
   },
   highlightContent: {
     height: "65%",

@@ -88,6 +88,7 @@ const en = {
 		logOut: "Log Out",
 		shareMessage: "Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.",
 		achievements: "Achievements",
+		help: "Help",
 	}, 
 	locationInfo: {
 		mechanical: "Mechanical",
@@ -109,6 +110,20 @@ const en = {
 	achievementScreen: {
 		subtitle: "Your achievements:",
 		shareMessage: "I have completed this achievement on EcoRoads. Check it out: ",
+		Achievements: {
+			tellAFriendTitle: "Tell a friend",
+			tellAFriendDescription: "",
+			firstRouteTitle: "",
+			firstRouteDescription: "",
+			firstSearchTitle: "",
+			firstSearchDescription: "",
+			shareAStationTitle: "",
+			shareStationDescription: "",
+			setStationAsFavouriteTitle: "",
+			setStationAsFavouriteDescription: "",
+			likeAStationTitle: "",
+			likeAStationDescription: "",
+		}, 
 	}, 
 	report: {
 		ReportApplicationScreen: {
@@ -144,8 +159,6 @@ const en = {
 	reportToast: {
 		title: "Changes saved",
 		message: "Your profile was updated successfully.",
-	}, 
-	routeInfo: {
 	}
 }
 export{ en }
