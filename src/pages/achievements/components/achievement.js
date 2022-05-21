@@ -25,7 +25,7 @@ function Achievement(props) {
   const progress = (actualProgress / objective) * 100;
   return (
     <View style={customStyle.coolBlockContainer}>
-      <View style={[customStyle.coolBlockTitleContainer]}>
+      <View style={[customStyle.coolBlockTitleContainer, {height: 80}]}>
         <Text style={customStyle.title}>{i18n.t('achievementScreen.Achievements.' + description + "Title")}</Text>
       </View>
       <View style={customStyle.coolBlockImageContainer}>

@@ -243,19 +243,11 @@ function ProfileScreen({ navigation }) {
             editableStyle={[customStyle.formInputText, {textAlignVertical:"center"}]}
           />
         </View>
-        <View style={[customStyle.coolBlockContainer]}>
-          <View style={customStyle.coolBlockTitleContainer}>
+        <View style={[customStyle.coolBlockContainer, {marginBottom: 20}]}>
+          <View style={[customStyle.coolBlockTitleContainer, {marginBottom: 10}]}>
             <Text style={[customStyle.title]}>{i18n.t("profile.yourVehicle")}</Text>
           </View>
-          <View style={customStyle.coolBlockImageContainer}>
-            <Image
-              source={
-                require("../../../assets/images/garage.png")
-              }
-              style={customStyle.coolBlockImage}
-            />
-          </View>
-          <View style={customStyle.blockContentContainer}>
+          <View style={[customStyle.blockContentContainer,{marginBottom: 10}]}>
             <ButtonTable
               deleteable={editProfile}
               buttonsInfo={garageInfo}

@@ -42,7 +42,7 @@ module.exports = StyleSheet.create({
         backgroundColor: "#f3edff",
         padding: 10,
         paddingLeft: "5%",
-        minHeight: 80,
+        minHeight: 60,
         borderTopLeftRadius: 18,
         borderTopRightRadius: 18,
     },
