@@ -25,7 +25,6 @@ describe("Text Inputs", () =>{
         expect(getByPlaceholderText("Tablet, phone")).toHaveProp("value", "Oppo8");
         debug();
         console.log(getByTestId("error"));
-
     });
 
   
