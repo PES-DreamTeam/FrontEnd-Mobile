@@ -95,17 +95,17 @@ export default function HomeScreen({ navigation }) {
               routeActivate={wantRoute}
               openSearchBar={openSearchBar}
               setOpenSearchBar={setOpenSearchBar}
-            />
-          </View>
-        </View>
-        <View style={styles.routesInfoContainer}>
+            />            
+          </View>          
+        </View>        
+      </View>
+      <View style={styles.routesInfoContainer}>
           <RoutesInfo
             routeActivate={wantRoute}
             ActivateRoute={ActivateRoute}
             routingInfo={routeInfo}
           />
         </View>
-      </View>
       {
       <CustomMapView
         //ref={mapViewRef}
@@ -120,6 +120,7 @@ export default function HomeScreen({ navigation }) {
         ActivateRoute={ActivateRoute}
         onChangeFilter={ChangeMapFilter}
         ChangeRoutingInfo={changeRouteInfo}
+        
       />
       }
 

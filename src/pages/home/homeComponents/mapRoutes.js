@@ -5,12 +5,13 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
     const destination = {latitude:routeActivate.latitude, longitude:routeActivate.longitude};
     const currentTransport = routeActivate.objectType == "vehicleStation" ? "DRIVING" : "BICYCLING";
     const [lineStyle, setLineStyle] = useState({width: 3, dash:null, mode:"DRIVING", color: "red"})
-
-
+    
+    
     useEffect(() =>{       
         changeLine(routeActivate)
     }, [routeActivate])
 
+    
     const changeLine = (userPreferences) =>{
         if (userPreferences !== null){
             if(userPreferences.objectType == "bikeStation") {
