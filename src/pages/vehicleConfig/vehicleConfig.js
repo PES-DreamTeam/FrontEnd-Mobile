@@ -251,6 +251,7 @@ function VehicleConfig({ navigation }) {
                     onPress={() => {
                         validateInformation();
                     }}
+                    customStyles={styles.button}
                 />
 
                 <View style={[styles.skipContainer]}>
@@ -263,10 +264,15 @@ function VehicleConfig({ navigation }) {
                             {i18n.t('vehicleConfig.skip')}
                         </Text>
                         ) :
-                        <Text style={{color: 'blue'}} onPress={() => cancel()}>
-                            {i18n.t('vehicleConfig.cancel')}
-                        </Text>
+                        <CustomButton
+                            text={i18n.t('vehicleConfig.cancel')}
+                            onPress={() => cancel()}
+                            customStyles={styles.nextButton}
+                        />
                         }
+                        {/* <Text style={{color: 'blue'}} onPress={() => cancel()}>
+                            {i18n.t('vehicleConfig.cancel')}
+                        </Text> */}
                     </View>
                 </View>
             </ScrollView>
@@ -301,6 +307,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 15,
+        marginBottom: 30,
+        backgroundColor: '#f2f2f2',
     },
     title: {
         fontSize: 25,
@@ -313,8 +321,10 @@ const styles = StyleSheet.create({
         color: '#5CB362',
     },
     button: {
-        width: '50%',
         alignSelf: 'center',
+        backgroundColor: '#c5a9fc',
+        borderColor: '#b491fa',
+        borderWidth: 3
     },
     input: {
         height: 40, 
@@ -332,6 +342,13 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         backgroundColor:'#ff00001c',
         padding: 5,
+    },
+    nextButton: {
+        backgroundColor: '#c5a9fc',
+        marginLeft: 10,
+        height: 30,
+        borderColor: '#b491fa',
+        borderWidth: 3
     }
 })
 

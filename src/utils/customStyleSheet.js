@@ -147,7 +147,7 @@ module.exports = StyleSheet.create({
     formInputTitle: {
         fontSize: 18,
         fontFamily: 'Montserrat-Bold',
-        color: "#5CB362",
+        color: "#1d69a6", //e08b14 naranja 1d69a6 azul c5a9fc lila
     },
     formSelectableButton: {
         width: "100%",
