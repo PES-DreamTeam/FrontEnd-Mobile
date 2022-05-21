@@ -1,6 +1,6 @@
 import i18n from "i18n-js";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Pressable, View, Text } from "react-native";
+import { StyleSheet, Pressable, View, Text, Share } from "react-native";
 import GenericLocationInfo from "./stationComponents/genericLocationInfo";
 import ReportStationModal from "./stationComponents/reportStationModal";
 import CustomButton from "../../../utils/button";
@@ -67,6 +67,16 @@ function LocationInfo(props) {
       });
   };
 
+  const handleShare = async () => {
+    const shareOptions = {
+      message: `${i18n.t('locationInfo.shareMessage')}` + " '" + props.stationInfo.name + "'" + `${i18n.t('locationInfo.shareMessage2')}`,
+    }
+    try {
+      const shareResponse = await Share.share(shareOptions);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const customStyle = require('../../../utils/customStyleSheet');
 
@@ -87,6 +97,9 @@ function LocationInfo(props) {
   const ChargeStationIcon = (chargerType) => {};
 
   const ReportStation = (stationInfo) => {};
+
+
+
 
   function perc2color(perc) {
     perc *= 4;
@@ -197,7 +210,7 @@ function LocationInfo(props) {
             ? require("../../../../assets/images/like.png")
             : require("../../../../assets/images/blank-like.png")
           }
-          onPress={handleLike}
+          onPress={handleShare}
           customStyles={styles.favButtonContainer}
           imageStyle={{width: "70%", height: "70%"}}
         />
