@@ -153,7 +153,7 @@ function VehicleConfig({ navigation }) {
             setError({
                 error: true,
                 attribute: 'BlankFields',
-                message: 'Please fill in all fields'
+                message: i18n.t('signIn.emptyFieldMessage')
             });
         }else {
             sendConfig(vehicle)

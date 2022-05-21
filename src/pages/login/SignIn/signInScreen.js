@@ -35,13 +35,13 @@ function SignInScreen({ navigation }) {
             //Form Error
             setError({
                 error: true,
-                message: i18n.t('signUp.emptyFieldMessage')
+                message: i18n.t('signIn.emptyFieldMessage')
             });
         }else {
             setLoading(true);
             signIn(user)
                 .then()
-                .catch(err => {setError({error:true, message: i18n.t('signUp.pwdOrEmailMessage')});})
+                .catch(err => {setError({error:true, message: i18n.t('signIn.pwdOrEmailMessage')});})
                 .finally(()=> setLoading(false));
         }
     }
@@ -51,7 +51,7 @@ function SignInScreen({ navigation }) {
             <ScrollView style={styles.scrollContainer}>
                 <View style={styles.logoContainer}>
                     <Image
-                        source={require('../../../../assets/images/logo.png')}
+                        source={require('../../../../assets/images/logoNoText.png')}
                         style={[styles.logo]}
                     />
                 </View>
@@ -136,7 +136,7 @@ function SignInScreen({ navigation }) {
                         />
                     </View>
                 </View>
-                <View style={{flexDirection: 'row', marginBottom: 20}}>
+                <View style={{flexDirection: 'row', marginBottom: 20, marginLeft: '20%'}}>
                     <Text style={{marginTop: 30}}>
                         {i18n.t('signIn.noAccount')}
                     </Text>
@@ -173,12 +173,12 @@ const styles = StyleSheet.create({
         height: 40,
     },
     logoContainer: {
-        
+        alignItems: 'center',
+        marginTop: 10
     },
     logo: {
         width: 225,
         height: 150,
-        alignSelf: 'center',
     },
     title: {
         fontSize: 25,

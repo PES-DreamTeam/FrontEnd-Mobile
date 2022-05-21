@@ -13,7 +13,7 @@ function Achievement(props) {
   const shareAchievement = async () => {
     console.log("Share achievement");
     const shareOptions = {
-      message: `${i18n.t('achievementScreen.shareMessage')}` + "'" + `${description}` + "'.",
+      message: `${i18n.t('achievementScreen.shareMessage')}` + "'" + `${i18n.t('achievementScreen.Achievements.' + description + "Title")}` + "'.",
     }
     try {
       const shareResponse = await Share.share(shareOptions);

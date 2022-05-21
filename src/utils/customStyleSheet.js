@@ -33,7 +33,6 @@ module.exports = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: "#fff",
         borderColor: "#eae4f6",
-        
     },
     coolBlockTitleContainer: {
         fontSize: 25,

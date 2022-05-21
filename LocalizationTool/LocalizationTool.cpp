@@ -7,7 +7,7 @@
 using namespace std;
 
 void Usage() {
-    cout << "Usage: ./LocalizationTool relativePathCSVFile [outputRelatviePath]" << endl;
+    cout << "Usage: ./LocalizationTool relativePathCSVFile [outputRelativePath]" << endl;
 }
 
 struct LanguageFile {

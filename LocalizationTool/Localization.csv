@@ -106,22 +106,36 @@ uploadImage,Upload Image,Añadir Imagen,Afegir Imatge
 PAGE_achievementScreen,,,
 subtitle,Your achievements:,Tus logros:,Els teus assoliments:
 shareMessage,I have completed this achievement on EcoRoads. Check it out: ,He completado este logro en EcoRoads. Échale un vistazo: ,He completat aquest assoliment a EcoRoads. Fes-li una ullada: 
-Achievements_tellAFriendTitle,Tell a friend,Díselo a un amigo,
-Achievements_tellAFriendDescription,,"Descripción de un logro, probando comas.",
-Achievements_firstRouteTitle,,Tu primera ruta,
-Achievements_firstRouteDescription,,"Descripción de un logro, probando comas.",
-Achievements_firstSearchTitle,,Tu primera búsqueda,
-Achievements_firstSearchDescription,,"Descripción de un logro, probando comas.",
-Achievements_shareAStationTitle,,Comparte una estación,
-Achievements_shareStationDescription,,"Descripción de un logro, probando comas.",
-Achievements_setStationAsFavouriteTitle,,Añade una estación a favoritos,
-Achievements_setStationAsFavouriteDescription,,"Descripción de un logro, probando comas.",
-Achievements_likeAStationTitle,,Dále a Me gusta a una estación,
-Achievements_likeAStationDescription,,"Descripción de un logro, probando comas.",
-,,,
-,,,
-,,,
-,,,
+Achievements_tellAFriendTitle,Tell a friend!,¡Díselo a un amigo!,Digues-li a un amic!
+Achievements_tellAFriendDescription,Share the app with a friend through the lateral menu to get this achievement.,Comparte la app con un amigo mediante el menú lateral para obtener este logro.,Comparteix l'app amb un amic a través del menu lateral per a obtenir aquest assoliment.
+Achievements_firstRouteTitle,Here we go!,¡Allá vamos!,Som-hi!
+Achievements_firstRouteDescription,Select a station on the map and choose 'Get There' to get this achievement.,Selecciona una estación en el mapa y clica en '¡Llévame!' para obtener este logro.,Selecciona una estació i clica 'Porta-m'hi!' per a obtenir aquest assoliment.
+Achievements_fiveRoutesTitle,Here we go!,¡Allá vamos!,Som-hi!
+Achievements_fiveRoutesDescription,Plan five routes with the application map to get this achievement.,Planea cinco rutas con el mapa de la aplicación para obtener este logro.,Planeja cinc rutes amb el mapa de l'aplicació per a obtenir aquest assoliment.
+Achievements_twentyRoutesTitle,Here we go!,¡Allá vamos!,Som-hi!
+Achievements_twentyRoutesDescription,Plan twenty routes with the application map to get this achievement.,Planea veinte rutas con el mapa de la aplicación para obtener este logro.,Planeja vint rutes amb el mapa de l'aplicació per a obtenir aquest assoliment.
+Achievements_firstSearchTitle,Where to?,¿Dónde vamos?,On anem?
+Achievements_firstSearchDescription,Search for a station through the top search bar in the map to get this achievement.,Busca una estación con la barra de búsqueda del mapa para obtener este logro.,Cerca una estació amb la barra de cerca del mapa per a obtenir aquest assoliment.
+Achievements_fiveSearchesTitle,Where to?,¿Dónde vamos?,On anem?
+Achievements_fiveSearchesDescription,Search for five stations through the top search bar in the map to get this achievement.,Busca cinco estaciones con la barra de búsqueda del mapa para obtener este logro.,Cerca cinc estacions amb la barra de cerca del mapa per a obtenir aquest assoliment.
+Achievements_twentySearchesTitle,Where to?,¿Dónde vamos?,On anem?
+Achievements_twentySearchesDescription,Search for twenty stations through the top search bar in the map to get this achievement.,Busca veinte estaciones con la barra de búsqueda del mapa para obtener este logro.,Cerca vint estacions amb la barra de cerca del mapa per a obtenir aquest assoliment.
+Achievements_shareAStationTitle,Meet you there!,¡Nos vemos allí!,Ens veiem allà!
+Achievements_shareAStationDescription,Share a station with a friend by selecting it to get this achievement.,Comparte una estación con un amigo tras seleccionarla para obtener este logro.,Comparteix una estació amb un amic seleccionant-la per a obtenir aquest assoliment.
+Achievements_shareFiveStationsTitle,Meet you there!,¡Nos vemos allí!,Ens veiem allà!
+Achievements_shareFiveStationsDescription,Share five stations with a friend by selecting them to get this achievement.,Comparte cinco estaciones con un amigo tras seleccionarlas para obtener este logro.,Comparteix cinc estacions amb un amic seleccionant-les per a obtenir aquest assoliment.
+Achievements_shareTenStationsTitle,Meet you there!,¡Nos vemos allí!,Ens veiem allà!
+Achievements_shareTenStationsDescription,Share ten stations with a friend by selecting them to get this achievement.,Comparte diez estaciones con un amigo tras seleccionarlas para obtener este logro.,Comparteix deu estacions amb un amic seleccionant-les per a obtenir aquest assoliment.
+Achievements_setStationAsFavouriteTitle,I choose you!,¡Te escojo a tí!,T'escullo a tu!
+Achievements_setStationAsFavouriteDescription,Set a station as favourite by selecting it to get this achievement.,Selecciona una estación como favorita tras seleccionarla para obtener este logro.,Selecciona una estació com a preferida seleccionant-la per a obtenir aquest assoliment.
+Achievements_setThreeStationsAsFavouriteTitle,I choose you!,¡Te escojo a tí!,T'escullo a tu!
+Achievements_setStationAsFavouriteDescription,Set three stations as favourite by selecting them to get this achievement.,Selecciona tres estaciones como favoritas tras seleccionarlas para obtener este logro.,Selecciona tres estacions com a preferides seleccionant-les per a obtenir aquest assoliment.
+Achievements_likeAStationTitle,"I like you, have a cupcake.","Me gustas, toma una galleta.","M'agrades. Té, una galeta."
+Achievements_likeAStationDescription,Like a station by selecting it to get this achievement.,Dale me gusta a una estación tras seleccionarla para obtener este logro.,Dona-li m'agrada a una estació seleccionant-la per a obtenir aquest assoliment.
+Achievements_likeFiveStationsTitle,"I like you, have a cupcake.","Me gustas, toma una galleta.","M'agrades. Té, una galeta."
+Achievements_likeFiveStationsDescription,Like five stations by selecting them to get this achievement.,Dale me gusta a cinco estaciones tras seleccionarlas para obtener este logro.,Dona-li m'agrada a cinc estacions seleccionant-les per a obtenir aquest assoliment.
+Achievements_likeTwentyStationsTitle,"I like you, have a cupcake.","Me gustas, toma una galleta.","M'agrades. Té, una galeta."
+Achievements_likeTwentyStationsDescription,Like twenty stations by selecting them to get this achievement.,Dale me gusta a veinte estaciones tras seleccionarlas para obtener este logro.,Dona-li m'agrada a vint estacions seleccionant-les per a obtenir aquest assoliment.
 ,,,
 PAGE_report,,,
 ReportApplicationScreen_fillfields,Please fill in all fields,Porfavor rellena todos los campos,Si us plau emplena tots els camps
@@ -151,4 +165,4 @@ PAGE_achievementToast,,,
 title,Achievement completed!,¡Logro completado!,Assoliment completat!
 PAGE_reportToast,,,
 title,Changes saved,Cambios guardados,Canvis guardats
-message,Your profile was updated successfully.,Tu perfil ha sido correctamente actualizado .,S'ha actualitzat correctament el teu perfil.
+message,Your profile was updated successfully.,Tu perfil ha sido correctamente actualizado.,S'ha actualitzat correctament el teu perfil.
