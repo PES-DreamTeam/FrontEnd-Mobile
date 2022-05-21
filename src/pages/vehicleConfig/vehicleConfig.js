@@ -281,11 +281,6 @@ function VehicleConfig({ navigation }) {
     )
 }
 
-/*COLORES:
-VERDE:  #5CB362
-AZUL:   #1D69A6
-*/
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
