@@ -68,11 +68,16 @@ function LocationInfo(props) {
   };
 
   const handleShare = async () => {
+    const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + stationInfo.name + "'" + `${i18n.t("locationInfo.shareMessage2")}`
+                  + "\n\n" +"https://maps.google.com/?q=" + stationInfo.lat + "," + stationInfo.lng;
     const shareOptions = {
-      message: `${i18n.t('locationInfo.shareMessage')}` + " '" + props.stationInfo.name + "'" + `${i18n.t('locationInfo.shareMessage2')}`,
-    }
+      message: message,
+    };
     try {
       const shareResponse = await Share.share(shareOptions);
+      if (shareResponse.action === Share.sharedAction) {
+        //updateAchievement(1, 1);
+      }
     } catch (error) {
       console.log(error);
     }

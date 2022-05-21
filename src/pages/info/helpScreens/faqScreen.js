@@ -1,7 +1,8 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { List } from "react-native-paper";
+import i18n from "i18n-js";
 
 function FaqScreen({ navigation }) {
   useEffect(() => {
@@ -15,127 +16,117 @@ function FaqScreen({ navigation }) {
       ),
     });
   });
-  const maxQuestionLines = 2;
+  const maxQuestionLines = 1;
   const maxAnswerLines = 5;
+  const customStyle = require("../../../utils/customStyleSheet");
   return (
     <>
       <ScrollView>
-        <List.Section title="General">
+        <View style={[customStyle.coolBlockTitleContainer, {borderTopLeftRadius: 0, borderTopRightRadius: 0, backgroundColor: '#c5a9fc'}]}>
+          <Text style={customStyle.bigTitle}>
+              {i18n.t('faq.generalHelp')}
+          </Text>
+        </View>
           <List.Accordion
-            title="Qué es EcoRoads?"
+            title={i18n.t('faq.whatIsEcoroads')}
             titleStyle={styles.question}
             titleNumberOfLines={maxQuestionLines}
           >
             <List.Item
-              title="EcoRoads és una aplicación de movilidad personal, que pone a tu disposición información y servicios para facilitar tus viajes usando vehículos eléctricos."
+              title={i18n.t('faq.answerWhatIsEcoroads')}
               titleStyle={styles.answer}
               titleNumberOfLines={maxAnswerLines}
             />
           </List.Accordion>
           <List.Accordion
-            title="Habrá más servicios dentro de EcoRoads?"
+            title={i18n.t('faq.moreServicesEcoroads')}
             titleStyle={styles.question}
             titleNumberOfLines={maxQuestionLines}
           >
             <List.Item
-              title="Sí, EcoRoads és una aplicación que estará en constante crecimiento,
-          con el fin de poder ofrecer en todo momento el mejor servicio posible"
+              title={i18n.t('faq.answerMoreServicesEcoroads')}
               titleStyle={styles.answer}
               titleNumberOfLines={maxAnswerLines}
             />
           </List.Accordion>
           <List.Accordion
-            title="Tiene algun coste utilizar EcoRoads?"
+            title={i18n.t('faq.isThereCost')}
             titleStyle={styles.question}
             titleNumberOfLines={maxQuestionLines}
           >
             <List.Item
-              title="La descarga y el uso de la aplicación és completamente gratuito."
+              title={i18n.t('faq.answerIsThereCost')}
               titleStyle={styles.answer}
               titleNumberOfLines={maxAnswerLines}
             />
           </List.Accordion>
           <List.Accordion
-            title="Puedo personalizar el mapa?"
+            title={i18n.t('faq.personalizeMap')}
             titleStyle={styles.question}
             titleNumberOfLines={maxQuestionLines}
           >
             <List.Item
-              title="Sí, puedes filtrar fácilmente en el mapa la información de los puntos de carga que quieras consultar en todo momento.
-              Además puedes añadir estaciones a tu sección de favoritos y filtrar el mapa en base a estos "
+              title={i18n.t('faq.answerPersonalizeMap')}
               titleStyle={styles.answer}
               titleNumberOfLines={maxAnswerLines}
             />
           </List.Accordion>
           <List.Accordion
-            title="Qué hago si tengo una incidencia técnica"
+            title={i18n.t('faq.technicalIncidence')}
             titleStyle={styles.question}
             titleNumberOfLines={maxQuestionLines}
           >
             <List.Item
-              title="Si se trata de una incidencia técnica relacionada con algún punto de carga, 
-          puedes acceder al modal de información adicional de esa estación para reportar directamente el problema que tengas."
+              title={i18n.t('faq.answer1TechnicalIncidence')}
               titleStyle={styles.answer}
               titleNumberOfLines={maxAnswerLines}
             />
 
             <List.Item
-              title="Si se trata de una incidencia técnica de la aplicación, 
-          puedes acceder a la sección de reportes de la aplicación, situada en la barra de navegación lateral."
+              title={i18n.t('faq.answer2TechnicalIncidence')}
+              titleStyle={styles.answer}
+              titleNumberOfLines={maxAnswerLines}
+            />
+          </List.Accordion>
+          <View style={[customStyle.coolBlockTitleContainer, {borderTopLeftRadius: 0, borderTopRightRadius: 0, backgroundColor: '#c5a9fc'}]}>
+            <Text style={customStyle.bigTitle}>
+                {i18n.t('faq.accountHelp')}
+            </Text>
+          </View>
+          <List.Accordion
+            title={i18n.t('faq.mandatorySignIn')}
+            titleStyle={styles.question}
+            titleNumberOfLines={maxQuestionLines}
+          >
+            <List.Item
+              title={i18n.t('faq.answerMandatorySignIn')}
+              titleNumberOfLines={maxAnswerLines}
+              titleStyle={styles.answer}
+
+            />
+          </List.Accordion>
+          <List.Accordion
+            title={i18n.t('faq.safeData')}
+            titleStyle={styles.question}
+            titleNumberOfLines={maxQuestionLines}
+          >
+            <List.Item
+              title={i18n.t('faq.answerSafeData')}
               titleStyle={styles.answer}
               titleNumberOfLines={maxAnswerLines}
             />
           </List.Accordion>
           <List.Accordion
-            title="Puedo personalizar el mapa?"
+            title={i18n.t('faq.howToDelete')}
             titleStyle={styles.question}
             titleNumberOfLines={maxQuestionLines}
           >
             <List.Item
-              title="Sí, puedes filtrar fácilmente en el mapa la información de los puntos de carga que quieras consultar en todo momento.
-           Además puedes guardar estaciones en favoritos."
+              title={i18n.t('faq.answerHowToDelete')}
               titleStyle={styles.answer}
               titleNumberOfLines={maxAnswerLines}
             />
           </List.Accordion>
-        </List.Section>
-        <List.Section title="Registro y cuenta">
-          <List.Accordion
-            title="Es necesario registarse para utilizar EcoRoads?"
-            titleStyle={styles.question}
-            titleNumberOfLines={maxQuestionLines}
-          >
-            <List.Item
-              title="Sin una cuenta de usuario no podrás acceder a las funcionalidades de EcoRoads, 
-          por lo tanto es imprescindible que te registres."
-              titleStyle={styles.answer}
-              titleNumberOfLines={maxAnswerLines}
-            />
-          </List.Accordion>
-          <List.Accordion
-            title="Están seguros mis datos de vehículos en el sistema?"
-            titleStyle={styles.question}
-            titleNumberOfLines={maxQuestionLines}
-          >
-            <List.Item
-              title="Sí, toda la información está encriptada y cumple con los estándares de seguridad más exigentes"
-              titleStyle={styles.answer}
-              titleNumberOfLines={maxAnswerLines}
-            />
-          </List.Accordion>
-          <List.Accordion
-            title="Qué tengo que hacer si quiero dar de baja mi cuenta de EcoRoads?"
-            titleStyle={styles.question}
-            titleNumberOfLines={maxQuestionLines}
-          >
-            <List.Item
-              title="Lo puedes hacer desde la app, en la sección de configuración, en la barra de navegación lateral.
-          Pulsando en el boton de 'Eliminar Cuenta', toda tu información se eliminará de la base de datos de EcoRoads. "
-              titleStyle={styles.answer}
-              titleNumberOfLines={maxAnswerLines}
-            />
-          </List.Accordion>
-        </List.Section>
       </ScrollView>
     </>
   );
@@ -144,10 +135,13 @@ function FaqScreen({ navigation }) {
 const styles = StyleSheet.create({
   question: {
     fontSize: 15,
+    fontFamily: "Montserrat-Bold",
   },
   answer: {
-    fontSize: 13,
+    fontSize: 15,
     textAlign: "justify",
+    fontFamily: "Montserrat-Regular",
+    marginHorizontal: 15,
   },
 });
 

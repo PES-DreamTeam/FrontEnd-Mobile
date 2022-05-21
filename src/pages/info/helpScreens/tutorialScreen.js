@@ -11,7 +11,7 @@ function TutorialScreen({navigation}){
     return (
         <View>
             <Text>
-                HOLAAAAAA
+                Tutorial Screen
             </Text>
         </View>
     )
