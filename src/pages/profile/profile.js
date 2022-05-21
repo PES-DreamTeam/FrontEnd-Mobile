@@ -25,6 +25,8 @@ import useUser from "../../hooks/useUser";
 
 import useVehicleConfig from "../../hooks/useVehicleConfig";
 
+import carTypeImages from '../../utils/carTypeImages';
+
 function TextEditableLabel({
   editable,
   textValue,
@@ -50,6 +52,8 @@ function TextEditableLabel({
 }
 
 function ProfileScreen({ navigation }) {
+
+  const {GetCarImage} = carTypeImages();
 
   var vehicleImages = [
     require( '../../../assets/images/carTypes/carType_0.png'),
@@ -147,8 +151,8 @@ function ProfileScreen({ navigation }) {
     for(let i = 0; i < array.length; i++){
       let tempObj = {
         canBeDeleted: true,
-        imageSrc: vehicleImages[array[i].vehicleType],
-        imageStyle: {width: '100%', height:'50%', tintColor: array[i].color, alignSelf: "center"},
+        imageSrc: GetCarImage(array[i].vehicleType, array[i].color),
+        imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
         onPress: () => {
           setVehicleSelected(i);
           setVehicleModalOpened(true);

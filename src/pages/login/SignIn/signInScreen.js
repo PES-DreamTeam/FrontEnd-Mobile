@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import i18n from 'i18n-js';
 import CustomButton from '../../../utils/button';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function SignInScreen({ navigation }) {
 
@@ -47,93 +48,94 @@ function SignInScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.logoContainer}>
-                <Image
-                    source={require('../../../../assets/images/logo.png')}
-                    style={[styles.logo]}
-                />
-            </View>
-            <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 0}]}>
-                <View style={[customStyle.coolBlockTitleContainer]}>
-                    <Text style={customStyle.bigTitle}>
-                       {i18n.t('signIn.title')} 
-                    </Text>
-                    <Text style={customStyle.subtitle}>
-                        {i18n.t('signIn.form.enterCredentials')}
-                    </Text>
+            <ScrollView style={styles.scrollContainer}>
+                <View style={styles.logoContainer}>
+                    <Image
+                        source={require('../../../../assets/images/logo.png')}
+                        style={[styles.logo]}
+                    />
                 </View>
-                <View style={[{width: '90%', alignSelf: 'center'}]}>
-                    <View style={customStyle.formInputContainer}>
-                        <Text style={[customStyle.formInputTitle]}> {i18n.t('signIn.enterEmail')}</Text>
-                        {error.error ?
-                            <View style={styles.errorContainer}>
-                                <Text style={styles.error}>
-                                    {error.message}
-                                </Text>
-                            </View>
-                        : null}
-                        <TextInput
-                            onChangeText={(text) => onChangeText(text, 'email')}
-                            value={email}
-                            style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
-                            name="email"
-                            placeholder="Email:"
-                        />
+                <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 0}]}>
+                    <View style={[customStyle.coolBlockTitleContainer]}>
+                        <Text style={customStyle.bigTitle}>
+                        {i18n.t('signIn.title')} 
+                        </Text>
+                        <Text style={customStyle.subtitle}>
+                            {i18n.t('signIn.form.enterCredentials')}
+                        </Text>
                     </View>
-                    <View style={[customStyle.formInputContainer, {marginTop: 0}]}>
-                        <Text style={[customStyle.formInputTitle]}> {i18n.t('signIn.enterPassword')}</Text>
-                        <View style={styles.passwordContainer}>
+                    <View style={[{width: '90%', alignSelf: 'center'}]}>
+                        <View style={customStyle.formInputContainer}>
+                            <Text style={[customStyle.formInputTitle]}> {i18n.t('signIn.enterEmail')}</Text>
+                            {error.error ?
+                                <View style={styles.errorContainer}>
+                                    <Text style={styles.error}>
+                                        {error.message}
+                                    </Text>
+                                </View>
+                            : null}
                             <TextInput
-                                onChangeText={(text) => onChangeText(text, 'password')}
-                                value={password}
-                                style={[customStyle.formInputText, {textAlignVertical: 'center', marginBottom: 0, width: '100%'}]}
-                                name="password"
-                                placeholder="Password:"
-                                textContentType="password"
-                                secureTextEntry={showPassword}
-                                />
-                            <View style={[]}>
-                                <TouchableOpacity
-                                    activeOpacity={0.5}
-                                    onPress={() => setShowPassword(!showPassword)}
-                                    style={[{right:'120%'}]}
-                                    >
-                                    <Image
-                                        source={require('../../../../assets/images/showPwd.png')}
-                                        style={styles.showPwd}
-                                        />
-                                </TouchableOpacity>
+                                onChangeText={(text) => onChangeText(text, 'email')}
+                                value={email}
+                                style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
+                                name="email"
+                                placeholder="Email:"
+                            />
+                        </View>
+                        <View style={[customStyle.formInputContainer, {marginTop: 0}]}>
+                            <Text style={[customStyle.formInputTitle]}> {i18n.t('signIn.enterPassword')}</Text>
+                            <View style={styles.passwordContainer}>
+                                <TextInput
+                                    onChangeText={(text) => onChangeText(text, 'password')}
+                                    value={password}
+                                    style={[customStyle.formInputText, {textAlignVertical: 'center', marginBottom: 0, width: '100%'}]}
+                                    name="password"
+                                    placeholder="Password:"
+                                    textContentType="password"
+                                    secureTextEntry={showPassword}
+                                    />
+                                <View style={[]}>
+                                    <TouchableOpacity
+                                        activeOpacity={0.5}
+                                        onPress={() => setShowPassword(!showPassword)}
+                                        style={[{right:'120%'}]}
+                                        >
+                                        <Image
+                                            source={require('../../../../assets/images/showPwd.png')}
+                                            style={styles.showPwd}
+                                            />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
-                <CustomButton
-                    onPress={()=> SignIn()}
-                    text={isLoading ? i18n.t('miscelaneus.loading') : i18n.t('signIn.title')}
-                    disabled={isLoading}
-                    customStyles={[customStyle.button, {marginBottom: 10, width: '80%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
-                />
-            </View>
-            <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 20}]}>
-                <View style={[customStyle.coolBlockTitleContainerSmall]}>
-                    <Text style={customStyle.title}>
-                        {i18n.t('signIn.otherSocial')}
-                    </Text>
-                </View>
-                <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
                     <CustomButton
-                        text='Facebook'
-                        customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
-                        onPress={loginWithFacebook}
-
-                    />
-
-                    <CustomButton
-                        text='Google'
-                        customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                        onPress={()=> SignIn()}
+                        text={isLoading ? i18n.t('miscelaneus.loading') : i18n.t('signIn.title')}
+                        disabled={isLoading}
+                        customStyles={[customStyle.button, {marginBottom: 10, width: '80%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
                     />
                 </View>
-            </View>
+                <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 20}]}>
+                    <View style={[customStyle.coolBlockTitleContainerSmall]}>
+                        <Text style={customStyle.title}>
+                            {i18n.t('signIn.otherSocial')}
+                        </Text>
+                    </View>
+                    <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
+                        <CustomButton
+                            text='Facebook'
+                            customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                            onPress={loginWithFacebook}
+
+                        />
+
+                        <CustomButton
+                            text='Google'
+                            customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                        />
+                    </View>
+                </View>
                 <View style={{flexDirection: 'row', marginBottom: 20}}>
                     <Text style={{marginTop: 30}}>
                         {i18n.t('signIn.noAccount')}
@@ -146,6 +148,7 @@ function SignInScreen({ navigation }) {
                         />
                     </View>
                 </View>
+            </ScrollView>
         </View>
     )
 }
@@ -157,7 +160,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 20,
+    },
+    scrollContainer: {
+        width: '90%',
+        alignSelf: 'center',
     },
     topContainer: {
         width: "100%"

@@ -11,9 +11,11 @@ import useMap from "../../../hooks/useMap";
 
 
 import useAuth from '../../../hooks/useAuth'
+import carTypeImages from '../../../utils/carTypeImages';
 
 const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
 
+  const {GetCarSmallImage} = carTypeImages();
   const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
 
   
@@ -69,7 +71,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
     ChangeRoutingInfo(null);
   }
 
-  console.log("vehicleType:", vehicleType)
+  console.log("vehicle", vehicleType, color );
 
   return (
       <View style ={styles.mapContent}>
@@ -99,11 +101,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
           coordinate={{
             latitude: userLocation?.latitude, longitude: userLocation?.longitude
           }}
+          image={GetCarSmallImage(vehicleType, color)}
         >
-            <Image
-              source = {(vehicleType)}
-              style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
-            />
         </Marker>
         
             

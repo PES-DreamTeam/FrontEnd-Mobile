@@ -4,9 +4,12 @@ import i18n from 'i18n-js';
 import CustomButton from '../../../utils/button'
 import Modal from 'react-native-modal';
 import CircularColorBtnList from './circularColorBtnList'
+import carTypeImages from '../../../utils/carTypeImages';
 
 export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHandleCancel, vehicleBrand}) => {
     const customStyle = require('../../../utils/customStyleSheet');
+
+    const {GetCarImage} = carTypeImages();
 
     var vehicleImages = [
         require( '../../../../assets/images/carTypes/carType_0.png'),
@@ -21,28 +24,25 @@ export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHa
     ]
 
     const carColors = { 
-        Cyan:       '#66c5db',
         Black:      '#565656',
         Blue:       '#7191bb',
-        Yellow:     '#fad616', 
-        Red:        '#e2350a',
-        Purple:     '#bfa3cf',
-        White:      '#c6c6c6',
         Green:      '#218443',
+        Cyan:       '#66c5db',
+        Red:        '#e2350a',
+        White:      '#c6c6c6',
+        Yellow:     '#fad616', 
+        Purple:     '#bfa3cf',
     };
 
     const [vehicleColors, setVehicleColors] = useState([
-        carColors.Black,
-        carColors.Black,
-        carColors.Black,
-
-        carColors.Black,
-        carColors.Black,
-        carColors.Black,
-
-        carColors.Black,
-        carColors.Black,
-        carColors.Black,
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
     ]);
 
 
@@ -63,8 +63,8 @@ export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHa
                 </View>
                 
                 <Image
-                    source={vehicleImages[vehicleType]}
-                    style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleColors[vehicleType]}}
+                    source={GetCarImage(vehicleType, vehicleColors[vehicleType])}
+                    style={{height: 150, aspectRatio: 1, alignSelf: 'center'}}
                 />
                 <View style={[customStyle.coolBlockContainer]}>
                     <Text style={[customStyle.formInputTitle, {fontSize: 25, color: 'black', marginVertical: 10, textAlign: 'center', textDecorationLine: 'underline'}]}>{i18n.t('vehicleConfig.vehicleColor')}:</Text>

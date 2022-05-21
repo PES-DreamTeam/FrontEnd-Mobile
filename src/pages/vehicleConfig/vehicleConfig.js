@@ -9,6 +9,7 @@ import ButtonTable from "../../utils/buttonTable";
 import CarSelectorModal from './vehicleConfigComponents/carSelectorModal';
 import useVehicle from '../../hooks/useVehicle';
 import CustomDropDown from '../../utils/customDropDown';
+import carTypeImages from '../../utils/carTypeImages';
 
 
 function VehicleConfig({ navigation }) {    
@@ -19,6 +20,8 @@ function VehicleConfig({ navigation }) {
 
     const[vehicleTypes, setVehicleTypes] = useState(); 
 
+    const {GetCarImage} = carTypeImages();
+
     const customStyle = require('../../utils/customStyleSheet');
 
     const { auth, setAuth, updateUser } = useAuth();
@@ -28,7 +31,7 @@ function VehicleConfig({ navigation }) {
         vehicleModel: '',
         vehicleNickname: '',
         vehicleType: 0,
-        vehicleColor: '#DDDDDD',
+        vehicleColor: 'white',
         numberPlate: '',
     };
 
@@ -66,8 +69,8 @@ function VehicleConfig({ navigation }) {
         setModalOpen(false)
         let temp = vehicleTypes
         let tempObj = {
-            imageSrc: vehicleImages[currentVehicleType],
-            imageStyle: {width: '100%', height:'50%', tintColor: color, alignSelf: "center"},
+            imageSrc: GetCarImage(currentVehicleType, color),
+            imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
             onPress: () => {
               setCurrentVehicleType(currentVehicleType);
               setModalOpen(true);
@@ -104,10 +107,10 @@ function VehicleConfig({ navigation }) {
         }  
         setVehicle(initialState);
         let temp = [];
-        for(let i = 0; i < vehicleImages.length; i++){
+        for(let i = 0; i < 9; i++){
             let tempObj = {
-              imageSrc: vehicleImages[i],
-              imageStyle: {width: '100%', height:'50%', tintColor: 'black', alignSelf: "center"},
+              imageSrc: GetCarImage(i, 'white'),
+              imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
               onPress: () => {
                 setCurrentVehicleType(i);
                 setModalOpen(true);

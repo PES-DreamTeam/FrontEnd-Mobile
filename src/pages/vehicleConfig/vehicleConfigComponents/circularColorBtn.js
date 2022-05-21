@@ -14,14 +14,14 @@ const CircularColorBtn = ({color, onPress, isSelected}) => {
 
 const styles = StyleSheet.create({
     circularButton: {
-        width: 60,
-        height: 60,
+        width: '20%',
+        aspectRatio: 1,
         marginHorizontal: 5,
         borderRadius: 30,
     },
     circularButtonSelected: {
-        width: 70,
-        height: 70,
+        width: '25%',
+        aspectRatio: 1,
         marginHorizontal: 5,
         borderRadius: 35,
         borderColor: 'black',

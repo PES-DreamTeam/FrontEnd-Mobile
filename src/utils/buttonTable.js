@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#eee',
         alignSelf: "center",
         flexDirection: 'column',
-        padding: 10,
     },
     deleteButton: {
         width: 25, 
