@@ -269,6 +269,7 @@ function VehicleConfig({ navigation }) {
             </ScrollView>
             {<CarSelectorModal
                 vehicleType={currentVehicleType}
+                vehicleBrand={vehicleBrand}
                 isVisible={modalOpen}
                 onHandleCancel={() => setModalOpen(false)}
                 onHandleAccept={onAcceptVehicle}

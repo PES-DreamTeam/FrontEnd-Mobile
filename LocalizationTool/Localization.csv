@@ -47,6 +47,7 @@ back,Back,Atrás,Enrere
 exit,Exit,Salir,Sortir
 accept,Accept,Aceptar,Acceptar
 delete,Delete,Eliminar,Eliminar
+vehicleWord,vehicle,vehículo,vehicle
 PAGE_vehicleConfig,,,
 title,Vehicle configuration,Configuracion del vehículo,Configuració del vehicle
 vehicleBrand,Vehicle brand,Marca del vehículo,Marca del vehicle
@@ -62,6 +63,7 @@ continue,Continue,Continuar,Continua
 notEV,Don't have an EV?,¿No tienes un VE?,No tens un VE?
 cancel,Cancel,Cancelar,Cancel·lar
 skip,Skip,Saltar,Salta
+customize,Customize your,Personaliza tu,Personalitza el teu
 PAGE_profile,,,
 yourVehicle,Your Garage,Tu garaje,El teu garatge
 changeVehicle,Swipe to change your default vehicle,Desliza para cambiar tu vehículo por defecto,Llisca per canviar el teu vehicle per defecte

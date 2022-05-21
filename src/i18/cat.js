@@ -56,6 +56,7 @@ const cat = {
 		exit: "Sortir",
 		accept: "Acceptar",
 		delete: "Eliminar",
+		vehicleWord: "vehicle",
 	}, 
 	vehicleConfig: {
 		title: "Configuració del vehicle",
@@ -72,6 +73,7 @@ const cat = {
 		notEV: "No tens un VE?",
 		cancel: "Cancel·lar",
 		skip: "Salta",
+		customize: "Personalitza el teu",
 	}, 
 	profile: {
 		yourVehicle: "El teu garatge",

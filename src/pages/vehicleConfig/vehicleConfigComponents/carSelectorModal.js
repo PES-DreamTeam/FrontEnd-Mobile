@@ -5,8 +5,7 @@ import CustomButton from '../../../utils/button'
 import Modal from 'react-native-modal';
 import CircularColorBtnList from './circularColorBtnList'
 
-export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHandleCancel}) => {
-    
+export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHandleCancel, vehicleBrand}) => {
     const customStyle = require('../../../utils/customStyleSheet');
 
     var vehicleImages = [
@@ -22,13 +21,14 @@ export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHa
     ]
 
     const carColors = { 
-        White:  '#DDDDDD',
-        Grey:   '#4E4E4E',
-        Black:  '#222222',
-        Red:    '#871614', 
-        Blue:   '#16345D',
-        Yellow: '#FDCC0D',
-        Green:  '#296E01'
+        Cyan:       '#66c5db',
+        Black:      '#565656',
+        Blue:       '#7191bb',
+        Yellow:     '#fad616', 
+        Red:        '#e2350a',
+        Purple:     '#bfa3cf',
+        White:      '#c6c6c6',
+        Green:      '#218443',
     };
 
     const [vehicleColors, setVehicleColors] = useState([
@@ -55,29 +55,37 @@ export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHa
     
     return (
         <Modal isVisible={isVisible}>
-            <View style={[customStyle.modalContainer, {height: "65%", marginBottom: 20}]}>
-                <Text style={customStyle.bigTitle}>
-{/*                     {vehicleInfo.brand} {vehicleInfo.model}
-*/}                </Text>
+            <View style={[customStyle.coolBlockContainer, {width: '100%', justifyContent: 'space-between', marginBottom: 20}]}>
+                <View style={[customStyle.coolBlockTitleContainer, ]}>
+                    <Text style={customStyle.bigTitle}>
+                        {i18n.t('vehicleConfig.customize')} {(vehicleBrand == '') ? i18n.t('miscelaneus.vehicleWord') : vehicleBrand}
+                    </Text>
+                </View>
+                
                 <Image
                     source={vehicleImages[vehicleType]}
                     style={{width: 250, height: 100, alignSelf: 'center', tintColor: vehicleColors[vehicleType]}}
                 />
-                <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
-                <CircularColorBtnList
-                    carColors = {carColors}
-                    onChangeColor = {onChangeColor}
-                    currentSelected = {vehicleColors[vehicleType]}
-                />
-                <View styles={customStyle.buttonRow}>    
-                    <CustomButton
-                        onPress={() => onHandleAccept(vehicleColors[vehicleType])}
-                        text={i18n.t('miscelaneus.accept')}
-                        />
+                <View style={[customStyle.coolBlockContainer]}>
+                    <Text style={[customStyle.formInputTitle, {fontSize: 25, color: 'black', marginVertical: 10, textAlign: 'center', textDecorationLine: 'underline'}]}>{i18n.t('vehicleConfig.vehicleColor')}:</Text>
+                    <CircularColorBtnList
+                        carColors = {carColors}
+                        onChangeColor = {onChangeColor}
+                        currentSelected = {vehicleColors[vehicleType]}
+                    />
+                </View>
+                <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
                     <CustomButton
                         onPress={() => onHandleCancel()}
                         text={i18n.t('miscelaneus.cancel')}
-                        />
+                        customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#e2350a', borderColor: '#ba2b07', borderWidth: 3}]}
+                    />
+
+                    <CustomButton
+                        onPress={() => onHandleAccept(vehicleColors[vehicleType])}
+                        customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#29a353', borderColor: '#218443', borderWidth: 3}]}
+                        text={i18n.t('miscelaneus.accept')}
+                    />
                 </View>
             </View>
         </Modal>
@@ -105,7 +113,6 @@ const styles = StyleSheet.create({
         marginVertical: 30,
         justifyContent: 'center',
         alignItems: 'center',
-       
     },
     imageC: {  
         position:'absolute',
