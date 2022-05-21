@@ -32,6 +32,8 @@ const es = {
 		pwdOrEmailMessage: "Hay un error con el email o contraseña",
 		emptyFieldMessage: "Porfavor rellene todos los campos",
 		noAccount: "¿No tiene una cuenta?",
+		enterEmail: "Ingrese su email",
+		enterPassword: "Ingrese su contraseña",
 	}, 
 	signUp: {
 		title: "Registrarse",
@@ -42,6 +44,10 @@ const es = {
 			name: "Nombre:",
 		}, 
 		goToSignIn: "Ir a Iniciar sesión",
+		alreadyAccount: "¿Ya tiene cuenta?",
+		enterEmail: "Ingrese su email",
+		enterPassword: "Ingrese su contraseña",
+		enterName: "Ingrese su nombre",
 	}, 
 	miscelaneus: {
 		loading: "Cargando...",

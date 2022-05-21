@@ -26,6 +26,8 @@ otherSocial,Or Log In with,O inicie sesión con,O inicia sessió amb
 pwdOrEmailMessage,There is an error with your password or email,Hay un error con el email o contraseña,Hi ha un error amb el email o la contrasenya
 emptyFieldMessage,Please fill in all fields,Porfavor rellene todos los campos,Siusplau ompli tots els camps
 noAccount,Haven't got an account?,¿No tiene una cuenta?,No tens compte?
+enterEmail,Enter your email,Ingrese su email,Introdueix el teu email
+enterPassword,Enter your password,Ingrese su contraseña,Introdueix la teva contrasenya
 PAGE_signUp,,,
 title,Sign Up,Registrarse,Registrar-se
 form_enterCredentials,Enter your credentials,Ingrese sus credenciales,Introdueix els credencials
@@ -33,6 +35,11 @@ form_email,Email:,Email:,Email:
 form_password,Password:,Contraseña:,Contrasenya:
 form_name,Name:,Nombre:,Nom:
 goToSignIn,Go to Log In,Ir a Iniciar sesión,Anar a Inciar sessió
+alreadyAccount,Already have an account?,¿Ya tiene cuenta?,Ja tens compte?
+enterEmail,Enter your email,Ingrese su email,Introdueix el teu email
+enterPassword,Enter your password,Ingrese su contraseña,Introdueix la teva contrasenya
+enterName,Enter your name,Ingrese su nombre,Introdueix el teu nom
+,,,
 PAGE_miscelaneus,,,
 loading,Loading...,Cargando...,Carregant...
 cancel,Cancel,Cancelar,Cancel·lar

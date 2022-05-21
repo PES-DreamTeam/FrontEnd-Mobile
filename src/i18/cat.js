@@ -32,6 +32,8 @@ const cat = {
 		pwdOrEmailMessage: "Hi ha un error amb el email o la contrasenya",
 		emptyFieldMessage: "Siusplau ompli tots els camps",
 		noAccount: "No tens compte?",
+		enterEmail: "Introdueix el teu email",
+		enterPassword: "Introdueix la teva contrasenya",
 	}, 
 	signUp: {
 		title: "Registrar-se",
@@ -42,6 +44,10 @@ const cat = {
 			name: "Nom:",
 		}, 
 		goToSignIn: "Anar a Inciar sessió",
+		alreadyAccount: "Ja tens compte?",
+		enterEmail: "Introdueix el teu email",
+		enterPassword: "Introdueix la teva contrasenya",
+		enterName: "Introdueix el teu nom",
 	}, 
 	miscelaneus: {
 		loading: "Carregant...",

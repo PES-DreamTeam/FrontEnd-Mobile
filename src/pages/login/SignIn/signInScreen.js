@@ -63,40 +63,47 @@ function SignInScreen({ navigation }) {
                     </Text>
                 </View>
                 <View style={[{width: '90%', alignSelf: 'center'}]}>
-                    {error.error ?
-                        <View style={styles.errorContainer}>
-                            <Text style={styles.error}>
-                                {error.message}
-                            </Text>
-                        </View>
-                    : null}
-                    <TextInput
-                        onChangeText={(text) => onChangeText(text, 'email')}
-                        value={email}
-                        style={styles.input}
-                        name="email"
-                        placeholder="Email:"
-                        />
-                    <View style={styles.passwordContainer}>
+                    <View style={customStyle.formInputContainer}>
+                        <Text style={[customStyle.formInputTitle]}> {i18n.t('signIn.enterEmail')}</Text>
+                        {error.error ?
+                            <View style={styles.errorContainer}>
+                                <Text style={styles.error}>
+                                    {error.message}
+                                </Text>
+                            </View>
+                        : null}
                         <TextInput
-                            onChangeText={(text) => onChangeText(text, 'password')}
-                            value={password}
-                            style={[styles.input, {marginBottom: 0, width: '90%'}]}
-                            name="password"
-                            placeholder="Password:"
-                            textContentType="password"
-                            secureTextEntry={showPassword}
-                            />
-                        <View style={[]}>
-                            <TouchableOpacity
-                                activeOpacity={0.5}
-                                onPress={() => setShowPassword(!showPassword)}
-                                >
-                                <Image
-                                    source={require('../../../../assets/images/showPwd.png')}
-                                    style={styles.showPwd}
-                                    />
-                            </TouchableOpacity>
+                            onChangeText={(text) => onChangeText(text, 'email')}
+                            value={email}
+                            style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
+                            name="email"
+                            placeholder="Email:"
+                        />
+                    </View>
+                    <View style={[customStyle.formInputContainer, {marginTop: 0}]}>
+                        <Text style={[customStyle.formInputTitle]}> {i18n.t('signIn.enterPassword')}</Text>
+                        <View style={styles.passwordContainer}>
+                            <TextInput
+                                onChangeText={(text) => onChangeText(text, 'password')}
+                                value={password}
+                                style={[customStyle.formInputText, {textAlignVertical: 'center', marginBottom: 0, width: '100%'}]}
+                                name="password"
+                                placeholder="Password:"
+                                textContentType="password"
+                                secureTextEntry={showPassword}
+                                />
+                            <View style={[]}>
+                                <TouchableOpacity
+                                    activeOpacity={0.5}
+                                    onPress={() => setShowPassword(!showPassword)}
+                                    style={[{right:'120%'}]}
+                                    >
+                                    <Image
+                                        source={require('../../../../assets/images/showPwd.png')}
+                                        style={styles.showPwd}
+                                        />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -104,7 +111,7 @@ function SignInScreen({ navigation }) {
                     onPress={()=> SignIn()}
                     text={isLoading ? i18n.t('miscelaneus.loading') : i18n.t('signIn.title')}
                     disabled={isLoading}
-                    customStyles={[customStyle.button, {marginVertical: 20, width: '80%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                    customStyles={[customStyle.button, {marginBottom: 10, width: '80%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
                 />
             </View>
             <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 20}]}>

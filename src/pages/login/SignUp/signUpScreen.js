@@ -41,12 +41,12 @@ function SignUpScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.logoContainer}>
+            {/* <View style={styles.logoContainer}>
                 <Image
                     source={require('../../../../assets/images/logo.png')}
                     style={[styles.logo]}
                 />
-            </View>
+            </View> */}
             <View style={[customStyle.coolBlockContainer, {width: '100%', marginTop: 0}]}>
                 <View style={[customStyle.coolBlockTitleContainer]}>
                     <Text style={customStyle.bigTitle}>
@@ -57,58 +57,68 @@ function SignUpScreen({ navigation }) {
                     </Text>
                 </View>
                 <View style={[{width: '90%', alignSelf: 'center'}]}>
-                    <TextInput
-                        onChangeText={(e) => onChangeText(e, 'name')}
-                        value={name}
-                        style={styles.input}
-                        placeholder={i18n.t('signUp.form.name')}
-                    />
-                    {
-                        error?.errors?.map(error => error.attribute === "email" ?  
-                            <View style={styles.errorContainer} key={error.attribute}>
-                                <Text style={styles.error}>
-                                        <Text>{error.errorMessage}</Text>
-                                </Text>
-                            </View>
-                        :null) 
-                    }
-                    <TextInput
-                        onChangeText={(e) => onChangeText(e, 'email')}
-                        value={email}
-                        style={styles.input}
-                        name="email"
-                        placeholder={i18n.t('signUp.form.email')}
-                    />
-
-                    {
-                        error?.errors?.map(error => error.attribute === "password" ?  
-                            <View style={styles.errorContainer} key={error.attribute}>
-                                <Text style={styles.error}>
-                                        <Text>{error.errorMessage}</Text>
-                                </Text>
-                            </View>
-                        :null) 
-                    }
-                    <View style={styles.passwordContainer}>
+                    <View style={customStyle.formInputContainer}>
+                        <Text style={[customStyle.formInputTitle]}> {i18n.t('signUp.enterName')}</Text>
+                        
                         <TextInput
-                            onChangeText={(e) => onChangeText(e, 'password')}
-                            value={password}
-                            style={[styles.input, {marginBottom: 0, width: '90%'}]}
-                            name="password"
-                            placeholder={i18n.t('signUp.form.password')}
-                            textContentType="password"
-                            secureTextEntry={showPassword}
+                            onChangeText={(e) => onChangeText(e, 'name')}
+                            value={name}
+                            style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
+                            placeholder={i18n.t('signUp.form.name')}
                         />
-                        <View style={[]}>
-                            <TouchableOpacity
-                                activeOpacity={0.5}
-                                onPress={() => setShowPassword(!showPassword)}
-                            >
-                                <Image
-                                    source={require('../../../../assets/images/showPwd.png')}
-                                    style={styles.showPwd}
+                    </View>
+                    <View style={customStyle.formInputContainer}>
+                        <Text style={[customStyle.formInputTitle]}> {i18n.t('signUp.enterEmail')}</Text>
+                        {
+                            error?.errors?.map(error => error.attribute === "email" ?  
+                                <View style={styles.errorContainer} key={error.attribute}>
+                                    <Text style={styles.error}>
+                                            <Text>{error.errorMessage}</Text>
+                                    </Text>
+                                </View>
+                            :null) 
+                        }
+                        <TextInput
+                            onChangeText={(e) => onChangeText(e, 'email')}
+                            value={email}
+                            style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
+                            name="email"
+                            placeholder={i18n.t('signUp.form.email')}
+                        />
+                    </View>
+                    <View style={customStyle.formInputContainer}>
+                        <Text style={[customStyle.formInputTitle]}> {i18n.t('signUp.enterPassword')}</Text>
+                        {
+                            error?.errors?.map(error => error.attribute === "password" ?  
+                                <View style={styles.errorContainer} key={error.attribute}>
+                                    <Text style={styles.error}>
+                                            <Text>{error.errorMessage}</Text>
+                                    </Text>
+                                </View>
+                            :null) 
+                        }
+                        <View style={styles.passwordContainer}>
+                            <TextInput
+                                onChangeText={(text) => onChangeText(text, 'password')}
+                                value={password}
+                                style={[customStyle.formInputText, {textAlignVertical: 'center', marginBottom: 0, width: '100%'}]}
+                                name="password"
+                                placeholder="Password:"
+                                textContentType="password"
+                                secureTextEntry={showPassword}
                                 />
-                            </TouchableOpacity>
+                            <View style={[]}>
+                                <TouchableOpacity
+                                    activeOpacity={0.5}
+                                    onPress={() => setShowPassword(!showPassword)}
+                                    style={[{right:'120%'}]}
+                                    >
+                                    <Image
+                                        source={require('../../../../assets/images/showPwd.png')}
+                                        style={styles.showPwd}
+                                        />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>

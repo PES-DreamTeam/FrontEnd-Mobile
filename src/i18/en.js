@@ -32,6 +32,8 @@ const en = {
 		pwdOrEmailMessage: "There is an error with your password or email",
 		emptyFieldMessage: "Please fill in all fields",
 		noAccount: "Haven't got an account?",
+		enterEmail: "Enter your email",
+		enterPassword: "Enter your password",
 	}, 
 	signUp: {
 		title: "Sign Up",
@@ -42,6 +44,10 @@ const en = {
 			name: "Name:",
 		}, 
 		goToSignIn: "Go to Log In",
+		alreadyAccount: "Already have an account?",
+		enterEmail: "Enter your email",
+		enterPassword: "Enter your password",
+		enterName: "Enter your name",
 	}, 
 	miscelaneus: {
 		loading: "Loading...",
