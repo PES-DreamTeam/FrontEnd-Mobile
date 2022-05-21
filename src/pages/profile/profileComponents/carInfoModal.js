@@ -41,33 +41,33 @@ export default CarInfoItem = ({item, isVisible, onHandleAccept, onHandleFav, ind
                         imageStyle={{width: 30, height: 40}}
                         customStyles={{backgroundColor: 'transparent', width: 30, height: 40, alignSelf: 'flex-end'}}
                     />
-                    <View style={customStyle.coolBlockTitleContainer}>
-                    <Text style={[customStyle.title]}>{vehicleInfo?.brand} {vehicleInfo?.model}</Text>
-                    <Text style={[customStyle.subtitle, {color: 'gray', fontStyle: 'italic', fontWeight: 'bold'}]}>"{vehicleInfo?.nickname}"</Text>
-                    </View>
-                    <View style={customStyle.coolBlockImageContainerWide}>
+                    <View style={[customStyle.coolBlockContainer, {width: '100%'} ]}>
+                        <View style={customStyle.coolBlockTitleContainer}>
+                        <Text style={[customStyle.title]}>{vehicleInfo?.brand} {vehicleInfo?.model}</Text>
+                        <Text style={[customStyle.subtitle, {color: 'gray', fontStyle: 'italic', fontWeight: 'bold'}]}>"{vehicleInfo?.nickname}"</Text>
+                        </View>
                         <View style={styles.matriculaContainer}>
-                            <Image
-                            source={require('../../../../assets/images/plateEU.png')}
-                            style={styles.matriculaEU}
-                            />
+                            <View style={styles.matriculaEU}>
+                                <Image
+                                    source={require('../../../../assets/images/plateEU.png')}
+                                    style={{height: '90%', aspectRatio: 0.5}}
+                                />
+                            </View>
                             <Text style={styles.matriculaText}>{vehicleInfo?.numberPlate}</Text>
+                            
                         </View>
-                    </View>
-                    <View style={[{marginTop: 20}]}>
                         <View style={[styles.vehicleContainer]}>
-                            <Image source={GetCarImage(vehicleInfo?.vehicleType, vehicleInfo?.color)}/>
+                            <Image 
+                                source={GetCarImage(vehicleInfo?.vehicleType, vehicleInfo?.color)}
+                                style={{width: '90%', aspectRatio: 1}}    
+                            />
                         </View>
-                        
-                        {/* <Text style={styles.insideNumberPlate}>
-                            {vehicleInfo?.numberPlate}
-                        </Text> */}
-                        <CustomButton
-                            onPress={() => onHandleAccept()}
-                            text={i18n.t('miscelaneus.back')}
-                            customStyles={{marginBottom: 20, marginTop: 20,backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}}
-                        />
                     </View>
+                    <CustomButton
+                        onPress={() => onHandleAccept()}
+                        text={i18n.t('miscelaneus.back')}
+                        customStyles={{marginBottom: 20, marginTop: 20,backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}}
+                    />
                 </View>
             </View>
         </Modal>
@@ -80,7 +80,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     vehicleContainer: {
-        alignItems: 'center',
+        width: '90%',
+        alignSelf: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
     },
     infoContainer: {
         marginTop: '5%',
@@ -95,13 +98,15 @@ const styles = StyleSheet.create({
         width: '75%',
     },
     matriculaContainer: {
+        marginTop: '5%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%',
-        height: '100%',
+        alignSelf: 'center',
+        width: '70%',
+        height: '10%',
         borderColor: 'black',
-        borderWidth: 3,
+        borderWidth: 1,
+        borderRadius: 10,
     },
     image: {
         marginVertical: 30,
@@ -110,15 +115,22 @@ const styles = StyleSheet.create({
     },
     matriculaText: {
         height: '100%',
+        width: '80%',
         textAlignVertical: 'center',
         fontSize: 20,
         fontWeight: 'bold',
-        backgroundColor: 'blue',
+        backgroundColor: '#fff',
+        borderBottomRightRadius: 8,
+        borderTopRightRadius: 8,
     },
     matriculaEU: {
-        aspectRatio: 1,
-        width: '20%',
+        height: '100%',
+        width: '15%',
+        borderBottomLeftRadius: 8,
+        borderTopLeftRadius: 8,
         backgroundColor: 'blue',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     insideNumberPlate: {
         fontSize: 40,
