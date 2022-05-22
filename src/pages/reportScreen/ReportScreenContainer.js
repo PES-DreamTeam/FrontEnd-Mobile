@@ -73,7 +73,7 @@ function ReportScreenContainer({navigation, sendReport}) {
                 </Text>
                 {error != '' ?
                         <View style={styles.errorContainer}>
-                            <Text style={styles.error} >
+                            <Text testID={"error"} style={styles.error} >
                                 {error}
                             </Text>
                             
@@ -83,6 +83,7 @@ function ReportScreenContainer({navigation, sendReport}) {
                     {i18n.t("report.ReportApplicationScreen.type")}
                 </Text>
                 <DropDownPicker
+                    testID={"picker"}
                     open={open}
                     value={pickerVal}
                     items={items}
