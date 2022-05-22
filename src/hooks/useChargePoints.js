@@ -55,14 +55,14 @@ const useChargePoints = () => {
     return response.data.likedStations;
   };
 
-  const sendReport = async (station_id, reportType, reportMsg, station_type) => {
+  const sendReport = async (station_id, reportType, reportMsg, stationType) => {
     try {
       const response = await axios.put(
         `${API_HOST}/api/chargePoints/${station_id}/report/`,
         {
           reportType: reportType,
           reportMsg: reportMsg,
-          stationType: station_type,
+          stationType: stationType,
         }
       );
     } catch (err) {
