@@ -68,8 +68,8 @@ function LocationInfo(props) {
   };
 
   const handleShare = async () => {
-    const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + stationInfo.name + "'" + `${i18n.t("locationInfo.shareMessage2")}`
-                  + "\n\n" +"https://maps.google.com/?q=" + stationInfo.lat + "," + stationInfo.lng;
+    const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + props.stationInfo.name + "'" + `${i18n.t("locationInfo.shareMessage2")}`
+                  + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
     const shareOptions = {
       message: message,
     };
