@@ -74,7 +74,7 @@ function CustomDrawer(props) {
       </DrawerContentScrollView>
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("ReportAplicationScreen")}
+          onPress={() => props.navigation.navigate("ReportApplicationScreen")}
           style={{ paddingVertical: 15 }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>

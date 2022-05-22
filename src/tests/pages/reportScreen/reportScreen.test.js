@@ -24,7 +24,6 @@ describe("Text Inputs", () =>{
         fireEvent.press(getByText("Send"));
         expect(getByPlaceholderText("Tablet, phone")).toHaveProp("value", "Oppo8");
         debug();
-        console.log(getByTestId("error"));
     });
 
   

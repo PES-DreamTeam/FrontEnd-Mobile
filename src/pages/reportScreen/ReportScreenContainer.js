@@ -3,14 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Pressable, TextInput } from '
 import i18n from 'i18n-js';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-import useReportAplication from '../../hooks/useReportAplication';
 import CustomButton from '../../utils/button';
 import { useToast } from 'react-native-toast-notifications';
 
-function ReportAplicationScreen({navigation}) {
-
+function ReportScreenContainer({navigation, sendReport}) {
     const toast = useToast();
-    const { sendReport } = useReportAplication();
 
     const [open, setOpen] = useState(false);
     const [pickerVal, setPickerVal] = useState(null);
@@ -198,4 +195,4 @@ const styles = StyleSheet.create({
   
 })
 
-export {ReportAplicationScreen}
+export {ReportScreenContainer }
