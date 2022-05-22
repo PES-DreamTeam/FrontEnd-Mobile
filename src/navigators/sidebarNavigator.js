@@ -9,7 +9,7 @@ import useUserSettings from "../hooks/useUserSettings";
 import { CustomDrawer } from "./customDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import i18n from "i18n-js";
-import { ReportAplicationScreen } from "../pages/reportScreen/ReportAplicationScreen";
+import { ReportApplicationScreen } from "../pages/reportScreen/ReportApplicationScreen";
 import { AchievementsScreen } from "../pages/achievements/achievementsScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import HelpScreen from "../pages/info/helpScreen";
@@ -84,8 +84,8 @@ function SidebarNavigator() {
           options={{ drawerItemStyle: { display: "none" } }}
         />
         <Stack.Screen
-          name="ReportAplicationScreen"
-          component={ReportAplicationScreen}
+          name="ReportApplicationScreen"
+          component={ReportApplicationScreen}
           options={{ drawerItemStyle: { display: "none" } }}
         />
       </Drawer.Navigator>

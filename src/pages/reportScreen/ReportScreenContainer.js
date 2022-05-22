@@ -3,14 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Pressable, TextInput } from '
 import i18n from 'i18n-js';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ScrollView } from 'react-native-gesture-handler';
-import useReportAplication from '../../hooks/useReportAplication';
 import CustomButton from '../../utils/button';
 import { useToast } from 'react-native-toast-notifications';
 
-function ReportAplicationScreen({navigation}) {
-
+function ReportScreenContainer({navigation, sendReport}) {
     const toast = useToast();
-    const { sendReport } = useReportAplication();
 
     const [open, setOpen] = useState(false);
     const [pickerVal, setPickerVal] = useState(null);
@@ -32,10 +29,8 @@ function ReportAplicationScreen({navigation}) {
     
     const [report, setReport] = useState(initialState);
     const {platform, osVersion, subject, details} = report;
-    const [error, setError] = useState({
-        error: false, 
-        message: ''
-    });
+    const [error, setError] = useState(''
+    );
 
     const onChangeText = (text, name) => {
         setReport({
@@ -52,13 +47,11 @@ function ReportAplicationScreen({navigation}) {
     const reportApp = async ()  => {
         if (platform.trim().length === 0 || osVersion.trim().length === 0 ||
         subject.trim().length === 0 || details.trim().length === 0 || pickerVal === null) {
-        setError({
-            error: true,
-            message:  <Text>{i18n.t("report.ReportApplicationScreen.fillfields")}</Text>
-        })
+        setError(i18n.t("report.ReportApplicationScreen.fillfields") )
         }
         else{              
             await sendReport(pickerVal,platform,osVersion,subject,details)
+            setError('')
             clearAllFields()
             navigation.navigate("Home");
             toast.show("", {
@@ -78,17 +71,19 @@ function ReportAplicationScreen({navigation}) {
                 <Text style={styles.title}>
                 {i18n.t("report.ReportApplicationScreen.title")}
                 </Text>
-                {error.error ?
+                {error != '' ?
                         <View style={styles.errorContainer}>
-                            <Text style={styles.error}>
-                                {error.message}
+                            <Text testID={"error"} style={styles.error} >
+                                {error}
                             </Text>
+                            
                         </View>
                 : null}
                 <Text style={styles.formTitle}>
                     {i18n.t("report.ReportApplicationScreen.type")}
                 </Text>
                 <DropDownPicker
+                    testID={"picker"}
                     open={open}
                     value={pickerVal}
                     items={items}
@@ -201,4 +196,4 @@ const styles = StyleSheet.create({
   
 })
 
-export {ReportAplicationScreen}
+export {ReportScreenContainer }
