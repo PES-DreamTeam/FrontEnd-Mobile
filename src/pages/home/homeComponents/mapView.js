@@ -3,17 +3,20 @@ import { StyleSheet, ActivityIndicator, View, Image, TouchableOpacity } from 're
 import MapView, {  Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
-import MapButton from './mapButton';
+import CustomButton from '../../../utils/button';
 import MapPoints from './mapPoints';
 import MapRoutes from './mapRoutes';
 
 import useMap from "../../../hooks/useMap";
 
+import { FilterMap } from './filterMap';
+
 
 import useAuth from '../../../hooks/useAuth'
 import carTypeImages from '../../../utils/carTypeImages';
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, 
+  routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo, stationInfoOpened}) => {
 
   const {GetCarSmallImage} = carTypeImages();
   const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
@@ -107,19 +110,30 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
         
             
         </MapView>
-        
-        <MapButton
-          styles={[styles.floatingButton, styles.rightFloat]}
-          onPress={centerPosition}
-          source={require('../../../../assets/images/center.png')}
+        {!stationInfoOpened ? 
+        <FilterMap
+          ChangeRoutingInfo={ChangeRoutingInfo}
+          ActivateRoute={ActivateRoute}
         />
+        : null
+        } 
+        {!stationInfoOpened ? 
+        <CustomButton
+          customStyles={[styles.floatingButton, styles.rightFloat]}
+          onPress={centerPosition}
+          imageSrc={require('../../../../assets/images/icons/center.png')}
+          imageStyle={{width: "60%", height: "60%"}}
+        />
+        : null
+        }
 
         {/* When the route to point is activated */}
-        {mapFilter.includes("singleCharge") ? 
-          <MapButton
-            styles={[styles.floatingButton, styles.leftFloat]}
+        {mapFilter.includes("singleCharge")&&!stationInfoOpened ? 
+          <CustomButton
+            customStyles={[styles.floatingButton, styles.leftFloat]}
             onPress={cancelRoute}
-            source={require('../../../../assets/images/cancel.png')}
+            imageSrc={require('../../../../assets/images/cancel.png')}
+            imageStyle={{width: "100%", height: "100%"}}
           />
         : null}
 
@@ -166,10 +180,15 @@ const styles = StyleSheet.create({
       position: 'absolute',
       justifyContent: 'center',
       alignContent: 'center',
-      width: 60,
-      height: 60,
+      backgroundColor: '#ffffffaa',
+      borderColor: 'black',
+      borderWidth: 1,
+      borderRadius: 50,
+      width: 50,
+      height: 50,
       bottom:25,
       zIndex: 100,
+
     },
     rightFloat: {
       right: 25

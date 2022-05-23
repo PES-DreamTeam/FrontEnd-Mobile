@@ -208,10 +208,17 @@ const carTypeImages = () => {
     }
 
     const GetCarImage = (carType, carColor) => {
+        console.log(carType, carColor);
+        if(carType === undefined || carType === null || carType < 0 || carType > 8) {
+            return require('./../../assets/images/newCarsSmall/type8/carType8_black.png');
+        }
         return carImages[carType][GetColorIndex(carColor)];
     }
 
     const GetCarSmallImage = (carType, carColor) => {
+        if(carType === undefined || carType === null || carType < 0 || carType > 8) {
+            return require('./../../assets/images/newCars/type8/carType8_black.png');
+        }
         return carSmallImages[carType][GetColorIndex(carColor)];
     }
 

@@ -46,6 +46,8 @@ function Achievement(props) {
                 text={actualProgress+"/"+objective}
                 percent={`${progress}`}
                 backgroundStyle={{height: 30, width: '100%'}}
+                fillStyle={{height: 30}}
+                textStyle={{marginTop: -30}}
                 />
             </View>
             <View style={styles.shareView}>

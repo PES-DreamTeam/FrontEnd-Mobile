@@ -152,72 +152,70 @@ function LocationInfo(props) {
   return (
     <View style={stationInfoStyle}>
       <View style={[customStyle.coolBlockTitleContainer,{flexDirection: 'row'}]}>
-        <Text style={[customStyle.title, {textAlignVertical: 'center'}]}>
-          {props?.stationInfo?.address}
-        </Text>
-        <CustomButton
-          imageSrc={isFavourite
-            ? require("../../../../assets/images/favourite.png")
-            : require("../../../../assets/images/blank-favourite.png")
-          }
-          onPress={handleFavourite}
-          customStyles={styles.favButtonContainer}
-          imageStyle={{width: "70%", height: "70%"}}
-        />
+        <View style={{width: '85%'}}>
+          <Text style={[customStyle.title, {textAlignVertical: 'center'}]}>
+            {props?.stationInfo?.address}
+          </Text>
+        </View>
+        <View style={{width: '15%'}}>
+          <CustomButton
+            imageSrc={isFavourite
+              ? require("../../../../assets/images/icons/favourite.png")
+              : require("../../../../assets/images/icons/blank-favourite.png")
+            }
+            onPress={handleFavourite}
+            customStyles={styles.favButtonContainer}
+            imageStyle={{width: "70%", height: "70%"}}
+            
+          />
+        </View>
       </View>
       <View style={styles.locationInfo}>
         <GenericLocationInfo stationInfo={props?.stationInfo} />
       </View>
-      
-      {/* <View style={styles.botBarContent}>
-        <Text style={styles.pollutionText(pollutionColor)}>
-          {i18n.t("locationInfo.pollutionLevel")}: {pollution}
+
+      <View style={styles.getThereContent}>
+        <Text style={[styles.pollutionText(pollutionColor),customStyle.normalText]}>
+          {i18n.t("locationInfo.pollutionLevel")} {'\n'} {pollution}
         </Text>
         <CustomButton
-          customStyles={styles.goThereButton}
-          onPress={() => {
-            props.ActivateRoute({
-              latitude: props?.stationInfo?.lat,
-              longitude: props?.stationInfo?.lng,
-              id: props?.stationInfo?.id,
-              objectType: props?.stationInfo?.objectType,
-            });
-            props.onChangeFilter("singleCharge");
-            updateAchievement(2);
-          }}
-          text={i18n.t("locationInfo.getThere")}
-        />
-      </View> */}
+            imageSrc={ require("../../../../assets/images/icons/directions.png") }
+            onPress={handleLike}
+            customStyles={styles.goThereButton}
+            imageStyle={{height: 40, width: 40}}
+            textStyle={customStyle.normalText}
+            text={i18n.t("locationInfo.getThere")}
+          />
+      </View>
+
       <View style={styles.botBarContent}>
         <CustomButton
           imageSrc={isLiked
-            ? require("../../../../assets/images/like.png")
-            : require("../../../../assets/images/blank-like.png")
+            ? require("../../../../assets/images/icons/like.png")
+            : require("../../../../assets/images/icons/blank-like.png")
           }
           onPress={handleLike}
-          customStyles={styles.favButtonContainer}
-          imageStyle={{width: "70%", height: "70%"}}
+          customStyles={styles.likeButtonContainer}
+          imageStyle={{height: 40, width: 40}}
+          text={stationLikes + " " + i18n.t('locationInfo.likesNumber')}
+          textStyle={customStyle.smallText}
         />
         <CustomButton
           imageSrc={require("../../../../assets/images/icons/flag.png")}
           onPress={() => setReportStationVisible(true)}
-          customStyles={styles.favButtonContainer}
-          imageStyle={{width: "70%", height: "70%"}}
+          customStyles={styles.likeButtonContainer}
+          imageStyle={{height: 40, width: 40}}
+          text={stationReports + " " + i18n.t('locationInfo.reportsNumber')}
+          textStyle={customStyle.smallText}
         />
+        
         <CustomButton
-          imageSrc={ require("../../../../assets/images/direction.png") }
-          onPress={handleLike}
-          customStyles={styles.favButtonContainer}
-          imageStyle={{width: "70%", height: "70%"}}
-        />
-        <CustomButton
-          imageSrc={isLiked
-            ? require("../../../../assets/images/like.png")
-            : require("../../../../assets/images/blank-like.png")
-          }
+          imageSrc={ require("../../../../assets/images/icons/share.png") }
           onPress={handleShare}
-          customStyles={styles.favButtonContainer}
-          imageStyle={{width: "70%", height: "70%"}}
+          customStyles={styles.likeButtonContainer}
+          imageStyle={{height: 40, width: 40}}
+          textStyle={customStyle.smallText}
+          text={i18n.t('locationInfo.shareStation')}
         />
 
       </View>
@@ -273,25 +271,32 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   locationInfo: {
-    height: "65%",
+    height: "50%",
     width: "100%",
   },
   botBarContent: {
-    width: "100%",
-    height: "15%",
+    width: "95%",
+    height: 70,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginLeft: "auto",
-    marginTop: "auto",
-    borderWidth: 1,
+    alignSelf: "center",
+    alignItems: "center",
   },
   goThereButton: {
-    backgroundColor: "#1D69A6",
-    width: "33%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 5,
+    backgroundColor: "#f3edff",
+    width: "45%",
+    justifyContent: "space-around",
+
+    flexDirection: "row-reverse",
     height: "100%",
+  },
+  getThereContent: {
+    width: "90%",
+    height: 50,
+    alignSelf: "center",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   buttonText: {
     color: "#FFFFFF",
@@ -302,13 +307,24 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: "2%",
     borderRadius: 10,
+    width: "45%",
+    height: "100%",
   }),
   favButtonContainer: {
-    height: 40,
-    width: 40,
+    height: 50,
+    width: 50,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
+    flexDirection: "column-reverse",
+  },
+  likeButtonContainer: {
+    height: 50,
+    width: "24%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    flexDirection: "column-reverse",
   },
   favButtonImage: {
     

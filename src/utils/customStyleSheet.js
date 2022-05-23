@@ -129,6 +129,11 @@ module.exports = StyleSheet.create({
         fontFamily: 'Montserrat-Regular',
         color: "black",
     },
+    smallText: {
+        fontSize: 11,
+        fontFamily: 'Montserrat-Regular',
+        color: "black",
+    },
     submitButtonText: {
         fontSize: 15,
         color: "white",
@@ -207,13 +212,13 @@ module.exports = StyleSheet.create({
         borderRadius: 15,
         borderColor: "#bbb",
         textAlign: 'left',
-        justifyContent: 'center',
+        textAlignVertical: 'center',
         backgroundColor: '#eee',
         
     },
     progressBarFill: {
         backgroundColor: "#5CB362",
-        borderRadius: 15,
+        borderRadius: 13,
         textAlignVertical: 'center',
         height: "100%",
 

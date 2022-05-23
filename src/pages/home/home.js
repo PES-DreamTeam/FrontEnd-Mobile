@@ -120,9 +120,11 @@ export default function HomeScreen({ navigation }) {
         ActivateRoute={ActivateRoute}
         onChangeFilter={ChangeMapFilter}
         ChangeRoutingInfo={changeRouteInfo}
+        stationInfoOpened={currentStationInfo!==null}
         
       />
       }
+      
 
       <LocationInfo
         stationInfo={openSearchBar? currentStationInfo : null}
@@ -132,10 +134,7 @@ export default function HomeScreen({ navigation }) {
       />
 
       
-      {/* <FilterMap
-        ChangeRoutingInfo={changeRouteInfo}
-        ActivateRoute={ActivateRoute}
-      /> */}
+      
     </View>
   );
 }
@@ -167,6 +166,11 @@ const styles = StyleSheet.create({
     height: "100%",
     /*     alignItems: "center", */
     alignItems: "center",
+  },
+  filters: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
   },
   searchBarContainer: {
     width: "85%",
