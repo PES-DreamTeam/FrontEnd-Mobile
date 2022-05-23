@@ -46,9 +46,7 @@ function RoutesInfo(props) {
               latitude:props?.routeActivate?.latitude,
               longitude: props?.routeActivate?.longitude,
               id: props?.routeActivate?.id,
-              objectType: "vehicleStation",
-              distancia: props?.routingInfo?.distance,
-              
+              objectType: "vehicleStation", 
 
               });   
             }}
