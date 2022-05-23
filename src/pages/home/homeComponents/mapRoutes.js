@@ -64,8 +64,14 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
           <View>
               {necesitaRecarga ?
                <Marker 
+               
                 coordinate={{latitude: closest.nearest[0].lat, longitude: closest.nearest[0].lng}}
-                ></Marker>
+                >
+                <Image
+               source = {(require( '../../../../assets/images/icons/station.png'))}
+               style={styles.icon}
+               />
+                </Marker>
          : null}
               { necesitaRecarga ?
               <MapViewDirections
@@ -109,5 +115,11 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
         }
      </View>
     );
-
+   
 }
+const styles = StyleSheet.create({
+    icon: {
+        width: 25,
+        height: 24
+    },
+})
