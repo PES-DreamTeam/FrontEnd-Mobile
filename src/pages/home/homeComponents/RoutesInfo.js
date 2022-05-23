@@ -4,9 +4,13 @@ import { StyleSheet, Pressable, View, Text } from "react-native";
 import ChargeStationInfo from "./stationComponents/chargeStationInfo";
 import BikeStationInfo from "./stationComponents/bikeStationInfo";
 import CustomButton from "../../../utils/button"
+import useMap from "../../../hooks/useMap";
 
 function RoutesInfo(props) {
+
+  const { userLocation } = useMap();
   
+    
   const [routeInfoStyle, setRouteInfoStyle] = useState(
     styles.routeInfoClosed
   );
@@ -20,6 +24,10 @@ function RoutesInfo(props) {
       
     }
   }, [props]);
+  /*
+  console.log("routeinfor")
+  console.log(props)
+  */
  
 
 
@@ -33,11 +41,15 @@ function RoutesInfo(props) {
             text={"coche"}
             routeActivate={props.routeActivate}
             onPress={() => {
+              
               props.ActivateRoute({
               latitude:props?.routeActivate?.latitude,
               longitude: props?.routeActivate?.longitude,
               id: props?.routeActivate?.id,
-              objectType: "vehicleStation"
+              objectType: "vehicleStation",
+              distancia: props?.routingInfo?.distance,
+              
+
               });   
             }}
         />
