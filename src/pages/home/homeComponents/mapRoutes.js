@@ -2,6 +2,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import React, { Component, useEffect, useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import { StyleSheet, ActivityIndicator, View, Image, TouchableOpacity } from 'react-native';
 import {API_KEY} from '@env';
+import {  Marker } from 'react-native-maps';
 import useCloseStation from "../../../hooks/useCloseStation";
 
 
@@ -61,6 +62,11 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
     const necesitaRecarga = distancia > autonomia && closest.nearest != null && closest.nearest != undefined; 
     return(
           <View>
+              {necesitaRecarga ?
+               <Marker 
+                coordinate={{latitude: closest.nearest[0].lat, longitude: closest.nearest[0].lng}}
+                ></Marker>
+         : null}
               { necesitaRecarga ?
               <MapViewDirections
               origin={location}
@@ -69,7 +75,6 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
               waypoints={ [{latitude: closest.nearest[0].lat, longitude: closest.nearest[0].lng}] }
               splitWaypoints={true}
               optimizeWaypoints={true}
-              stopover={true}
               mode={lineStyle.mode}
               strokeWidth={lineStyle.width}
               strokeColor={lineStyle.color}
