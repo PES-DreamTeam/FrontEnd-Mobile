@@ -128,8 +128,8 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo,
           <CustomButton
             customStyles={[styles.floatingButton, styles.leftFloat]}
             onPress={cancelRoute}
-            imageSrc={require('../../../../assets/images/cancel.png')}
-            imageStyle={{width: "100%", height: "100%"}}
+            imageSrc={require('../../../../assets/images/icons/cancel.png')}
+            imageStyle={{width: "40%", height: "40%"}}
           />
         : null}
 

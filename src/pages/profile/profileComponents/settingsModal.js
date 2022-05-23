@@ -91,7 +91,7 @@ export default ({isVisible, handleCancel}) => {
                                 <CustomButton
                                     onPress={onSubmitDelete}
                                     text={i18n.t("miscelaneus.delete")}
-                                    customStyles={{marginVertical: 20, width: '100%', backgroundColor: 'red'}}
+                                    customStyles={{marginVertical: 20, width: '100%', backgroundColor: '#de3e44'}}
                                 />
                             </View>
                         </View>

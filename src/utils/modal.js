@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green',
     },
     cancelButton: {
-        backgroundColor: 'red',
+        backgroundColor: '#de3e44',
         width: "45%",
         height: "100%",
         justifyContent: 'center',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     acceptButton: {
-        backgroundColor: 'green',
+        backgroundColor: '#2e942b',
         width: "45%",
         height: "100%",
         justifyContent: 'center',

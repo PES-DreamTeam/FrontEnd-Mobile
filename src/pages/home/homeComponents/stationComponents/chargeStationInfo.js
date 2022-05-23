@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   socketImage: {
-    height: 31,
-    width: 30,
+    height: 42,
+    width: 40,
     marginLeft: 5,
   },
 });

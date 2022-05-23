@@ -67,6 +67,17 @@ function LocationInfo(props) {
       });
   };
 
+  const handleRoute = () => {
+    props.ActivateRoute({
+      latitude: props?.stationInfo?.lat,
+      longitude: props?.stationInfo?.lng,
+      id: props?.stationInfo?.id,
+      objectType: props?.stationInfo?.objectType,
+    });
+    props.onChangeFilter("singleCharge");
+    updateAchievement(2);
+  };
+
   const handleShare = async () => {
     const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + props.stationInfo.name + "'" + `${i18n.t("locationInfo.shareMessage2")}`
                   + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
@@ -173,16 +184,20 @@ function LocationInfo(props) {
       <View style={styles.locationInfo}>
         <GenericLocationInfo stationInfo={props?.stationInfo} />
       </View>
-
+      
       <View style={styles.getThereContent}>
-        <Text style={[styles.pollutionText(pollutionColor),customStyle.normalText]}>
-          {i18n.t("locationInfo.pollutionLevel")} {'\n'} {pollution}
+        <Text style={[/* styles.pollutionText(pollutionColor), */customStyle.normalText]}>
+            {i18n.t("locationInfo.pollutionLevel")} {'\n'}
+            <View style={styles.pollutionRow}>
+                <View style={[styles.circle, {backgroundColor: pollutionColor}]}/>
+                <Text style={{marginLeft: 10}}>{pollution}</Text>
+            </View>
         </Text>
         <CustomButton
             imageSrc={ require("../../../../assets/images/icons/directions.png") }
-            onPress={handleLike}
+            onPress={handleRoute}
             customStyles={styles.goThereButton}
-            imageStyle={{height: 40, width: 40}}
+            imageStyle={{height: 30, width: 30}}
             textStyle={customStyle.normalText}
             text={i18n.t("locationInfo.getThere")}
           />
@@ -196,7 +211,7 @@ function LocationInfo(props) {
           }
           onPress={handleLike}
           customStyles={styles.likeButtonContainer}
-          imageStyle={{height: 40, width: 40}}
+          imageStyle={{height: 30, width: 30}}
           text={stationLikes + " " + i18n.t('locationInfo.likesNumber')}
           textStyle={customStyle.smallText}
         />
@@ -204,7 +219,7 @@ function LocationInfo(props) {
           imageSrc={require("../../../../assets/images/icons/flag.png")}
           onPress={() => setReportStationVisible(true)}
           customStyles={styles.likeButtonContainer}
-          imageStyle={{height: 40, width: 40}}
+          imageStyle={{height: 30, width: 30}}
           text={stationReports + " " + i18n.t('locationInfo.reportsNumber')}
           textStyle={customStyle.smallText}
         />
@@ -213,7 +228,7 @@ function LocationInfo(props) {
           imageSrc={ require("../../../../assets/images/icons/share.png") }
           onPress={handleShare}
           customStyles={styles.likeButtonContainer}
-          imageStyle={{height: 40, width: 40}}
+          imageStyle={{height: 30, width: 30}}
           textStyle={customStyle.smallText}
           text={i18n.t('locationInfo.shareStation')}
         />
@@ -266,6 +281,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  pollutionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "red",
+  },
   highlightContent: {
     height: "65%",
     width: "100%",
@@ -273,6 +294,11 @@ const styles = StyleSheet.create({
   locationInfo: {
     height: "50%",
     width: "100%",
+  },
+  circle: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
   },
   botBarContent: {
     width: "95%",
@@ -284,7 +310,7 @@ const styles = StyleSheet.create({
   },
   goThereButton: {
     backgroundColor: "#f3edff",
-    width: "45%",
+    width: "50%",
     justifyContent: "space-around",
 
     flexDirection: "row-reverse",
@@ -296,7 +322,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "flex-end",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   buttonText: {
     color: "#FFFFFF",
