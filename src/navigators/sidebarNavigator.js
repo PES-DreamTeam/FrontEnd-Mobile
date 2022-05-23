@@ -3,7 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainNavigator } from "./mainNavigator";
-import { ProfileScreen, SettingsScreen, VehicleConfig } from "../pages";
+import { ProfileScreen, SettingsScreen, VehicleConfig, OnBoarding } from "../pages";
 import useAuth from "../hooks/useAuth";
 import useUserSettings from "../hooks/useUserSettings";
 import { CustomDrawer } from "./customDrawer";
@@ -72,6 +72,11 @@ function SidebarNavigator() {
           name="VehicleConfig"
           component={VehicleConfig}
           options={{ drawerItemStyle: { display: "none" } }}
+        />
+        <Stack.Screen
+          name="OnBoarding"
+          component={OnBoarding}
+           options={{ drawerItemStyle: { display: "none" } }}
         />
         <Stack.Screen
           name="ReportAplicationScreen"

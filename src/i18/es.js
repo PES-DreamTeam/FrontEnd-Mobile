@@ -107,8 +107,8 @@ const es = {
 		likesNumber: "Me gustas",
 		reportsNumber: "Reportes",
 		report: "Reportar",
-		pollutionLevel: "Nivel de contaminación",
-		shareStation: "Compartir estación",
+		pollutionLevel: "Contaminación:",
+		shareStation: "Compartir",
 		shareMessage: "Ey! Echa un vistazo a",
 		shareMessage2: ". Nos vemos ahí!",
 	}, 
@@ -207,6 +207,21 @@ const es = {
 		answerSafeData: "Sí, toda la información está encriptada y cumple con los estándares de seguridad más exigentes.",
 		howToDelete: "¿Cómo doy de baja mi cuenta en EcoRoads?",
 		answerHowToDelete: "Lo puedes hacer desde la app, en la sección de configuración en el perfil. Pulsando en el botón de 'Eliminar Cuenta', toda tu información se eliminará de la base de datos de EcoRoads.",
+	}, 
+	onboarding: {
+		title1: "Bienvenido a Ecoroads",
+		subtitle1: "La aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente",
+		title2: "Personaliza tu perfil",
+		subtitle2: "Añade tus vehículos y cambia su color a tu parecer",
+		title3: "Crea rutas fáciles de seguir",
+		subtitle3: "Descubre rutas que se ajustan a tu autonomía",
+		title4: "Consulta la disponibilidad",
+		subtitle4: "Conoce el estado de cualquier estación en tiempo real",
+		title5: "Obtén logros",
+		subtitle5: "Y compartelos con tus amigos para fardar de ello",
+		skip: "Saltar",
+		next: "Siguiente",
+		done: "Finalizar",
 	}
 }
 export{ es }

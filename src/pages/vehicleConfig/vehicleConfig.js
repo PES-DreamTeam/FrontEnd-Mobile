@@ -48,8 +48,6 @@ function VehicleConfig({ navigation }) {
         if (selectedBrand !== '') {
             let temp = await getVehicleModels(selectedBrand);
             let models =  [...new Set(temp.map(item => item.model))];
-            console.log("holi");
-            console.log(models);
             models?.sort();
             setVehicleModels(models);
             setVehicle({...vehicle, ['vehicleBrand']: selectedBrand});

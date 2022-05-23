@@ -94,8 +94,8 @@ getThere,Get there!,¡Llévame!,Porta-m'hi!
 likesNumber,Likes,Me gustas,M'agrades
 reportsNumber,Reports,Reportes,Incidències
 report,Report,Reportar,Reportar
-pollutionLevel,Pollution level,Nivel de contaminación,Nivell de contaminació
-shareStation,Share station,Compartir estación,Compartir estació
+pollutionLevel,Pollution:,Contaminación:,Contaminació:
+shareStation,Share,Compartir,Compartir
 shareMessage,Hey! Check out,Ey! Echa un vistazo a,Ei! Fes-li una ullada a
 shareMessage2, station. Meet you there!,. Nos vemos ahí!,. Ens veiem allà!
 ,,,
@@ -180,10 +180,25 @@ personalizeMap,Can I customize the map?,¿Puedo personalizar el mapa?,Puc person
 answerPersonalizeMap,"Yes, you can easily filter on the map the information of the charging points you want at any time. You can also add stations to your favorites section and filter the map based on them.","Sí, puedes filtrar fácilmente en el mapa la información de los puntos de carga que quieras en todo momento. Además puedes añadir estaciones a tu sección de favoritos y filtrar el mapa en base a estos.","Sí, pots filtrar fàcilment al mapa la informació dels punts de càrrega que vulguis en tot moment. A més pots afegir estacions a la teva secció de favorits i filtrar el mapa sobre la base d'aquests."
 technicalIncidence,What do I do if I have a technical issue?,¿Qué hago si tengo una incidencia técnica?,Què faig si tinc una incidència tècnica?
 answer1TechnicalIncidence,"If it is a technical issue related to a charging point, you can access the additional information mode of that station to report directly the problem you are experiencing.","Si se trata de una incidencia técnica relacionada con algún punto de carga, puedes acceder al modal de información adicional de esa estación para reportar directamente el problema que tengas","Si es tracta d'una incidència tècnica relacionada amb algun punt de càrrega, podeu accedir al modal d'informació addicional d'aquesta estació per reportar directament el problema que tingueu"
-answer2TechnicalIncidence,"f it is a technical issue of the application itself, you can access the reports section of the application, located in the side navigation bar, to report the information you see fit.","Si se trata de una incidencia técnica de la propia aplicación, puedes acceder a la sección de reportes de la aplicación, situada en la barra de navegación lateral, para reportar la información que veas conveniente.","Si es tracta d'una incidència tècnica de la pròpia aplicació, podeu accedir a la secció de reports de l'aplicació, situada a la barra de navegació lateral, per reportar la informació que veieu convenient."
+answer2TechnicalIncidence,"If it is a technical issue of the application itself, you can access the reports section of the application, located in the side navigation bar, to report the information you see fit.","Si se trata de una incidencia técnica de la propia aplicación, puedes acceder a la sección de reportes de la aplicación, situada en la barra de navegación lateral, para reportar la información que veas conveniente.","Si es tracta d'una incidència tècnica de la pròpia aplicació, podeu accedir a la secció de reports de l'aplicació, situada a la barra de navegació lateral, per reportar la informació que veieu convenient."
 mandatorySignIn,Do I need to register to use EcoRoads?,¿Es necesario registrarse para utilizar EcoRoads?,És necessari registrar-se per utilitzar EcoRoads?
 answerMandatorySignIn,"Without a user account you will not be able to access EcoRoads functionalities, therefore it is essential that you register.","Sin una cuenta de usuario no podrás acceder a las funcionalidades de EcoRoads, por lo tanto es imprescindible que te registres.","Sense un compte d'usuari no podràs accedir a les funcionalitats d'EcoRoads, per tant, és imprescindible que et registris."
 safeData,Is my personal data secure in the system?,¿Están seguros mis datos personales en el sistema?,Estan segures les meves dades personals al sistema?
 answerSafeData,"Yes, all information is encrypted and meets the highest security standards.","Sí, toda la información está encriptada y cumple con los estándares de seguridad más exigentes.","Sí, tota la informació està encriptada i compleix els estàndards de seguretat més exigents."
 howToDelete,How do I delete my EcoRoads account?,¿Cómo doy de baja mi cuenta en EcoRoads?,Com dono de baixa el meu compte a EcoRoads?
 answerHowToDelete,"You can do this from the app, in the settings section in the profile. By clicking on the 'Delete Account' button, all your information will be removed from the EcoRoads database.","Lo puedes hacer desde la app, en la sección de configuración en el perfil. Pulsando en el botón de 'Eliminar Cuenta', toda tu información se eliminará de la base de datos de EcoRoads.","Ho pots fer des de l'app, a la secció de configuració al perfil. Fent clic al botó d''Eliminar Compte', tota la teva informació s'eliminarà de la base de dades d'EcoRoads."
+,,,
+PAGE_onboarding,,,
+title1,Welcome to Ecoroads,Bienvenido a Ecoroads,Benvingut a Ecoroads
+subtitle1,The app to plan your Eco-Friendly trips efficiently,La aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente,L'aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient
+title2,Customize your profile,Personaliza tu perfil,Personalitza el teu perfil
+subtitle2,Add your vehicles and change their color to your liking,Añade tus vehículos y cambia su color a tu parecer,Afegeix els teus vehicles i canvia el seu color al teu parer
+title3,Create easy-to-follow routes,Crea rutas fáciles de seguir,Crea rutes fàcils de seguir
+subtitle3,And get redirected if your EV's battery is too low,Descubre rutas que se ajustan a tu autonomía,Descobreix rutes que s'ajusten a la teva autonomía
+title4,Check the availability,Consulta la disponibilidad,Consulta la disponibilitat
+subtitle4,Know the status of any station in real time,Conoce el estado de cualquier estación en tiempo real,Coneix l'estat de qualsevol estació en temps real
+title5,Obtain achievements,Obtén logros,Obté assoliments
+subtitle5,And share them with your friends to brag about it,Y compartelos con tus amigos para fardar de ello,I comparteix-los amb els teus amics per a fardar-ne
+skip,Skip,Saltar,Saltar
+next,Next,Siguiente,Següent
+done,Done,Finalizar,Finalitzar
