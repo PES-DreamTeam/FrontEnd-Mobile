@@ -3,7 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainNavigator } from "./mainNavigator";
-import { ProfileScreen, SettingsScreen, VehicleConfig, OnBoarding } from "../pages";
+import { ProfileScreen, SettingsScreen, VehicleConfig,VehicleConfigStarter, OnBoarding } from "../pages";
 import useAuth from "../hooks/useAuth";
 import useUserSettings from "../hooks/useUserSettings";
 import { CustomDrawer } from "./customDrawer";
@@ -22,7 +22,21 @@ function SidebarNavigator() {
   const { auth } = useAuth();
 
   return auth?.user?.isNew ? (
-    <VehicleConfig />
+    <NavigationContainer>
+      <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
+        <Stack.Screen
+          name="VehicleConfigStarter"
+          component={VehicleConfigStarter}
+          options={{ drawerItemStyle: { display: "none" } }}
+        />
+        <Stack.Screen
+          name="OnBoardingStart"
+          component={OnBoarding}
+           options={{ drawerItemStyle: { display: "none" } }}
+        />
+      </Drawer.Navigator>
+      <VehicleConfigStarter />
+    </NavigationContainer>
   ) : (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>

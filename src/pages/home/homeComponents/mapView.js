@@ -51,14 +51,12 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo,
   const mapRef = useRef(null);
   
   const centerPosition = async () => {
-    console.log("CENTER POSITION");
     mapRef.current.animateToRegion(
       userLocation,
       1500)
   }
 
   const centerPositionOnStation = async () => {
-    console.log("CENTER ON STATION");
     mapRef.current.animateToRegion(
       {
       latitude:currentStationInfo?.lat,
@@ -73,8 +71,6 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo,
     onChangeFilter((mapFilter));
     ChangeRoutingInfo(null);
   }
-
-  console.log("vehicle", vehicleType, color );
 
   return (
       <View style ={styles.mapContent}>

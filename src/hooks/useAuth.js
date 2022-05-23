@@ -84,8 +84,6 @@ const useAuth = () => {
   };
 
   const updateUserAsync = async (user) => {
-    console.log("update backend");
-    console.log(user);
     await axios.put(`${API_HOST}/api/users`, user);
   };
 

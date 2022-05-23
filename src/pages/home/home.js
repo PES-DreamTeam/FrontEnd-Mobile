@@ -53,7 +53,6 @@ export default function HomeScreen({ navigation }) {
 
 
   const OpenStationInfo = (station) => {
-    //console.log(station);
     setStationInfo(station);
   };
 

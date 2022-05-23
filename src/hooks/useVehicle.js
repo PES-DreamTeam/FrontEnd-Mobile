@@ -19,7 +19,6 @@ const useVehicle = () => {
     try{
       const response = await axios.get(`${API_HOST}/api/sampleVehicles/models?brand=${brand}`);
       const data = response.data;
-      console.log(brand);
       return data.models;
     }
     catch(err){

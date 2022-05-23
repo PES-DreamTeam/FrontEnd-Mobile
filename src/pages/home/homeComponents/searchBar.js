@@ -59,7 +59,6 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
                     <TouchableOpacity 
                     style={styles.listItem}
                     onPress={() => {
-                        //console.log(item); 
                         handleOnSearch(item);
                         setOpenSearchBar("none");
                         setText(null);

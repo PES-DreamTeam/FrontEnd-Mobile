@@ -16,7 +16,6 @@ const useExternalService = () => {
     const getAllPollutionStations = async () => {
         try {
             const res = await axios.get(`${EXTERNAL_API_HOST}/stations`);
-            console.log(res);
             return res;
         } catch (error) {
             console.log(error);

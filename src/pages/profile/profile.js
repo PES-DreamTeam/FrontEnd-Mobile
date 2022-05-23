@@ -112,11 +112,9 @@ function ProfileScreen({ navigation }) {
   async function DeleteVehicle() {
     let temp = JSON.parse(JSON.stringify(user.vehicleConfig));
     let tempSelected = user.currentVehicle;
-    console.log(tempSelected, vehicleSelected);
     if(tempSelected == vehicleSelected) {
       tempSelected = 0;
     }
-    console.log(tempSelected, vehicleSelected);
     
     await deleteVehicleConfig(user.vehicleConfig[vehicleSelected].numberPlate);
     temp.splice(toDeleteElement, 1);

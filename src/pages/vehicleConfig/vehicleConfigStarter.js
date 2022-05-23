@@ -12,7 +12,7 @@ import CustomDropDown from '../../utils/customDropDown';
 import carTypeImages from '../../utils/carTypeImages';
 
 
-function VehicleConfig({ navigation }) {    
+function VehicleConfigStarter({ navigation }) {    
 
     const { sendConfig } = useVehicleConfig();
 
@@ -97,7 +97,7 @@ function VehicleConfig({ navigation }) {
     ]
     
     useEffect(async ()=>{
-        let brands = await getVehicleBrands();
+        let brands = await getVehicleBrands();  
         if(brands) {
             brands?.sort();
             setVehicleBrands(brands);
@@ -155,13 +155,15 @@ function VehicleConfig({ navigation }) {
             });
         }else {
             sendConfig(vehicle)
-                .then(user => {                                        
+                .then(user => {                                       
                     setAuth({
                         ...auth,
                         user: user
                     });
                     setVehicle(initialState);
-                    navigation.navigate("Profile");
+                    console.log('Llego.');
+                    navigation.navigate("Home");
+                    console.log('No Llego.');
                 })
                 .catch(err => {
                     setError({
@@ -176,6 +178,9 @@ function VehicleConfig({ navigation }) {
     const markAsNotNew = () => {
         clearAllFields();
         updateUser({...auth.user, isNew: false});
+        console.log('Llego aqui.');
+        navigation.navigate("Home");
+        console.log('No Llego aqui.');
     }
 
     const clearAllFields = () => {
@@ -184,7 +189,9 @@ function VehicleConfig({ navigation }) {
 
     const cancel = () => {
         clearAllFields();
-        navigation.navigate("Profile");
+        console.log('Llego aqui.');
+        navigation.navigate("OnBoarding");
+        console.log('No Llego aqui.');
     }
 
     return(
@@ -351,4 +358,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export {VehicleConfig}
+export {VehicleConfigStarter}

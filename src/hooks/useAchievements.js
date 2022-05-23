@@ -109,7 +109,6 @@ const useAchievements = () => {
 
   const getAchievementInfo = async () => {
     try {
-      console.log(`${API_HOST}/api/achievements/`);
       const res = await axios.get(`${API_HOST}/api/achievements/`);
       return res.data;
     } catch (error) {

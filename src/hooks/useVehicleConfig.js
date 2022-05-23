@@ -42,9 +42,7 @@ const useVehicleConfig = () => {
     const deleteVehicleConfig = async (numberPlate) => {
         const id = auth.user._id;
         try {
-            console.log(numberPlate);
             const response = await axios.delete(`${API_HOST}/api/users/${id}/vehicleConfig/${numberPlate.trim()}`);
-            console.log(response);
         } 
         catch(error) {
             console.log(error);

@@ -208,7 +208,6 @@ const carTypeImages = () => {
     }
 
     const GetCarImage = (carType, carColor) => {
-        console.log(carType, carColor);
         if(carType === undefined || carType === null || carType < 0 || carType > 8) {
             return require('./../../assets/images/newCarsSmall/type8/carType8_black.png');
         }
