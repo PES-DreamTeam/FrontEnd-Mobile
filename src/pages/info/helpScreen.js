@@ -6,6 +6,7 @@ import FaqScreen from "./helpScreens/faqScreen";
 import MainList from "./helpScreens/mainList";
 import Icon from "react-native-vector-icons/Ionicons";
 import TutorialScreen from "./helpScreens/tutorialScreen";
+import { OnBoarding } from "../onBoarding/onBoarding";
 
 function HelpScreen({ navigation }) {
   const Stack = createStackNavigator();
@@ -34,7 +35,7 @@ function HelpScreen({ navigation }) {
             />
           <Stack.Screen
             name="TutorialScreen"
-            component={TutorialScreen}
+            component={OnBoarding}
             options={{
               title: "Tutoriales",
             }}

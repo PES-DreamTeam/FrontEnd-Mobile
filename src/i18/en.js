@@ -207,6 +207,21 @@ const en = {
 		answerSafeData: "Yes, all information is encrypted and meets the highest security standards.",
 		howToDelete: "How do I delete my EcoRoads account?",
 		answerHowToDelete: "You can do this from the app, in the settings section in the profile. By clicking on the 'Delete Account' button, all your information will be removed from the EcoRoads database.",
+	}, 
+	onboarding: {
+		title1: "Welcome to Ecoroads",
+		subtitle1: "The app to plan your Eco-Friendly trips efficiently",
+		title2: "Customize your profile",
+		subtitle2: "Add your vehicles and change their color to your liking",
+		title3: "Create easy-to-follow routes",
+		subtitle3: "And get redirected if your EV's battery is too low",
+		title4: "Check the availability",
+		subtitle4: "Know the status of any station in real time",
+		title5: "Obtain achievements",
+		subtitle5: "And share them with your friends to brag about it",
+		skip: "Skip",
+		next: "Next",
+		done: "Done",
 	}
 }
 export{ en }

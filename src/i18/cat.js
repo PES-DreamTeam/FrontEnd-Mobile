@@ -207,6 +207,21 @@ const cat = {
 		answerSafeData: "Sí, tota la informació està encriptada i compleix els estàndards de seguretat més exigents.",
 		howToDelete: "Com dono de baixa el meu compte a EcoRoads?",
 		answerHowToDelete: "Ho pots fer des de l'app, a la secció de configuració al perfil. Fent clic al botó d''Eliminar Compte', tota la teva informació s'eliminarà de la base de dades d'EcoRoads.",
+	}, 
+	onboarding: {
+		title1: "Benvingut a Ecoroads",
+		subtitle1: "L'aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient",
+		title2: "Personalitza el teu perfil",
+		subtitle2: "Afegeix els teus vehicles i canvia el seu color al teu parer",
+		title3: "Crea rutes fàcils de seguir",
+		subtitle3: "Descobreix rutes que s'ajusten a la teva autonomía",
+		title4: "Consulta la disponibilitat",
+		subtitle4: "Coneix l'estat de qualsevol estació en temps real",
+		title5: "Obté assoliments",
+		subtitle5: "I comparteix-los amb els teus amics per a fardar-ne",
+		skip: "Saltar",
+		next: "Següent",
+		done: "Finalitzar",
 	}
 }
 export{ cat }

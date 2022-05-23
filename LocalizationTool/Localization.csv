@@ -187,3 +187,18 @@ safeData,Is my personal data secure in the system?,¿Están seguros mis datos pe
 answerSafeData,"Yes, all information is encrypted and meets the highest security standards.","Sí, toda la información está encriptada y cumple con los estándares de seguridad más exigentes.","Sí, tota la informació està encriptada i compleix els estàndards de seguretat més exigents."
 howToDelete,How do I delete my EcoRoads account?,¿Cómo doy de baja mi cuenta en EcoRoads?,Com dono de baixa el meu compte a EcoRoads?
 answerHowToDelete,"You can do this from the app, in the settings section in the profile. By clicking on the 'Delete Account' button, all your information will be removed from the EcoRoads database.","Lo puedes hacer desde la app, en la sección de configuración en el perfil. Pulsando en el botón de 'Eliminar Cuenta', toda tu información se eliminará de la base de datos de EcoRoads.","Ho pots fer des de l'app, a la secció de configuració al perfil. Fent clic al botó d''Eliminar Compte', tota la teva informació s'eliminarà de la base de dades d'EcoRoads."
+,,,
+PAGE_onboarding,,,
+title1,Welcome to Ecoroads,Bienvenido a Ecoroads,Benvingut a Ecoroads
+subtitle1,The app to plan your Eco-Friendly trips efficiently,La aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente,L'aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient
+title2,Customize your profile,Personaliza tu perfil,Personalitza el teu perfil
+subtitle2,Add your vehicles and change their color to your liking,Añade tus vehículos y cambia su color a tu parecer,Afegeix els teus vehicles i canvia el seu color al teu parer
+title3,Create easy-to-follow routes,Crea rutas fáciles de seguir,Crea rutes fàcils de seguir
+subtitle3,And get redirected if your EV's battery is too low,Descubre rutas que se ajustan a tu autonomía,Descobreix rutes que s'ajusten a la teva autonomía
+title4,Check the availability,Consulta la disponibilidad,Consulta la disponibilitat
+subtitle4,Know the status of any station in real time,Conoce el estado de cualquier estación en tiempo real,Coneix l'estat de qualsevol estació en temps real
+title5,Obtain achievements,Obtén logros,Obté assoliments
+subtitle5,And share them with your friends to brag about it,Y compartelos con tus amigos para fardar de ello,I comparteix-los amb els teus amics per a fardar-ne
+skip,Skip,Saltar,Saltar
+next,Next,Siguiente,Següent
+done,Done,Finalizar,Finalitzar
