@@ -18,8 +18,20 @@ const useCloseStation = () =>  {
    
     return data
   }
+  
+  const getCloserStationAvailable = async(latitude, longitude, distance) =>{
+    //console.log("url")
+    //console.log(`${api}`,{latitude,longitude,howmany});
+    const response = await axios.get(`https://pes-backend-development.herokuapp.com/api/service/closestAvailable?lat=${latitude}&lng=${longitude}&distance=${distance}
+    `);
+    const data = response.data
+   
+    return data
+  }
+
   return {
-    getCloserStation
+    getCloserStation,
+    getCloserStationAvailable,
   };
 };
 export default useCloseStation;

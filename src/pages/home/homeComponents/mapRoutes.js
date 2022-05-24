@@ -34,9 +34,9 @@ export default ({ routeActivate, location, ChangeRoutingInfo }) => {
     color: "red",
   });
   const [distancia, setDistancia] = useState(0);
-  const [closest, setClosest] = useState({});
-  let autonomia = 3;
-  const isLoading = false;
+  const [closestFree, setClosestFree] = useState({});
+  let autonomia = 10;
+ 
 
   const toast = useToast();
 
@@ -45,19 +45,29 @@ export default ({ routeActivate, location, ChangeRoutingInfo }) => {
   }, [routeActivate]);
 
   const { getCloserStation } = useCloseStation();
-  const [estation, setStation] = useState([]);
+  const { getCloserStationAvailable } = useCloseStation();
+  
 
   useEffect(async () => {
-    getStation();
+    //getStation();
+    getStationFree();
   }, []);
 
   const getStation = async () => {
     let stacion = await getCloserStation(
       location.latitude,
       location.longitude,
-      1
+      1,
     );
-    setClosest(stacion);
+    setClosestFree(stacion);
+  };
+  const getStationFree = async () => {
+    let stacion = await getCloserStationAvailable(
+      location.latitude,
+      location.longitude,
+      autonomia,
+    );
+    setClosestFree(stacion);
   };
   //console.log(estation)
   //console.log(estation?.nearest[0]?.lat)
@@ -99,19 +109,27 @@ export default ({ routeActivate, location, ChangeRoutingInfo }) => {
     });
   };
 
+ 
+   if(closestFree.nearest == null &&
+      closestFree.nearest == undefined){
+        getStation();
+      }
+
+
   const necesitaRecarga =
-    distancia > autonomia &&
-    closest.nearest != null &&
-    closest.nearest != undefined &&
-    routeActivate?.objectType === "vehicleStation";
+  distancia > autonomia &&
+  closestFree.nearest != null &&
+  closestFree.nearest != undefined &&
+  routeActivate?.objectType === "vehicleStation";
+
   return (
     <View>
       {necesitaRecarga ? (
         <Marker
-          title={closest.nearest[0].name}
+          title={closestFree.nearest[0].name}
           coordinate={{
-            latitude: closest.nearest[0].lat,
-            longitude: closest.nearest[0].lng,
+            latitude: closestFree.nearest[0].lat,
+            longitude: closestFree.nearest[0].lng,
           }}
         >
           <Image
@@ -127,8 +145,8 @@ export default ({ routeActivate, location, ChangeRoutingInfo }) => {
           apikey={API_KEY}
           waypoints={[
             {
-              latitude: closest.nearest[0].lat,
-              longitude: closest.nearest[0].lng,
+              latitude: closestFree.nearest[0].lat,
+              longitude: closestFree.nearest[0].lng,
             },
           ]}
           splitWaypoints={true}
