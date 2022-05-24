@@ -222,6 +222,16 @@ const cat = {
 		skip: "Saltar",
 		next: "Següent",
 		done: "Finalitzar",
+	}, 
+	warningToast: {
+		title: "Autonomia Insuficient",
+		message: "Passi per l'estació mostrada per repostar",
+	}, 
+	help: {
+		chat: "Xat",
+		faq: "FAQs",
+		title: "Secció d'ajuda",
+		tutorial: "Tutorial",
 	}
 }
 export{ cat }

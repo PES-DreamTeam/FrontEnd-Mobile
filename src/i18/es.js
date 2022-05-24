@@ -222,6 +222,16 @@ const es = {
 		skip: "Saltar",
 		next: "Siguiente",
 		done: "Finalizar",
+	}, 
+	warningToast: {
+		title: "Autonomia Insuficiente",
+		message: "Pase por la estación mostrada para repostar",
+	}, 
+	help: {
+		chat: "Chat",
+		faq: "FAQs",
+		title: "Sección de ayuda",
+		tutorial: "Tutorial",
 	}
 }
 export{ es }

@@ -7,8 +7,11 @@ import MainList from "./helpScreens/mainList";
 import Icon from "react-native-vector-icons/Ionicons";
 import TutorialScreen from "./helpScreens/tutorialScreen";
 import { OnBoarding } from "../onBoarding/onBoarding";
+import useUserSettings from "../../hooks/useUserSettings";
+import i18n from "i18n-js";
 
 function HelpScreen({ navigation }) {
+  useUserSettings();
   const Stack = createStackNavigator();
   return (
       <Stack.Navigator initialRouteName="MainList">
@@ -16,28 +19,28 @@ function HelpScreen({ navigation }) {
             name="ChatScreen"
             component={ChatScreen}
             options={{
-              title: "Soporte tecnico",
+              title: i18n.t("help.chat"),
             }}
             />
           <Stack.Screen
             name="FaqScreen"
             component={FaqScreen}
             options={{
-              title: "FAQ",
+              title: i18n.t("help.faq"),
             }}
             />
           <Stack.Screen
             name="MainList"
             component={MainList}
             options={{
-              title: "Sección de ayuda",
+              title: i18n.t("help.title"),
             }}
             />
           <Stack.Screen
             name="TutorialScreen"
             component={OnBoarding}
             options={{
-              title: "Tutoriales",
+              title: i18n.t("help.tutorial"),
             }}
             />
       </Stack.Navigator>

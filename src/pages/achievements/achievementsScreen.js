@@ -5,8 +5,10 @@ import i18n from "i18n-js";
 import { useToast } from "react-native-toast-notifications";
 import useAchievements from "../../hooks/useAchievements";
 import useAuth from "../../hooks/useAuth";
+import useUserSettings from "../../hooks/useUserSettings";
 
 function AchievementsScreen() {
+  useUserSettings();
   const {
     getAllAchievements,
     resetAchievements,

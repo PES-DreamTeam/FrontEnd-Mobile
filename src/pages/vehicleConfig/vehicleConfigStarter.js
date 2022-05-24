@@ -161,9 +161,7 @@ function VehicleConfigStarter({ navigation }) {
                         user: user
                     });
                     setVehicle(initialState);
-                    console.log('Llego.');
                     navigation.navigate("Home");
-                    console.log('No Llego.');
                 })
                 .catch(err => {
                     setError({
@@ -178,9 +176,7 @@ function VehicleConfigStarter({ navigation }) {
     const markAsNotNew = () => {
         clearAllFields();
         updateUser({...auth.user, isNew: false});
-        console.log('Llego aqui.');
         navigation.navigate("Home");
-        console.log('No Llego aqui.');
     }
 
     const clearAllFields = () => {
@@ -189,9 +185,7 @@ function VehicleConfigStarter({ navigation }) {
 
     const cancel = () => {
         clearAllFields();
-        console.log('Llego aqui.');
         navigation.navigate("OnBoarding");
-        console.log('No Llego aqui.');
     }
 
     return(

@@ -32,7 +32,6 @@ const Done = ({ ...props }) => (
 
 
 const OnBoarding = ({ navigation }) => {  
-    console.log('Tas tu que Llego.')
     return (
         <View style={[{height: '100%', width: '100%'}]}>
             <Onboarding

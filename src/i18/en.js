@@ -222,6 +222,16 @@ const en = {
 		skip: "Skip",
 		next: "Next",
 		done: "Done",
+	}, 
+	warningToast: {
+		title: "Insufficient Autonomy",
+		message: "Stop by the station shown for refueling",
+	}, 
+	help: {
+		chat: "Chat",
+		faq: "FAQs",
+		title: "Help section",
+		tutorial: "Tutorial",
 	}
 }
 export{ en }
