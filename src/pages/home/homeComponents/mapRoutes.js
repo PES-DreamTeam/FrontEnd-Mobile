@@ -1,4 +1,5 @@
 import MapViewDirections from "react-native-maps-directions";
+import i18n from "i18n-js";
 import React, {
   Component,
   useEffect,
@@ -14,6 +15,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { useToast } from "react-native-toast-notifications";
 import { API_KEY } from "@env";
 import { Marker } from "react-native-maps";
 import useCloseStation from "../../../hooks/useCloseStation";
@@ -35,6 +37,8 @@ export default ({ routeActivate, location, ChangeRoutingInfo }) => {
   const [closest, setClosest] = useState({});
   let autonomia = 3;
   const isLoading = false;
+
+  const toast = useToast();
 
   useEffect(() => {
     changeLine(routeActivate);
@@ -86,10 +90,20 @@ export default ({ routeActivate, location, ChangeRoutingInfo }) => {
     }
   };
 
+  const notification = () => {
+    toast.show("", {
+      title: i18n.t("warningToast.title"),
+      message: i18n.t("warningToast.message"),
+      type: "custom_type",
+      location: "autonomia",
+    });
+  };
+
   const necesitaRecarga =
     distancia > autonomia &&
     closest.nearest != null &&
-    closest.nearest != undefined;
+    closest.nearest != undefined &&
+    routeActivate?.objectType === "vehicleStation";
   return (
     <View>
       {necesitaRecarga ? (
@@ -130,6 +144,7 @@ export default ({ routeActivate, location, ChangeRoutingInfo }) => {
               duration: result.duration,
             });
             setDistancia(result.distance);
+            notification();
           }}
         />
       ) : (
