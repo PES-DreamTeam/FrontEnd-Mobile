@@ -186,13 +186,19 @@ function LocationInfo(props) {
       </View>
       
       <View style={styles.getThereContent}>
-        <Text style={[/* styles.pollutionText(pollutionColor), */customStyle.normalText]}>
-            {i18n.t("locationInfo.pollutionLevel")} {'\n'}
-            <View style={styles.pollutionRow}>
-                <View style={[styles.circle, {backgroundColor: pollutionColor}]}/>
-                <Text style={{marginLeft: 10}}>{pollution}</Text>
+        <View style={styles.pollutionContainer}>
+          <View style={{width: '100%', height: '50%'}}>
+            <Text style={[customStyle.normalText, styles.polutionTitle]}>
+                {i18n.t("locationInfo.pollutionLevel")}
+            </Text>
+          </View>
+          <View style={styles.pollutionRow}>
+            <View style={[styles.circle, {backgroundColor: pollutionColor}]}>
+              <View style={[styles.circle, {backgroundColor: '#ffffff70', borderWidth: 3, borderColor: 'transparent'}]}/>
             </View>
-        </Text>
+            <Text style={{marginLeft: 10}}>{pollution}</Text>
+          </View>
+        </View>
         <CustomButton
             imageSrc={ require("../../../../assets/images/icons/directions.png") }
             onPress={handleRoute}
@@ -281,11 +287,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  plutionTitile: {
+    marginBottom: 0,
+    padding: 0,
+    height: "50%",
+    width: "100%",
+    textAlign: "center",
+  },
   pollutionRow: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "red",
+    justifyContent: "center",
+    width: '100%',
+    height: '50%',
+    marginTop: 0,
   },
   highlightContent: {
     height: "65%",
@@ -310,11 +324,22 @@ const styles = StyleSheet.create({
   },
   goThereButton: {
     backgroundColor: "#f3edff",
-    width: "50%",
-    justifyContent: "space-around",
+    width: "48%",
+    justifyContent: "space-evenly",
 
     flexDirection: "row-reverse",
     height: "100%",
+  },
+  polutionTitle: {
+    textAlign: "center",
+  },
+  pollutionContainer: {
+    width: "48%",
+    height: "100%",
+    padding: 0,
+    borderWidth: 2,
+    borderColor: "#eae4f6",
+    borderRadius: 20,
   },
   getThereContent: {
     width: "90%",

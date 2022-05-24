@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation }) {
 
   const { auth } = useAuth();
   const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
-    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint } = useMap();
+    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint, isLoading } = useMap();
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
@@ -74,6 +74,8 @@ export default function HomeScreen({ navigation }) {
     setSearchedPoint(stationSearched[0][1].id);
     OpenStationInfo(stationSearched[0][1]);
   }
+  
+  console.log(isLoading);
 
   return (
     <View style={styles.container}>
@@ -120,7 +122,8 @@ export default function HomeScreen({ navigation }) {
         onChangeFilter={ChangeMapFilter}
         ChangeRoutingInfo={changeRouteInfo}
         stationInfoOpened={currentStationInfo!==null}
-        
+        isLoading={isLoading}
+        isSearching={!openSearchBar}
       />
       }
       

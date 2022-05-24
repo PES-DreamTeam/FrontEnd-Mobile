@@ -15,15 +15,15 @@ import { FilterMap } from './filterMap';
 import useAuth from '../../../hooks/useAuth'
 import carTypeImages from '../../../utils/carTypeImages';
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, 
-  routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo, stationInfoOpened}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, isLoading,
+  routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo, 
+  stationInfoOpened, isSearching}) => {
 
   const {GetCarSmallImage} = carTypeImages();
   const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
 
   
   const searchedPoint= {};
-  const isLoading = false;
 
   const { auth } = useAuth();
 
@@ -106,14 +106,15 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo,
         
             
         </MapView>
-        {!stationInfoOpened ? 
+        {!stationInfoOpened && !routeActivate && !isSearching &&
+          !mapFilter.includes("singleCharge") ? 
         <FilterMap
           ChangeRoutingInfo={ChangeRoutingInfo}
           ActivateRoute={ActivateRoute}
         />
         : null
         } 
-        {!stationInfoOpened ? 
+        {!stationInfoOpened && !isSearching ?
         <CustomButton
           customStyles={[styles.floatingButton, styles.rightFloat]}
           onPress={centerPosition}
@@ -132,12 +133,12 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo,
             imageStyle={{width: "40%", height: "40%"}}
           />
         : null}
-
-        {isLoading ?
+        {
+          isLoading ?
           <View style={styles.spinner}>
             <ActivityIndicator size="large" color="blue"/>
           </View>
-          :null 
+          : null
         }
      
       </View>
@@ -167,10 +168,11 @@ const styles = StyleSheet.create({
     spinner:{
       position: 'absolute',
       justifyContent: 'center',
-      top:0,
-      left:0,
+      top: 0,
+      left: 0,
       right: 0,
       bottom: 0,
+      zIndex: 5000,
     },
     floatingButton: {
       position: 'absolute',

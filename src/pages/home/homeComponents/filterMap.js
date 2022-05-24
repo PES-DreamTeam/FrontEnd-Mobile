@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     },
     filterContent: {
         width: 50,
+        minHeight: 220,
         height: '35%',
         flexDirection: 'column',
         alignItems: 'center',
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
 
         justifyContent: 'space-around',
         alignContent: 'center',
-        bottom:"50%",
+        top:"15%",
         right: 25,
         zIndex: 100,  
 

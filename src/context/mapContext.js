@@ -27,7 +27,14 @@ const MapContextProvider = ({ children }) => {
     const [routeInfo, setRouteInfo] = useState(null);
     const [currentStationInfo, setStationInfo] = useState(null);
 
-    const [mapFilter, setMapFilter] = useState(["vehicleStation"]);
+    const [mapFilter, setMapFilters] = useState(["vehicleStation"]);
+
+    const setMapFilter = (filter) => {
+        console.log(isLoading);
+        if(!isLoading) {
+            setMapFilters(filter);
+        }
+    }
 
     const ReloadMapPoints = async () => {
         let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
@@ -65,9 +72,10 @@ const MapContextProvider = ({ children }) => {
         }
         else{
             setIsLoading(true);
-            ReloadMapPoints();
+            await ReloadMapPoints();
             setIsLoading(false);
         }
+        console.log(mapFilter);
     }, [mapFilter]);
     
       const {latitude,longitude} = userLocation;

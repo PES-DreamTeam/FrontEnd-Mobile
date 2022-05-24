@@ -32,8 +32,18 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
 
       const getStationType= (name) =>{
           let station = shownChargePoints.filter((chargePoint) => chargePoint[1].name == name);
-          let vehicleType = station[0][1].objectType;
+          let vehicleType = station[0][1]?.objectType;
           return vehicleType;
+      }
+      const GetIcon = (stationType) => {
+        switch(stationType){
+            case "bikeStation":
+                return require('../../../../assets/images/icons/bike.png');
+            case "vehicleStation":
+                return require('../../../../assets/images/icons/station.png');
+            case "highlights": default:
+                return require('../../../../assets/images/icons/alert.png');
+        }
       }
 
     return ( 
@@ -64,18 +74,11 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
                         setText(null);
                         }}
                     >
-                        {getStationType(item) == "bikeStation" 
-                         ? 
-                            <Image
-                                source={require('../../../../assets/images/icons/bike.png')}
-                                style={styles.icon} 
-                            />
-                         : 
-                            <Image
-                                source={require('../../../../assets/images/icons/station.png')}
-                                style={styles.icon} 
-                            />
-                         }
+                        <Image
+                            source={GetIcon(getStationType(item))}
+                            style={styles.icon} 
+                        />
+                            
                          <Text style={styles.text}>{item}</Text>
                     </TouchableOpacity>   
                 </View>),
@@ -107,7 +110,6 @@ const styles = StyleSheet.create({
         
     },
     listContainer:{
-        backgroundColor:'#F5FCFF',
         marginTop: 10,
         width: "100%",
         height: 400,
