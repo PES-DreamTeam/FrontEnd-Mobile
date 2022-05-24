@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, StyleSheet, Image } from "react-native"
 import i18n from "i18n-js"
-export default ({onPress, text, customStyles, disabled, imageSrc, imageWidth, imageHeight}) => {
+export default ({onPress, text, customStyles, disabled, imageSrc, imageWidth, imageHeight, accLabel, accHint, accRole}) => {
     return(
         <TouchableOpacity
             style={[styles.button, customStyles]}
@@ -9,6 +9,9 @@ export default ({onPress, text, customStyles, disabled, imageSrc, imageWidth, im
             imageSrc={imageSrc}
             imageWidth={imageWidth}
             imageHeight={imageHeight}
+            accessibilityLabel={accLabel}
+            accessibilityHint={accHint}
+            accessibilityRole={accRole}
 
         >
             {
