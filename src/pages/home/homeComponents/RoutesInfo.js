@@ -12,8 +12,6 @@ function RoutesInfo(props) {
   const [routeInfoStyle, setRouteInfoStyle] = useState(
     styles.routeInfoClosed
   );
-  
-  const [selectedMode, setSelectedMode] = useState('car');
 
   useEffect(() => {
     if (props.routingInfo != null) {
@@ -36,7 +34,7 @@ function RoutesInfo(props) {
     return `${km} km`;
   }
 
-
+  console.log(props.routingInfo);
 
   const customStyle = require("../../../utils/customStyleSheet");
 
@@ -50,26 +48,13 @@ function RoutesInfo(props) {
         </View>
       </View>
       <View style={[styles.goThereContent]}>
-          {/* <Button
-            onPress={() => {
-              console.log("A");
-            }}
-          />
           <CustomButton
-              onPress={() => {
-                console.log('car')
-              }}
-              customStyles={(selectedMode == 'car') ? styles.goThereButtonSelected : styles.goThereButton}
-              text='A'
-          /> */}
-          <CustomButton
-              customStyles={(selectedMode == 'car') ? styles.goThereButtonSelected : styles.goThereButton}
+              customStyles={(props?.routingInfo?.transport == "DRIVING") ? styles.goThereButtonSelected : styles.goThereButton}
               imageSrc={require("../../../../assets/images/icons/carIcon.png")}
               imageStyle={[{ width: "75%", height: "75%", tintColor: "black" }]}
               //text={i18n.t("home.car")}
               routeActivate={props.routeActivate}
               onPress={() => {
-                setSelectedMode('car');
                 props.ActivateRoute({
                   latitude:props?.routeActivate?.latitude,
                   longitude: props?.routeActivate?.longitude,
@@ -79,13 +64,12 @@ function RoutesInfo(props) {
               }}
           />
           <CustomButton
-            customStyles={(selectedMode == 'bike') ? styles.goThereButtonSelected : styles.goThereButton}
+            customStyles={(props?.routingInfo?.transport == "BICYCLING") ? styles.goThereButtonSelected : styles.goThereButton}
             imageSrc={require("../../../../assets/images/icons/bike.png")}
             imageStyle={[{ width: "65%", height: "65%", tintColor: "black" }]}
             //text={i18n.t("home.bike")}
             routeActivate={props.routeActivate}
-            onPress={() => {
-              setSelectedMode('bike');              
+            onPress={() => {       
               props.ActivateRoute({
                 latitude:props?.routeActivate?.latitude,
                 longitude: props?.routeActivate?.longitude,
@@ -95,13 +79,12 @@ function RoutesInfo(props) {
             }}
           />
           <CustomButton
-            customStyles={(selectedMode == 'walk') ? styles.goThereButtonSelected : styles.goThereButton}
+            customStyles={(props?.routingInfo?.transport == "WALKING") ? styles.goThereButtonSelected : styles.goThereButton}
             imageSrc={require("../../../../assets/images/icons/walking.png")}
             imageStyle={[{ width: "75%", height: "75%", tintColor: "black" }]}
             routeActivate={props.routeActivate}
             //text={i18n.t("home.foot")}
-            onPress={() => {
-              setSelectedMode('walk');              
+            onPress={() => {          
               props.ActivateRoute({
                 latitude:props?.routeActivate?.latitude,
                 longitude: props?.routeActivate?.longitude,
@@ -134,78 +117,6 @@ function RoutesInfo(props) {
             </Text>
           </View>
         </View>
-
-
-
-
-
-
-{/*       <View style={[{width: "100%", height:"10%"}]}>
-          <Text style={[customStyle.bigTitle, {width:"100%"}]}>
-            {i18n.t("home.routeOptions")}
-          </Text>
-      </View> */}
-      {/* <View style={[{flexDirection: "column", height: "50%", justifyContent: "space-around"}]}>
-        <View style={styles.goThereContent}>
-          <CustomButton
-              customStyles={styles.goThereButton}
-              imageSrc={require("../../../../assets/images/icons/carIcon.png")}
-              imageStyle={[{ width: "75%", height: "75%", tintColor: "black" }]}
-              //text={i18n.t("home.car")}
-              routeActivate={props.routeActivate}
-              onPress={() => {
-                  props.ActivateRoute({
-                  latitude:props?.routeActivate?.latitude,
-                  longitude: props?.routeActivate?.longitude,
-                  id: props?.routeActivate?.id,
-                  objectType: "vehicleStation"
-                });   
-              }}
-          />
-          <CustomButton
-            customStyles={styles.goThereButton}
-            imageSrc={require("../../../../assets/images/icons/bike.png")}
-            imageStyle={[{ width: "65%", height: "65%", tintColor: "black" }]}
-            //text={i18n.t("home.bike")}
-            routeActivate={props.routeActivate}
-            onPress={() => {
-                props.ActivateRoute({
-                latitude:props?.routeActivate?.latitude,
-                longitude: props?.routeActivate?.longitude,
-                id: props?.routeActivate?.id,
-                objectType: "bikeStation"
-              });               
-            }}
-          />
-          <CustomButton
-              customStyles={styles.goThereButton}
-              imageSrc={require("../../../../assets/images/icons/walking.png")}
-              imageStyle={[{ width: "75%", height: "75%", tintColor: "black" }]}
-              //text={i18n.t("home.foot")}
-              routeActivate={props.routeActivate}
-              onPress={() => {
-                props.ActivateRoute({
-                  latitude:props?.routeActivate?.latitude,
-                  longitude: props?.routeActivate?.longitude,
-                  id: props?.routeActivate?.id,
-                  objectType: "walk"
-                });           
-              }}
-          />
-        </View>
-        <View style={styles.infoContainer}>
-          <View style={{width: '100%', height: '50%'}}>
-            <Text style={[customStyle.normalText, styles.polutionTitle]}>
-                {i18n.t("locationInfo.pollutionLevel")}
-            </Text>
-          </View>
-          <Text style={{marginLeft: 10}}>AAA</Text>
-        </View>
-        <View style={styles.routeInfo}>
-          <Text>{ i18n.t("home.time") + ": " + (props?.routingInfo?.duration) + " min" }</Text>
-          <Text>{ i18n.t("home.distance") + ": " + (props?.routingInfo?.distance) + " km"}</Text>
-        </View>
-      </View>*/}
     </View> 
   );
 }
@@ -213,6 +124,7 @@ function RoutesInfo(props) {
 const styles = StyleSheet.create({
   routeInfoOpened: {
     height: "30%",
+    minHeight: 50,
     width: "100%",
     borderWidth: 1,
     borderColor: "#eae4f6",
@@ -220,7 +132,6 @@ const styles = StyleSheet.create({
     top: -30,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: "#fff",
     zIndex: 10,
   },
   routeInfoClosed: {
@@ -229,6 +140,7 @@ const styles = StyleSheet.create({
   },
   goThereContent: {
     width: "90%",
+    height: "40%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignSelf: "center",
@@ -236,7 +148,7 @@ const styles = StyleSheet.create({
   },  
   infoContainer: {
     width: "45%",
-    height: "110%",
+    height: "90%",
     padding: 0,
     borderWidth: 2,
     borderColor: "#eae4f6",
@@ -246,18 +158,21 @@ const styles = StyleSheet.create({
   },
   goThereButton: {
     backgroundColor: "#f3edff",
-    width: "25%",
-    height: 80,
+    width: undefined,
+    height: '90%',
+    aspectRatio: 1,
     borderRadius: 99999,
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 5,
     marginTop: "5%",
+    zIndex: 11,
   },
   goThereButtonSelected: {
     backgroundColor: "#f3edff",
-    width: "25%",
-    height: 80,
+    width: undefined,
+    height: '90%',
+    aspectRatio: 1,
     borderRadius: 99999,
     justifyContent: "center",
     alignItems: "center",
@@ -265,6 +180,7 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     borderColor: "#b28dfc",
     borderWidth: 3,
+    zIndex: 11,
   },
   buttonText: {
     color: "#FFFFFF",
@@ -280,6 +196,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginBottom: "2%",
     marginHorizontal: "2%",
+    height: "40%",
   },
 });
 export { RoutesInfo };

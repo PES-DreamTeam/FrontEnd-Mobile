@@ -120,13 +120,11 @@ export default function HomeScreen({ navigation }) {
         isSearching={!openSearchBar}
       />
       }
-      <View style={[styles.routesInfoContainer, {marginTop: "5%"}]}>
-          <RoutesInfo
-            routeActivate={wantRoute}
-            ActivateRoute={ActivateRoute}
-            routingInfo={routeInfo}
-          />
-      </View>
+      <RoutesInfo
+        routeActivate={wantRoute}
+        ActivateRoute={ActivateRoute}
+        routingInfo={routeInfo}
+      />
 
       <LocationInfo
         stationInfo={openSearchBar? currentStationInfo : null}
