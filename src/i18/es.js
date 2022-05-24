@@ -9,6 +9,11 @@ const es = {
 			highlight: "Destacados",
 		}, 
 		searchBar: "Buscar:",
+		car: "Coche",
+		bike: "Bicicleta",
+		foot: "A pie",
+		time: "Tiempo",
+		distance: "Distancia",
 	}, 
 	settings: {
 		title: "Ajustes",

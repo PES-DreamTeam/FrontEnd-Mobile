@@ -7,6 +7,14 @@ bottomBar_bike,Bike,Bici,Bici
 bottomBar_favs,Favs,Favoritos,Preferits
 bottomBar_highlight,Highlight,Destacados,Destacats
 searchBar,Search:,Buscar:,Buscar:
+car,Car,Coche,Cotxe
+bike,Bike,Bicicleta,Bicicleta
+foot,On foot,A pie,A peu
+time,Time,Tiempo,Temps
+distance,Distance,Distancia,Distància
+,,,
+,,,
+,,,
 PAGE_settings,,,
 title,Settings,Ajustes,Configuració
 subtitle,Welcome to settings,Bienvenido a los ajustes,Benvingut a la configuració

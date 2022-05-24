@@ -9,6 +9,11 @@ const cat = {
 			highlight: "Destacats",
 		}, 
 		searchBar: "Buscar:",
+		car: "Cotxe",
+		bike: "Bicicleta",
+		foot: "A peu",
+		time: "Temps",
+		distance: "Distància",
 	}, 
 	settings: {
 		title: "Configuració",

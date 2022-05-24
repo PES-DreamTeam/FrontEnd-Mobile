@@ -100,13 +100,7 @@ export default function HomeScreen({ navigation }) {
           </View>          
         </View>        
       </View>
-      <View style={styles.routesInfoContainer}>
-          <RoutesInfo
-            routeActivate={wantRoute}
-            ActivateRoute={ActivateRoute}
-            routingInfo={routeInfo}
-          />
-        </View>
+      
       {
       <CustomMapView
         //ref={mapViewRef}
@@ -126,7 +120,13 @@ export default function HomeScreen({ navigation }) {
         isSearching={!openSearchBar}
       />
       }
-      
+      <View style={[styles.routesInfoContainer, {marginTop: "5%"}]}>
+          <RoutesInfo
+            routeActivate={wantRoute}
+            ActivateRoute={ActivateRoute}
+            routingInfo={routeInfo}
+          />
+      </View>
 
       <LocationInfo
         stationInfo={openSearchBar? currentStationInfo : null}
