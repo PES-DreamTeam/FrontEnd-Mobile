@@ -37,7 +37,7 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
 
     const [distancia, setDistancia] = useState(0);
     const [closestFree, setClosestFree] = useState({});
-    let autonomia = 100;
+    let autonomia = 1;
 
     const toast = useToast();
     
@@ -103,22 +103,22 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
     };
 
     
-    if(closestFree.nearest == null &&
+    if(closestFree.nearest == null ||
         closestFree.nearest == undefined){
         getStation();
     }
 
 
     const necesitaRecarga =
-        distancia > autonomia &&
-        closestFree.nearest != null &&
-        closestFree.nearest != undefined &&
-        routeActivate?.objectType === "vehicleStation";
+  distancia > autonomia &&
+  closestFree.nearest != null &&
+  closestFree.nearest != undefined &&
+  routeActivate?.objectType === "vehicleStation";
 
-    return(
-        <View>
-        {necesitaRecarga ? (
-            <Marker
+  return (
+    <View>
+      {necesitaRecarga ? (
+        <Marker
           title={closestFree.nearest[0].name}
           coordinate={{
             latitude: closestFree.nearest[0].lat,
@@ -159,26 +159,32 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
           }}
         />
       ) : (
-
-            <MapViewDirections
-                origin={location}
-                destination={destination}
-                apikey={API_KEY}
-                mode={lineStyle.mode}
-                strokeWidth={lineStyle.width}
-                strokeColor={lineStyle.color}
-                lineDashPattern={lineStyle.dash}
-                timePrecision={"now"}
-                onReady={result => ChangeRoutingInfo({
-                    distance:result.distance, 
-                    duration:result.duration,
-                    transport: currentTransport,
-                    })
-                }
-            />
-        )}
-        </View>
+        <MapViewDirections
+          origin={location}
+          destination={destination}
+          apikey={API_KEY}
+          mode={lineStyle.mode}
+          strokeWidth={lineStyle.width}
+          strokeColor={lineStyle.color}
+          lineDashPattern={lineStyle.dash}
+          timePrecision={"now"}
+          onReady={(result) => {
+            ChangeRoutingInfo({
+              distance: result.distance,
+              duration: result.duration,
+            });
+            setDistancia(result.distance);
+          }}
+        />
+      )}
+    </View>
        
     )
     
 }
+const styles = StyleSheet.create({
+  icon: {
+    width: 25,
+    height: 24,
+  },
+});

@@ -40,7 +40,7 @@ function RoutesInfo(props) {
       <View style={[customStyle.coolBlockTitleContainer]}>
         <View style={{width: '100%'}}>
           <Text style={[customStyle.title, {textAlignVertical: 'center'}]}>
-            Route options
+            {i18n.t("home.routeOptions")}
           </Text>
         </View>
       </View>
