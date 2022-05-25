@@ -28,8 +28,6 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
   
   const [currentTransport, setCurrentTransport] = useState("DRIVING");
 
-  const [toastShown, setToastShown] = useState(false);
-
   const [lineStyle, setLineStyle] = useState({
       width: 3,
       dash: null,
@@ -41,7 +39,6 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
   const [closestFree, setClosestFree] = useState({});
   let autonomia = 1;
 
-  const toast = useToast();
   
   useEffect(() =>{       
       changeLine(routeActivate)
@@ -92,18 +89,6 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
               setCurrentTransport("TRANSIT")
 
           }
-      }
-  };
-
-  const notification = () => {
-      if (toastShown === false) {
-        toast.show("", {
-            title: i18n.t("warningToast.title"),
-            message: i18n.t("warningToast.message"),
-            type: "custom_type",
-            location: "autonomia",
-        });
-        setToastShown(true);
       }
   };
 
@@ -160,7 +145,6 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
               duration: result.duration,
             });
             setDistancia(result.distance);
-            notification();
           }}
         />
       ) : (

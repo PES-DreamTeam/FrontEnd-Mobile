@@ -13,9 +13,10 @@ import useAuth from "../../../hooks/useAuth";
 import useUser from "../../../hooks/useUser";
 import useChargePoints from "../../../hooks/useChargePoints";
 import CustomButtonTable from "../../../utils/buttonTable";
+import { useToast } from "react-native-toast-notifications";
 
 function LocationInfo(props) {
-
+  const toast = useToast();
   const { auth, setAuth } = useAuth();
   const { sendFavourite } = useUser();
   const { getChargePointInfo, sendStationLike } = useChargePoints();
@@ -75,6 +76,14 @@ function LocationInfo(props) {
       objectType: props?.stationInfo?.objectType,
     });
     props.onChangeFilter("singleCharge");
+    if (pollution > 5) {
+      toast.show("", {
+          title: i18n.t("warningToast.title"),
+          message: i18n.t("warningToast.message")+" "+pollution,
+          type: "custom_type",
+          location: "pollution",
+        });
+    }  
     updateAchievement(2);
   };
 

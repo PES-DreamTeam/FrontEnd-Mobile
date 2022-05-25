@@ -12,8 +12,9 @@ const en = {
 		car: "Car",
 		bike: "Bike",
 		foot: "On foot",
-		time: "Time",
+		time: "Estimated time",
 		distance: "Distance",
+		routeOptions: "Route options",
 	}, 
 	settings: {
 		title: "Settings",
@@ -189,8 +190,8 @@ const en = {
 		title: "Achievement completed!",
 	}, 
 	reportToast: {
-		title: "Changes saved",
-		message: "Your profile was updated successfully.",
+		title: "Report sent",
+		message: "Your report was sent successfully.",
 	}, 
 	faq: {
 		generalHelp: "General help",
@@ -229,8 +230,8 @@ const en = {
 		done: "Done",
 	}, 
 	warningToast: {
-		title: "Insufficient Autonomy",
-		message: "Stop by the station shown for refueling",
+		title: "Beware of pollution",
+		message: "This destination has a pollution of",
 	}, 
 	help: {
 		chat: "Chat",

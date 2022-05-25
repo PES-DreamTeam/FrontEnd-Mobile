@@ -10,9 +10,9 @@ searchBar,Search:,Buscar:,Buscar:
 car,Car,Coche,Cotxe
 bike,Bike,Bicicleta,Bicicleta
 foot,On foot,A pie,A peu
-time,Time,Tiempo,Temps
+time,Estimated time,Tiempo estimado,Temps estimat
 distance,Distance,Distancia,Distància
-,,,
+routeOptions,Route options,Opciones de ruta,Opcions de ruta
 ,,,
 ,,,
 PAGE_settings,,,
@@ -173,8 +173,8 @@ reportStaiton_dislike,Dislike,No me gusta,No m'agrada
 PAGE_achievementToast,,,
 title,Achievement completed!,¡Logro completado!,Assoliment completat!
 PAGE_reportToast,,,
-title,Changes saved,Cambios guardados,Canvis guardats
-message,Your profile was updated successfully.,Tu perfil ha sido correctamente actualizado.,S'ha actualitzat correctament el teu perfil.
+title,Report sent,Reporte enviado,Incidència enviada
+message,Your report was sent successfully.,Tu reporte ha sido correctamente enviado.,S'ha enviat correctament l'incidència.
 PAGE_faq,,,
 generalHelp,General help,Ayuda general,Ajuda general
 accountHelp,Account help,Ayuda de cuenta,Ajuda del compte
@@ -211,8 +211,8 @@ skip,Skip,Saltar,Saltar
 next,Next,Siguiente,Següent
 done,Done,Finalizar,Finalitzar
 PAGE_warningToast,,,
-title,Insufficient Autonomy,Autonomia Insuficiente,Autonomia Insuficient
-message,Stop by the station shown for refueling,Pase por la estación mostrada para repostar,Passi per l'estació mostrada per repostar
+title,Beware of pollution,Cuidado con la contaminación,Compte amb la contaminació
+message,This destination has a pollution of,Este destino tiene una contaminación de,Aquest destí té una contaminació de
 ,,,
 PAGE_help,,,
 chat,Chat,Chat,Xat

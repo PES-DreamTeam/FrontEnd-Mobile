@@ -12,8 +12,9 @@ const es = {
 		car: "Coche",
 		bike: "Bicicleta",
 		foot: "A pie",
-		time: "Tiempo",
+		time: "Tiempo estimado",
 		distance: "Distancia",
+		routeOptions: "Opciones de ruta",
 	}, 
 	settings: {
 		title: "Ajustes",
@@ -189,8 +190,8 @@ const es = {
 		title: "¡Logro completado!",
 	}, 
 	reportToast: {
-		title: "Cambios guardados",
-		message: "Tu perfil ha sido correctamente actualizado.",
+		title: "Reporte enviado",
+		message: "Tu reporte ha sido correctamente enviado.",
 	}, 
 	faq: {
 		generalHelp: "Ayuda general",
@@ -229,8 +230,8 @@ const es = {
 		done: "Finalizar",
 	}, 
 	warningToast: {
-		title: "Autonomia Insuficiente",
-		message: "Pase por la estación mostrada para repostar",
+		title: "Cuidado con la contaminación",
+		message: "Este destino tiene una contaminación de",
 	}, 
 	help: {
 		chat: "Chat",
