@@ -249,6 +249,7 @@ function LocationInfo(props) {
         onPress={() => setReportStationVisible(!reportStationVisible)}
         title={i18n.t("report.reportStation.title")}
         stationID={props?.stationInfo?.id}
+        stationType={props?.stationInfo?.objectType}
       />
     </View>
   );

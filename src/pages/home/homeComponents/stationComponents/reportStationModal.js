@@ -5,7 +5,7 @@ import CustomButton from '../../../../utils/button';
 import useChargePoints from "../../../../hooks/useChargePoints";
 import i18n from 'i18n-js';
 
-export default ({isVisible, handleCancel, handleAccept, title, subtitle, stationID}) => {
+export default ({isVisible, handleCancel, handleAccept, title, subtitle, stationID, stationType}) => {
     const [ selectedType, setSelectedType ] = useState ("dislike");
     const [ reportMessage, changeReportMessage] = useState("");
 
@@ -17,7 +17,7 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
     const {sendReport} = useChargePoints(); 
 
     const send = () => {
-        sendReport(stationID, selectedType, reportMessage);
+        sendReport(stationID, selectedType, reportMessage, stationType);
         reset();
         handleAccept();
     }

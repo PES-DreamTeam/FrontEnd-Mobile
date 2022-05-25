@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, Image } from "react-native";
 
 function Toast(props) {
   const { message, type, title } = props;
-
   const image_type = () => {
     if (type === "achievement") {
       return require("../../assets/images/medal.png");
-    } else if(type === "report") {
+    } else if (type === "report") {
       return require("../../assets/images/check.png");
-    }
-    else{
+    } else if (type === "autonomia") {
+      return require("../../assets/images/warning.png");
+    } else {
       return require("../../assets/images/check.png");
     }
   };
