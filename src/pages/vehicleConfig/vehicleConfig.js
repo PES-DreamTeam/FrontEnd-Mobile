@@ -47,18 +47,17 @@ function VehicleConfig({ navigation }) {
     useEffect (async () => {
         if (selectedBrand !== '') {
             let temp = await getVehicleModels(selectedBrand);
-            let models =  [...new Set(temp.map(item => item.model))];
+            let models =  [...new Set(temp?.map(item => item.model))];
             models?.sort();
             setVehicleModels(models);
+            setSelectedModel("");
             setVehicle({...vehicle, ['vehicleBrand']: selectedBrand});
         }
         
     }, [selectedBrand]);
 
     useEffect (async () => {
-        if (selectedModel !== '') {
-            setVehicle({...vehicle, ['vehicleModel']: selectedModel});
-        }
+        setVehicle({...vehicle, ['vehicleModel']: selectedModel});
         
     }, [selectedModel]);
     
@@ -202,6 +201,7 @@ function VehicleConfig({ navigation }) {
                     <CustomDropDown
                         options={vehicleBrands}
                         changeSelected={setSelectedBrand}
+                        currentSelected={selectedBrand}
                     />
                 </View>
                 <View style={customStyle.formInputContainer}>
@@ -209,6 +209,7 @@ function VehicleConfig({ navigation }) {
                     <CustomDropDown
                         options={vehicleModels}
                         changeSelected={setSelectedModel}
+                        currentSelected={selectedModel}
                     />
                 </View>
                 <View style={customStyle.formInputContainer}>

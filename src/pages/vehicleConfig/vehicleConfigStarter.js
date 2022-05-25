@@ -47,7 +47,7 @@ function VehicleConfigStarter({ navigation }) {
     useEffect (async () => {
         if (selectedBrand !== '') {
             let temp = await getVehicleModels(selectedBrand);
-            let models =  [...new Set(temp.map(item => item.model))];
+            let models =  [...new Set(temp?.map(item => item.model))];
             models?.sort();
             setVehicleModels(models);
             setVehicle({...vehicle, ['vehicleBrand']: selectedBrand});
