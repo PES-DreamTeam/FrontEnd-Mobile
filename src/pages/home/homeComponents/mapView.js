@@ -22,7 +22,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
   const {GetCarSmallImage} = carTypeImages();
   const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
 
-  
+  const [isModalVisible, setModalVisible] = useState(false);
   const searchedPoint= {};
 
   const { auth } = useAuth();
@@ -82,9 +82,9 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
       > 
         {routeActivate ? 
           <MapRoutes
-          routeActivate={routeActivate}
-          location={userLocation}
-          ChangeRoutingInfo={ChangeRoutingInfo}
+            routeActivate={routeActivate}
+            location={userLocation}
+            ChangeRoutingInfo={ChangeRoutingInfo}
           />
         : null
         }
