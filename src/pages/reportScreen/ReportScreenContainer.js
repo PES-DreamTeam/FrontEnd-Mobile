@@ -8,7 +8,7 @@ import CustomButton from '../../utils/button';
 import CustomDropDown from "../../utils/customDropDown";
 import { useToast } from 'react-native-toast-notifications';
 
-function ReportAplicationScreen({navigation}) {
+function ReportScreenContainer({navigation}) {
 
     const toast = useToast();
     const { sendReport } = useReportAplication();
@@ -16,7 +16,9 @@ function ReportAplicationScreen({navigation}) {
     const customStyle = require('../../utils/customStyleSheet');
 
     const [open, setOpen] = useState(false);
-    const [pickerVal, setPickerVal] = useState("bug");
+    const [typeVal, setTypeVal] = useState("");
+    const [deviceVal, setDeviceVal] = useState("");
+    const [osVal, setOsVal] = useState("");
 
 
       const initialState = {
@@ -42,24 +44,26 @@ function ReportAplicationScreen({navigation}) {
 
     const clearAllFields = () => {
         setReport(initialState);
-        setPickerVal(null);
+        setOsVal('');
+        setDeviceVal('');
+        setTypeVal('');
     }
     
     const reportApp = async ()  => {
-        if (platform.trim().length === 0 || osVersion.trim().length === 0 ||
-        subject.trim().length === 0 || details.trim().length === 0 || pickerVal === null) {
+        if (deviceVal.trim().length === 0 || osVal.trim().length === 0 ||
+        subject.trim().length === 0 || details.trim().length === 0 || typeVal === '') {
         setError({
             error: true,
             message:  <Text>{i18n.t("report.ReportApplicationScreen.fillfields")}</Text>
         })
         }
         else{              
-            await sendReport(pickerVal,platform,osVersion,subject,details)
+            await sendReport(typeVal,deviceVal,osVal,subject,details)
             clearAllFields()
             navigation.navigate("Home");
             toast.show("", {
-                title: i18n.t("reportAppToast.title"),
-                message: i18n.t("reportAppToast.message"),
+                title: i18n.t("reportToast.title"),
+                message: i18n.t("reportToast.message"),
                 type: "custom_type",
                 location: "reportApp",
               });
@@ -91,7 +95,8 @@ function ReportAplicationScreen({navigation}) {
                             i18n.t("report.ReportApplicationScreen.feedback")
 
                         ]}
-                        changeSelected={setPickerVal}
+                        changeSelected={setTypeVal}
+                        currentSelected={typeVal}
                     />
                 </View>
                 <View style={customStyle.formInputContainer}> 
@@ -103,7 +108,8 @@ function ReportAplicationScreen({navigation}) {
                             i18n.t("report.ReportApplicationScreen.smartphone"),
                             i18n.t("report.ReportApplicationScreen.tablet"),
                         ]}
-                        changeSelected={setPickerVal}
+                        changeSelected={setDeviceVal}
+                        currentSelected={deviceVal}
                     />
                 </View>
                 <View style={customStyle.formInputContainer}> 
@@ -115,7 +121,8 @@ function ReportAplicationScreen({navigation}) {
                             i18n.t("report.ReportApplicationScreen.ios"),
                             i18n.t("report.ReportApplicationScreen.android"),
                         ]}
-                        changeSelected={setPickerVal}
+                        changeSelected={setOsVal}
+                        currentSelected={osVal}
                     />  
                 </View>
                 <View style={customStyle.formInputContainer}> 
@@ -208,4 +215,4 @@ const styles = StyleSheet.create({
   
 })
 
-export {ReportAplicationScreen}
+export {ReportScreenContainer}
