@@ -83,18 +83,6 @@ function VehicleConfig({ navigation }) {
         })
 
     }
-
-    var vehicleImages = [
-        require( '../../../assets/images/carTypes/carType_0.png'),
-        require( '../../../assets/images/carTypes/carType_1.png'),
-        require( '../../../assets/images/carTypes/carType_2.png'),
-        require( '../../../assets/images/carTypes/carType_3.png'),
-        require( '../../../assets/images/carTypes/carType_4.png'),
-        require( '../../../assets/images/carTypes/carType_5.png'),
-        require( '../../../assets/images/carTypes/carType_6.png'),
-        require( '../../../assets/images/carTypes/carType_7.png'),
-        require( '../../../assets/images/carTypes/carType_8.png'),
-    ]
     
     useEffect(async ()=>{
         let brands = await getVehicleBrands();

@@ -24,17 +24,14 @@ function RoutesInfo(props) {
   const prettifyTime = (time) => {
     let hours = Math.floor(time / 60);
     let minutes = time % 60;
-    let seconds = Math.floor((time % 1) * 60);
     if(hours > 0) return `${hours} h ${Math.floor(minutes)} min`;
-    else return `${Math.floor(minutes)} min ${seconds} s`;
+    else return `${Math.round(minutes)} min`;
   }
 
   const prettifyDistance = (distance) => {
-    let km = Math.round(distance * 100) / 100
+    let km = Math.round(distance * 10) / 10;
     return `${km} km`;
   }
-
-  console.log(props.routingInfo);
 
   const customStyle = require("../../../utils/customStyleSheet");
 
@@ -142,6 +139,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "40%",
     flexDirection: "row",
+    justifyContent: "space-between",
     justifyContent: "space-between",
     alignSelf: "center",
     marginBottom: "2%",

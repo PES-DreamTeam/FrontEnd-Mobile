@@ -182,6 +182,9 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         alignSelf: 'center',
+        backgroundColor: '#c5a9fc',
+        borderColor: '#b491fa',
+        borderWidth: 3
     },
     input: {
         height: 40, 
