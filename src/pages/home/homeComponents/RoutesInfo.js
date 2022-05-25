@@ -56,7 +56,7 @@ function RoutesInfo(props) {
                   latitude:props?.routeActivate?.latitude,
                   longitude: props?.routeActivate?.longitude,
                   id: props?.routeActivate?.id,
-                  objectType: "vehicleStation"
+                  objectType: "vehicleStation",
                 });   
               }}
           />
@@ -71,7 +71,7 @@ function RoutesInfo(props) {
                 latitude:props?.routeActivate?.latitude,
                 longitude: props?.routeActivate?.longitude,
                 id: props?.routeActivate?.id,
-                objectType: "bikeStation"
+                objectType: "bikeStation",
               });               
             }}
           />
@@ -86,7 +86,7 @@ function RoutesInfo(props) {
                 latitude:props?.routeActivate?.latitude,
                 longitude: props?.routeActivate?.longitude,
                 id: props?.routeActivate?.id,
-                objectType: "walk"
+                objectType: "walk",
               });           
             }}
           />

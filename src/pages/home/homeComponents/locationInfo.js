@@ -74,6 +74,7 @@ function LocationInfo(props) {
       longitude: props?.stationInfo?.lng,
       id: props?.stationInfo?.id,
       objectType: props?.stationInfo?.objectType,
+      autonomy: 10000,
     });
     props.onChangeFilter("singleCharge");
     if (pollution > 5) {

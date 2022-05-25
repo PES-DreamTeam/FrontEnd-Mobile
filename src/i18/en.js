@@ -238,6 +238,10 @@ const en = {
 		faq: "FAQs",
 		title: "Help section",
 		tutorial: "Tutorial",
+	}, 
+	autonomyModal: {
+		title: "Do you wont to introduce your vehicle's autonomy?",
+		placeholder: "Your autonomy in km",
 	}
 }
 export{ en }

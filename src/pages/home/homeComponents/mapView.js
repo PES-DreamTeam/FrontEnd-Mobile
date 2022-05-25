@@ -85,6 +85,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
             routeActivate={routeActivate}
             location={userLocation}
             ChangeRoutingInfo={ChangeRoutingInfo}
+            
           />
         : null
         }

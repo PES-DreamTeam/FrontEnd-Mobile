@@ -238,6 +238,10 @@ const cat = {
 		faq: "FAQs",
 		title: "Secció d'ajuda",
 		tutorial: "Tutorial",
+	}, 
+	autonomyModal: {
+		title: "Vols introdüir l'autonomia del teu vehicle?",
+		placeholder: "La teva autonomia en km",
 	}
 }
 export{ cat }

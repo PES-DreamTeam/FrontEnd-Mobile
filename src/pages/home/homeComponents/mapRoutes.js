@@ -37,11 +37,32 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
 
   const [distancia, setDistancia] = useState(0);
   const [closestFree, setClosestFree] = useState({});
-  let autonomia = 1;
+  const [autonomia, setAutonomia] = useState(1);
+  const [needsCharge, setNeedsCharge] = useState(false);
 
+  const toast = useToast();
+
+  useEffect(() => {
+    setNeedsCharge(distancia > autonomia &&
+      closestFree.nearest != null &&
+      closestFree.nearest != undefined &&
+      routeActivate?.objectType === "vehicleStation");
+
+    changeLine(routeActivate);
+  }, [closestFree]);
+
+  useEffect(async() => {
+    await getStationFree();
+  }, [autonomia]);
   
-  useEffect(() =>{       
-      changeLine(routeActivate)
+  useEffect(() =>{   
+    if(routeActivate.autonomy !== undefined){
+      setAutonomia(routeActivate.autonomy);  
+      console.log('autonomia: ', autonomia);
+    }
+    else {
+      changeLine(routeActivate);
+    }
   }, [routeActivate])
 
   const { getCloserStation } = useCloseStation();
@@ -92,22 +113,22 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
       }
   };
 
-    
-  if(closestFree.nearest == null ||
-      closestFree.nearest == undefined){
-      getStation();
-  }
+  const notification = () => {
+      if (toastShown === false) {
+        toast.show("", {
+            title: i18n.t("warningToast.title"),
+            message: i18n.t("warningToast.message"),
+            type: "custom_type",
+            location: "autonomia",
+        });
+        setToastShown(true);
+      }
+  };
 
-
-  const necesitaRecarga =
-  distancia > autonomia &&
-  closestFree.nearest != null &&
-  closestFree.nearest != undefined &&
-  routeActivate?.objectType === "vehicleStation";
 
   return (
     <View>
-      {necesitaRecarga ? (
+      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] ? (
         <Marker
           title={closestFree.nearest[0].name}
           coordinate={{
@@ -121,7 +142,7 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
           />
         </Marker>
       ) : null}
-      {necesitaRecarga ? (
+      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] ? (
         <MapViewDirections
           origin={location}
           destination={destination}
