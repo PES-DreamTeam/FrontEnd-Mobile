@@ -40,7 +40,10 @@ export default ({isVisible, handleCancel}) => {
                                     customStyles={[
                                         language == "en" ? 
                                         styles.selectedLanguageButton 
-                                        : {marginVertical: 20, width: '25%', backgroundColor: '#dbcafc'},
+                                        : { marginVertical: 20, width: '25%', backgroundColor: '#dbcafc'},
+                                    ]}
+                                    textStyle={[
+                                        {fontSize: 14, color: '#fff'},
                                     ]}
                                 />
                                 <CustomButton
@@ -50,7 +53,10 @@ export default ({isVisible, handleCancel}) => {
                                         language == "es" ? 
                                         styles.selectedLanguageButton 
                                         : {marginVertical: 20, width: '25%', backgroundColor: '#dbcafc'},
-                                    ]}                                
+                                    ]}  
+                                    textStyle={[
+                                        {fontSize: 14, color: '#fff'},
+                                    ]}                              
                                 />
                                 <CustomButton
                                     onPress={() => setLanguage("cat")}
@@ -59,7 +65,10 @@ export default ({isVisible, handleCancel}) => {
                                         language == "cat" ? 
                                         styles.selectedLanguageButton 
                                         : {marginVertical: 20, width: '25%', backgroundColor: '#dbcafc'},
-                                    ]}                                
+                                    ]}     
+                                    textStyle={[
+                                        {fontSize: 14, color: '#fff'},
+                                    ]}                           
                                 />
                             </View>
                         </View>

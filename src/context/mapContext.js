@@ -30,7 +30,6 @@ const MapContextProvider = ({ children }) => {
     const [mapFilter, setMapFilters] = useState(["vehicleStation"]);
 
     const setMapFilter = (filter) => {
-        console.log(isLoading);
         if(!isLoading) {
             setMapFilters(filter);
         }
@@ -75,7 +74,6 @@ const MapContextProvider = ({ children }) => {
             await ReloadMapPoints();
             setIsLoading(false);
         }
-        console.log(mapFilter);
     }, [mapFilter]);
     
       const {latitude,longitude} = userLocation;

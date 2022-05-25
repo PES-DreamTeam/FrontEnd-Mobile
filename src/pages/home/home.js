@@ -74,8 +74,6 @@ export default function HomeScreen({ navigation }) {
     setSearchedPoint(stationSearched[0][1].id);
     OpenStationInfo(stationSearched[0][1]);
   }
-  
-  console.log(isLoading);
 
   return (
     <View style={styles.container}>
