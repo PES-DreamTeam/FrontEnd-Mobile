@@ -193,6 +193,8 @@ const en = {
 	reportToast: {
 		title: "Report sent",
 		message: "Your report was sent successfully.",
+		titleError: "Report not sent",
+		messageError: "Your have already sent a report on this station.",
 	}, 
 	faq: {
 		generalHelp: "General help",

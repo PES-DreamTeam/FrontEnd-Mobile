@@ -30,6 +30,7 @@ function LocationInfo(props) {
     if (props.stationInfo != null) {
       let info = await getChargePointInfo(props?.stationInfo?.id);
       setStationLikes(info.likes);
+      console.log(info);
       setStationReports(info.reports);
       toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
       toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
@@ -39,7 +40,7 @@ function LocationInfo(props) {
   useEffect(() => {
     toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
     updateAchievement(6, auth?.user?.likes?.length);
-    console.log("likes", auth?.user?.likes?.length);
+    console.log("likes", auth?.user);
   }, [auth?.user?.likes]);
 
   useEffect(() => {
@@ -250,7 +251,9 @@ function LocationInfo(props) {
       </View>
       <ReportStationModal
         isVisible={reportStationVisible}
-        handleAccept={() => {
+        handleAccept={async () => {
+          let info = await getChargePointInfo(props?.stationInfo?.id);
+          setStationReports(info.reports);
           setReportStationVisible(!reportStationVisible);
         }}
         handleCancel={() => setReportStationVisible(!reportStationVisible)}
@@ -270,7 +273,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#eae4f6",
     borderBottomColor: "transparent",
-    top: -30,
+    top: "-5%",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: "#fff",

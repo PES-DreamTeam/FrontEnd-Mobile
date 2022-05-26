@@ -176,6 +176,8 @@ title,Achievement completed!,¡Logro completado!,Assoliment completat!
 PAGE_reportToast,,,
 title,Report sent,Reporte enviado,Incidència enviada
 message,Your report was sent successfully.,Tu reporte ha sido correctamente enviado.,S'ha enviat correctament l'incidència.
+titleError,Report not sent,Reporte no enviado,Incidència no enviada
+messageError,Your have already sent a report on this station.,Ya has enviado un reporte a esta estación.,Ja has enviat una incidència a aquesta estació.
 PAGE_faq,,,
 generalHelp,General help,Ayuda general,Ajuda general
 accountHelp,Account help,Ayuda de cuenta,Ajuda del compte

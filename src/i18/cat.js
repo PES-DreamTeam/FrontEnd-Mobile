@@ -193,6 +193,8 @@ const cat = {
 	reportToast: {
 		title: "Incidència enviada",
 		message: "S'ha enviat correctament l'incidència.",
+		titleError: "Incidència no enviada",
+		messageError: "Ja has enviat una incidència a aquesta estació.",
 	}, 
 	faq: {
 		generalHelp: "Ajuda general",

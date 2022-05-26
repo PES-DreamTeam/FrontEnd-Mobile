@@ -3,8 +3,11 @@ import axios from "axios";
 import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
 import useAuth from "../hooks/useAuth";
+import { useToast } from "react-native-toast-notifications";
+import i18n from "i18n-js";
 
 const useChargePoints = () => {
+  const toast = useToast();
   const getChargePoints = async (filter, userId) => {
     let filterText = "";
     if (filter !== undefined && filter !== null && filter !== "all" && filter !== []) {
@@ -71,16 +74,26 @@ const useChargePoints = () => {
           stationType: stationType,
         }
       );
+      toast.show("", {
+        title: i18n.t("reportToast.title"),
+        message: i18n.t("reportToast.message"),
+        type: "custom_type",
+        location: "report",
+      });
     } catch (err) {
       let errors = [];
-      if (err.response.status === 403) {
-        err.response.data.errors.map((error) => {
+      if (err?.response?.status === 403) {
+        err?.response?.data?.errors?.map((error) => {
           errors.push(error);
         });
-        throw {
-          error: true,
-          errors: errors,
-        };
+        console.log(errors);
+        toast.show("", {
+          title: `${i18n.t("reportToast.titleError")}`,
+          message: `${i18n.t("reportToast.messageError")}`,
+          type: "custom_type",
+          location: "autonomia",
+        });
+
       } else
         throw {
           error: true,

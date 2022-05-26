@@ -193,6 +193,8 @@ const es = {
 	reportToast: {
 		title: "Reporte enviado",
 		message: "Tu reporte ha sido correctamente enviado.",
+		titleError: "Reporte no enviado",
+		messageError: "Ya has enviado un reporte a esta estación.",
 	}, 
 	faq: {
 		generalHelp: "Ayuda general",
