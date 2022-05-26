@@ -12,13 +12,14 @@ function AchievementsScreen() {
     resetAchievements,
     displayAchievements,
     findMyAchievement,
+    favAchievement,
   } = useAchievements();
   const { auth } = useAuth();
 
   const [achievements, setAchievements] = useState([]);
 
   useEffect(async () => {
-    /* await resetAchievements(); */
+    //resetAchievements();
     setAchievements(await displayAchievements());
   }, [auth?.user]);
 

@@ -6,13 +6,15 @@ import i18n from 'i18n-js';
 import useAuth from "../../../../hooks/useAuth";
 import useUser from "../../../../hooks/useUser";
 import useChargePoints from "../../../../hooks/useChargePoints";
+import useAchievements from "../../../../hooks/useAchievements";
 import GenericLocationInfo from './genericLocationInfo';
 
 export default (props) => {
 
-    const { auth, setAuth } = useAuth();
+    const { auth, updateUser } = useAuth();
     const { sendFavourite } = useUser();
     const { getChargePointInfo, sendStationLike } = useChargePoints();
+    const { updateAchievement } = useAchievements();
 
     const [isLiked, toggleLiked] = useState();
     const [isFavourite, toggleFavourite] = useState();
@@ -41,25 +43,26 @@ export default (props) => {
     }, [props.stationInfo?.id]);
 
     const handleFavourite = async () => {
-        const user = await sendFavourite(props.stationInfo.id);
-        toggleFavourite(!isFavourite);
-        setAuth({
-            ...auth,
-            user: user,
+        const favourites = await sendFavourite(props.stationInfo.id);
+        await updateUser({
+            ...auth.user,
+            favourites,
         });
+        if(!isFavourite) updateAchievement(5, favourites.length);
+        toggleFavourite(!isFavourite);
     };
-
+    
     const handleLike = async () => {
         const likes = await sendStationLike(props.stationInfo.id);
+        console.log("back", likes);
+        updateUser({
+            ...auth.user,
+            likes
+        });
+        console.log("front", auth.user.likes);
+        if(!isLiked) updateAchievement(6, likes.length);
         toggleLiked(!isLiked);
 
-        setAuth({
-            ...auth,
-            user: {
-            ...auth.user,
-            likes,
-            },
-        });
     };
     
 
