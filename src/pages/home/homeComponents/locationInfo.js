@@ -171,9 +171,9 @@ function LocationInfo(props) {
 
   return (
     <View style={stationInfoStyle}>
-      <View style={[customStyle.coolBlockTitleContainer,{flexDirection: 'row'}]}>
-        <View style={{width: '85%'}}>
-          <Text style={[customStyle.title, {textAlignVertical: 'center'}]}>
+      <View style={[customStyle.coolBlockTitleContainer,{maxHeight:80, flexDirection: 'row'}]}>
+        <View style={{height: '100%', width: '85%'}}>
+          <Text numberOfLines={ 2 } style={[customStyle.title, {height: '100%', textAlignVertical: 'center'}]}>
             {props?.stationInfo?.address}
           </Text>
         </View>
@@ -185,7 +185,7 @@ function LocationInfo(props) {
             }
             onPress={handleFavourite}
             customStyles={styles.favButtonContainer}
-            imageStyle={{width: "70%", height: "70%"}}
+            imageStyle={{width: "70%", height: "70%", alignSelf: "center"}}
             
           />
         </View>
