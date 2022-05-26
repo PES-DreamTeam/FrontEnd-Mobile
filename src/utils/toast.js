@@ -2,11 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
 function Toast(props) {
-  const { message, type, title } = props;
+  const { message, type, title, image } = props;
   const image_type = () => {
     if (type === "achievement") {
-      return require("../../assets/images/medal.png");
-    } else if (type === "report") {
+      return image !== "" ? { uri: image }
+      : require("../../assets/images/medal.png");
+    } else if(type === "report") {
       return require("../../assets/images/check.png");
     } else if (type === "autonomia") {
       return require("../../assets/images/warning.png");

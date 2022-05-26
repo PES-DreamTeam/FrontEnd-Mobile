@@ -58,6 +58,7 @@ const useAchievements = () => {
       toast.show("", {
         title: `${i18n.t("achievementToast.title")}`,
         message: achievement.description,
+        image: achievement.image,
         type: "custom_type",
         location: "achievement",
       });

@@ -21,7 +21,7 @@ function Main() {
       animationDuration={250}
       swipeEnabled={true}
       renderType={{
-        custom_type: (toast) => <Toast title={toast.title} message={toast.message} type={toast.location} />,
+        custom_type: (toast) => <Toast title={toast.title} message={toast.message} type={toast.location} image={toast.image} />,
       }}
     >
       <SidebarNavigator />
