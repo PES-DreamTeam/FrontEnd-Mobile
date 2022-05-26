@@ -20,6 +20,7 @@ function AchievementsScreen() {
 
   useEffect(async () => {
     //resetAchievements();
+    console.log(auth.user.likes.length)
     setAchievements(await displayAchievements());
   }, [auth?.user]);
 

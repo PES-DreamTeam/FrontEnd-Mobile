@@ -28,12 +28,11 @@ const useAchievements = () => {
     
     let newProgress;
 
-    if (id === 5) {
-      newProgress = favAchievement(achievementIP.progress, length);
-    } else if (id === 6) {
+    if (id >= 5) {
       newProgress = likeAchievement(achievementIP.progress, length);
     } else {
       newProgress = achievementIP.progress;
+      newProgress++;
     }
     if (newProgress === -1) return;
     
@@ -42,8 +41,9 @@ const useAchievements = () => {
       ...auth.user,
       achievements: myAchievements,
     });
-    /* actualiza achievement en backend con axios */
+
     const achievement = await completeAchievement(id, actualLevel, newProgress);
+    /* actualiza achievement en backend con axios */
     if (achievementIP.progress >= achievementIP.objective) {
       //si té un nivell superior al actual, guarda el progres en el següent achievement
       const nextAchievement = findMyAchievement(id, actualLevel + 1);
@@ -72,12 +72,6 @@ const useAchievements = () => {
     return -1;
   };
 
-  const favAchievement = (progress, length) => {
-    if (length > progress) {
-      return length;
-    }
-    return -1;
-  };
 
   const displayAchievements = async () => {
     const achievements = await getAllAchievements();

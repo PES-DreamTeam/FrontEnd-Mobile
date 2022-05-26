@@ -27,9 +27,8 @@ export default (props) => {
           let info = await getChargePointInfo(props?.stationInfo?.id);
           setStationLikes(info.likes);
           setStationReports(info.reports);
-          
         } 
-      }, [props]);
+      }, [props, isLiked]);
     
     useEffect(() => {
         if (props.stationInfo != null) {
@@ -54,15 +53,12 @@ export default (props) => {
     
     const handleLike = async () => {
         const likes = await sendStationLike(props.stationInfo.id);
-        console.log("back", likes);
-        updateUser({
+        await updateUser({
             ...auth.user,
             likes
         });
-        console.log("front", auth.user.likes);
         if(!isLiked) updateAchievement(6, likes.length);
         toggleLiked(!isLiked);
-
     };
     
 

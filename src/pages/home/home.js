@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { CustomMapView, FilterMap, LocationInfo } from "./homeComponents/";
 import useAuth from "../../hooks/useAuth";
+import useAchievements from "../../hooks/useAchievements";
 import i18n from "i18n-js";
 import { RoutesInfo } from "./homeComponents/RoutesInfo";
 import  useMap  from "../../hooks/useMap";
@@ -33,6 +34,7 @@ export default function HomeScreen({ navigation }) {
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
+  const { updateAchievement } = useAchievements();
 
   useEffect(() => {
     setUser(auth.user);
@@ -65,7 +67,8 @@ export default function HomeScreen({ navigation }) {
     setRouteInfo(newRouteInfo);
   };
 
-  const handleOnSearch = (nameStation) =>{
+  const handleOnSearch = async (nameStation) =>{
+    await updateAchievement(3);
     let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
     let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
     setSearchedPoint(stationSearched[0][1].id);
