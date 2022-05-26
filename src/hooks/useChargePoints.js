@@ -50,10 +50,15 @@ const useChargePoints = () => {
   };
 
   const sendStationLike = async (station_id) => {
+    try {
+      //console.log("sendStationLike");
     const response = await axios.put(
       `${API_HOST}/api/chargePoints/${station_id}/vote`
     );
     return response.data.likedStations;
+    } catch (error) {
+      console.log("ERROR HOLI");
+    }
   };
 
   const sendReport = async (station_id, reportType, reportMsg, stationType) => {

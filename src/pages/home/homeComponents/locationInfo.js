@@ -31,30 +31,30 @@ function LocationInfo(props) {
       let info = await getChargePointInfo(props?.stationInfo?.id);
       setStationLikes(info.likes);
       setStationReports(info.reports);
+      toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
+      toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
     } 
-  }, [props, isLiked]);
+  }, [props]);
 
   useEffect(() => {
-      if (props.stationInfo != null) {
-          toggleFavourite(
-              auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString())
-          );
-          toggleLiked(
-              auth?.user?.likes?.includes(props?.stationInfo?.id.toString())
-          );
-      }
-  }, [props.stationInfo?.id]);
+    toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
+    updateAchievement(6, auth?.user?.likes?.length);
+    console.log("likes", auth?.user?.likes?.length);
+  }, [auth?.user?.likes]);
+
+  useEffect(() => {
+    toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
+    updateAchievement(5, auth?.user?.favourites?.length);
+    console.log("favs", auth?.user?.favourites?.length);
+  }, [auth?.user?.favourites]);
 
   const handleFavourite = async () => {
       const favourites = await sendFavourite(props.stationInfo.id);
+      
       await updateUser({
         ...auth.user,
         favourites,
       });
-      if(!isFavourite) {
-        updateAchievement(5, favourites.length);
-      }
-      toggleFavourite(!isFavourite);
   };
 
   const handleLike = async () => {
@@ -64,10 +64,6 @@ function LocationInfo(props) {
         ...auth.user,
         likes,
       });
-      if(!isLiked) { 
-        updateAchievement(6, likes.length);
-      }
-      toggleLiked(!isLiked);
     };
 
   const handleRoute = () => {
