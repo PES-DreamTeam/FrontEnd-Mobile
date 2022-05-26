@@ -36,7 +36,9 @@ function SidebarNavigator() {
         <Stack.Screen
           name="VehicleConfigStarter"
           component={VehicleConfigStarter}
-          options={{ drawerItemStyle: { display: "none" } }}
+          options={{ 
+            drawerItemStyle: { display: "none" } ,
+          }}
         />
         <Stack.Screen
           name="OnBoardingStart"

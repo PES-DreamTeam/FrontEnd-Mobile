@@ -50,6 +50,7 @@ function VehicleConfigStarter({ navigation }) {
             let models =  [...new Set(temp?.map(item => item.model))];
             models?.sort();
             setVehicleModels(models);
+            setSelectedModel("");
             setVehicle({...vehicle, ['vehicleBrand']: selectedBrand});
         }
         
@@ -189,7 +190,10 @@ function VehicleConfigStarter({ navigation }) {
     }
 
     return(
-        <View style={customStyle.formContainer}>
+        <View style={[customStyle.formContainer, {marginTop: 50}]}>
+            <View style={{}}>
+                <Text style={[customStyle.bigTitle, {color: '#8200d6'}]}>{i18n.t('vehicleConfig.title')}</Text>
+            </View>
             <ScrollView style={[styles.topContainer]}>
                 {error.error && error.attribute !== "NumberPlate" ?
                     <View style={styles.errorContainer}>
@@ -203,6 +207,7 @@ function VehicleConfigStarter({ navigation }) {
                     <CustomDropDown
                         options={vehicleBrands}
                         changeSelected={setSelectedBrand}
+                        currentSelected={selectedBrand}
                     />
                 </View>
                 <View style={customStyle.formInputContainer}>
@@ -210,6 +215,7 @@ function VehicleConfigStarter({ navigation }) {
                     <CustomDropDown
                         options={vehicleModels}
                         changeSelected={setSelectedModel}
+                        currentSelected={selectedModel}
                     />
                 </View>
                 <View style={customStyle.formInputContainer}>
