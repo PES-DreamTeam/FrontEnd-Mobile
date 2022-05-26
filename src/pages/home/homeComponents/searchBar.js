@@ -30,10 +30,16 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
 
       const separator = () => (<View style={{height:1, backgroundColor:"grey"}}></View>);
 
-      const getStationType= (name) =>{
+      const getStationType = (name) =>{
           let station = shownChargePoints.filter((chargePoint) => chargePoint[1].name == name);
-          let vehicleType = station[0][1]?.objectType;
-          return vehicleType;
+          if(station.length > 0){
+            console.log(shownChargePoints);
+            let vehicleType = station[0][1]?.objectType;
+            return vehicleType;
+          }
+          else {
+              return null;
+          }
       }
       const GetIcon = (stationType) => {
         switch(stationType){

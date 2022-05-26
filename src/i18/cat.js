@@ -12,8 +12,9 @@ const cat = {
 		car: "Cotxe",
 		bike: "Bicicleta",
 		foot: "A peu",
-		time: "Temps",
+		time: "Temps estimat",
 		distance: "Distància",
+		routeOptions: "Opcions de ruta",
 	}, 
 	settings: {
 		title: "Configuració",
@@ -189,8 +190,8 @@ const cat = {
 		title: "Assoliment completat!",
 	}, 
 	reportToast: {
-		title: "Canvis guardats",
-		message: "S'ha actualitzat correctament el teu perfil.",
+		title: "Incidència enviada",
+		message: "S'ha enviat correctament l'incidència.",
 	}, 
 	faq: {
 		generalHelp: "Ajuda general",
@@ -229,14 +230,18 @@ const cat = {
 		done: "Finalitzar",
 	}, 
 	warningToast: {
-		title: "Autonomia Insuficient",
-		message: "Passi per l'estació mostrada per repostar",
+		title: "Compte amb la contaminació",
+		message: "Aquest destí té una contaminació de",
 	}, 
 	help: {
 		chat: "Xat",
 		faq: "FAQs",
 		title: "Secció d'ajuda",
 		tutorial: "Tutorial",
+	}, 
+	autonomyModal: {
+		title: "Vols introdüir l'autonomia del teu vehicle?",
+		placeholder: "La teva autonomia en km",
 	}
 }
 export{ cat }

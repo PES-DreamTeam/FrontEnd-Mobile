@@ -13,9 +13,10 @@ import useAuth from "../../../hooks/useAuth";
 import useUser from "../../../hooks/useUser";
 import useChargePoints from "../../../hooks/useChargePoints";
 import CustomButtonTable from "../../../utils/buttonTable";
+import { useToast } from "react-native-toast-notifications";
 
 function LocationInfo(props) {
-
+  const toast = useToast();
   const { auth, setAuth } = useAuth();
   const { sendFavourite } = useUser();
   const { getChargePointInfo, sendStationLike } = useChargePoints();
@@ -73,8 +74,17 @@ function LocationInfo(props) {
       longitude: props?.stationInfo?.lng,
       id: props?.stationInfo?.id,
       objectType: props?.stationInfo?.objectType,
+      autonomy: 10000,
     });
     props.onChangeFilter("singleCharge");
+    if (pollution > 5) {
+      toast.show("", {
+          title: i18n.t("warningToast.title"),
+          message: i18n.t("warningToast.message")+" "+pollution,
+          type: "custom_type",
+          location: "pollution",
+        });
+    }  
     updateAchievement(2);
   };
 
@@ -249,6 +259,7 @@ function LocationInfo(props) {
         onPress={() => setReportStationVisible(!reportStationVisible)}
         title={i18n.t("report.reportStation.title")}
         stationID={props?.stationInfo?.id}
+        stationType={props?.stationInfo?.objectType}
       />
     </View>
   );

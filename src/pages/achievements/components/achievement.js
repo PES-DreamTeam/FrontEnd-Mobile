@@ -30,7 +30,7 @@ function Achievement(props) {
       <View style={customStyle.coolBlockImageContainer}>
         <Image
         source={
-          require("../../../../assets/images/icons/mechanical.png")
+          {uri: url}
         }
         style={customStyle.coolBlockImage}
         />

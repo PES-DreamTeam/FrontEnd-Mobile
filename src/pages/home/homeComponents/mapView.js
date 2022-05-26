@@ -22,7 +22,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
   const {GetCarSmallImage} = carTypeImages();
   const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
 
-  
+  const [isModalVisible, setModalVisible] = useState(false);
   const searchedPoint= {};
 
   const { auth } = useAuth();
@@ -82,9 +82,10 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
       > 
         {routeActivate ? 
           <MapRoutes
-          routeActivate={routeActivate}
-          location={userLocation}
-          ChangeRoutingInfo={ChangeRoutingInfo}
+            routeActivate={routeActivate}
+            location={userLocation}
+            ChangeRoutingInfo={ChangeRoutingInfo}
+            
           />
         : null
         }
@@ -114,7 +115,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
         />
         : null
         } 
-        {!stationInfoOpened && !isSearching ?
+        {(!stationInfoOpened || routeActivate) && !isSearching ?
         <CustomButton
           customStyles={[styles.floatingButton, styles.rightFloat]}
           onPress={centerPosition}
@@ -125,7 +126,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
         }
 
         {/* When the route to point is activated */}
-        {mapFilter.includes("singleCharge")&&!stationInfoOpened ? 
+        {mapFilter.includes("singleCharge") && (!stationInfoOpened || routeActivate) ? 
           <CustomButton
             customStyles={[styles.floatingButton, styles.leftFloat]}
             onPress={cancelRoute}
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       width: 50,
       height: 50,
-      bottom:25,
+      bottom:'15%',
       zIndex: 100,
 
     },

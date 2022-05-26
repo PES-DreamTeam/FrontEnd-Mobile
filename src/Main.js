@@ -44,6 +44,7 @@ function Main() {
       offsetTop={50}
       animationType="slide-in"
       animationDuration={250}
+      duration={99999999999999999}
       swipeEnabled={true}
       renderType={{
         custom_type: (toast) => <Toast title={toast.title} message={toast.message} type={toast.location} />,

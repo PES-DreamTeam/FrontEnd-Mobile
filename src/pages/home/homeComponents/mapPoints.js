@@ -73,7 +73,6 @@ export default ({chargePoints, OpenStationInfo,searchedPoint}) => {
 
     useEffect(() => markers.length === 2597 ? markers[searchedPoint]?.showCallout() : "",[searchedPoint])
 
-
     return(
         chargePoints?.map(chargePoint => 
             <Marker

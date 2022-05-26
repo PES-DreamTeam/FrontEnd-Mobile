@@ -14,6 +14,7 @@ import i18n from "i18n-js";
 import { RoutesInfo } from "./homeComponents/RoutesInfo";
 import  useMap  from "../../hooks/useMap";
 import SearchBar from './homeComponents/searchBar';
+import AutonomyModal from "./homeComponents/autonomyModal";
 
 export default function HomeScreen({ navigation }) {
   var vehicleImages = [
@@ -36,6 +37,10 @@ export default function HomeScreen({ navigation }) {
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
+
+  var [tempRouteInfo, setTempRouteInfo] = useState();
+
+  const [autonomyModalVisible, setAutonomyModalVisible] = useState(false);
 
   useEffect(() => {
     setUser(auth.user);
@@ -127,10 +132,29 @@ export default function HomeScreen({ navigation }) {
       <LocationInfo
         stationInfo={openSearchBar? currentStationInfo : null}
         routeActivate={wantRoute}
-        ActivateRoute={ActivateRoute}
+        ActivateRoute={(info) => {
+          setTempRouteInfo(JSON.parse(JSON.stringify(info)));
+          setAutonomyModalVisible(true);
+        }}
         onChangeFilter={ChangeMapFilter}
       />
 
+      <AutonomyModal
+        isVisible={autonomyModalVisible}
+        handleAccept={(autonomy) => {
+          //pasar el valor de autonomia a la configuracion del vehiculo
+          tempRouteInfo.autonomy = autonomy;
+          console.log('handle:', autonomy);
+          setTempRouteInfo({...tempRouteInfo, autonomy: autonomy});
+          ActivateRoute({...tempRouteInfo, autonomy: autonomy});
+          setAutonomyModalVisible(false);
+        }}
+        handleCancel={() => {
+          setTempRouteInfo({...tempRouteInfo, autonomy: 10000});
+          ActivateRoute({...tempRouteInfo, autonomy: 10000});
+          setAutonomyModalVisible(false);
+        }}
+      />
       
       
     </View>

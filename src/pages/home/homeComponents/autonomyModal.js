@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Pressable, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
-import CustomButton from '../../../../utils/button';
-import useChargePoints from "../../../../hooks/useChargePoints";
+import CustomButton from '../../../utils/button';
 import i18n from 'i18n-js';
 
-export default ({isVisible, handleCancel, handleAccept, title, subtitle, stationID, stationType}) => {
-    const [ selectedType, setSelectedType ] = useState ("dislike");
-    const [ reportMessage, changeReportMessage] = useState("");
+export default ({isVisible, handleCancel, handleAccept}) => {
+    const [ autonomyValue, setAutonomyValue] = useState("");
 
     const reset = () => {
-        setSelectedType("dislike");
-        changeReportMessage("");
+        setAutonomyValue("");
     }
 
-    const {sendReport} = useChargePoints(); 
-
-    const send = () => {
-        sendReport(stationID, selectedType, reportMessage, stationType);
+    const accept = () => {
+        handleAccept(autonomyValue);
         reset();
-        handleAccept();
     }
 
     const cancel = () => {
@@ -27,51 +21,26 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
         handleCancel();
     }
     
-    const customStyle = require("../../../../utils/customStyleSheet");
+    const customStyle = require("../../../utils/customStyleSheet");
 
     return(
         <Modal isVisible={isVisible}>
             <View style={[customStyle.modalContainer, {justifyContent: "space-between"}]}>
                 <View style={[customStyle.coolBlockTitleContainer, {width: "100%"}]}>
                     <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                        {title}
+                        {i18n.t('autonomyModal.title')}
                     </Text>
                 </View>
-                {subtitle ?
-                    <View style={styles.modalSubtitle}>
-                        <Text style={{fontSize: 15}}>
-                            {subtitle}
-                        </Text>
-                    </View>               
-                    :null
-                }
-                <View style={[styles.reportTypeContainer, {width: "80%"}]}>
-                    <CustomButton
-                        customStyles={selectedType=='dislike'? styles.reportTypeButtonSelected : styles.reportTypeButton}
-                        onPress={() => setSelectedType("dislike")}
-                        text={i18n.t('report.reportStation.dislike')}
-                    />
-                    <CustomButton
-                        customStyles={selectedType=='poorCondition'? styles.reportTypeButtonSelected : styles.reportTypeButton}
-                        onPress={() => setSelectedType("poorCondition")}
-                        text={i18n.t('report.reportStation.poorCondition')}
-                    />
-                    <CustomButton
-                        customStyles={selectedType=='badInformation'? styles.reportTypeButtonSelected : styles.reportTypeButton}
-                        onPress={() => setSelectedType("badInformation")}
-                        text={i18n.t('report.reportStation.badInformation')}
-                    />
-                </View>
                 <TextInput
-                    onChangeText={(text) => changeReportMessage(text)}
-                    value={reportMessage}
-                    style={[customStyle.formInputText, {width: "80%"}]}
-                    name="reportMessage"
-                    placeholder= {i18n.t('report.reportStation.placeholder')}
+                    onChangeText={(text) => setAutonomyValue(text)}
+                    value={autonomyValue}
+                    style={[customStyle.formInputText, {width: "80%", textAlignVertical: "center"}]}
+                    name="autonomyValue"
+                    placeholder= {i18n.t('autonomyModal.placeholder')}
                 />
 
 
-                <View style={[customStyle.buttonRow, {height: "12%", marginBottom: 15}]}>                    
+                <View style={[customStyle.buttonRow, {height: "15%", marginBottom: 15}]}>                    
                     {
                         handleCancel ?
                         <CustomButton
@@ -84,7 +53,7 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
                     
                     <CustomButton
                         customStyles={styles.acceptButton}
-                        onPress={() => send()}
+                        onPress={() => accept()}
                         text={i18n.t('report.send')}
                     />
                     

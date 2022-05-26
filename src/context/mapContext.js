@@ -67,14 +67,16 @@ const MapContextProvider = ({ children }) => {
     useEffect(async () => {
         if(mapFilter.includes("singleCharge")){
             let aux = shownChargePoints?.filter(markers => markers[1].id == wantRoute?.id)
-            setShown(aux);
+            if(aux.length > 0){
+                setShown(aux);
+            }
         }
         else{
             setIsLoading(true);
             await ReloadMapPoints();
             setIsLoading(false);
         }
-    }, [mapFilter]);
+    }, [mapFilter, wantRoute]);
     
       const {latitude,longitude} = userLocation;
     

@@ -40,7 +40,7 @@ function RoutesInfo(props) {
       <View style={[customStyle.coolBlockTitleContainer]}>
         <View style={{width: '100%'}}>
           <Text style={[customStyle.title, {textAlignVertical: 'center'}]}>
-            Route options
+            {i18n.t("home.routeOptions")}
           </Text>
         </View>
       </View>
@@ -56,7 +56,7 @@ function RoutesInfo(props) {
                   latitude:props?.routeActivate?.latitude,
                   longitude: props?.routeActivate?.longitude,
                   id: props?.routeActivate?.id,
-                  objectType: "vehicleStation"
+                  objectType: "vehicleStation",
                 });   
               }}
           />
@@ -71,7 +71,7 @@ function RoutesInfo(props) {
                 latitude:props?.routeActivate?.latitude,
                 longitude: props?.routeActivate?.longitude,
                 id: props?.routeActivate?.id,
-                objectType: "bikeStation"
+                objectType: "bikeStation",
               });               
             }}
           />
@@ -86,7 +86,7 @@ function RoutesInfo(props) {
                 latitude:props?.routeActivate?.latitude,
                 longitude: props?.routeActivate?.longitude,
                 id: props?.routeActivate?.id,
-                objectType: "walk"
+                objectType: "walk",
               });           
             }}
           />
