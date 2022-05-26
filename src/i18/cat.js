@@ -103,6 +103,7 @@ const cat = {
 		logOut: "Tancar sessió",
 		shareMessage: "Descobreix EcoRoads | Una aplicació per a planejar els teus viatges 'Eco-Friendly' de forma eficient.",
 		achievements: "Assoliments",
+		report: "Incidència",
 		help: "Ajuda",
 	}, 
 	locationInfo: {

@@ -103,6 +103,7 @@ const en = {
 		logOut: "Log Out",
 		shareMessage: "Check EcoRoads out | An app to plan your Eco-Friendly trips efficiently.",
 		achievements: "Achievements",
+		report: "Report",
 		help: "Help",
 	}, 
 	locationInfo: {

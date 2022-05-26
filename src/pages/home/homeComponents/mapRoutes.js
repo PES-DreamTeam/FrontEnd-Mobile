@@ -58,7 +58,6 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
   useEffect(() =>{   
     if(routeActivate.autonomy !== undefined){
       setAutonomia(routeActivate.autonomy);  
-      console.log('autonomia: ', autonomia);
     }
     else {
       changeLine(routeActivate);
@@ -164,6 +163,9 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
             ChangeRoutingInfo({
               distance: result.distance,
               duration: result.duration,
+              objectType: routeActivate.objectType,
+              autonomy: routeActivate.autonomy,
+              transport: routeActivate.transport,
             });
             setDistancia(result.distance);
           }}
@@ -182,6 +184,9 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
             ChangeRoutingInfo({
               distance: result.distance,
               duration: result.duration,
+              objectType: routeActivate.objectType,
+              autonomy: routeActivate.autonomy,
+              transport: routeActivate.transport,
             });
             setDistancia(result.distance);
           }}

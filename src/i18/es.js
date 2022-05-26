@@ -103,6 +103,7 @@ const es = {
 		logOut: "Cerrar sesión",
 		shareMessage: "Descubre EcoRoads | Una aplicación para planear tus viajes 'Eco-Friendly' de forma eficiente.",
 		achievements: "Logros",
+		report: "Reporte",
 		help: "Ayuda",
 	}, 
 	locationInfo: {

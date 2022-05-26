@@ -21,9 +21,18 @@ function SidebarNavigator() {
   useUserSettings();
   const { auth } = useAuth();
 
+  const customStyle = require("../utils/customStyleSheet");
+
+  
+
   return auth?.user?.isNew ? (
     <NavigationContainer>
-      <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
+      <Drawer.Navigator 
+        drawerActiveTintColor='red'
+        drawerContent={(props) => 
+        <CustomDrawer {...props} 
+        
+      />}>
         <Stack.Screen
           name="VehicleConfigStarter"
           component={VehicleConfigStarter}
@@ -45,9 +54,11 @@ function SidebarNavigator() {
           component={MainNavigator}
           options={{
             title: `${i18n.t("drawer.home")}`,
+            drawerLabelStyle: customStyle.normalText,
+            drawerActiveBackgroundColor: '#f3edff',
             header: () => null,
             drawerIcon: ({ color }) => (
-              <Ionicons name="home-outline" size={22} color={color} />
+              <Ionicons name="home-outline" size={22} color={'#8200d6'} />
             ),
           }}
         />
@@ -56,8 +67,10 @@ function SidebarNavigator() {
           component={ProfileScreen}
           options={{
             title: `${i18n.t("drawer.profile")}`,
+            drawerLabelStyle: customStyle.normalText,
+            drawerActiveBackgroundColor: '#f3edff',
             drawerIcon: ({ color }) => (
-              <Ionicons name="person-outline" size={22} color={color} />
+              <Ionicons name="person-outline" size={22} color={'#8200d6'} />
             ),
           }}
         />
@@ -65,21 +78,12 @@ function SidebarNavigator() {
           name="Achievements"
           component={AchievementsScreen}
           options={{
+            drawerActiveBackgroundColor: '#f3edff',
             title: `${i18n.t("drawer.achievements")}`,
+            drawerLabelStyle: customStyle.normalText,
             drawerIcon: ({ color }) => (
-              <Ionicons name="trophy-outline" size={22} color={color} />
+              <Ionicons name="trophy-outline" size={22} color={'#8200d6'} />
             ),
-          }}
-        />
-        <Drawer.Screen
-          name="Help"
-          component={HelpScreen}
-          options={{
-            title: `${i18n.t("drawer.help")}`,
-            drawerIcon: ({ color }) => (
-              <Icon name="chat-alert-outline" size={22} color={color} />
-            ),
-            headerShown: false,
           }}
         />
         <Stack.Screen
@@ -95,8 +99,18 @@ function SidebarNavigator() {
         <Stack.Screen
           name="ReportApplicationScreen"
           component={ReportApplicationScreen}
-          options={{ drawerItemStyle: { display: "none" } }}
+          options={{ drawerItemStyle: { display: "none" },
+          drawerLabelStyle: customStyle.normalText, }}
         />
+        <Stack.Screen
+          name="Help"
+          component={HelpScreen}
+          options={{ drawerItemStyle: { display: "none" },
+            drawerLabelStyle: customStyle.normalText, 
+          headerShown: false }
+          }
+        />
+
       </Drawer.Navigator>
     </NavigationContainer>
   );

@@ -29,6 +29,8 @@ export default function HomeScreen({ navigation }) {
     require("../../../assets/images/carTypes/icons/carType_8.png"),
   ];
 
+  const customStyle = require("../../utils/customStyleSheet");
+
   const [openSearchBar, setOpenSearchBar] = useState("none");
 
   const { auth } = useAuth();
@@ -80,6 +82,16 @@ export default function HomeScreen({ navigation }) {
     OpenStationInfo(stationSearched[0][1]);
   }
 
+  const BeginSearch = (info) => {
+    console.log("BEGIN SEARCH", wantRoute, info);
+    if(info != 'none' && wantRoute != null){
+      ActivateRoute(null);
+      ChangeMapFilter((mapFilter));
+      changeRouteInfo(null);
+    }
+    setOpenSearchBar(info)
+  }
+
   return (
     <View style={styles.container}>
       <View style={openSearchBar? styles.top : styles.topSearch}>
@@ -89,7 +101,7 @@ export default function HomeScreen({ navigation }) {
               style={styles.topBarMenuButton}
               onPress={() => navigation.toggleDrawer()}
             >
-              <Image source={require("../../../assets/images/desplegable.png")} />
+              <Image style={styles.menuImage} source={require("../../../assets/images/desplegable.png")} />
             </Pressable>
           </View>
           <View style={styles.searchBarContainer}>
@@ -98,7 +110,7 @@ export default function HomeScreen({ navigation }) {
               handleOnSearch={handleOnSearch}
               routeActivate={wantRoute}
               openSearchBar={openSearchBar}
-              setOpenSearchBar={setOpenSearchBar}
+              setOpenSearchBar={BeginSearch}
             />            
           </View>          
         </View>        
@@ -133,8 +145,10 @@ export default function HomeScreen({ navigation }) {
         stationInfo={openSearchBar? currentStationInfo : null}
         routeActivate={wantRoute}
         ActivateRoute={(info) => {
-          setTempRouteInfo(JSON.parse(JSON.stringify(info)));
-          setAutonomyModalVisible(true);
+          if(!isLoading) {
+            setTempRouteInfo(JSON.parse(JSON.stringify(info)));
+            setAutonomyModalVisible(true);
+          }
         }}
         onChangeFilter={ChangeMapFilter}
       />
@@ -142,17 +156,20 @@ export default function HomeScreen({ navigation }) {
       <AutonomyModal
         isVisible={autonomyModalVisible}
         handleAccept={(autonomy) => {
-          //pasar el valor de autonomia a la configuracion del vehiculo
-          tempRouteInfo.autonomy = autonomy;
-          console.log('handle:', autonomy);
-          setTempRouteInfo({...tempRouteInfo, autonomy: autonomy});
-          ActivateRoute({...tempRouteInfo, autonomy: autonomy});
-          setAutonomyModalVisible(false);
+          if(!isLoading) {
+            //pasar el valor de autonomia a la configuracion del vehiculo
+            tempRouteInfo.autonomy = autonomy;
+            setTempRouteInfo({...tempRouteInfo, transport: 'DRIVING', autonomy: autonomy});
+            ActivateRoute({...tempRouteInfo, transport: 'DRIVING', autonomy: autonomy});
+            setAutonomyModalVisible(false);
+          }
         }}
         handleCancel={() => {
-          setTempRouteInfo({...tempRouteInfo, autonomy: 10000});
-          ActivateRoute({...tempRouteInfo, autonomy: 10000});
-          setAutonomyModalVisible(false);
+          if(!isLoading) {
+            setTempRouteInfo({...tempRouteInfo, autonomy: 10000});
+            ActivateRoute({...tempRouteInfo, autonomy: 10000});
+            setAutonomyModalVisible(false);
+          }
         }}
       />
       
@@ -188,6 +205,12 @@ const styles = StyleSheet.create({
     height: "100%",
     /*     alignItems: "center", */
     alignItems: "center",
+  },
+  menuImage : {
+    width: "40%",
+    height: undefined,
+    aspectRatio: 1,
+    marginTop: 10,
   },
   filters: {
     position: "absolute",

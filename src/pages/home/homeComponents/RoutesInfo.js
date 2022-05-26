@@ -57,6 +57,7 @@ function RoutesInfo(props) {
                   longitude: props?.routeActivate?.longitude,
                   id: props?.routeActivate?.id,
                   objectType: "vehicleStation",
+                  transport: "DRIVING",
                 });   
               }}
           />
@@ -72,6 +73,7 @@ function RoutesInfo(props) {
                 longitude: props?.routeActivate?.longitude,
                 id: props?.routeActivate?.id,
                 objectType: "bikeStation",
+                transport: "BICYCLING",
               });               
             }}
           />
@@ -87,6 +89,7 @@ function RoutesInfo(props) {
                 longitude: props?.routeActivate?.longitude,
                 id: props?.routeActivate?.id,
                 objectType: "walk",
+                transport: "WALKING",
               });           
             }}
           />
