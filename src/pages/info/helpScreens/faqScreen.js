@@ -9,6 +9,8 @@ function FaqScreen({ navigation }) {
     navigation.setOptions({
       headerLeft: () => (
         <Icon
+          accessibilityLabel="Press me"
+          accessibilityHint="Navigates back to the main list of buttons"
           name="arrow-back-outline"
           onPress={() => navigation.goBack()}
           size={25}

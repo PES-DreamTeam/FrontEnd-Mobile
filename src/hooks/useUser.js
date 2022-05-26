@@ -23,7 +23,7 @@ const useUser = () => {
           station_id,
         }
       );
-      return response.data.user;
+      return response.data.user.favourites;
     } catch (err) {
       console.log(err);
     }

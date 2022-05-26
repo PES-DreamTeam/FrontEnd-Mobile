@@ -17,7 +17,7 @@ import { useToast } from "react-native-toast-notifications";
 
 function LocationInfo(props) {
   const toast = useToast();
-  const { auth, setAuth } = useAuth();
+  const { auth, updateUser } = useAuth();
   const { sendFavourite } = useUser();
   const { getChargePointInfo, sendStationLike } = useChargePoints();
 
@@ -31,9 +31,8 @@ function LocationInfo(props) {
       let info = await getChargePointInfo(props?.stationInfo?.id);
       setStationLikes(info.likes);
       setStationReports(info.reports);
-      
     } 
-  }, [props]);
+  }, [props, isLiked]);
 
   useEffect(() => {
       if (props.stationInfo != null) {
@@ -47,26 +46,29 @@ function LocationInfo(props) {
   }, [props.stationInfo?.id]);
 
   const handleFavourite = async () => {
-      const user = await sendFavourite(props.stationInfo.id);
-      toggleFavourite(!isFavourite);
-      setAuth({
-          ...auth,
-          user: user,
+      const favourites = await sendFavourite(props.stationInfo.id);
+      await updateUser({
+        ...auth.user,
+        favourites,
       });
+      if(!isFavourite) {
+        updateAchievement(5, favourites.length);
+      }
+      toggleFavourite(!isFavourite);
   };
 
   const handleLike = async () => {
       const likes = await sendStationLike(props.stationInfo.id);
-      toggleLiked(!isLiked);
-
-      setAuth({
-          ...auth,
-          user: {
-          ...auth.user,
-          likes,
-          },
+      
+      await updateUser({
+        ...auth.user,
+        likes,
       });
-  };
+      if(!isLiked) { 
+        updateAchievement(6, likes.length);
+      }
+      toggleLiked(!isLiked);
+    };
 
   const handleRoute = () => {
     props.ActivateRoute({
