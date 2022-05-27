@@ -71,6 +71,7 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
             placeholder={`${i18n.t('home.searchBar')}`}
             inputContainerStyle={styles.searchBar}
             listContainerStyle={[styles.listContainer, {display:openSearchBar}]} 
+            lis
             
             flatListProps={{
                 keyExtractor: (item, idx) => item+idx,
@@ -107,10 +108,9 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       backfaceVisibility: "hidden",
       padding: 10,
-      backgroundColor: "#fff",
       borderWidth: 1,
-        borderRadius: 50,
-        borderColor: "#000",
+    borderRadius: 50,
+    borderColor: "#777",
     },
     autocompleteContainer: {
         flex: 1,
@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
         height: "100%",
         alignSelf: "center",
         justifyContent: "center",
-        backgroundColor: "#fff",
         
     },
     listContainer:{
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         width: "100%",
         height: 50,
-        borderColor: "#111111",
+        borderColor: "#777",
         borderBottomWidth: 1,
         alignItems: "center",
     },

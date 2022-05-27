@@ -71,6 +71,9 @@ function SidebarNavigator() {
             title: `${i18n.t("drawer.profile")}`,
             drawerLabelStyle: customStyle.normalText,
             drawerActiveBackgroundColor: '#f3edff',
+            headerStyle: {
+              backgroundColor: '#f3edff'
+            },
             drawerIcon: ({ color }) => (
               <Ionicons name="person-outline" size={22} color={'#8200d6'} />
             ),
@@ -86,6 +89,9 @@ function SidebarNavigator() {
             drawerIcon: ({ color }) => (
               <Ionicons name="trophy-outline" size={22} color={'#8200d6'} />
             ),
+            headerStyle: {
+              backgroundColor: '#f3edff'
+            },
           }}
         />
         <Stack.Screen
@@ -102,13 +108,19 @@ function SidebarNavigator() {
           name="ReportApplicationScreen"
           component={ReportApplicationScreen}
           options={{ drawerItemStyle: { display: "none" },
-          drawerLabelStyle: customStyle.normalText, }}
+            drawerLabelStyle: customStyle.normalText, 
+            title: `${i18n.t("drawer.report")}`,
+            headerStyle: {
+              backgroundColor: '#f3edff'
+            },
+          }
+        }
         />
         <Stack.Screen
           name="Help"
           component={HelpScreen}
           options={{ drawerItemStyle: { display: "none" },
-            drawerLabelStyle: customStyle.normalText, 
+            drawerLabelStyle: customStyle.normalText,
           headerShown: false }
           }
         />

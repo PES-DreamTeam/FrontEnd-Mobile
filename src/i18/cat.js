@@ -150,7 +150,7 @@ const cat = {
 			setStationAsFavouriteTitle: "T'escullo a tu!",
 			setStationAsFavouriteDescription: "Selecciona una estació com a preferida seleccionant-la per a obtenir aquest assoliment.",
 			setThreeStationsAsFavouriteTitle: "T'escullo a tu!",
-			setStationAsFavouriteDescription: "Selecciona tres estacions com a preferides seleccionant-les per a obtenir aquest assoliment.",
+			setThreeStationsAsFavouriteDescription: "Selecciona tres estacions com a preferides seleccionant-les per a obtenir aquest assoliment.",
 			likeAStationTitle: "M'agrades. Té, una galeta.",
 			likeAStationDescription: "Dona-li m'agrada a una estació seleccionant-la per a obtenir aquest assoliment.",
 			likeFiveStationsTitle: "M'agrades. Té, una galeta.",

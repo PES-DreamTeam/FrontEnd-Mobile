@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: '#fff'
     },
     scrollContainer: {
         width: '90%',

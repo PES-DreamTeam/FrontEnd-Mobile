@@ -154,7 +154,7 @@ export default function HomeScreen({ navigation }) {
           }
         }}
         onChangeFilter={ChangeMapFilter}
-      />
+        />
 
       <AutonomyModal
         isVisible={autonomyModalVisible}
@@ -175,13 +175,24 @@ export default function HomeScreen({ navigation }) {
           }
         }}
       />
-      
+      {
+        currentStationInfo !== null && openSearchBar ?
+      <View style={styles.bottomBackground}/> : null
+      }
       
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bottomBackground: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: '15%',
+    backgroundColor: '#fff',
+    zIndex: 2,
+  },
   top: {
     marginTop: 20,
     width: "100%",
@@ -235,7 +246,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f3edff",
     alignItems: "flex-start",
     justifyContent: "center",
     justifyContent: "flex-end",
@@ -244,10 +255,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 160,
     borderRadius: 60,
     paddingLeft: 10,
-    borderColor: "gray",
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
   },
 });
 

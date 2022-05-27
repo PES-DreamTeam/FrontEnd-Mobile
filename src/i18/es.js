@@ -150,7 +150,7 @@ const es = {
 			setStationAsFavouriteTitle: "¡Te escojo a tí!",
 			setStationAsFavouriteDescription: "Selecciona una estación como favorita tras seleccionarla para obtener este logro.",
 			setThreeStationsAsFavouriteTitle: "¡Te escojo a tí!",
-			setStationAsFavouriteDescription: "Selecciona tres estaciones como favoritas tras seleccionarlas para obtener este logro.",
+			setThreeStationsAsFavouriteDescription: "Selecciona tres estaciones como favoritas tras seleccionarlas para obtener este logro.",
 			likeAStationTitle: "Me gustas, toma una galleta.",
 			likeAStationDescription: "Dale me gusta a una estación tras seleccionarla para obtener este logro.",
 			likeFiveStationsTitle: "Me gustas, toma una galleta.",

@@ -22,7 +22,7 @@ export default ({buttonsInfo, rowSize, currentSelected, handleOnSelect, deleteab
                         customStyles={[styles.tableButton, 
                             {width: '100%',
                             },
-                            currentSelected == i*rowSize+j ? {borderColor: "blue"} : null]
+                            currentSelected == i*rowSize+j ? {borderColor: "#b28dfc"} : null]
                         }
                         
                         text={buttonsInfo[i*rowSize+j].text}

@@ -20,6 +20,9 @@ function HelpScreen({ navigation }) {
             component={ChatScreen}
             options={{
               title: i18n.t("help.chat"),
+              headerStyle: {
+                backgroundColor: '#f3edff'
+              },
             }}
             />
           <Stack.Screen
@@ -27,6 +30,9 @@ function HelpScreen({ navigation }) {
             component={FaqScreen}
             options={{
               title: i18n.t("help.faq"),
+              headerStyle: {
+                backgroundColor: '#f3edff'
+              },
             }}
             />
           <Stack.Screen
@@ -34,6 +40,9 @@ function HelpScreen({ navigation }) {
             component={MainList}
             options={{
               title: i18n.t("help.title"),
+              headerStyle: {
+                backgroundColor: '#f3edff'
+              },
             }}
             />
           <Stack.Screen
@@ -41,6 +50,9 @@ function HelpScreen({ navigation }) {
             component={OnBoarding}
             options={{
               title: i18n.t("help.tutorial"),
+              headerStyle: {
+                backgroundColor: '#f3edff'
+              },
             }}
             />
       </Stack.Navigator>

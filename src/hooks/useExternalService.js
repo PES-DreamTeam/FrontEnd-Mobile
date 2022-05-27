@@ -9,7 +9,7 @@ const useExternalService = () => {
             const res = await axios.get(`${EXTERNAL_API_HOST}/location?lat=${lat}&long=${lng}`);
             return res.data.pollution;
         } catch (error) {
-        console.log(error);
+        //console.log(error);
         }
     };
 
@@ -18,7 +18,7 @@ const useExternalService = () => {
             const res = await axios.get(`${EXTERNAL_API_HOST}/stations`);
             return res;
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
 
