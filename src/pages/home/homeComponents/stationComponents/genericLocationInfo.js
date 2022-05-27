@@ -17,6 +17,12 @@ function GenericLocationInfo(props) {
             stationInfo={props.stationInfo}
           />
         );
+      case "bikeStation":
+        return (
+          <HighlightInfo
+            stationInfo={props.stationInfo}
+          />
+        );
       default:
         return <HighlightInfo />;
     }

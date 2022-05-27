@@ -173,13 +173,12 @@ function LocationInfo(props) {
   }, [props]);
 
   useUserSettings();
-
   return (
     <View style={stationInfoStyle}>
       <View style={[customStyle.coolBlockTitleContainer,{maxHeight:80, flexDirection: 'row'}]}>
         <View style={{height: '100%', width: '85%'}}>
           <Text numberOfLines={ 2 } style={[customStyle.title, {height: '100%', textAlignVertical: 'center'}]}>
-            {props?.stationInfo?.address.toUpperCase()}
+            {props?.stationInfo?.address?.toUpperCase()}
           </Text>
         </View>
         <View style={{width: '15%'}}>
