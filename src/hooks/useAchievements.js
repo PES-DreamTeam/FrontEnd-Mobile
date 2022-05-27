@@ -56,10 +56,10 @@ const useAchievements = () => {
         });
         await completeAchievement(id, actualLevel + 1, achievementIP.progress);
       }
-      const temp = await getAchievementInfo();
+      const temp = await getAchievementsInfo();
       let image = "";
       if(achievement.tier === 3){
-        image = getGoldImage(achievement_id);
+        image = getGoldImage(id);
       }
       else {
         for(let i = 0; i < temp.length; i++){
@@ -71,7 +71,7 @@ const useAchievements = () => {
       }
       toast.show("", {
         title: `${i18n.t("achievementToast.title")}`,
-        message: achievement.description,
+        message: `${i18n.t('achievementScreen.Achievements.' + achievement.description + "Description")}`,
         image: image,
         type: "custom_type",
         location: "achievement",
@@ -88,7 +88,7 @@ const useAchievements = () => {
 
 
   const displayAchievements = async () => {
-    const temp = await getAchievementInfo();
+    const temp = await getAchievementsInfo();
     console.log("achievements", temp);
     const achievements = await getAllAchievements();
     const newAchievements = [];
@@ -143,10 +143,19 @@ const useAchievements = () => {
     }
   };
 
-  const getAchievementInfo = async () => {
+  const getAchievementsInfo = async () => {
     try {
       const res = await axios.get(`${API_HOST}/api/achievements/`);
       return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAchievementInfo = async (id, tier) => {
+    try {
+      const res = await axios.get(`${API_HOST}/api/achievements/${id}?tier=${tier}`);
+      return res.data.achievement;
     } catch (error) {
       console.log(error);
     }
@@ -197,7 +206,7 @@ const useAchievements = () => {
 
   return {
     updateAchievement,
-    getAchievementInfo,
+    getAchievementsInfo,
     getAllAchievements,
     findMyAchievement,
     resetAchievements,

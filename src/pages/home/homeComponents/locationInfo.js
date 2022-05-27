@@ -90,6 +90,7 @@ function LocationInfo(props) {
   };
 
   const handleShare = async () => {
+    updateAchievement(4);
     const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + props.stationInfo.name.toUpperCase() + "'" + `${i18n.t("locationInfo.shareMessage2")}`
                   + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
     const shareOptions = {
