@@ -78,10 +78,10 @@ function LocationInfo(props) {
       autonomy: 10000,
     });
     props.onChangeFilter("singleCharge");
-    if (pollution > 5) {
+    if (pollution > 8) {
       toast.show("", {
           title: i18n.t("warningToast.title"),
-          message: i18n.t("warningToast.message")+" "+pollution,
+          message: i18n.t("warningToast.message")+" "+pollution+' %',
           type: "custom_type",
           location: "autonomia",
         });
@@ -120,7 +120,7 @@ function LocationInfo(props) {
   const [locationModalOpened, setLocationModalOpened] = useState(false);
   const [reportStationVisible, setReportStationVisible] = useState(false);
   const [pollution, setPollution] = useState();
-  const [pollutionColor, setPollutionColor] = useState("#fff300");
+  const [pollutionColor, setPollutionColor] = useState("#a8a8a8");
 
   const ChargeStationIcon = (chargerType) => {};
 
@@ -130,7 +130,7 @@ function LocationInfo(props) {
 
 
   function perc2color(perc) {
-    perc *= 4;
+    perc *= 5;
     perc = 100 - perc;
     let r,
       g,
@@ -159,7 +159,7 @@ function LocationInfo(props) {
       );
       if (temp == null || temp == undefined) {
         setPollution(i18n.t("miscelaneus.loading"));
-        setPollutionColor("#ffffff");
+        setPollutionColor("#a8a8a8");
       } else {
         temp *= 100;
         temp = Math.round(temp * 100) / 100;
@@ -210,7 +210,7 @@ function LocationInfo(props) {
             <View style={[styles.circle, {backgroundColor: pollutionColor}]}>
               <View style={[styles.circle, {backgroundColor: '#ffffff70', borderWidth: 3, borderColor: 'transparent'}]}/>
             </View>
-            <Text style={{marginLeft: 10}}>{pollution}</Text>
+            <Text style={{marginLeft: 10, marginTop: 2}}>{pollution} %</Text>
           </View>
         </View>
         <CustomButton
