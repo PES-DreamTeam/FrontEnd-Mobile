@@ -35,6 +35,8 @@ function RoutesInfo(props) {
 
   const customStyle = require("../../../utils/customStyleSheet");
 
+  console.log(props?.routingInfo?.transport);
+
   return (
     <View style={routeInfoStyle}>
       <View style={[customStyle.coolBlockTitleContainer]}>
@@ -46,7 +48,7 @@ function RoutesInfo(props) {
       </View>
       <View style={[styles.goThereContent]}>
           <CustomButton
-              customStyles={(props?.routingInfo?.transport == "DRIVING") ? styles.goThereButtonSelected : styles.goThereButton}
+              customStyles={(props?.routingInfo?.transport == "DRIVING" || props?.routingInfo?.transport == undefined) ? styles.goThereButtonSelected : styles.goThereButton}
               imageSrc={require("../../../../assets/images/icons/carIcon.png")}
               imageStyle={[{ width: "75%", height: "75%", tintColor: "black" }]}
               //text={i18n.t("home.car")}
@@ -128,6 +130,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 1,
     borderColor: "#eae4f6",
+    backgroundColor: '#fff',
     borderBottomColor: "transparent",
     top: -30,
     borderTopLeftRadius: 20,

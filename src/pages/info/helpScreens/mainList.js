@@ -13,6 +13,7 @@ function MainList({navigation}){
             <Icon name="arrow-back-outline" onPress={() => navigation.goBack()} size={25}  />
     )})
     })
+    
     return (
         <View style={[customStyle.mainContainer, {height: '100%'}]}>
             <View style={[customStyle.coolBlockContainer, styles.blockStyle]}>

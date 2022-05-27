@@ -18,6 +18,9 @@ function AuthNavigator(){
                 options={{
                     title: `${i18n.t('signIn.title')}`,
                     gestureEnabled: false,
+                    headerStyle: {
+                        backgroundColor: '#f3edff'
+                      },
                 }}  
                 />
                 <Stack.Screen 
@@ -25,6 +28,9 @@ function AuthNavigator(){
                 component={SignUpScreen}
                 options={{
                     title: `${i18n.t('signUp.title')}`,
+                    headerStyle: {
+                        backgroundColor: '#f3edff'
+                      },
                 }}   
                 />
             </Stack.Navigator>

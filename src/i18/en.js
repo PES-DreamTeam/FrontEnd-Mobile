@@ -150,7 +150,7 @@ const en = {
 			setStationAsFavouriteTitle: "I choose you!",
 			setStationAsFavouriteDescription: "Set a station as favourite by selecting it to get this achievement.",
 			setThreeStationsAsFavouriteTitle: "I choose you!",
-			setStationAsFavouriteDescription: "Set three stations as favourite by selecting them to get this achievement.",
+			setThreeStationsAsFavouriteDescription: "Set three stations as favourite by selecting them to get this achievement.",
 			likeAStationTitle: "I like you, have a cupcake.",
 			likeAStationDescription: "Like a station by selecting it to get this achievement.",
 			likeFiveStationsTitle: "I like you, have a cupcake.",

@@ -81,7 +81,7 @@ function LocationInfo(props) {
           title: i18n.t("warningToast.title"),
           message: i18n.t("warningToast.message")+" "+pollution,
           type: "custom_type",
-          location: "pollution",
+          location: "autonomia",
         });
     }  
     updateAchievement(2);

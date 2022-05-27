@@ -56,10 +56,23 @@ const useAchievements = () => {
         });
         await completeAchievement(id, actualLevel + 1, achievementIP.progress);
       }
+      const temp = await getAchievementInfo();
+      let image = "";
+      if(achievement.tier === 3){
+        image = getGoldImage(achievement_id);
+      }
+      else {
+        for(let i = 0; i < temp.length; i++){
+          if(temp[i].achievement_id === achievement.achievement_id && temp[i].achievement_tier === achievement.achievement_tier + 1){
+            image = temp[i].image;
+            break;
+          }
+        }
+      }
       toast.show("", {
         title: `${i18n.t("achievementToast.title")}`,
         message: achievement.description,
-        image: achievement.image,
+        image: image,
         type: "custom_type",
         location: "achievement",
       });
@@ -75,6 +88,8 @@ const useAchievements = () => {
 
 
   const displayAchievements = async () => {
+    const temp = await getAchievementInfo();
+    console.log("achievements", temp);
     const achievements = await getAllAchievements();
     const newAchievements = [];
     const unique = [

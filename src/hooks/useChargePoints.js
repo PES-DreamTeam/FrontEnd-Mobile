@@ -8,6 +8,7 @@ import i18n from "i18n-js";
 
 const useChargePoints = () => {
   const toast = useToast();
+  const {auth} = useAuth();
   const getChargePoints = async (filter, userId) => {
     let filterText = "";
     if (filter !== undefined && filter !== null && filter !== "all" && filter !== []) {
@@ -66,12 +67,21 @@ const useChargePoints = () => {
 
   const sendReport = async (station_id, reportType, reportMsg, stationType) => {
     try {
+      console.log({
+        reportType: reportType,
+        reportMsg: reportMsg,
+        stationType: stationType,
+        userName: auth?.user.nickname,
+        user_id: auth?.user._id,
+        station_id: station_id,
+      });
       const response = await axios.put(
         `${API_HOST}/api/chargePoints/${station_id}/report/`,
         {
           reportType: reportType,
           reportMsg: reportMsg,
           stationType: stationType,
+          userName: auth?.user.nickname,
         }
       );
       toast.show("", {
@@ -97,7 +107,7 @@ const useChargePoints = () => {
       } else
         throw {
           error: true,
-          errors: ["Something went wrong. Try again later."],
+          errors: err,
         };
     }
   };

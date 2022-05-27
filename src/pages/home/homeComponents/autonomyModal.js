@@ -37,6 +37,7 @@ export default ({isVisible, handleCancel, handleAccept}) => {
                     style={[customStyle.formInputText, {width: "80%", textAlignVertical: "center"}]}
                     name="autonomyValue"
                     placeholder= {i18n.t('autonomyModal.placeholder')}
+                    keyboardType="numeric"
                 />
 
 

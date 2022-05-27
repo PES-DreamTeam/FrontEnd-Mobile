@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-evenly',
+        backgroundColor: '#fff'
     },
     scrollContainer: {
         width: '90%',
