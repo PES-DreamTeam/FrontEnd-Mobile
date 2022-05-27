@@ -46,13 +46,13 @@ const OnBoarding = ({ navigation }) => {
                       subtitle: i18n.t('onboarding.subtitle1'),
                     },
                     {
-                      backgroundColor: '#fdeb93',
+                      backgroundColor: '#d5a6e4',
                       image: <Image style={styles.image} source={require('../../../assets/images/onboarding2.png')} />,
                       title: i18n.t('onboarding.title2'),
                       subtitle: i18n.t('onboarding.subtitle2'),
                     },
                     {
-                      backgroundColor: '#e9bcbe',
+                      backgroundColor: '#e4a6a6',
                       image: <Image style={styles.image} source={require('../../../assets/images/onboarding3.png')} />,
                       title: i18n.t('onboarding.title3'),
                       subtitle: i18n.t('onboarding.subtitle3'),
@@ -64,7 +64,7 @@ const OnBoarding = ({ navigation }) => {
                         subtitle: i18n.t('onboarding.subtitle4'),
                     },
                     {
-                    backgroundColor: '#a6e4d0',
+                    backgroundColor: '#b4e4a6',
                     image: <Image style={styles.image} source={require('../../../assets/images/onboarding5.png')} />,
                     title: i18n.t('onboarding.title5'),
                     subtitle: i18n.t('onboarding.subtitle5'),

@@ -109,7 +109,7 @@ const es = {
 	locationInfo: {
 		mechanical: "Mecanicas",
 		electrical: "Electricas",
-		parking: "Estacionamientos",
+		freeSlots: "Espacios libres",
 		getThere: "¡Llévame!",
 		likesNumber: "Me gustas",
 		reportsNumber: "Reportes",
@@ -243,8 +243,8 @@ const es = {
 		tutorial: "Tutorial",
 	}, 
 	autonomyModal: {
-		title: "¿Quieres introducir la autonamia de tu vehículo?",
-		placeholder: "Tu autunomia en km",
+		title: "¿Quieres introducir la autonomía de tu vehículo?",
+		placeholder: "Tu autonomía en km",
 	}
 }
 export{ es }

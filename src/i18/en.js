@@ -109,7 +109,7 @@ const en = {
 	locationInfo: {
 		mechanical: "Mechanical",
 		electrical: "Electrical",
-		parking: "Parkings",
+		freeSlots: "Free slots",
 		getThere: "Get there!",
 		likesNumber: "Likes",
 		reportsNumber: "Reports",
@@ -243,7 +243,7 @@ const en = {
 		tutorial: "Tutorial",
 	}, 
 	autonomyModal: {
-		title: "Do you wont to introduce your vehicle's autonomy?",
+		title: "Do you want to introduce your vehicle's autonomy?",
 		placeholder: "Your autonomy in km",
 	}
 }

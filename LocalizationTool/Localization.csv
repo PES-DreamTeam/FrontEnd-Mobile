@@ -98,7 +98,7 @@ help,Help,Ayuda,Ajuda
 PAGE_locationInfo,,,
 mechanical,Mechanical,Mecanicas,Mecàniques
 electrical,Electrical,Electricas,Elèctriques
-parking,Parkings,Estacionamientos,Aparcaments
+freeSlots,Free slots,Espacios libres,Espais lliures
 getThere,Get there!,¡Llévame!,Porta-m'hi!
 likesNumber,Likes,Me gustas,M'agrades
 reportsNumber,Reports,Reportes,Incidències
@@ -224,5 +224,5 @@ title,Help section,Sección de ayuda,Secció d'ajuda
 tutorial,Tutorial,Tutorial,Tutorial
 ,,,
 PAGE_autonomyModal,,,
-title,Do you wont to introduce your vehicle's autonomy?,¿Quieres introducir la autonamia de tu vehículo?,Vols introdüir l'autonomia del teu vehicle?
-placeholder,Your autonomy in km,Tu autunomia en km,La teva autonomia en km
+title,Do you want to introduce your vehicle's autonomy?,¿Quieres introducir la autonomía de tu vehículo?,Vols introduïr l'autonomia del teu vehicle?
+placeholder,Your autonomy in km,Tu autonomía en km,La teva autonomia en km

@@ -109,7 +109,7 @@ const cat = {
 	locationInfo: {
 		mechanical: "Mecàniques",
 		electrical: "Elèctriques",
-		parking: "Aparcaments",
+		freeSlots: "Espais lliures",
 		getThere: "Porta-m'hi!",
 		likesNumber: "M'agrades",
 		reportsNumber: "Incidències",
@@ -243,7 +243,7 @@ const cat = {
 		tutorial: "Tutorial",
 	}, 
 	autonomyModal: {
-		title: "Vols introdüir l'autonomia del teu vehicle?",
+		title: "Vols introduïr l'autonomia del teu vehicle?",
 		placeholder: "La teva autonomia en km",
 	}
 }

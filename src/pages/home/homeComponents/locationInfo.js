@@ -8,6 +8,8 @@ import CustomButton from "../../../utils/button";
 import LocationModal from "./stationComponents/locationModal";
 import useAchievements from "../../../hooks/useAchievements";
 import useExternalService from "../../../hooks/useExternalService";
+import useUserSettings from "../../../hooks/useUserSettings";
+
 
 import useAuth from "../../../hooks/useAuth";
 import useUser from "../../../hooks/useUser";
@@ -88,7 +90,7 @@ function LocationInfo(props) {
   };
 
   const handleShare = async () => {
-    const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + props.stationInfo.name + "'" + `${i18n.t("locationInfo.shareMessage2")}`
+    const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + props.stationInfo.name.toUpperCase() + "'" + `${i18n.t("locationInfo.shareMessage2")}`
                   + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
     const shareOptions = {
       message: message,
@@ -169,12 +171,14 @@ function LocationInfo(props) {
     }
   }, [props]);
 
+  useUserSettings();
+
   return (
     <View style={stationInfoStyle}>
       <View style={[customStyle.coolBlockTitleContainer,{maxHeight:80, flexDirection: 'row'}]}>
         <View style={{height: '100%', width: '85%'}}>
           <Text numberOfLines={ 2 } style={[customStyle.title, {height: '100%', textAlignVertical: 'center'}]}>
-            {props?.stationInfo?.address}
+            {props?.stationInfo?.address.toUpperCase()}
           </Text>
         </View>
         <View style={{width: '15%'}}>
