@@ -41,31 +41,31 @@ const OnBoarding = ({ navigation }) => {
                 pages={[
                     {
                       backgroundColor: '#a6e4d0',
-                      image: <Image source={require('../../../assets/images/onboarding1.png')} />,
+                      image: <Image style={styles.image} source={require('../../../assets/images/onboarding1.png')} />,
                       title: i18n.t('onboarding.title1'),
                       subtitle: i18n.t('onboarding.subtitle1'),
                     },
                     {
                       backgroundColor: '#fdeb93',
-                      image: <Image source={require('../../../assets/images/onboarding2.png')} />,
+                      image: <Image style={styles.image} source={require('../../../assets/images/onboarding2.png')} />,
                       title: i18n.t('onboarding.title2'),
                       subtitle: i18n.t('onboarding.subtitle2'),
                     },
                     {
                       backgroundColor: '#e9bcbe',
-                      image: <Image source={require('../../../assets/images/onboarding3.png')} />,
+                      image: <Image style={styles.image} source={require('../../../assets/images/onboarding3.png')} />,
                       title: i18n.t('onboarding.title3'),
                       subtitle: i18n.t('onboarding.subtitle3'),
                     },
                     {
                         backgroundColor: '#fdeb93',
-                        image: <Image source={require('../../../assets/images/onboarding2.png')} />,
+                        image: <Image style={styles.image} source={require('../../../assets/images/onboarding4.png')} />,
                         title: i18n.t('onboarding.title4'),
                         subtitle: i18n.t('onboarding.subtitle4'),
                     },
                     {
                     backgroundColor: '#a6e4d0',
-                    image: <Image source={require('../../../assets/images/onboarding1.png')} />,
+                    image: <Image style={styles.image} source={require('../../../assets/images/onboarding5.png')} />,
                     title: i18n.t('onboarding.title5'),
                     subtitle: i18n.t('onboarding.subtitle5'),
                     },
@@ -141,6 +141,12 @@ const styles = StyleSheet.create({
         height: 30,
         borderColor: '#b491fa',
         borderWidth: 3
+    },
+    image: {
+        top: 0,
+        width: '80%',
+        height: undefined,
+        aspectRatio: 1,
     }
 })
 

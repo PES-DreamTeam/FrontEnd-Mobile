@@ -51,7 +51,7 @@ function SignInScreen({ navigation }) {
             <ScrollView style={styles.scrollContainer}>
                 <View style={styles.logoContainer}>
                     <Image
-                        source={require('../../../../assets/images/logoNoText.png')}
+                        source={require('../../../../assets/images/logo.png')}
                         style={[styles.logo]}
                     />
                 </View>
@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     logo: {
-        width: 225,
-        height: 150,
+        height: 250,
+        aspectRatio: 1,
     },
     title: {
         fontSize: 25,
