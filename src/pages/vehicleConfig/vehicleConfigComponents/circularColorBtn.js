@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
 import { Pressable, StyleSheet  } from 'react-native';
+import CustomButton from '../../../utils/button';
 
-const CircularColorBtn = ({color, onPress}) => {
+const CircularColorBtn = ({color, onPress, isSelected}) => {
     return (
-        <Pressable 
+        <CustomButton 
             onPress={() => onPress(color)}
-            style={[styles.circularButton, {backgroundColor: color}]} />
+            customStyles={[isSelected ? styles.circularButtonSelected : styles.circularButton, {backgroundColor: color}]} 
+
+        />
     );
 }
 
 const styles = StyleSheet.create({
     circularButton: {
-        width: 30,
-        height: 30,
+        width: '20%',
+        aspectRatio: 1,
         marginHorizontal: 5,
         borderRadius: 30,
+    },
+    circularButtonSelected: {
+        width: '25%',
+        aspectRatio: 1,
+        marginHorizontal: 5,
+        borderRadius: 35,
+        borderColor: 'black',
+        borderWidth: 3,
     }
 })
 

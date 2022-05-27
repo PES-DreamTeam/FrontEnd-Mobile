@@ -24,12 +24,7 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle}) => {
                 }
 
 
-                <View style={styles.modalButtons}>                    
-                    <Button
-                        customStyles={styles.acceptButton}
-                        onPress={handleAccept}
-                        text={i18n.t('miscelaneus.accept')}
-                    />
+                <View style={styles.modalButtons}>     
                     {
                         handleCancel ?
                         <Button
@@ -38,7 +33,13 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle}) => {
                             text={i18n.t('miscelaneus.cancel')}
                         />
                         : null
-                    }
+                    }               
+                    <Button
+                        customStyles={styles.acceptButton}
+                        onPress={handleAccept}
+                        text={i18n.t('miscelaneus.accept')}
+                    />
+                    
                 </View>
             </View>
         </Modal>
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green',
     },
     cancelButton: {
-        backgroundColor: 'red',
+        backgroundColor: '#de3e44',
         width: "45%",
         height: "100%",
         justifyContent: 'center',
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     acceptButton: {
-        backgroundColor: 'green',
+        backgroundColor: '#2e942b',
         width: "45%",
         height: "100%",
         justifyContent: 'center',

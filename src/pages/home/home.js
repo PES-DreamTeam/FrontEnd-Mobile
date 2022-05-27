@@ -10,10 +10,12 @@ import {
 } from "react-native";
 import { CustomMapView, FilterMap, LocationInfo } from "./homeComponents/";
 import useAuth from "../../hooks/useAuth";
+import useAchievements from "../../hooks/useAchievements";
 import i18n from "i18n-js";
 import { RoutesInfo } from "./homeComponents/RoutesInfo";
 import  useMap  from "../../hooks/useMap";
 import SearchBar from './homeComponents/searchBar';
+import AutonomyModal from "./homeComponents/autonomyModal";
 
 export default function HomeScreen({ navigation }) {
   var vehicleImages = [
@@ -22,17 +24,27 @@ export default function HomeScreen({ navigation }) {
     require("../../../assets/images/carTypes/icons/carType_2.png"),
     require("../../../assets/images/carTypes/icons/carType_3.png"),
     require("../../../assets/images/carTypes/icons/carType_4.png"),
+    require("../../../assets/images/carTypes/icons/carType_5.png"),
+    require("../../../assets/images/carTypes/icons/carType_6.png"),
+    require("../../../assets/images/carTypes/icons/carType_7.png"),
     require("../../../assets/images/carTypes/icons/carType_8.png"),
   ];
+
+  const customStyle = require("../../utils/customStyleSheet");
 
   const [openSearchBar, setOpenSearchBar] = useState("none");
 
   const { auth } = useAuth();
   const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
-    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint } = useMap();
+    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint, isLoading } = useMap();
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
+  const { updateAchievement } = useAchievements();
+
+  var [tempRouteInfo, setTempRouteInfo] = useState();
+
+  const [autonomyModalVisible, setAutonomyModalVisible] = useState(false);
 
   useEffect(() => {
     setUser(auth.user);
@@ -48,8 +60,8 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
+
   const OpenStationInfo = (station) => {
-    //console.log(station);
     setStationInfo(station);
   };
 
@@ -65,11 +77,22 @@ export default function HomeScreen({ navigation }) {
     setRouteInfo(newRouteInfo);
   };
 
-  const handleOnSearch = (nameStation) =>{
+  const handleOnSearch = async (nameStation) =>{
+    await updateAchievement(3);
     let stationSearched = shownChargePoints.filter(current => current[1].name  === nameStation);    
     let statlocation = {latitude:stationSearched[0][1].lat, longitude:stationSearched[0][1].lng, latitudeDelta:0.01, longitudeDelta:0.01}
     setSearchedPoint(stationSearched[0][1].id);
     OpenStationInfo(stationSearched[0][1]);
+  }
+
+  const BeginSearch = (info) => {
+    console.log("BEGIN SEARCH", wantRoute, info);
+    if(info != 'none' && wantRoute != null){
+      ActivateRoute(null);
+      ChangeMapFilter((mapFilter));
+      changeRouteInfo(null);
+    }
+    setOpenSearchBar(info)
   }
 
   return (
@@ -81,7 +104,7 @@ export default function HomeScreen({ navigation }) {
               style={styles.topBarMenuButton}
               onPress={() => navigation.toggleDrawer()}
             >
-              <Image source={require("../../../assets/images/desplegable.png")} />
+              <Image style={styles.menuImage} source={require("../../../assets/images/desplegable.png")} />
             </Pressable>
           </View>
           <View style={styles.searchBarContainer}>
@@ -90,46 +113,70 @@ export default function HomeScreen({ navigation }) {
               handleOnSearch={handleOnSearch}
               routeActivate={wantRoute}
               openSearchBar={openSearchBar}
-              setOpenSearchBar={setOpenSearchBar}
-            />
-          </View>
-        </View>
-        <View style={styles.routesInfoContainer}>
-          <RoutesInfo
-            routeActivate={wantRoute}
-            ActivateRoute={ActivateRoute}
-            routingInfo={routeInfo}
-          />
-        </View>
+              setOpenSearchBar={BeginSearch}
+            />            
+          </View>          
+        </View>        
       </View>
+      
       {
       <CustomMapView
         //ref={mapViewRef}
-        color={vehicleConfig[currentVehicle ?? 8]?.color ?? "#000000"}
+        color={vehicleConfig[currentVehicle]?.color ?? "black"}
         OpenStationInfo={OpenStationInfo}
         CloseStationInfo={CloseStationInfo}
         vehicleType={
-          vehicleImages[vehicleConfig[currentVehicle ?? 8]?.vehicleType ?? 8]
+          vehicleConfig[currentVehicle]?.vehicleType ?? 8
         }
         mapFilter={mapFilter}
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
         onChangeFilter={ChangeMapFilter}
         ChangeRoutingInfo={changeRouteInfo}
+        stationInfoOpened={currentStationInfo!==null}
+        isLoading={isLoading}
+        isSearching={!openSearchBar}
       />
       }
+      <RoutesInfo
+        routeActivate={wantRoute}
+        ActivateRoute={ActivateRoute}
+        routingInfo={routeInfo}
+      />
 
       <LocationInfo
         stationInfo={openSearchBar? currentStationInfo : null}
         routeActivate={wantRoute}
-        ActivateRoute={ActivateRoute}
+        ActivateRoute={(info) => {
+          if(!isLoading) {
+            setTempRouteInfo(JSON.parse(JSON.stringify(info)));
+            setAutonomyModalVisible(true);
+          }
+        }}
         onChangeFilter={ChangeMapFilter}
       />
 
-      <FilterMap
-        ChangeRoutingInfo={changeRouteInfo}
-        ActivateRoute={ActivateRoute}
+      <AutonomyModal
+        isVisible={autonomyModalVisible}
+        handleAccept={(autonomy) => {
+          if(!isLoading) {
+            //pasar el valor de autonomia a la configuracion del vehiculo
+            tempRouteInfo.autonomy = autonomy;
+            setTempRouteInfo({...tempRouteInfo, transport: 'DRIVING', autonomy: autonomy});
+            ActivateRoute({...tempRouteInfo, transport: 'DRIVING', autonomy: autonomy});
+            setAutonomyModalVisible(false);
+          }
+        }}
+        handleCancel={() => {
+          if(!isLoading) {
+            setTempRouteInfo({...tempRouteInfo, autonomy: 10000});
+            ActivateRoute({...tempRouteInfo, autonomy: 10000});
+            setAutonomyModalVisible(false);
+          }
+        }}
       />
+      
+      
     </View>
   );
 }
@@ -161,6 +208,17 @@ const styles = StyleSheet.create({
     height: "100%",
     /*     alignItems: "center", */
     alignItems: "center",
+  },
+  menuImage : {
+    width: "40%",
+    height: undefined,
+    aspectRatio: 1,
+    marginTop: 10,
+  },
+  filters: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
   },
   searchBarContainer: {
     width: "85%",

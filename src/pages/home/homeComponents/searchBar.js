@@ -9,6 +9,11 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
     
     const [text, setText] = useState(null);
     const [routeActive, setRouteActive] = useState(null);
+
+    const customStyle = require("../../../utils/customStyleSheet");
+
+    //customStyles
+
     
     const findStation = (search) => {
         if (search) {
@@ -30,10 +35,25 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
 
       const separator = () => (<View style={{height:1, backgroundColor:"grey"}}></View>);
 
-      const getStationType= (name) =>{
+      const getStationType = (name) =>{
           let station = shownChargePoints.filter((chargePoint) => chargePoint[1].name == name);
-          let vehicleType = station[0][1].objectType;
-          return vehicleType;
+          if(station.length > 0){
+            let vehicleType = station[0][1]?.objectType;
+            return vehicleType;
+          }
+          else {
+              return null;
+          }
+      }
+      const GetIcon = (stationType) => {
+        switch(stationType){
+            case "bikeStation":
+                return require('../../../../assets/images/icons/bike.png');
+            case "vehicleStation":
+                return require('../../../../assets/images/icons/station.png');
+            case "highlights": default:
+                return require('../../../../assets/images/icons/alert.png');
+        }
       }
 
     return ( 
@@ -47,37 +67,29 @@ const SearchBar = ({shownChargePoints, handleOnSearch, routeActivate, openSearch
             data={filteredStat}
             name="search"
             value={text}
+            style={customStyle.normalText}
             placeholder={`${i18n.t('home.searchBar')}`}
             inputContainerStyle={styles.searchBar}
             listContainerStyle={[styles.listContainer, {display:openSearchBar}]} 
             
             flatListProps={{
                 keyExtractor: (item, idx) => item+idx,
-                ItemSeparatorComponent:separator,
                 renderItem:({item, index}) =>(
                 <View>
                     <TouchableOpacity 
                     style={styles.listItem}
                     onPress={() => {
-                        //console.log(item); 
                         handleOnSearch(item);
                         setOpenSearchBar("none");
                         setText(null);
                         }}
                     >
-                        {getStationType(item) == "bikeStation" 
-                         ? 
-                            <Image
-                                source={require('../../../../assets/images/icons/bike.png')}
-                                style={styles.icon} 
-                            />
-                         : 
-                            <Image
-                                source={require('../../../../assets/images/icons/station.png')}
-                                style={styles.icon} 
-                            />
-                         }
-                         <Text style={styles.text}>{item}</Text>
+                        <Image
+                            source={GetIcon(getStationType(item))}
+                            style={styles.icon} 
+                        />
+                            
+                         <Text style={[customStyle.normalText, styles.text]}>{item}</Text>
                     </TouchableOpacity>   
                 </View>),
             }}
@@ -95,9 +107,10 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       backfaceVisibility: "hidden",
       padding: 10,
+      backgroundColor: "#fff",
       borderWidth: 1,
         borderRadius: 50,
-        borderColor: "black",
+        borderColor: "#000",
     },
     autocompleteContainer: {
         flex: 1,
@@ -105,10 +118,10 @@ const styles = StyleSheet.create({
         height: "100%",
         alignSelf: "center",
         justifyContent: "center",
+        backgroundColor: "#fff",
         
     },
     listContainer:{
-        backgroundColor:'#F5FCFF',
         marginTop: 10,
         width: "100%",
         height: 400,
@@ -121,6 +134,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         width: "100%",
         height: 50,
+        borderColor: "#111111",
+        borderBottomWidth: 1,
+        alignItems: "center",
     },
     icon: {
         width: 16,

@@ -6,7 +6,7 @@ import { MapContext } from "../context/mapContext";
 
 const useMap = () => {
   const { map, userLocation, shownChargePoints, searchedPoint, mapFilter, setMapFilter, searchType, setSearchedPoint,
-    wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo, ReloadUserLocation} = useContext(MapContext);
+    isLoading, wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo, ReloadUserLocation} = useContext(MapContext);
 
   const ChangeMapFilter = (filter) => {
     let temp = JSON.parse(JSON.stringify(mapFilter));
@@ -29,7 +29,7 @@ const useMap = () => {
 
   return {
     shownChargePoints, userLocation, mapFilter, ChangeMapFilter, recalcUserLocation, setSearchedPoint,
-    wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo,
+     isLoading, wantRoute, setWantRoute, routeInfo, setRouteInfo, currentStationInfo, setStationInfo,
   };
 };
 

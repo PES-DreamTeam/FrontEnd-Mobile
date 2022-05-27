@@ -4,20 +4,25 @@ import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
 import useVehicleConfig from '../../hooks/useVehicleConfig';
 import i18n from 'i18n-js';
+import CustomButton from "../../utils/button";
+import ButtonTable from "../../utils/buttonTable";
+import CarSelectorModal from './vehicleConfigComponents/carSelectorModal';
+import useVehicle from '../../hooks/useVehicle';
+import CustomDropDown from '../../utils/customDropDown';
+import carTypeImages from '../../utils/carTypeImages';
+
 
 function VehicleConfig({ navigation }) {    
 
     const { sendConfig } = useVehicleConfig();
-    
-    const carColors = { 
-        White:  '#DDDDDD',
-        Grey:   '#4E4E4E',
-        Black:  '#222222',
-        Red:    '#871614', 
-        Blue:   '#16345D',
-        Yellow: '#FDCC0D',
-        Green:  '#296E01'
-    };
+
+    const { getVehicleBrands, getVehicleModels} = useVehicle();
+
+    const[vehicleTypes, setVehicleTypes] = useState(); 
+
+    const {GetCarImage} = carTypeImages();
+
+    const customStyle = require('../../utils/customStyleSheet');
 
     const { auth, setAuth, updateUser } = useAuth();
 
@@ -26,19 +31,92 @@ function VehicleConfig({ navigation }) {
         vehicleModel: '',
         vehicleNickname: '',
         vehicleType: 0,
-        vehicleColor: carColors.White,
+        vehicleColor: 'white',
         numberPlate: '',
     };
 
     const [vehicle, setVehicle] = useState(initialState);
-    useEffect(()=>{setVehicle(initialState)},[])
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedModel, setSelectedModel] = useState('');
+
+    const [vehicleBrands, setVehicleBrands] = useState();
+    const [vehicleModels, setVehicleModels] = useState();
+
+    useEffect (async () => {
+        if (selectedBrand !== '') {
+            let temp = await getVehicleModels(selectedBrand);
+            let models =  [...new Set(temp?.map(item => item.model))];
+            models?.sort();
+            setVehicleModels(models);
+            setSelectedModel("");
+            setVehicle({...vehicle, ['vehicleBrand']: selectedBrand});
+        }
+        
+    }, [selectedBrand]);
+
+    useEffect (async () => {
+        setVehicle({...vehicle, ['vehicleModel']: selectedModel});
+        
+    }, [selectedModel]);
+    
+    const onAcceptVehicle = (color) => {
+        setCurrentColor(color)
+        setModalOpen(false)
+        let temp = vehicleTypes
+        let tempObj = {
+            imageSrc: GetCarImage(currentVehicleType, color),
+            imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
+            onPress: () => {
+              setCurrentVehicleType(currentVehicleType);
+              setModalOpen(true);
+            },
+        }
+        temp[currentVehicleType] = tempObj;
+        setVehicleTypes(temp);
+        setVehicle({
+            ...vehicle,
+            vehicleColor: color ,
+            vehicleType: currentVehicleType
+        })
+
+    }
+    
+    useEffect(async ()=>{
+        let brands = await getVehicleBrands();
+        if(brands) {
+            brands?.sort();
+            setVehicleBrands(brands);
+            
+        }  
+        setVehicle(initialState);
+        let temp = [];
+        for(let i = 0; i < 9; i++){
+            let tempObj = {
+              imageSrc: GetCarImage(i, 'white'),
+              imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
+              onPress: () => {
+                setCurrentVehicleType(i);
+                setModalOpen(true);
+              },
+            };
+            temp.push(tempObj);
+        }
+        setVehicleTypes(temp);
+
+        
+    },[])
+
     const [error, setError] = useState({
         error: false, 
         attribute: '',
         message: ''
     });
 
-    const [currentColor, setCurrentColor] = useState(carColors.White);
+    const [currentColor, setCurrentColor] = useState('#DDDDDD');
+    const [currentVehicleType, setCurrentVehicleType] = useState(0);
+    
 
     const { vehicleBrand, vehicleModel, vehicleNickname, vehicleType, vehicleColor, numberPlate } = vehicle;
 
@@ -49,15 +127,9 @@ function VehicleConfig({ navigation }) {
         })
     }
 
-    const onChangeColor = (color) => {
-        setVehicle({...vehicle, ['vehicleColor']: color});
-    }
-
     const updateCurrentCarType = (index) => {
         setVehicle({...vehicle, ['vehicleType']: index});
     }
-
-
 
     const validateInformation = () => {
 
@@ -66,17 +138,17 @@ function VehicleConfig({ navigation }) {
             setError({
                 error: true,
                 attribute: 'BlankFields',
-                message: 'Please fill in all fields'
+                message: i18n.t('signIn.emptyFieldMessage')
             });
         }else {
             sendConfig(vehicle)
-                .then(user => {
+                .then(user => {                                        
                     setAuth({
                         ...auth,
                         user: user
                     });
                     setVehicle(initialState);
-                    navigation.navigate("Home");
+                    navigation.navigate("Profile");
                 })
                 .catch(err => {
                     setError({
@@ -94,7 +166,6 @@ function VehicleConfig({ navigation }) {
     }
 
     const clearAllFields = () => {
-        brand = '';
         setVehicle(initialState);
     }
 
@@ -104,9 +175,8 @@ function VehicleConfig({ navigation }) {
     }
 
     return(
-        <View style={styles.container}>
+        <View style={customStyle.formContainer}>
             <ScrollView style={[styles.topContainer]}>
-                <Text style={styles.title}>{i18n.t('vehicleConfig.title')}</Text>
                 {error.error && error.attribute !== "NumberPlate" ?
                     <View style={styles.errorContainer}>
                         <Text style={styles.error}>
@@ -114,22 +184,23 @@ function VehicleConfig({ navigation }) {
                         </Text>
                     </View>
                 : null}
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleBrand')}</Text>
-                <TextInput
-                    onChangeText={(text) => onChangeText(text, 'vehicleBrand')}
-                    value={vehicleBrand}
-                    style={styles.input}
-                    name= "vehicleBrand"
-                    placeholder= {i18n.t('vehicleConfig.vehicleBrandPlaceholder')}
-                />
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
-                <TextInput
-                    onChangeText={(text) => onChangeText(text, 'vehicleModel')}
-                    value={vehicleModel}
-                    style={styles.input}
-                    name="vehicleModel"
-                    placeholder= {i18n.t('vehicleConfig.vehicleModelPlaceholder')}
-                />
+                <View style={customStyle.formInputContainer}>
+                    <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleBrand')}</Text>
+                    <CustomDropDown
+                        options={vehicleBrands}
+                        changeSelected={setSelectedBrand}
+                        currentSelected={selectedBrand}
+                    />
+                </View>
+                <View style={customStyle.formInputContainer}>
+                <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleModel')}</Text>
+                    <CustomDropDown
+                        options={vehicleModels}
+                        changeSelected={setSelectedModel}
+                        currentSelected={selectedModel}
+                    />
+                </View>
+                <View style={customStyle.formInputContainer}>
                 {error.error && error.attribute === "NumberPlate" ?
                     <View style={styles.errorContainer}>
                         <Text style={styles.error}>
@@ -137,39 +208,36 @@ function VehicleConfig({ navigation }) {
                         </Text>
                     </View>
                 : null}
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNumPlate')} </Text>
+                <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleNumPlate')} </Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'numberPlate')}
                     value={numberPlate}
-                    style={styles.input}
+                    style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
                     name="numberPlate"
                     placeholder= {i18n.t('vehicleConfig.vehicleNumPlatePlaceholder')}
                 />
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleColor')}</Text>
-
-                <CircularColorBtnList
-                    carColors = {carColors}
-                    onChangeColor = {onChangeColor}
-                />
-                
-                <Text style={[styles.formTitle]}> {i18n.t('vehicleConfig.vehicleNickname')}</Text>
+                </View>
+                <View style={customStyle.formInputContainer}>
+                <Text style={[customStyle.formInputTitle]}> {i18n.t('vehicleConfig.vehicleNickname')}</Text>
                 <TextInput
                     onChangeText={(text) => onChangeText(text, 'vehicleNickname')}
                     value={vehicleNickname}
-                    style={styles.input}
+                    style={[customStyle.formInputText, {textAlignVertical: 'center'}]}
                     name="vehicleNickname"
                     placeholder= {i18n.t('vehicleConfig.vehicleNicknamePlaceholder')}
                 />
-                <CarTypeSelector
-                    vehicleColor={vehicleColor}
-                    onSnapToItem={updateCurrentCarType}
-                    currentSelected={vehicleType}
+                </View>
+                <ButtonTable
+                    buttonsInfo={vehicleTypes}
+                    rowSize={3}
+                    currentSelected={vehicle.vehicleType}
                 />
-                <Button
-                    title={ i18n.t('vehicleConfig.continue')}
+                <CustomButton
+                    text={ i18n.t('vehicleConfig.continue')}
                     onPress={() => {
                         validateInformation();
                     }}
+                    customStyles={styles.button}
                 />
 
                 <View style={[styles.skipContainer]}>
@@ -182,21 +250,28 @@ function VehicleConfig({ navigation }) {
                             {i18n.t('vehicleConfig.skip')}
                         </Text>
                         ) :
-                        <Text style={{color: 'blue'}} onPress={() => cancel()}>
-                            {i18n.t('vehicleConfig.cancel')}
-                        </Text>
+                        <CustomButton
+                            text={i18n.t('vehicleConfig.cancel')}
+                            onPress={() => cancel()}
+                            customStyles={styles.nextButton}
+                        />
                         }
+                        {/* <Text style={{color: 'blue'}} onPress={() => cancel()}>
+                            {i18n.t('vehicleConfig.cancel')}
+                        </Text> */}
                     </View>
                 </View>
             </ScrollView>
+            {<CarSelectorModal
+                vehicleType={currentVehicleType}
+                vehicleBrand={vehicleBrand}
+                isVisible={modalOpen}
+                onHandleCancel={() => setModalOpen(false)}
+                onHandleAccept={onAcceptVehicle}
+            />}
         </View>
     )
 }
-
-/*COLORES:
-VERDE:  #5CB362
-AZUL:   #1D69A6
-*/
 
 const styles = StyleSheet.create({
     container: {
@@ -218,6 +293,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 15,
+        marginBottom: 30,
+        backgroundColor: '#f2f2f2',
     },
     title: {
         fontSize: 25,
@@ -230,8 +307,10 @@ const styles = StyleSheet.create({
         color: '#5CB362',
     },
     button: {
-        width: '50%',
         alignSelf: 'center',
+        backgroundColor: '#c5a9fc',
+        borderColor: '#b491fa',
+        borderWidth: 3
     },
     input: {
         height: 40, 
@@ -242,13 +321,22 @@ const styles = StyleSheet.create({
     },
     error: {
         color: 'red',
+        textAlign: 'center',
     },
     errorContainer: {
         marginBottom: 15,
+        marginTop: 15,
         borderWidth: 1,
         borderColor: 'red',
         backgroundColor:'#ff00001c',
         padding: 5,
+    },
+    nextButton: {
+        backgroundColor: '#c5a9fc',
+        marginLeft: 10,
+        height: 30,
+        borderColor: '#b491fa',
+        borderWidth: 3
     }
 })
 

@@ -21,7 +21,8 @@ const useVehicleConfig = () => {
                 numberPlate: numberPlate.trim(),
                 vehicleType: vehicleType,
             });        
-            return response.data.user;
+            const user = await axios.get(`${API_HOST}/api/users/${id}`);
+            return user.data.user;
         } catch(error) {
             if(error.response.status === 409) {
                 throw { 
@@ -41,14 +42,10 @@ const useVehicleConfig = () => {
     const deleteVehicleConfig = async (numberPlate) => {
         const id = auth.user._id;
         try {
-            console.log(numberPlate);
             const response = await axios.delete(`${API_HOST}/api/users/${id}/vehicleConfig/${numberPlate.trim()}`);
         } 
         catch(error) {
-            throw {
-                attribute : "Unknown",
-                error: "Something went wrong. Try again later.",
-            }
+            console.log(error);
         };
     };
     

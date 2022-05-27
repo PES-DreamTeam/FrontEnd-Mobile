@@ -41,7 +41,7 @@ export default ({chargePoints, OpenStationInfo,searchedPoint}) => {
             }
             }
         }
-        if(availableStations / countStations >= 0.9) {
+        if(availableStations / countStations >= 0.75) {
             if(fav) {
                 return (require( '../../../../assets/images/pins/favPinGreen.png'));
             }
@@ -49,7 +49,7 @@ export default ({chargePoints, OpenStationInfo,searchedPoint}) => {
                 return (require( '../../../../assets/images/pins/normalPinGreen.png'));
             }
         }
-        if(availableStations / countStations >= 0.7) {
+        if(availableStations / countStations >= 0.3) {
             if(fav) {
                 return (require( '../../../../assets/images/pins/favPinYellow.png'));
             }
@@ -72,7 +72,6 @@ export default ({chargePoints, OpenStationInfo,searchedPoint}) => {
     const markers=[]
 
     useEffect(() => markers.length === 2597 ? markers[searchedPoint]?.showCallout() : "",[searchedPoint])
-
 
     return(
         chargePoints?.map(chargePoint => 

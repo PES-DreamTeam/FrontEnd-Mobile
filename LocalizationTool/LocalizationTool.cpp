@@ -7,7 +7,7 @@
 using namespace std;
 
 void Usage() {
-    cout << "Usage: ./LocalizationTool relativePathCSVFile [outputRelatviePath]" << endl;
+    cout << "Usage: ./LocalizationTool relativePathCSVFile [outputRelativePath]" << endl;
 }
 
 struct LanguageFile {
@@ -19,13 +19,19 @@ struct LanguageFile {
 vector<string> Split(string input, char separator) {
     vector<string> output;
     string temp = "";
+    bool isInQuote = false;
     for(int i = 0; i < input.size(); ++i) {
-        if(input[i] == separator || input[i] == '\n' || input[i] == '\0' || input[i] == '\r') {
-            output.push_back(temp);
-            temp = "";
+        if(input[i] == '"') {
+            isInQuote = !isInQuote;
         }
         else {
-            temp += input[i];
+            if((input[i] == separator || input[i] == '\n' || input[i] == '\0' || input[i] == '\r') && !isInQuote) {
+                output.push_back(temp);
+                temp = "";
+            }
+            else {
+                temp += input[i];
+            }
         }
     }
     if(temp != "") {

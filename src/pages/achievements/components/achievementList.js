@@ -6,18 +6,21 @@ import useAuth from "../../../hooks/useAuth";
 import { Achievement } from "./achievement";
 
 function achievementList(props) {
+  const customStyle = require('../../../utils/customStyleSheet');
   const { achievementsInfo } = props;
   return (
-    <View style={styles.listContainer}>
+    <View style={customStyle.mainContainer}>
       <ScrollView style={styles.achievementsList}>
         {achievementsInfo.map((achievement, index) => {
           return (
             <Achievement
-              key={index}
-              description={achievement.description}
-              actualProgress={achievement.progress}
-              objective={achievement.objective}
-              url={achievement.image}
+                key={index}
+                id = {achievement.achievement_id}
+                tier = {achievement.achievement_tier}
+                description={achievement.description}
+                actualProgress={achievement.progress}
+                objective={achievement.objective}
+                url={achievement.image}
             />
           );
         })}
@@ -29,11 +32,12 @@ function achievementList(props) {
 const styles = StyleSheet.create({
 
   listContainer: { 
-    borderWidth: 1, 
-    marginTop: "5%" 
   },
   achievementsList: {
     /*     maxHeight: "90%", */
+  },
+  achievementContainer: {
+    height: 80,
   },
 });
 

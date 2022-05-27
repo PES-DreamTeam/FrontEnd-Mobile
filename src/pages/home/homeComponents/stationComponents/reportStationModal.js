@@ -5,7 +5,7 @@ import CustomButton from '../../../../utils/button';
 import useChargePoints from "../../../../hooks/useChargePoints";
 import i18n from 'i18n-js';
 
-export default ({isVisible, handleCancel, handleAccept, title, subtitle, stationID}) => {
+export default ({isVisible, handleCancel, handleAccept, title, subtitle, stationID, stationType}) => {
     const [ selectedType, setSelectedType ] = useState ("dislike");
     const [ reportMessage, changeReportMessage] = useState("");
 
@@ -17,7 +17,7 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
     const {sendReport} = useChargePoints(); 
 
     const send = () => {
-        sendReport(stationID, selectedType, reportMessage);
+        sendReport(stationID, selectedType, reportMessage, stationType);
         reset();
         handleAccept();
     }
@@ -27,10 +27,12 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
         handleCancel();
     }
     
+    const customStyle = require("../../../../utils/customStyleSheet");
+
     return(
         <Modal isVisible={isVisible}>
-            <View style={styles.modal}>
-                <View style={styles.modalTitle}>
+            <View style={[customStyle.modalContainer, {justifyContent: "space-between"}]}>
+                <View style={[customStyle.coolBlockTitleContainer, {width: "100%"}]}>
                     <Text style={{fontSize: 20, fontWeight: 'bold'}}>
                         {title}
                     </Text>
@@ -43,7 +45,7 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
                     </View>               
                     :null
                 }
-                <View style={styles.reportTypeContainer}>
+                <View style={[styles.reportTypeContainer, {width: "80%"}]}>
                     <CustomButton
                         customStyles={selectedType=='dislike'? styles.reportTypeButtonSelected : styles.reportTypeButton}
                         onPress={() => setSelectedType("dislike")}
@@ -63,18 +65,13 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
                 <TextInput
                     onChangeText={(text) => changeReportMessage(text)}
                     value={reportMessage}
-                    style={styles.input}
+                    style={[customStyle.formInputText, {width: "80%"}]}
                     name="reportMessage"
                     placeholder= {i18n.t('report.reportStation.placeholder')}
                 />
 
 
-                <View style={styles.modalButtons}>                    
-                    <CustomButton
-                        customStyles={styles.acceptButton}
-                        onPress={() => send()}
-                        text={i18n.t('report.send')}
-                    />
+                <View style={[customStyle.buttonRow, {height: "12%", marginBottom: 15}]}>                    
                     {
                         handleCancel ?
                         <CustomButton
@@ -84,6 +81,13 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
                         />
                         : null
                     }
+                    
+                    <CustomButton
+                        customStyles={styles.acceptButton}
+                        onPress={() => send()}
+                        text={i18n.t('report.send')}
+                    />
+                    
                 </View>
             </View>
         </Modal>
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green',
     },
     cancelButton: {
-        backgroundColor: 'red',
+        backgroundColor: '#de3e44',
         width: "45%",
         height: "100%",
         justifyContent: 'center',
@@ -125,7 +129,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     acceptButton: {
-        backgroundColor: 'green',
+        backgroundColor: '#2e942b',
         width: "45%",
         height: "100%",
         justifyContent: 'center',
@@ -139,15 +143,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     reportTypeButton: {
-        backgroundColor: 'grey',
+        backgroundColor: '#dbcafc',
         width: "100%",
         height: "30%",
         borderRadius: 10,
     },
     reportTypeButtonSelected: {
-        backgroundColor: 'blue',
-        width: "100%",
         height: "30%",
         borderRadius: 10,
+        backgroundColor: "#c0a2fc",
+        borderColor: "#b28dfc",
+        borderWidth: 3,
     },
 })

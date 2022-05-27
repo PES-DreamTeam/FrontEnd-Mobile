@@ -27,7 +27,6 @@ function ChatScreen() {
     auth.user;
   }, [auth]);
 
-  //console.log(user)
   /*
       useLayoutEffect(() => {
 

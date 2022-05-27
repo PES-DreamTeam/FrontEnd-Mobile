@@ -3,6 +3,7 @@ import useUserSettings from '../../../hooks/useUserSettings';
 import { StyleSheet, Pressable, View, Image, Text } from 'react-native';
 import i18n from 'i18n-js';
 import useMap from '../../../hooks/useMap';
+import CustomButton from '../../../utils/button';
 
 const FilterMap = ({ChangeRoutingInfo, ActivateRoute}) => {
     useUserSettings();
@@ -11,82 +12,52 @@ const FilterMap = ({ChangeRoutingInfo, ActivateRoute}) => {
 
     return (
         <View style ={styles.filterContent}> 
-            {/* <Pressable 
-                style ={styles.filterButton}
-                onPress={() => {
-                    onChangeFilter("");
-                    ChangeRoutingInfo(null);
-                    ActivateRoute(null);
-                }}
-                >
-                    <Image
-                        source={require('../../../../assets/images/icons/default.png')}
-                        style={styles.icon}
-                    />
-                <Text>{i18n.t("home.bottomBar.map")}</Text>
-            </Pressable> */}
-            <Pressable 
-                style ={[styles.filterButton, 
+            <CustomButton
+                customStyles={[styles.filterButton, 
                     mapFilter?.includes("vehicleStation")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() =>{
                     ChangeMapFilter("vehicleStation");
                  ChangeRoutingInfo(null);
                  ActivateRoute(null);
                 }}
-                >
-                    <Image
-                        source={require('../../../../assets/images/icons/station.png')}
-                        style={styles.icon}
-                    />
-                <Text>{i18n.t("home.bottomBar.vehicle")}</Text>
-            </Pressable>
-            <Pressable 
-                style ={[styles.filterButton, {borderLeftWidth: 1},
+                imageSrc={require('../../../../assets/images/icons/station.png')}
+                imageStyle={{width: "60%", height: "60%"}}
+            />
+            <CustomButton
+                customStyles={[styles.filterButton,
                     mapFilter?.includes("bikeStation")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() =>{
                     ChangeMapFilter("bikeStation")
                     ChangeRoutingInfo(null);
                     ActivateRoute(null);
                 } }
-            >
-                <Image
-                        source={require('../../../../assets/images/icons/bike.png')}
-                        style={styles.icon}
-                    />
-                <Text>{i18n.t("home.bottomBar.bike")}</Text>
-            </Pressable>
-            <Pressable 
-                style ={[styles.filterButton, {borderLeftWidth: 1},
-                    mapFilter?.includes("highlight")? styles.selectedBottomButon : styles.unselectedBottomButon]}
+                imageSrc={require('../../../../assets/images/icons/bike.png')}
+                imageStyle={{width: "60%", height: "60%"}}
+            />
+            <CustomButton
+
+                customStyles={[styles.filterButton,
+                    mapFilter?.includes("highlights")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() => {
-                    ChangeMapFilter("highlight")
+                    ChangeMapFilter("highlights")
                     ChangeRoutingInfo(null);
                     ActivateRoute(null);
                 } }
-                >
-                    <Image
-                        source={require('../../../../assets/images/icons/alert.png')}
-                        style={styles.icon}
-                    />
-                <Text>{i18n.t("home.bottomBar.highlight")}</Text>
-            </Pressable>
+                imageSrc={require('../../../../assets/images/icons/alert.png')}
+                imageStyle={{width: "60%", height: "60%"}}
+            />
+            <CustomButton
 
-            <Pressable 
-                style ={[styles.filterButton, {borderLeftWidth: 1},
+                customStyles={[styles.filterButton, 
                     mapFilter?.includes("favs")? styles.selectedBottomButon : styles.unselectedBottomButon]}
                 onPress={() => {
                     ChangeMapFilter("favs");
                     ChangeRoutingInfo(null);
                     ActivateRoute(null);
                 } }
-                >
-                    <Image
-                        source={require('../../../../assets/images/icons/star.png')} 
-                        style={styles.icon}
-                    />
-                <Text>{i18n.t("home.bottomBar.favs")}</Text>
-            </Pressable>
-          
+                imageSrc={require('../../../../assets/images/icons/star.png')}
+                imageStyle={{width: "60%", height: "60%"}}
+            />
         </View>
     );
 }
@@ -94,24 +65,37 @@ const FilterMap = ({ChangeRoutingInfo, ActivateRoute}) => {
 const styles = StyleSheet.create({
     
     selectedBottomButon: {
-        backgroundColor: 'grey',
+        backgroundColor: '#c5a9fcdd',
     },
     unselectedBottomButon: {
-        backgroundColor: 'white',
+        backgroundColor: '#ffffffaa',
     },
     filterContent: {
-        width: '100%',
-        height: 60,
-        textAlign: 'left',
-        flexDirection: 'row',
+        width: 50,
+        minHeight: 220,
+        height: '35%',
+        flexDirection: 'column',
         alignItems: 'center',
+        position: 'absolute',
+
+        justifyContent: 'space-around',
+        alignContent: 'center',
+        top:"15%",
+        right: 25,
+        zIndex: 100,  
+
     }, 
     filterButton: {
-        borderColor: 'grey',
         flex: 1,
-        height: "100%",
+        borderWidth: 1,
+        borderRadius: 100,
+        borderColor: 'black',
+        borderWidth: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        width: 50,
+
+        maxHeight: 50,
     }, 
     icon: {
         width: 25,

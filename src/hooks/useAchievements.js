@@ -1,17 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
 import useAuth from "../hooks/useAuth";
 import { useToast } from "react-native-toast-notifications";
 import i18n from "i18n-js";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const useAchievements = () => {
   const toast = useToast();
   const { auth, updateUser } = useAuth();
   let myAchievements = auth?.user.achievements;
-
-  const updateAchievement = async (id) => {
+  
+  const updateAchievement = async (id, length) => {
     const idAchievements = filterById(id);
     let actualLevel = 1;
     let inProgress = false;
@@ -19,23 +20,35 @@ const useAchievements = () => {
       if (achievement.progress < achievement.objective && !inProgress) {
         inProgress = true;
         actualLevel = achievement.achievement_tier;
-        achievement.progress++;
-        updateUser({
-          ...auth.user,
-          achievements: myAchievements,
-        });
       }
     });
-    if (!inProgress) {
-      return;
-    }
+    //si estan tots complets
+    if (!inProgress) return;
+
     const achievementIP = findMyAchievement(id, actualLevel);
+    
+    let newProgress;
+
+    if (id >= 5) {
+      newProgress = likeAchievement(achievementIP.progress, length);
+    } else {
+      newProgress = achievementIP.progress;
+      newProgress++;
+    }
+    if (newProgress === -1) return;
+    
+    achievementIP.progress++;
+    updateUser({
+      ...auth.user,
+      achievements: myAchievements,
+    });
+
+    const achievement = await completeAchievement(id, actualLevel, newProgress);
     /* actualiza achievement en backend con axios */
-    const achievement = await completeAchievement(id, achievementIP.progress);
-    if (achievementIP.progress == achievementIP.objective) {
+    if (achievementIP.progress >= achievementIP.objective) {
       //si té un nivell superior al actual, guarda el progres en el següent achievement
+      const nextAchievement = findMyAchievement(id, actualLevel + 1);
       if (actualLevel < 3) {
-        const nextAchievement = findMyAchievement(id, actualLevel + 1);
         nextAchievement.progress = achievementIP.progress;
         updateUser({
           ...auth.user,
@@ -46,11 +59,20 @@ const useAchievements = () => {
       toast.show("", {
         title: `${i18n.t("achievementToast.title")}`,
         message: achievement.description,
+        image: achievement.image,
         type: "custom_type",
         location: "achievement",
       });
     }
   };
+
+  const likeAchievement = (progress, length) => {
+    if (length > progress) {
+      return length;
+    }
+    return -1;
+  };
+
 
   const displayAchievements = async () => {
     const achievements = await getAllAchievements();
@@ -70,20 +92,19 @@ const useAchievements = () => {
         }
         if (achievement.achievement_tier == 3 && !inProgress) {
           newAchievements.push(achievement);
-        }
-      });
+        }});
     });
     return newAchievements;
   };
 
   const resetAchievements = async () => {
-    for (let i = 0; i < myAchievements.length; i++) {
-      myAchievements[i].progress = 0;
-      await completeAchievement(i, 0);
-    }
+    myAchievements.map(async (achievement) => {
+      achievement.progress = 0;
+      await completeAchievement(achievement.achievement_id, achievement_tier, 0);
+    });
     updateUser({
       ...auth.user,
-      achievements: myAchievements,
+      achievements: myAchievements
     });
   };
 
@@ -109,7 +130,6 @@ const useAchievements = () => {
 
   const getAchievementInfo = async () => {
     try {
-      console.log(`${API_HOST}/api/achievements/`);
       const res = await axios.get(`${API_HOST}/api/achievements/`);
       return res.data;
     } catch (error) {
@@ -143,6 +163,23 @@ const useAchievements = () => {
     });
   };
 
+  const getGoldImage = (id) => {
+    switch (id) {
+      case 1:
+        return require("../../assets/images/achievements/tellAFriendGold.png");
+      case 2:
+        return require("../../assets/images/achievements/roadGold.png");
+      case 3:
+        return require("../../assets/images/achievements/searchGold.png");
+      case 4:
+        return require("../../assets/images/achievements/stationGold.png");
+      case 5:
+        return require("../../assets/images/achievements/starGold.png");
+      case 6:
+        return require("../../assets/images/achievements/likeGold.png");
+    }
+  }
+
   return {
     updateAchievement,
     getAchievementInfo,
@@ -150,6 +187,7 @@ const useAchievements = () => {
     findMyAchievement,
     resetAchievements,
     displayAchievements,
+    getGoldImage
   };
 };
 

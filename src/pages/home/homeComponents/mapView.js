@@ -3,22 +3,27 @@ import { StyleSheet, ActivityIndicator, View, Image, TouchableOpacity } from 're
 import MapView, {  Marker } from 'react-native-maps';
 import useChargePoints from '../../../hooks/useChargePoints';
 import * as Location from 'expo-location';
-import MapButton from './mapButton';
+import CustomButton from '../../../utils/button';
 import MapPoints from './mapPoints';
 import MapRoutes from './mapRoutes';
 
 import useMap from "../../../hooks/useMap";
 
+import { FilterMap } from './filterMap';
+
 
 import useAuth from '../../../hooks/useAuth'
+import carTypeImages from '../../../utils/carTypeImages';
 
-const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo}) => {
+const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, isLoading,
+  routeActivate, ActivateRoute, mapFilter, onChangeFilter, ChangeRoutingInfo, 
+  stationInfoOpened, isSearching}) => {
 
+  const {GetCarSmallImage} = carTypeImages();
   const { shownChargePoints, userLocation, currentStationInfo, recalcUserLocation } = useMap();
 
-  
+  const [isModalVisible, setModalVisible] = useState(false);
   const searchedPoint= {};
-  const isLoading = false;
 
   const { auth } = useAuth();
 
@@ -46,14 +51,12 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
   const mapRef = useRef(null);
   
   const centerPosition = async () => {
-    console.log("CENTER POSITION");
     mapRef.current.animateToRegion(
       userLocation,
       1500)
   }
 
   const centerPositionOnStation = async () => {
-    console.log("CENTER ON STATION");
     mapRef.current.animateToRegion(
       {
       latitude:currentStationInfo?.lat,
@@ -79,9 +82,10 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
       > 
         {routeActivate ? 
           <MapRoutes
-          routeActivate={routeActivate}
-          location={userLocation}
-          ChangeRoutingInfo={ChangeRoutingInfo}
+            routeActivate={routeActivate}
+            location={userLocation}
+            ChangeRoutingInfo={ChangeRoutingInfo}
+            
           />
         : null
         }
@@ -97,36 +101,45 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, r
           coordinate={{
             latitude: userLocation?.latitude, longitude: userLocation?.longitude
           }}
+          image={GetCarSmallImage(vehicleType, color)}
         >
-            <Image
-              source = {(vehicleType ?? require( '../../../../assets/images/carTypes/icons/carType_8.png'))}
-              style = {[{tintColor: (color ?? '#DDDDDD')}, {zIndex: 100}]}
-            />
         </Marker>
         
             
         </MapView>
-        
-        <MapButton
-          styles={[styles.floatingButton, styles.rightFloat]}
-          onPress={centerPosition}
-          source={require('../../../../assets/images/center.png')}
+        {!stationInfoOpened && !routeActivate && !isSearching &&
+          !mapFilter.includes("singleCharge") ? 
+        <FilterMap
+          ChangeRoutingInfo={ChangeRoutingInfo}
+          ActivateRoute={ActivateRoute}
         />
+        : null
+        } 
+        {(!stationInfoOpened || routeActivate) && !isSearching ?
+        <CustomButton
+          customStyles={[styles.floatingButton, styles.rightFloat]}
+          onPress={centerPosition}
+          imageSrc={require('../../../../assets/images/icons/center.png')}
+          imageStyle={{width: "60%", height: "60%"}}
+        />
+        : null
+        }
 
         {/* When the route to point is activated */}
-        {mapFilter.includes("singleCharge") ? 
-          <MapButton
-            styles={[styles.floatingButton, styles.leftFloat]}
+        {mapFilter.includes("singleCharge") && (!stationInfoOpened || routeActivate) ? 
+          <CustomButton
+            customStyles={[styles.floatingButton, styles.leftFloat]}
             onPress={cancelRoute}
-            source={require('../../../../assets/images/cancel.png')}
+            imageSrc={require('../../../../assets/images/icons/cancel.png')}
+            imageStyle={{width: "40%", height: "40%"}}
           />
         : null}
-
-        {isLoading ?
+        {
+          isLoading ?
           <View style={styles.spinner}>
             <ActivityIndicator size="large" color="blue"/>
           </View>
-          :null 
+          : null
         }
      
       </View>
@@ -156,19 +169,25 @@ const styles = StyleSheet.create({
     spinner:{
       position: 'absolute',
       justifyContent: 'center',
-      top:0,
-      left:0,
+      top: 0,
+      left: 0,
       right: 0,
       bottom: 0,
+      zIndex: 5000,
     },
     floatingButton: {
       position: 'absolute',
       justifyContent: 'center',
       alignContent: 'center',
-      width: 60,
-      height: 60,
-      bottom:25,
+      backgroundColor: '#ffffffaa',
+      borderColor: 'black',
+      borderWidth: 1,
+      borderRadius: 50,
+      width: 50,
+      height: 50,
+      bottom:'15%',
       zIndex: 100,
+
     },
     rightFloat: {
       right: 25

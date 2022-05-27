@@ -13,11 +13,19 @@ import {
 import i18n from "i18n-js";
 import useAuth from "../../hooks/useAuth";
 import useUserSettings from "../../hooks/useUserSettings";
-import CarInfoItem from "./profileComponents/CarInfoItem";
+import CarInfoModal from "./profileComponents/carInfoModal";
+import SettingsModal from "./profileComponents/settingsModal";
 import Carousel from "react-native-snap-carousel";
 import UploadImage from "./profileComponents/UploadImage";
 import CustomButton from "../../utils/button";
 import { useToast } from "react-native-toast-notifications";
+import CustomModal from "../../utils/modal";
+import ButtonTable from "../../utils/buttonTable";
+import useUser from "../../hooks/useUser";
+
+import useVehicleConfig from "../../hooks/useVehicleConfig";
+
+import carTypeImages from '../../utils/carTypeImages';
 
 function TextEditableLabel({
   editable,
@@ -44,9 +52,19 @@ function TextEditableLabel({
 }
 
 function ProfileScreen({ navigation }) {
+
+  const {GetCarImage} = carTypeImages();
+
+  const {deleteVehicleConfig } = useVehicleConfig();
+
+  const customStyle = require('../../utils/customStyleSheet');
+
   const { auth, updateUser } = useAuth();
+  const { getUserInfo } = useUser();
+  const [ vehicleModalOpened, setVehicleModalOpened ] = useState(false);
   const toast = useToast();
   useUserSettings();
+
 
   const [user, setUser] = useState({
     id: auth.user._id,
@@ -55,6 +73,18 @@ function ProfileScreen({ navigation }) {
     vehicleConfig: auth.user.vehicleConfig,
     currentVehicle: auth.user.currentVehicle ?? 0,
   });
+
+  useEffect(() => {
+    CreateGrid(user.vehicleConfig);
+    setVehicleSelected(user.currentVehicle);
+  }, [user]);
+
+  useEffect(() => {
+    if(editProfile && vehicleModalOpened) {
+      setVehicleModalOpened(false);
+    }
+  }, [vehicleModalOpened]);
+
   useEffect(() => {
     setUser({
       id: auth.user._id,
@@ -63,23 +93,78 @@ function ProfileScreen({ navigation }) {
       vehicleConfig: auth.user.vehicleConfig,
       currentVehicle: auth.user.currentVehicle ?? 0,
     });
-    auth.user;
   }, [auth]);
 
   const { width } = useWindowDimensions();
 
   const { id, email, name, vehicleConfig } = user;
 
+  const [vehicleSelected, setVehicleSelected] = useState(0);
+
+  const [garageInfo, setGarageInfo] = useState([]);
+
   const [editProfile, setEditProfile] = useState(false);
 
-  function EnableEditProfile(enabled) {
+  const [toDeleteElement, setToDeleteElement] = useState(-1);
+
+  const [settingsModalOpened, setSettingsModalOpened] = useState(false);
+
+  async function DeleteVehicle() {
+    let temp = JSON.parse(JSON.stringify(user.vehicleConfig));
+    let tempSelected = user.currentVehicle;
+    if(tempSelected == vehicleSelected) {
+      tempSelected = 0;
+    }
+    
+    await deleteVehicleConfig(user.vehicleConfig[vehicleSelected].numberPlate);
+    temp.splice(toDeleteElement, 1);
+    setUser({
+      ...user,
+      vehicleConfig: temp,
+      currentVehicle: tempSelected,
+    });
+    
+  }
+
+  function GoToVehicleConfigScreen () {
+    if(!editProfile) {
+      navigation.navigate("VehicleConfig");
+    }
+  }
+
+  function CreateGrid(array) {
+    let temp = [];
+    for(let i = 0; i < array.length; i++){
+      let tempObj = {
+        canBeDeleted: true,
+        imageSrc: GetCarImage(array[i].vehicleType, array[i].color),
+        imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
+        onPress: () => {
+          setVehicleSelected(i);
+          setVehicleModalOpened(true);
+        },
+      };
+      temp.push(tempObj);
+    }
+    temp.push({
+      canBeDeleted: false,
+      imageSrc: require('../../../assets/images/plus.png'),
+      imageStyle: {width: 30, height: 30},
+      onPress: () => GoToVehicleConfigScreen(),
+    })
+    setGarageInfo(temp);
+  }
+
+  async function enableEditProfile(enabled) {
     if (!enabled) {
-      updateUser({
+      await updateUser({
         ...auth.user,
         nickname: user.name,
         email: user.email,
         currentVehicle: user.currentVehicle,
+        vehicleConfig: user.vehicleConfig,
       });
+      
       toast.show("", {
         title: i18n.t("reportToast.title"),
         message: i18n.t("reportToast.message"),
@@ -87,8 +172,8 @@ function ProfileScreen({ navigation }) {
         location: "report",
       });
     }
-    //console.log(name);
     setEditProfile(enabled);
+    setVehicleModalOpened(false);
   }
 
   const onChangeText = (text, name) => {
@@ -98,83 +183,101 @@ function ProfileScreen({ navigation }) {
     });
   };
 
+  const OpenSettingsModal = () => {
+    setSettingsModalOpened(true);
+    setEditProfile(false);
+  }
+
+
   return (
-    <View style={styles.container}>
+    <View style={[customStyle.mainContainer,{height: "100%"}]}>
       <ScrollView>
-        {/* Imagen de perfil */}
-        <View style={styles.uploadImage}>
-          <UploadImage />
-        </View>
-        {/* Nombre de perfil */}
-        <TextEditableLabel
-          editable={editProfile}
-          ChangeText={(text) => onChangeText(text, "name")}
-          textValue={name}
-          normalStyle={styles.name}
-          editableStyle={styles.editableName}
-        />
-        <TextEditableLabel
-          editable={editProfile}
-          ChangeText={(text) => onChangeText(text, "email")}
-          textValue={email}
-          normalStyle={[styles.subtitle]}
-          editableStyle={[styles.editableSubtitle]}
-        />
-        <View style={styles.informationContainer}>
-          {editProfile ? (
-            <Text style={[styles.header]}>
-              {i18n.t("profile.changeVehicle")}
-            </Text>
-          ) : (
-            <Text style={[styles.header]}>{i18n.t("profile.yourVehicle")}</Text>
-          )}
-        </View>
-        {vehicleConfig.length > 0 ? (
-          <View>
-            <Carousel
-              data={vehicleConfig}
-              renderItem={({ item, index }) => (
-                <CarInfoItem
-                  item={item}
-                  index={index}
-                  currentVehicle={user.currentVehicle}
-                />
-              )}
-              sliderWidth={320}
-              sliderHeight={128}
-              itemWidth={320}
-              itemHeight={128}
-              firstItem={user.currentVehicle}
-              keyExtractor={(item, index) => index}
-              onSnapToItem={(item) =>
-                editProfile
-                  ? setUser({ ...user, ["currentVehicle"]: item })
-                  : ""
-              }
+        <View style={customStyle.minimalistBlockContainer}>
+          <View style={styles.topRow}>
+            <CustomButton
+              customStyles={styles.editButton}
+              onPress={() => OpenSettingsModal()}
+              imageSrc={require("../../../assets/images/icons/settings.png")}
+              imageStyle={{ width: "100%", height: "100%" }}
+              />
+            <CustomButton
+              customStyles={styles.editButton}
+              onPress={() => enableEditProfile(!editProfile)}
+              imageSrc={editProfile ? require("../../../assets/images/icons/save.png") : require("../../../assets/images/icons/pencil.png")}
+              imageStyle={{ width: "100%", height: "100%" }}
             />
           </View>
-        ) : (
-          <Text> {i18n.t("profile.vehicleNotDef")} </Text>
-        )}
-        <View style={styles.buttonBar}>
-          <CustomButton
-            customStyles={styles.editButton}
-            onPress={() => EnableEditProfile(!editProfile)}
-            text={
-              editProfile
-                ? i18n.t("profile.saveChanges")
-                : i18n.t("profile.editProfile")
-            }
+          {/* Imagen de perfil */}
+          <View style={styles.uploadImage}>
+            <UploadImage 
+              editable={editProfile}
+            />
+          </View>
+          {/* Nombre de perfil */}
+          <TextEditableLabel
+            editable={editProfile}
+            ChangeText={(text) => onChangeText(text, "name")}
+            textValue={name}
+            normalStyle={[customStyle.title, {textAlign:"center", fontSize:20}]}
+            editableStyle={[customStyle.formInputText, {marginBottom: 10, textAlignVertical:"center"}]}
           />
-          <CustomButton
-            customStyles={styles.addButton}
-            onPress={() => {
-              navigation.navigate("VehicleConfig");
-            }}
-            text={i18n.t("profile.addNewVehicle")}
+          <TextEditableLabel
+            editable={editProfile}
+            ChangeText={(text) => onChangeText(text, "email")}
+            textValue={email}
+            normalStyle={[customStyle.normalText, {textAlign:"center", fontSize:15}]}
+            editableStyle={[customStyle.formInputText, {textAlignVertical:"center"}]}
           />
         </View>
+        <View style={[customStyle.coolBlockContainer, {marginBottom: 20}]}>
+          <View style={[customStyle.coolBlockTitleContainer, {marginBottom: 10}]}>
+            <Text style={[customStyle.title]}>{i18n.t("profile.yourVehicle")}</Text>
+          </View>
+          <View style={[customStyle.blockContentContainer,{marginBottom: 10}]}>
+            <ButtonTable
+              deleteable={editProfile}
+              buttonsInfo={garageInfo}
+              rowSize={3}
+              currentSelected={user.currentVehicle}
+              onDeleteElement={setToDeleteElement}
+            />
+          </View>
+        </View>
       </ScrollView>
+      <CarInfoModal
+        isVisible={vehicleModalOpened && !editProfile}
+        onHandleAccept={() => setVehicleModalOpened(false)}
+        onHandleFav={() => {
+          setUser({ ...user, ["currentVehicle"]: vehicleSelected });
+          updateUser({
+            ...auth.user,
+            currentVehicle: vehicleSelected,
+          });
+        }}
+        isFav={user.currentVehicle == vehicleSelected}
+        vehicleInfo={vehicleConfig[vehicleSelected]}
+      />
+
+      <CustomModal
+        isVisible={toDeleteElement != -1}
+        handleAccept={() => {
+          DeleteVehicle(() => DeleteVehicle());
+          setToDeleteElement(-1);
+        }}
+        handleCancel={() => {
+          setToDeleteElement(-1);
+        }}
+        title={i18n.t("profile.deleteVehicle")}
+      />
+
+      <SettingsModal
+        isVisible={settingsModalOpened}
+        handleCancel={() => {
+          setSettingsModalOpened(false);
+        }}
+        title={i18n.t("profile.deleteVehicle")}
+      />
+
     </View>
   );
 }
@@ -185,9 +288,26 @@ const styles = StyleSheet.create({
     padding: 20,
     width: "100%",
   },
+  profileContainer: {
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    width: "90%",
+    alignSelf: "center",
+    
+  },
   uploadImage: {
     alignItems: "center",
     justifyContent: "center",
+    width: 150,
+    height: 150,
+    alignSelf: "center",
+    padding: 10,
+
+  },
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 10,
   },
   informationContainer: {
@@ -258,12 +378,11 @@ const styles = StyleSheet.create({
   editButton: {
     fontSize: 18,
     fontWeight: "bold",
-    backgroundColor: "#1D69A6",
-    borderRadius: 100 / 5,
-    width: "45%",
-    height: 60,
     justifyContent: "center",
-    alignItems: "center",
+    width: 30,
+    height: 30,
+    backgroundColor: "#ffffff00",
+    alignSelf: "flex-end",
   },
   addButton: {
     fontSize: 18,
@@ -274,6 +393,9 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: "center",
     alignItems: "center",
+  },
+  garageContainer: {
+    marginTop: 30,
   },
   buttonBar: {
     marginTop: "5%",

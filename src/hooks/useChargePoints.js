@@ -3,8 +3,11 @@ import axios from "axios";
 import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
 import useAuth from "../hooks/useAuth";
+import { useToast } from "react-native-toast-notifications";
+import i18n from "i18n-js";
 
 const useChargePoints = () => {
+  const toast = useToast();
   const getChargePoints = async (filter, userId) => {
     let filterText = "";
     if (filter !== undefined && filter !== null && filter !== "all" && filter !== []) {
@@ -16,6 +19,7 @@ const useChargePoints = () => {
         }
       }
     }
+
     const response = await axios.get(
       `${API_HOST}/api/chargePoints?groupBy=id${
         filter === null || filter === "all" || filter === [] ? "" : filterText
@@ -49,31 +53,47 @@ const useChargePoints = () => {
   };
 
   const sendStationLike = async (station_id) => {
+    try {
+      //console.log("sendStationLike");
     const response = await axios.put(
       `${API_HOST}/api/chargePoints/${station_id}/vote`
     );
     return response.data.likedStations;
+    } catch (error) {
+      console.log("ERROR HOLI");
+    }
   };
 
-  const sendReport = async (station_id, reportType, reportMsg) => {
+  const sendReport = async (station_id, reportType, reportMsg, stationType) => {
     try {
       const response = await axios.put(
         `${API_HOST}/api/chargePoints/${station_id}/report/`,
         {
           reportType: reportType,
           reportMsg: reportMsg,
+          stationType: stationType,
         }
       );
+      toast.show("", {
+        title: i18n.t("reportToast.title"),
+        message: i18n.t("reportToast.message"),
+        type: "custom_type",
+        location: "report",
+      });
     } catch (err) {
       let errors = [];
-      if (err.response.status === 403) {
-        err.response.data.errors.map((error) => {
+      if (err?.response?.status === 403) {
+        err?.response?.data?.errors?.map((error) => {
           errors.push(error);
         });
-        throw {
-          error: true,
-          errors: errors,
-        };
+        console.log(errors);
+        toast.show("", {
+          title: `${i18n.t("reportToast.titleError")}`,
+          message: `${i18n.t("reportToast.messageError")}`,
+          type: "custom_type",
+          location: "autonomia",
+        });
+
       } else
         throw {
           error: true,

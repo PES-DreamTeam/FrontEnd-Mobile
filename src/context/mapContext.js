@@ -27,7 +27,13 @@ const MapContextProvider = ({ children }) => {
     const [routeInfo, setRouteInfo] = useState(null);
     const [currentStationInfo, setStationInfo] = useState(null);
 
-    const [mapFilter, setMapFilter] = useState(["vehicleStation"]);
+    const [mapFilter, setMapFilters] = useState(["vehicleStation"]);
+
+    const setMapFilter = (filter) => {
+        if(!isLoading) {
+            setMapFilters(filter);
+        }
+    }
 
     const ReloadMapPoints = async () => {
         let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
@@ -61,14 +67,16 @@ const MapContextProvider = ({ children }) => {
     useEffect(async () => {
         if(mapFilter.includes("singleCharge")){
             let aux = shownChargePoints?.filter(markers => markers[1].id == wantRoute?.id)
-            setShown(aux);
+            if(aux.length > 0){
+                setShown(aux);
+            }
         }
         else{
             setIsLoading(true);
-            ReloadMapPoints();
+            await ReloadMapPoints();
             setIsLoading(false);
         }
-    }, [mapFilter]);
+    }, [mapFilter, wantRoute]);
     
       const {latitude,longitude} = userLocation;
     

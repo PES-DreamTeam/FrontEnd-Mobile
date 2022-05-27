@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, Pressable, View, Image, Text } from "react-native";
+import CustomProgressBar from "../../../../utils/customProgressBar";
 
 function ChargeStationInfo(props) {
-  var vehicleImages = [
+  const [vehicleImages, setVehicleImages] = useState([
     require("../../../../../assets/images/chargerTypes/chargerType_1.png"),
     require("../../../../../assets/images/chargerTypes/chargerType_2.png"),
     require("../../../../../assets/images/chargerTypes/chargerType_3.png"),
     require("../../../../../assets/images/chargerTypes/chargerType_4.png"),
-  ];
+  ]);
+
+  const customStyle = require("../../../../utils/customStyleSheet");
 
   const GetTotalSockets = (vehicleType) => {
     let sockets = props?.stationInfo?.data.sockets;
@@ -50,6 +53,14 @@ function ChargeStationInfo(props) {
     return GetAvailableSockets(1);
   };
 
+  const GetAllSocketImages = () => {
+    let types = [];
+    for(let i = 1; i <= 4; ++i) {
+      types.push("" + i);
+    }
+    return types;
+  };
+
   const GetAllSocketTypes = (vehicleType) => {
     let sockets = props?.stationInfo?.data.sockets;
     let types = [];
@@ -90,19 +101,28 @@ function ChargeStationInfo(props) {
         {GetTotalSocketsCar() > 0 ? (
           <View style={styles.socketsTypesContent}>
             <View style={styles.chargerAvailability}>
-              <Image
-                source={require("../../../../../assets/images/icons/carIcon.png")}
-                style={styles.vehicleIcon}
-              />
-              <Text style={styles.availabilityText}>
-                {GetAvailableSocketsCar()}/{GetTotalSocketsCar()}
-              </Text>
+              <View style={{width: "45%"}}>
+                <Image
+                  source={require("../../../../../assets/images/icons/carIcon.png")}
+                  style={styles.vehicleIcon}
+                />
+              </View>
+              <View style={{width: "45%", justifyContent: 'center'}}>
+                <CustomProgressBar
+                  percent={GetAvailableSocketsCar() / GetTotalSocketsCar() * 100}
+                  text={GetAvailableSocketsCar() + "/" + GetTotalSocketsCar()}
+                  backgroundStyle={{height: 20, width: '100%'}}
+                  fillStyle={{height: 20}}
+                  textStyle={{marginTop: -20}}
+                />
+              </View>
             </View>
             <View style={styles.socketsList}>
-              {GetAllSocketTypesCar().map((socket, index) => (
+              {GetAllSocketImages().map((socket, index) => (
                 <Image
                   source={vehicleImages[socket - 1]}
-                  style={styles.socketImage}
+                  style={[styles.socketImage, 
+                    GetAllSocketTypesCar().includes(socket) ? {opacity: 1} : {opacity: 0.2}]}
                   key={index}
                 />
               ))}
@@ -114,19 +134,28 @@ function ChargeStationInfo(props) {
         {GetTotalSocketsMoto() > 0 ? (
           <View style={styles.socketsTypesContent}>
             <View style={styles.chargerAvailability}>
-              <Image
-                source={require("../../../../../assets/images/icons/motoIcon.png")}
-                style={styles.vehicleIcon}
-              />
-              <Text style={styles.availabilityText}>
-                {GetAvailableSocketsMoto()}/{GetTotalSocketsMoto()}
-              </Text>
+              <View style={{width: "45%"}}>
+                <Image
+                  source={require("../../../../../assets/images/icons/motoIcon.png")}
+                  style={styles.vehicleIcon}
+                />
+              </View>
+              <View style={{width: "45%", justifyContent: 'center'}}>
+                <CustomProgressBar
+                  percent={GetAvailableSocketsMoto() / GetTotalSocketsMoto() * 100}
+                  text={GetAvailableSocketsMoto() + "/" + GetTotalSocketsMoto()}
+                  backgroundStyle={{height: 20, width: '100%'}}
+                  fillStyle={{height: 20}}
+                  textStyle={ {marginTop: -20}}
+                />
+              </View>
             </View>
             <View style={styles.socketsList}>
-              {GetAllSocketTypesMoto().map((socket, index) => (
+              {GetAllSocketImages().map((socket, index) => (
                 <Image
                   source={vehicleImages[socket - 1]}
-                  style={styles.socketImage}
+                  style={[styles.socketImage, 
+                    GetAllSocketTypesMoto().includes(socket) ? {opacity: 1} : {opacity: 0.2}]}
                   key={index}
                 />
               ))}
@@ -145,7 +174,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    maxWidth: "80%",
+    maxWidth: "90%",
     alignSelf: "center",
     alignItems: "center",
   },
@@ -158,6 +187,8 @@ const styles = StyleSheet.create({
   chargerAvailability: {
     textAlign: "center",
     justifyContent: "center",
+    width: "50%",
+    flexDirection: "row",
 
   },
   socketsTypesContent: {
@@ -168,8 +199,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   socketsList: {
-    height: 50,
+    height: "100%",
     flexDirection: "row",
+    width: "50%",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   vehicleIcon: {
     height: 50,
@@ -199,8 +233,8 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   socketImage: {
-    height: 50,
-    width: 47,
+    height: 42,
+    width: 40,
     marginLeft: 5,
   },
 });
