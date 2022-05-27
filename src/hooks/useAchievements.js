@@ -5,6 +5,7 @@ import { AuthContext } from "../context/authContext";
 import useAuth from "../hooks/useAuth";
 import { useToast } from "react-native-toast-notifications";
 import i18n from "i18n-js";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const useAchievements = () => {
   const toast = useToast();
@@ -91,8 +92,7 @@ const useAchievements = () => {
         }
         if (achievement.achievement_tier == 3 && !inProgress) {
           newAchievements.push(achievement);
-        }
-      });
+        }});
     });
     return newAchievements;
   };
@@ -163,6 +163,23 @@ const useAchievements = () => {
     });
   };
 
+  const getGoldImage = (id) => {
+    switch (id) {
+      case 1:
+        return require("../../assets/images/achievements/tellAFriendGold.png");
+      case 2:
+        return require("../../assets/images/achievements/roadGold.png");
+      case 3:
+        return require("../../assets/images/achievements/searchGold.png");
+      case 4:
+        return require("../../assets/images/achievements/stationGold.png");
+      case 5:
+        return require("../../assets/images/achievements/starGold.png");
+      case 6:
+        return require("../../assets/images/achievements/likeGold.png");
+    }
+  }
+
   return {
     updateAchievement,
     getAchievementInfo,
@@ -170,6 +187,7 @@ const useAchievements = () => {
     findMyAchievement,
     resetAchievements,
     displayAchievements,
+    getGoldImage
   };
 };
 

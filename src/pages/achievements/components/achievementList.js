@@ -15,6 +15,8 @@ function achievementList(props) {
           return (
             <Achievement
                 key={index}
+                id = {achievement.achievement_id}
+                tier = {achievement.achievement_tier}
                 description={achievement.description}
                 actualProgress={achievement.progress}
                 objective={achievement.objective}

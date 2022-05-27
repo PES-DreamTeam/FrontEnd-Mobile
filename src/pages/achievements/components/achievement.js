@@ -3,12 +3,19 @@ import { View, Text, Image, StyleSheet, Pressable, Share } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import i18n from "i18n-js";
 import CustomProgressBar from "../../../utils/customProgressBar";
+import useAchievements from "../../../hooks/useAchievements";
+import { useEffect, useState } from "react";
 
 
 function Achievement(props) {
   const customStyle = require('../../../utils/customStyleSheet');
+  const { getGoldImage } = useAchievements();
+  const { id, tier, description, actualProgress, objective, url } = props;
+  const [progress, setProgress] = useState(0);
 
-  const { description, actualProgress, objective, url } = props;
+  useEffect(() => {
+    setProgress((actualProgress / objective) * 100);
+  }, [actualProgress, objective]);
 
   const shareAchievement = async () => {
     const shareOptions = {
@@ -21,7 +28,6 @@ function Achievement(props) {
     }
   }
 
-  const progress = (actualProgress / objective) * 100;
   return (
     <View style={customStyle.coolBlockContainer}>
       <View style={[customStyle.coolBlockTitleContainer, {height: 80}]}>
@@ -30,7 +36,7 @@ function Achievement(props) {
       <View style={customStyle.coolBlockImageContainer}>
         <Image
         source={
-          {uri: url}
+          progress >= 100 ? getGoldImage(parseInt(id)) : {uri: url}
         }
         style={customStyle.coolBlockImage}
         />
