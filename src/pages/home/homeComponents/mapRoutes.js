@@ -17,9 +17,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useToast } from "react-native-toast-notifications";
-import { API_KEY } from "@env";
+// import { API_KEY } from "@env";
 import { Marker } from "react-native-maps";
 import useCloseStation from "../../../hooks/useCloseStation";
+
+const API_KEY = "AIzaSyC7PdTftO4QxOyM8vu3fSOCMlvOcuVmbk0";
 
 
 export default ({routeActivate, location, ChangeRoutingInfo}) => {

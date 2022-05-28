@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { API_HOST, IMGBB_API_KEY } from "@env";
+// import { API_HOST, IMGBB_API_KEY } from "@env";
 import { AuthContext } from "../context/authContext";
+
+const API_HOST = "https://pes-backend-development.herokuapp.com";
 
 const useUser = () => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -42,7 +44,7 @@ const useUser = () => {
       var bodyData = new FormData();
       bodyData.append("image", image64);
       const response = await fetch(
-        `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
+        `https://api.imgbb.com/1/upload?key=8dce80a05d5bfa72f6cf737ef9cf1de9`,
         {
           method: "POST",
           body: bodyData,

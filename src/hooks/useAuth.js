@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { API_HOST } from "@env";
+// import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
 import * as Facebook from "expo-facebook";
+
+const API_HOST = "https://pes-backend-development.herokuapp.com";
 
 const useAuth = () => {
   const { auth, setAuth, logout } = useContext(AuthContext);

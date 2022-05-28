@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { API_HOST } from "@env";
+// import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
-
+const API_HOST = "https://pes-backend-development.herokuapp.com";
 
 const useReportAplication = () => { 
   const sendReport = async (pickerVal,platform,osVersion,subject,details) => {

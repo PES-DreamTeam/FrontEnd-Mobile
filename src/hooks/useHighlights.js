@@ -1,6 +1,8 @@
 import axios from "axios";
 
-import { API_HOST } from "@env";
+// import { API_HOST } from "@env";
+
+const API_HOST = "https://pes-backend-development.herokuapp.com";
 
 const useHighlights = () => {
 
