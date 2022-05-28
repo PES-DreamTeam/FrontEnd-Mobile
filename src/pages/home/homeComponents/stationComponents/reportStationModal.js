@@ -16,8 +16,8 @@ export default ({isVisible, handleCancel, handleAccept, title, subtitle, station
 
     const {sendReport} = useChargePoints(); 
 
-    const send = () => {
-        sendReport(stationID, selectedType, reportMessage, stationType);
+    const send = async () => {
+        await sendReport(stationID, selectedType, reportMessage, stationType);
         reset();
         handleAccept();
     }
