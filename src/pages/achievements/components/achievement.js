@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 function Achievement(props) {
   const customStyle = require('../../../utils/customStyleSheet');
   const { getGoldImage } = useAchievements();
-  const { id, tier, description, actualProgress, objective, url } = props;
+  const { id, description, actualProgress, objective, url } = props;
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function Achievement(props) {
       <View style={customStyle.coolBlockImageContainer}>
         <Image
         source={
-          progress >= 100 ? getGoldImage(parseInt(id)) : {uri: url}
+          progress >= 100 ? {uri: getGoldImage(parseInt(id))} : {uri: url}
         }
         style={customStyle.coolBlockImage}
         />

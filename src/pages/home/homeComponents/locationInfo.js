@@ -116,16 +116,15 @@ function LocationInfo(props) {
   };
 
   const handleShare = async () => {
-    updateAchievement(4);
     const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + props.stationInfo.name.toUpperCase() + "'" + `${i18n.t("locationInfo.shareMessage2")}`
-                  + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
+    + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
     const shareOptions = {
       message: message,
     };
     try {
       const shareResponse = await Share.share(shareOptions);
       if (shareResponse.action === Share.sharedAction) {
-        //updateAchievement(1, 1);
+        updateAchievement(4);
       }
     } catch (error) {
       console.log(error);
@@ -256,7 +255,6 @@ function LocationInfo(props) {
         handleAccept={async () => {
           let info = await getChargePointInfo(props?.stationInfo?.id);
           setStationReports(info.reports);
-          console.log(info);
           setReportStationVisible(!reportStationVisible);
         }}
         handleCancel={() => setReportStationVisible(!reportStationVisible)}
