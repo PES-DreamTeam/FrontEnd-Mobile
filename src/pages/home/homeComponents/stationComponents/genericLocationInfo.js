@@ -17,7 +17,7 @@ function GenericLocationInfo(props) {
             stationInfo={props.stationInfo}
           />
         );
-      case "bikeStation":
+      case "highlight":
         return (
           <HighlightInfo
             stationInfo={props.stationInfo}

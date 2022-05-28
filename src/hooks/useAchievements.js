@@ -89,7 +89,6 @@ const useAchievements = () => {
 
   const displayAchievements = async () => {
     const temp = await getAchievementsInfo();
-    console.log("achievements", temp);
     const achievements = await getAllAchievements();
     const newAchievements = [];
     const unique = [

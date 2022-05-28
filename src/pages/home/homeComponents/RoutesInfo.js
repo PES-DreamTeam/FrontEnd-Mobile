@@ -35,8 +35,6 @@ function RoutesInfo(props) {
 
   const customStyle = require("../../../utils/customStyleSheet");
 
-  console.log(props?.routingInfo?.transport);
-
   return (
     <View style={routeInfoStyle}>
       <View style={[customStyle.coolBlockTitleContainer]}>

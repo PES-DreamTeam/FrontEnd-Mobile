@@ -31,7 +31,9 @@ const Done = ({ ...props }) => (
     
 
 
-const OnBoarding = ({ navigation }) => {  
+const OnBoarding = ({ navigation, route }) => {  
+    console.log(route);
+    const { goToMap } = route.params;
     return (
         <View style={[{height: '100%', width: '100%'}]}>
             <Onboarding
@@ -70,8 +72,8 @@ const OnBoarding = ({ navigation }) => {
                     subtitle: i18n.t('onboarding.subtitle5'),
                     },
                 ]}
-                onSkip={() => navigation.navigate("Home")}
-                onDone={() => navigation.navigate("Home")}
+                onSkip={() => navigation.navigate(goToMap ? "Home" : "VehicleConfig")}
+                onDone={() => navigation.navigate(goToMap ? "Home" : "VehicleConfig")}
             />
         </View>
     );

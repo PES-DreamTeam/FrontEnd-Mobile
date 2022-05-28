@@ -1,18 +1,34 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { StyleSheet, Pressable, View, Image, Text, Linking } from "react-native";
 import CustomButton from "../../../../utils/button";
-
+import useUserSettings from "../../../../hooks/useUserSettings";
+import useHighlights from "../../../../hooks/useHighlights";
 
 function HighlightInfo (props) {
     const customStyle = require("../../../../utils/customStyleSheet");
+    useUserSettings();
 
-    console.log(props.phone);
+    const [stationInfo, setStationInfo] = useState(null);
+
+    const { getHighlightById } = useHighlights();
+
+    useEffect(async () => {
+        setStationInfo(await getInfo());
+    }, []);
+
+    const getInfo = async () => {
+        const response = await getHighlightById(props.stationInfo.id);
+        return response.data;
+    };
+
     return (
         <View style={styles.highlightContent}>
             <View style={styles.highlightContentWeb}>
                 <CustomButton
                     onPress={() => {
-                        Linking.openURL(`${'https://www.tesla.com/es_es'}`)
+                        stationInfo.website == ""
+                        ? null
+                        : Linking.openURL(`${stationInfo.website}`);
                     }}
                     imageSrc={require('../../../../../assets/images/icons/website.png')}
                     imageStyle={{width: 80, height: 80, alignSelf: 'center'}}
@@ -21,8 +37,9 @@ function HighlightInfo (props) {
             </View>
             <View style={styles.highlightContentPhone}>
                 <CustomButton
-                    onPress={() => {
-                        Linking.openURL(`tel:${932201427}`)
+                    onPress={() => {stationInfo.phone == ""
+                    ? null
+                    : Linking.openURL(`tel:${stationInfo.phone}`)
                     }}
                     imageSrc={require('../../../../../assets/images/icons/call.png')}
                     imageStyle={{width: 60, height: 60, alignSelf: 'center'}}

@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 function TutorialScreen({navigation}){
     useEffect(()=>{
-        navigation.navigate('OnBoarding')
+        navigation.navigate('OnBoarding', {goToMap: true})
         navigation.setOptions({headerLeft: () =>(
             <Icon name="arrow-back-outline" onPress={() => navigation.goBack()} size={25} />
         )})

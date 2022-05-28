@@ -32,7 +32,6 @@ function LocationInfo(props) {
     if (props.stationInfo != null) {
       let info = await getChargePointInfo(props?.stationInfo?.id);
       setStationLikes(info.likes);
-      console.log(info);
       setStationReports(info.reports);
       toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
       toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
@@ -42,13 +41,11 @@ function LocationInfo(props) {
   useEffect(() => {
     toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
     updateAchievement(6, auth?.user?.likes?.length);
-    console.log("likes", auth?.user);
   }, [auth?.user?.likes]);
 
   useEffect(() => {
     toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
     updateAchievement(5, auth?.user?.favourites?.length);
-    console.log("favs", auth?.user?.favourites?.length);
   }, [auth?.user?.favourites]);
 
   const handleFavourite = async () => {
@@ -62,7 +59,7 @@ function LocationInfo(props) {
 
   const handleLike = async () => {
       const likes = await sendStationLike(props.stationInfo.id);
-      
+      console.log(props.stationInfo);
       await updateUser({
         ...auth.user,
         likes,
@@ -125,8 +122,6 @@ function LocationInfo(props) {
   const ChargeStationIcon = (chargerType) => {};
 
   const ReportStation = (stationInfo) => {};
-
-
 
 
   function perc2color(perc) {

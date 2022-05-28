@@ -61,7 +61,7 @@ const useChargePoints = () => {
     );
     return response.data.likedStations;
     } catch (error) {
-      console.log("ERROR HOLI");
+      console.log(error);
     }
   };
 

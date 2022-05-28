@@ -60,7 +60,6 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-
   const OpenStationInfo = (station) => {
     setStationInfo(station);
   };
@@ -86,7 +85,6 @@ export default function HomeScreen({ navigation }) {
   }
 
   const BeginSearch = (info) => {
-    console.log("BEGIN SEARCH", wantRoute, info);
     if(info != 'none' && wantRoute != null){
       ActivateRoute(null);
       ChangeMapFilter((mapFilter));
