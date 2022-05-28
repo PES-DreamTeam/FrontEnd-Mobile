@@ -137,7 +137,7 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
         {
           isLoading ?
           <View style={styles.spinner}>
-            <ActivityIndicator size="large" color="blue"/>
+            <ActivityIndicator size="large" color="#b28dfc"/>
           </View>
           : null
         }

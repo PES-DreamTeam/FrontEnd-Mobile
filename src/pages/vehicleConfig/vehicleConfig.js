@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image, Pressable } from 'react-native';
+import { View, Text, ActivityIndicator, Button, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image, Pressable } from 'react-native';
 import React, { useState, useContext, useEffect } from 'react';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
@@ -44,9 +44,13 @@ function VehicleConfig({ navigation }) {
     const [vehicleBrands, setVehicleBrands] = useState();
     const [vehicleModels, setVehicleModels] = useState();
 
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect (async () => {
         if (selectedBrand !== '') {
+            setIsLoading(true);
             let temp = await getVehicleModels(selectedBrand);
+            setIsLoading(false);
             let models =  [...new Set(temp?.map(item => item.model))];
             models?.sort();
             setVehicleModels(models);
@@ -84,7 +88,9 @@ function VehicleConfig({ navigation }) {
     }
     
     useEffect(async ()=>{
+        setIsLoading(true);
         let brands = await getVehicleBrands();
+        setIsLoading(false);
         if(brands) {
             brands?.sort();
             setVehicleBrands(brands);
@@ -262,6 +268,13 @@ function VehicleConfig({ navigation }) {
                     </View>
                 </View>
             </ScrollView>
+            {
+            isLoading ?
+            <View style={styles.spinner}>
+                <ActivityIndicator size="large" color="#b28dfc"/>
+            </View>
+            : null
+            }
             {<CarSelectorModal
                 vehicleType={currentVehicleType}
                 vehicleBrand={vehicleBrand}
@@ -274,6 +287,16 @@ function VehicleConfig({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    spinner:{
+        position: 'absolute',
+        justifyContent: 'center',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 5000,
+        color: 'red',
+      },
     container: {
         flex: 1,
         justifyContent: 'space-between',
