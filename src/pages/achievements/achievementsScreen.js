@@ -10,18 +10,13 @@ import useUserSettings from "../../hooks/useUserSettings";
 function AchievementsScreen() {
   useUserSettings();
   const {
-    getAllAchievements,
-    resetAchievements,
     displayAchievements,
-    findMyAchievement,
-    favAchievement,
   } = useAchievements();
   const { auth } = useAuth();
 
   const [achievements, setAchievements] = useState([]);
 
   useEffect(async () => {
-    //resetAchievements();
     setAchievements(await displayAchievements());
   }, [auth?.user]);
 
