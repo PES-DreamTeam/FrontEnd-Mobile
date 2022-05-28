@@ -6,39 +6,26 @@ import { AuthContext } from "../context/authContext";
 
 const useChats = () => { 
   const sendChat = async (messages) => {
-      console.log(messages)
-      
-  /*
-    try {     
-      const response = await axios.post(
-        //`${API_HOST}/api/`,
-        {
-          messages[0]?.text, messages[0]?.createdAt
-          text: text,
-          created_at: created_at
-        } 
-      );
-    }
-    catch(err) {
-        let errors = [];
-        if (err.response.status === 403) {
-          err.response.data.errors.map((error) => {
-            errors.push(error);
-          });
-          throw {
-            error: true,
-            errors: errors,
-          };
-        } else
-          throw {
-            error: true,
-            errors: ["Something went wrong. Try again later."],
-          };
-      }
-      */
+    const response = await axios.post(`https://pes-backend-development.herokuapp.com/api/message/`, {
+      chat_id: messages.chat_id,
+      createdAt: messages.createdAt,
+      position: messages.position,
+      text: messages.text,
+      user: messages.user,
+    })
   }
+
+
+  const getMessagesUser = async(chatId) =>{
+    const response = await axios.get(`https://pes-backend-development.herokuapp.com/api/message/${chatId}
+    `);
+    const data = response.data
+    return data
+  }
+
   return {
-    sendChat
+    sendChat, 
+    getMessagesUser,
   };
 };
 

@@ -12,10 +12,11 @@ import { createdAt } from "expo-updates";
 
 function ChatScreen() {
   const [messages, setMessages] = useState([]);
+  const [userChat, setUserChat] = useState([]);
   const { auth, updateUser } = useAuth();
 
   const { sendChat } = useChats();
-
+ const {  getMessagesUser} = useChats();
   const [user, setUser] = useState({
     id: auth.user._id,
   });
@@ -27,40 +28,42 @@ function ChatScreen() {
     auth.user;
   }, [auth]);
 
-  /*
-      useLayoutEffect(() => {
-
-        const collectionRef = collection(database, 'chats');
-        const q = query(collectionRef, orderBy('createdAt', 'desc'));
-
-    const unsubscribe = onSnapshot(q, querySnapshot => {
-        console.log('querySnapshot unsusbscribe');
-          setMessages(
-            querySnapshot.docs.map(doc => ({
-              _id: doc.data()._id,
-              createdAt: doc.data().createdAt.toDate(),
-              text: doc.data().text,
-              user: doc.data().user
-            }))
-          );
-        });
-    return unsubscribe;
-      }, []);
-    */
+  
   useEffect(() => {
-    setMessages([
-      {
-        _id: 2,
-        text: "Hello developer",
-        createdAt: new Date() + 33242423432432,
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
-  }, []);
+    getMessages();
+   const intervalId = setInterval(() => {
+    getMessages();
+  }, 1000 * 10) 
+  return () => clearInterval(intervalId)
+}, [])
+
+
+
+  const getMessages = async () => {
+    let chat = await getMessagesUser(
+      auth.user._id
+    );
+    if(chat!= null && chat != undefined){
+      var mensajes = []
+      for (let i = chat.data.messages.length-1; i > 0; i--) {
+        mensajes.push({
+          _id: chat.data.messages[i]._id,
+          text: chat.data.messages[i].text,
+          createdAt: chat.data.messages[i].createdAt,
+          user:{
+            _id: chat.data.messages[i].user._id,
+          name: 'nickname',
+          avatar: 'YourimageURL',
+          }
+        })
+      }
+       setMessages(
+        mensajes
+      )
+    }
+  };
+
+
 
   const onSend = async (message) => {
     setMessages((previousMessages) =>
@@ -68,17 +71,6 @@ function ChatScreen() {
     );
     message = { ...message[0], chat_id: auth.user._id, position: "right" };
     await sendChat(message);
-
-    // const { _id, createdAt, text, user } = messages[0];
-
-    /*   
-        addDoc(collection(database, 'chats'), {
-          _id,
-          createdAt,
-          text,
-          user
-        });
-        */
   };
 
   return (
