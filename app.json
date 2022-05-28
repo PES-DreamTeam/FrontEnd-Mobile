@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "EcoRoads",
+    "slug": "EcoRoads",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/logoChikito.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
