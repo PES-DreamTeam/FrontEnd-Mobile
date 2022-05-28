@@ -252,9 +252,11 @@ function VehicleConfig({ navigation }) {
                     </Text>
                     <View style={{marginLeft: 5}}>
                         {auth?.user?.isNew ? (
-                        <Text style={{color: 'blue'}} onPress={() => markAsNotNew()}>
-                            {i18n.t('vehicleConfig.skip')}
-                        </Text>
+                        <CustomButton
+                            text={i18n.t('vehicleConfig.skip')}
+                            onPress={() => markAsNotNew()}
+                            customStyles={styles.nextButton}
+                        />
                         ) :
                         <CustomButton
                             text={i18n.t('vehicleConfig.cancel')}

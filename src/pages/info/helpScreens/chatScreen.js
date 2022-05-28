@@ -45,7 +45,7 @@ function ChatScreen() {
     );
     if(chat!= null && chat != undefined){
       var mensajes = []
-      for (let i = chat.data.messages.length-1; i > 0; i--) {
+      for (let i = chat.data.messages.length-1; i >= 0; i--) {
         if( chat.data.messages[i].user._id != "-1"){
           mensajes.push({
             _id: chat.data.messages[i]._id,
@@ -66,7 +66,7 @@ function ChatScreen() {
           user:{
             _id: chat.data.messages[i].user._id,
           name: 'nickname',
-          avatar: 'https://cdn-icons.flaticon.com/png/512/2268/premium/2268705.png?token=exp=1653738817~hmac=72feb8cb65654d68fee496819f22a92d',
+          avatar: 'https://i.ibb.co/ZT1Dnrz/admin.png',
           }
         })
       }
