@@ -80,6 +80,7 @@ const es = {
 		cancel: "Cancelar",
 		skip: "Saltar",
 		customize: "Personaliza tu",
+		errorNumberPlate: "La matrícula ya existe",
 		defaultVehicle: "Este vehículo está marcado como predeterminado.",
 	}, 
 	profile: {
@@ -89,6 +90,7 @@ const es = {
 		vehicleNotDef: "Vehículo no definido",
 		addNewVehicle: "Añade un vehículo",
 		saveChanges: "Guardar cambios",
+		deleteVehicle: "¿Estás seguro de que quieres eliminar tu vehículo?",
 		editProfile: "Edita tu perfil",
 	}, 
 	carInfoItem: {
@@ -107,8 +109,8 @@ const es = {
 		help: "Ayuda",
 	}, 
 	locationInfo: {
-		mechanical: "Mecanicas",
-		electrical: "Electricas",
+		mechanical: "Mecánicas",
+		electrical: "Eléctricas",
 		freeSlots: "Espacios libres",
 		getThere: "¡Llévame!",
 		likesNumber: "Me gustas",
@@ -245,6 +247,10 @@ const es = {
 	autonomyModal: {
 		title: "¿Quieres introducir la autonomía de tu vehículo?",
 		placeholder: "Tu autonomía en km",
+	}, 
+	editProfile: {
+		title: "Perfil actualizado",
+		message: "Los cambios se han guardado correctamente",
 	}
 }
 export{ es }

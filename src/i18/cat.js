@@ -24,7 +24,7 @@ const cat = {
 		setCAT: "Català",
 		setES: "Espanyol",
 		deleteAccount: "Esborrar el teu compte",
-		deleteAccountTitle: "Estas segur de que vols eliminar el teu compte?",
+		deleteAccountTitle: "Segur que vols esborrar el teu compte?",
 		deleteAccountSubtitle: "Aquesta acció no és reversible i perdràs accés futur a l'aplicació.",
 		setLanguage: "Escollir idioma",
 		confirmDeleteAccount: "Per eliminar el teu compte cal escriure a sota el teu nom d'usuari",
@@ -80,6 +80,7 @@ const cat = {
 		cancel: "Cancel·lar",
 		skip: "Salta",
 		customize: "Personalitza el teu",
+		errorNumberPlate: "La matrícla ja existeix",
 		defaultVehicle: "Aquest vehicle està marcat com a predeterminat.",
 	}, 
 	profile: {
@@ -89,6 +90,7 @@ const cat = {
 		vehicleNotDef: "Vehicle no definit",
 		addNewVehicle: "Afegeix un vehicle",
 		saveChanges: "Desa els canvis",
+		deleteVehicle: "Segur que vols eliminar el teu vehicle?",
 		editProfile: "Edita el teu perfil",
 	}, 
 	carInfoItem: {
@@ -245,6 +247,10 @@ const cat = {
 	autonomyModal: {
 		title: "Vols introduïr l'autonomia del teu vehicle?",
 		placeholder: "La teva autonomia en km",
+	}, 
+	editProfile: {
+		title: "Perfil actualitzat",
+		message: "Els canvis s'han actualitzat correctament",
 	}
 }
 export{ cat }

@@ -210,7 +210,7 @@ function VehicleConfig({ navigation }) {
                 {error.error && error.attribute === "NumberPlate" ?
                     <View style={styles.errorContainer}>
                         <Text style={styles.error}>
-                            {error.message}
+                        {i18n.t('vehicleConfig.errorNumberPlate')}
                         </Text>
                     </View>
                 : null}

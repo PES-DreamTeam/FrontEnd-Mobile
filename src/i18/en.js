@@ -80,6 +80,7 @@ const en = {
 		cancel: "Cancel",
 		skip: "Skip",
 		customize: "Customize your",
+		errorNumberPlate: "The numberplate already exists",
 		defaultVehicle: "This vehicle is set as the default.",
 	}, 
 	profile: {
@@ -89,6 +90,7 @@ const en = {
 		vehicleNotDef: "Vehicle not defined yet",
 		addNewVehicle: "Add a new vehicle",
 		saveChanges: "Save changes",
+		deleteVehicle: "Are you sure you want to delete your vehicle?",
 		editProfile: "Edit your profile",
 	}, 
 	carInfoItem: {
@@ -245,6 +247,10 @@ const en = {
 	autonomyModal: {
 		title: "Do you want to introduce your vehicle's autonomy?",
 		placeholder: "Your autonomy in km",
+	}, 
+	editProfile: {
+		title: "Profile updated",
+		message: "The changes have been saved correctly",
 	}
 }
 export{ en }
