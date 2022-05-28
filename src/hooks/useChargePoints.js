@@ -39,10 +39,19 @@ const useChargePoints = () => {
   };
 
   const getChargePointInfo = async (id_station) => {
-    const response = await axios.get(
-      `${API_HOST}/api/chargePoints/${id_station}/info`
-    );
-    return response.data.chargePoint;
+    try {
+      console.log("getChargePointInfo", id_station);
+
+      const response = await axios.get(
+        `${API_HOST}/api/chargePoints/${id_station}/info`
+      );
+      console.log(response);
+      return response.data.chargePoint;
+    }
+    catch (error) {
+      console.log("error");
+    }
+    
   };
 
   const getChargePointLikes = async (id_station) => {
