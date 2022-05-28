@@ -136,12 +136,15 @@ export default function HomeScreen({ navigation }) {
         isSearching={!openSearchBar}
       />
       }
-      <RoutesInfo
+      {
+        routeInfo != null ?
+        <RoutesInfo
         routeActivate={wantRoute}
         ActivateRoute={ActivateRoute}
         routingInfo={routeInfo}
-      />
-
+        /> : null
+      }
+      { openSearchBar && currentStationInfo != null && wantRoute == null ?
       <LocationInfo
         stationInfo={openSearchBar? currentStationInfo : null}
         routeActivate={wantRoute}
@@ -152,7 +155,8 @@ export default function HomeScreen({ navigation }) {
           }
         }}
         onChangeFilter={ChangeMapFilter}
-        />
+        /> : null}
+
 
       <AutonomyModal
         isVisible={autonomyModalVisible}
