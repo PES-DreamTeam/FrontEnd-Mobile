@@ -17,7 +17,7 @@ function HighlightInfo (props) {
     }, []);
 
     const getInfo = async () => {
-        const response = await getHighlightById(props.stationInfo.id);
+        const response = await getHighlightById(props?.stationInfo?.id);
         return response.data;
     };
 
