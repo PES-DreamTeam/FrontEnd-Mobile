@@ -2,9 +2,12 @@ import { useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import CustomButton from "../../../utils/button";
 import Icon from "react-native-vector-icons/Ionicons";
+import i18n from 'i18n-js';
+import useUserSettings from "../../../hooks/useUserSettings";
 
 
 function MainList({navigation}){
+    useUserSettings();
 
     const customStyle = require('../../../utils/customStyleSheet');
 
@@ -23,7 +26,7 @@ function MainList({navigation}){
                     imageSrc={require('../../../../assets/images/icons/messenger.png')}
                     imageStyle={{height: "80%", aspectRatio: 1}}
                 />
-                <Text style={[customStyle.bigTitle, styles.textStyle]}>Chat</Text>
+                <Text style={[customStyle.bigTitle, styles.textStyle]}>{i18n.t('help.chat')}</Text>
             </View>
             <View style={[customStyle.coolBlockContainer, styles.blockStyle]}>
                 <CustomButton 
@@ -32,7 +35,7 @@ function MainList({navigation}){
                     imageSrc={require('../../../../assets/images/icons/question.png')}
                     imageStyle={{height: "80%", aspectRatio: 1}}
                 />
-                <Text style={[customStyle.bigTitle, styles.textStyle]}>FAQ</Text>
+                <Text style={[customStyle.bigTitle, styles.textStyle]}>{i18n.t('help.faq')}</Text>
             </View>
             <View style={[customStyle.coolBlockContainer, styles.blockStyle]}>
                 <CustomButton 
@@ -41,7 +44,7 @@ function MainList({navigation}){
                     imageSrc={require('../../../../assets/images/icons/mortarboard.png')}
                     imageStyle={{height: "80%", aspectRatio: 1}}
                 />
-                <Text style={[customStyle.bigTitle, styles.textStyle]}>Tutorial</Text>
+                <Text style={[customStyle.bigTitle, styles.textStyle]}>{i18n.t('help.tutorial')}</Text>
             </View>
             
         </View>

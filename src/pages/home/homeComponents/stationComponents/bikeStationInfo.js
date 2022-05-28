@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bikeInfoText: {
-    fontSize: 15,
+    fontSize: 12,
     color: "black",
     fontFamily: "Montserrat-Bold",
     alignSelf: "center",

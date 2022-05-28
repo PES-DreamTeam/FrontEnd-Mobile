@@ -23,7 +23,7 @@ setEN,English,Inglés,Anglès
 setCAT,Catalan,Catalán,Català
 setES,Spanish,Español,Espanyol
 deleteAccount,Delete your account,Borrar tu cuenta,Esborrar el teu compte
-deleteAccountTitle,Are you sure you want to delete you account?,¿Estás seguro de que quieres eliminar tu cuenta?,Estas segur de que vols eliminar el teu compte?
+deleteAccountTitle,Are you sure you want to delete you account?,¿Estás seguro de que quieres eliminar tu cuenta?,Segur que vols esborrar el teu compte?
 deleteAccountSubtitle,This action is not reversible and you will lose future access to the app.,Esta acción no es reversible y perderás todo acceso futuro a la aplicación.,Aquesta acció no és reversible i perdràs accés futur a l'aplicació.
 setLanguage,Set the language,Escoger idioma,Escollir idioma
 confirmDeleteAccount,To delete your account you must write down below your userame,Para eliminar tu cuenta debes escribir debajo tu nombre de usuario,Per eliminar el teu compte cal escriure a sota el teu nom d'usuari
@@ -72,6 +72,7 @@ notEV,Don't have a vehicle to add?,¿No tienes un vehiculo para añadir?,No tens
 cancel,Cancel,Cancelar,Cancel·lar
 skip,Skip,Saltar,Salta
 customize,Customize your,Personaliza tu,Personalitza el teu
+errorNumberPlate,The numberplate already exists,La matrícula ya existe,La matrícla ja existeix
 defaultVehicle,This vehicle is set as the default.,Este vehículo está marcado como predeterminado.,Aquest vehicle està marcat com a predeterminat.
 PAGE_profile,,,
 yourVehicle,Your Garage,Tu garaje,El teu garatge
@@ -80,6 +81,7 @@ title,Profile,Perfil,Perfil
 vehicleNotDef,Vehicle not defined yet,Vehículo no definido,Vehicle no definit
 addNewVehicle,Add a new vehicle,Añade un vehículo,Afegeix un vehicle
 saveChanges,Save changes,Guardar cambios,Desa els canvis
+deleteVehicle,Are you sure you want to delete your vehicle?,¿Estás seguro de que quieres eliminar tu vehículo?,Segur que vols eliminar el teu vehicle?
 editProfile,Edit your profile,Edita tu perfil,Edita el teu perfil
 PAGE_carInfoItem,,,
 nickname,Nickname:,Apodo:,Sobrenom:
@@ -96,8 +98,8 @@ achievements,Achievements,Logros,Assoliments
 report,Report,Reporte,Incidència
 help,Help,Ayuda,Ajuda
 PAGE_locationInfo,,,
-mechanical,Mechanical,Mecanicas,Mecàniques
-electrical,Electrical,Electricas,Elèctriques
+mechanical,Mechanical,Mecánicas,Mecàniques
+electrical,Electrical,Eléctricas,Elèctriques
 freeSlots,Free slots,Espacios libres,Espais lliures
 getThere,Get there!,¡Llévame!,Porta-m'hi!
 likesNumber,Likes,Me gustas,M'agrades
@@ -226,3 +228,7 @@ tutorial,Tutorial,Tutorial,Tutorial
 PAGE_autonomyModal,,,
 title,Do you want to introduce your vehicle's autonomy?,¿Quieres introducir la autonomía de tu vehículo?,Vols introduïr l'autonomia del teu vehicle?
 placeholder,Your autonomy in km,Tu autonomía en km,La teva autonomia en km
+,,,
+PAGE_editProfile,,,
+title,Profile updated,Perfil actualizado,Perfil actualitzat
+message,The changes have been saved correctly,Los cambios se han guardado correctamente,Els canvis s'han actualitzat correctament
