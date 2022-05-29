@@ -11,6 +11,12 @@ export default ({isVisible, handleCancel, handleAccept}) => {
         setAutonomyValue("");
     }
 
+    useEffect(() => {
+        if (autonomyValue.includes(",")) {
+            setAutonomyValue(autonomyValue.replace(",","."))
+        }
+    }, [autonomyValue]);
+
     const accept = () => {
         handleAccept(autonomyValue);
         reset();

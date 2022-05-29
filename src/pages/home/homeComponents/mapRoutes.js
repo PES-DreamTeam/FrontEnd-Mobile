@@ -43,13 +43,13 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
   const [needsCharge, setNeedsCharge] = useState(false);
 
   const toast = useToast();
-
+  
   useEffect(() => {
     setNeedsCharge(distancia > autonomia &&
       closestFree.nearest != null &&
-      closestFree.nearest != undefined &&
-      routeActivate?.objectType === "vehicleStation");
-
+      closestFree.nearest != undefined 
+      );
+    
     changeLine(routeActivate);
   }, [closestFree]);
 
@@ -122,7 +122,7 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
 
   return (
     <View>
-      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] ? (
+      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] && routeActivate?.objectType === "vehicleStation" ? (
         <Marker
           title={closestFree.nearest[0].name}
           coordinate={{
@@ -136,7 +136,7 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
           />
         </Marker>
       ) : null}
-      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] ? (
+      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] && routeActivate?.objectType === "vehicleStation" ? (
         <MapViewDirections
           origin={location}
           destination={destination}

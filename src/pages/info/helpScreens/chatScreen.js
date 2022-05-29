@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useLayoutEffect,
 } from "react";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat, InputToolbar, Bubble, Send } from "react-native-gifted-chat";
 import useAuth from "../../../hooks/useAuth";
 import useChats from "../../../hooks/useChats";
 import { createdAt } from "expo-updates";
@@ -45,7 +45,7 @@ function ChatScreen() {
     );
     if(chat!= null && chat != undefined){
       var mensajes = []
-      for (let i = chat.data.messages.length-1; i > 0; i--) {
+      for (let i = chat.data.messages.length-1; i >= 0; i--) {
         if( chat.data.messages[i].user._id != "-1"){
           mensajes.push({
             _id: chat.data.messages[i]._id,
@@ -66,7 +66,7 @@ function ChatScreen() {
           user:{
             _id: chat.data.messages[i].user._id,
           name: 'nickname',
-          avatar: 'https://cdn-icons.flaticon.com/png/512/2268/premium/2268705.png?token=exp=1653738817~hmac=72feb8cb65654d68fee496819f22a92d',
+          avatar: 'https://i.ibb.co/Gp0PMBY/admin2.png',
           }
         })
       }
@@ -78,6 +78,89 @@ function ChatScreen() {
   };
 
 
+  const customtInputToolbar = props => {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          backgroundColor: "#f3edff",
+          borderColor: "#c0a2fc",
+          borderWidth: 1,
+          borderRadius: 100,
+          padding: 1,
+          renderSend: () => {
+            return (
+              <Text style={{ fontSize: 15, color: "#c0a2fc" }}>Enviar</Text>
+            );
+          },
+        }}
+        textStyle={{
+          color: 'black',
+          fontFamily: "Montserrat-Regular",
+        }}       
+      />
+    );
+  };
+
+
+
+  const customBubble = props => {
+    return (
+      <Bubble
+        {...props}
+        textStyle={{
+          left: {
+            color: 'black',
+            fontFamily: "Montserrat-Regular",
+          },
+          right: {
+            color: 'black',
+            fontFamily: "Montserrat-Regular",
+          },
+        }}
+        wrapperStyle={{
+          left: {
+            backgroundColor: '#4aa7f0',
+          },
+          right: {
+            backgroundColor: '#e2d4ff',
+          },
+        }}
+        timeTextStyle={{
+          left: { 
+            color: 'black',
+            fontFamily: "Montserrat-Regular",
+          },
+          right: { 
+            color: 'black',
+            fontFamily: "Montserrat-Regular",
+          },
+        }}
+        timeFormat="HH:mm"
+      />
+    );
+  };
+
+  const customSend = props => {
+    return (
+      <Send
+        {...props}
+        textStyle={{
+          color: "black",
+          fontFamily: "Montserrat-Regular",
+          borderWidth: 0,
+        }}
+        containerStyle={{
+          marginRight: 5,
+          marginTop: 1,
+          borderWidth: 2,
+          borderColor: "#b491fa",
+          borderRadius: 100,
+          backgroundColor: "#e2d4ff",
+        }}
+      />
+    );
+  };
 
   const onSend = async (message) => {
     setMessages((previousMessages) =>
@@ -88,13 +171,19 @@ function ChatScreen() {
   };
 
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={(messages) => onSend(messages)}
-      user={{
-        _id: auth.user._id,
-      }}
-    />
+    <View style={{ backgroundColor: "#f5f2fc", flex: 1 }}>
+      <GiftedChat
+        messages={messages}
+        onSend={(messages) => onSend(messages)}
+        user={{
+          _id: auth.user._id,
+        }}
+        renderSystemMessage={props => customSystemMessage(props)}
+        renderInputToolbar={props => customtInputToolbar(props)}
+        renderBubble={props => customBubble(props)}
+        renderSend={props => customSend(props)}
+      />
+    </View>
   );
 }
 

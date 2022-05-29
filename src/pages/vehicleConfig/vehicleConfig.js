@@ -154,7 +154,7 @@ function VehicleConfig({ navigation }) {
                         user: user
                     });
                     setVehicle(initialState);
-                    navigation.navigate("Profile");
+                    auth?.user?.isNew ? navigation.navigate("Home") : navigation.navigate("Profile");
                 })
                 .catch(err => {
                     setError({
@@ -177,7 +177,7 @@ function VehicleConfig({ navigation }) {
 
     const cancel = () => {
         clearAllFields();
-        navigation.navigate("Profile");
+        auth?.user?.isNew ? navigation.navigate("Home") : navigation.navigate("Profile");
     }
 
     return(
@@ -252,9 +252,11 @@ function VehicleConfig({ navigation }) {
                     </Text>
                     <View style={{marginLeft: 5}}>
                         {auth?.user?.isNew ? (
-                        <Text style={{color: 'blue'}} onPress={() => markAsNotNew()}>
-                            {i18n.t('vehicleConfig.skip')}
-                        </Text>
+                        <CustomButton
+                            text={i18n.t('vehicleConfig.skip')}
+                            onPress={() => markAsNotNew()}
+                            customStyles={styles.nextButton}
+                        />
                         ) :
                         <CustomButton
                             text={i18n.t('vehicleConfig.cancel')}
