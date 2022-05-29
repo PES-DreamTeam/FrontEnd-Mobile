@@ -21,7 +21,7 @@ import { useToast } from "react-native-toast-notifications";
 import { Marker } from "react-native-maps";
 import useCloseStation from "../../../hooks/useCloseStation";
 
-const API_KEY = "AIzaSyC7PdTftO4QxOyM8vu3fSOCMlvOcuVmbk0";
+const API_KEY = "AIzaSyDVFLmXiGOOau6B2W6PGS-7aVPOidSCOZs";
 
 
 export default ({routeActivate, location, ChangeRoutingInfo}) => {

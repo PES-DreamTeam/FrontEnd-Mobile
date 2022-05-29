@@ -116,8 +116,8 @@ export default function HomeScreen({ navigation }) {
           </View>          
         </View>        
       </View>
-      
-      {
+
+
       <CustomMapView
         //ref={mapViewRef}
         color={vehicleConfig[currentVehicle]?.color ?? "black"}
@@ -135,7 +135,6 @@ export default function HomeScreen({ navigation }) {
         isLoading={isLoading}
         isSearching={!openSearchBar}
       />
-      }
       {
         routeInfo != null ?
         <RoutesInfo

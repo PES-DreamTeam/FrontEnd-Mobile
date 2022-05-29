@@ -82,7 +82,6 @@ const useAuth = () => {
     logout();
   };
   const isSignedIn = () => {
-    return false;
     return auth?.user && auth?.isSignedIn;
   };
 
