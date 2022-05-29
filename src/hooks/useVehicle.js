@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import axios from "axios";
-// import { API_HOST, IMGBB_API_KEY } from "@env";
-
-const API_HOST = "https://pes-backend-development.herokuapp.com";
+import { API_HOST, IMGBB_API_KEY } from "@env";
 
 const useVehicle = () => {
 

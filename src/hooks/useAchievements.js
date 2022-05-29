@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-// import { API_HOST } from "@env";
+import { API_HOST } from "@env";
 import { AuthContext } from "../context/authContext";
 import useAuth from "../hooks/useAuth";
 import { useToast } from "react-native-toast-notifications";
 import i18n from "i18n-js";
 
-const API_HOST = "https://pes-backend-development.herokuapp.com";
 
 const useAchievements = () => {
   const toast = useToast();
