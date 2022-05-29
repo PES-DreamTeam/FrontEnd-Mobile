@@ -154,7 +154,7 @@ function VehicleConfig({ navigation }) {
                         user: user
                     });
                     setVehicle(initialState);
-                    navigation.navigate("Profile");
+                    auth?.user?.isNew ? navigation.navigate("Home") : navigation.navigate("Profile");
                 })
                 .catch(err => {
                     setError({
@@ -177,7 +177,7 @@ function VehicleConfig({ navigation }) {
 
     const cancel = () => {
         clearAllFields();
-        navigation.navigate("Profile");
+        auth?.user?.isNew ? navigation.navigate("Home") : navigation.navigate("Profile");
     }
 
     return(
