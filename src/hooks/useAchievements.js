@@ -22,7 +22,7 @@ const useAchievements = () => {
       }
     });
     //si estan tots complets
-    /* if (!inProgress) return; */
+    if (!inProgress) return;
 
     const achievementIP = findMyAchievement(id, actualLevel);
     
