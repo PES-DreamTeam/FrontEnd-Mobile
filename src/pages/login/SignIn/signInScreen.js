@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 function SignInScreen({ navigation }) {
 
-    const { signIn, loginWithFacebook } = useAuth();
+    const { signIn, loginWithFacebook, auth} = useAuth();
     const customStyle = require('../../../utils/customStyleSheet');
 
     const [showPassword, setShowPassword] = useState(true);
@@ -45,9 +45,18 @@ function SignInScreen({ navigation }) {
                 .finally(()=> setLoading(false));
         }
     }
-
+    console.log(auth);
     return (
         <View style={styles.container}>
+            {auth?.isSignedIn && 
+            (
+                <View >
+                    <Text>{auth.token}</Text>
+                    <Text>{auth.isSignedIn.toString()}</Text>
+                    <Text>{auth.user.nickname}</Text>
+                    <Text>{auth.user.email}</Text>
+                </View> 
+            )}
             <ScrollView style={styles.scrollContainer}>
                 <View style={styles.logoContainer}>
                     <Image

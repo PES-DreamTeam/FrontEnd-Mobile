@@ -12,8 +12,8 @@ const useAuth = () => {
   const signIn = async (user) => {
     const { email, password } = user;
     const response = await axios.post(`${API_HOST}/api/auth/login`, {
-      email,
-      password,
+      email: email.trim(),
+      password: password.trim(),
     });
     let data = response.data;
     data.isSignedIn = true;
@@ -82,6 +82,7 @@ const useAuth = () => {
     logout();
   };
   const isSignedIn = () => {
+    return false;
     return auth?.user && auth?.isSignedIn;
   };
 
