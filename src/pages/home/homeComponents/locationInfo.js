@@ -30,11 +30,14 @@ function LocationInfo(props) {
 
   useEffect(async () => {
     if (props.stationInfo != null) {
+      console.log(props?.stationInfo);
       let info = await getChargePointInfo(props?.stationInfo?.id);
       setStationLikes(info.likes);
       setStationReports(info.reports);
       toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
       toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
+
+      
     } 
   }, [props]);
 

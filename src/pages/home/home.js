@@ -174,7 +174,7 @@ export default function HomeScreen({ navigation }) {
         }}
       />
       {
-        currentStationInfo !== null && openSearchBar ?
+        (currentStationInfo !== null || wantRoute != null) && openSearchBar ?
       <View style={styles.bottomBackground}/> : null
       }
       

@@ -18,7 +18,7 @@ function HighlightInfo (props) {
 
     const getInfo = async () => {
         const response = await getHighlightById(props?.stationInfo?.id);
-        return response.data;
+        return response?.data;
     };
 
     return (
@@ -28,7 +28,7 @@ function HighlightInfo (props) {
                     onPress={() => {
                         stationInfo.website == ""
                         ? null
-                        : Linking.openURL(`${stationInfo.website}`);
+                        : Linking.openURL(`${stationInfo?.website}`);
                     }}
                     imageSrc={require('../../../../../assets/images/icons/website.png')}
                     imageStyle={{width: 80, height: 80, alignSelf: 'center'}}
@@ -37,9 +37,9 @@ function HighlightInfo (props) {
             </View>
             <View style={styles.highlightContentPhone}>
                 <CustomButton
-                    onPress={() => {stationInfo.phone == ""
+                    onPress={() => {stationInfo?.phone == ""
                     ? null
-                    : Linking.openURL(`tel:${stationInfo.phone}`)
+                    : Linking.openURL(`tel:${stationInfo?.phone}`)
                     }}
                     imageSrc={require('../../../../../assets/images/icons/call.png')}
                     imageStyle={{width: 60, height: 60, alignSelf: 'center'}}
