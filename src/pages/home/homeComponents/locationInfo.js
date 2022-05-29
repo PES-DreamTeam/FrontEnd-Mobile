@@ -29,15 +29,37 @@ function LocationInfo(props) {
   const [stationReports, setStationReports] = useState();
 
   useEffect(async () => {
+    if (
+      props.stationInfo != null &&
+      (props.routeActivate === null || props.routeActivate === undefined)
+    ) {
+      setStationInfoStyle(styles.locationInfoOpened);
+      setModalButtonStyle(styles.locationModalButton);
+      let temp = await getStationPollution(
+        props?.stationInfo?.lat,
+        props?.stationInfo?.lng
+      );
+      if (temp == null || temp == undefined) {
+        setPollution(i18n.t("miscelaneus.loading"));
+        setPollutionColor("#a8a8a8");
+      } else {
+        temp *= 100;
+        temp = Math.round(temp * 100) / 100;
+        setPollution(temp);
+        setPollutionColor(perc2color(temp));
+      }
+    } else {
+      setStationInfoStyle(styles.locationInfoClosed);
+      setModalButtonStyle(styles.locationInfoClosed);
+    }
+
     if (props.stationInfo != null) {
-      console.log(props?.stationInfo);
       let info = await getChargePointInfo(props?.stationInfo?.id);
       setStationLikes(info.likes);
       setStationReports(info.reports);
       toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
       toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
 
-      
     } 
   }, [props]);
 
@@ -51,6 +73,11 @@ function LocationInfo(props) {
     updateAchievement(5, auth?.user?.favourites?.length);
   }, [auth?.user?.favourites]);
 
+  useEffect(async () => {
+    let info = await getChargePointInfo(props?.stationInfo?.id);
+    setStationReports(info.reports);
+  }, [auth?.user?.reports]);
+
   const handleFavourite = async () => {
       const favourites = await sendFavourite(props.stationInfo.id);
       
@@ -62,7 +89,6 @@ function LocationInfo(props) {
 
   const handleLike = async () => {
       const likes = await sendStationLike(props.stationInfo.id);
-      console.log(props.stationInfo);
       await updateUser({
         ...auth.user,
         likes,
@@ -90,16 +116,15 @@ function LocationInfo(props) {
   };
 
   const handleShare = async () => {
-    updateAchievement(4);
     const message = `${i18n.t("locationInfo.shareMessage")}` + " '" + props.stationInfo.name.toUpperCase() + "'" + `${i18n.t("locationInfo.shareMessage2")}`
-                  + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
+    + "\n\n" +"https://maps.google.com/?q=" + props.stationInfo.lat + "," + props.stationInfo.lng;
     const shareOptions = {
       message: message,
     };
     try {
       const shareResponse = await Share.share(shareOptions);
       if (shareResponse.action === Share.sharedAction) {
-        //updateAchievement(1, 1);
+        updateAchievement(4);
       }
     } catch (error) {
       console.log(error);
@@ -143,32 +168,6 @@ function LocationInfo(props) {
     let h = r * 0x10000 + g * 0x100 + b * 0x1;
     return "#" + ("000000" + h.toString(16)).slice(-6);
   }
-
-  useEffect(async () => {
-    if (
-      props.stationInfo != null &&
-      (props.routeActivate === null || props.routeActivate === undefined)
-    ) {
-      setStationInfoStyle(styles.locationInfoOpened);
-      setModalButtonStyle(styles.locationModalButton);
-      let temp = await getStationPollution(
-        props?.stationInfo?.lat,
-        props?.stationInfo?.lng
-      );
-      if (temp == null || temp == undefined) {
-        setPollution(i18n.t("miscelaneus.loading"));
-        setPollutionColor("#a8a8a8");
-      } else {
-        temp *= 100;
-        temp = Math.round(temp * 100) / 100;
-        setPollution(temp);
-        setPollutionColor(perc2color(temp));
-      }
-    } else {
-      setStationInfoStyle(styles.locationInfoClosed);
-      setModalButtonStyle(styles.locationInfoClosed);
-    }
-  }, [props]);
 
   useUserSettings();
   return (

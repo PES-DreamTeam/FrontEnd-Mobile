@@ -166,8 +166,8 @@ function ProfileScreen({ navigation }) {
       });
       
       toast.show("", {
-        title: i18n.t("reportToast.title"),
-        message: i18n.t("reportToast.message"),
+        title: i18n.t("editProfile.title"),
+        message: i18n.t("editProfile.message"),
         type: "custom_type",
         location: "report",
       });

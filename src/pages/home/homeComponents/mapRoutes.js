@@ -94,22 +94,15 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
     
   const changeLine = (userPreferences) =>{
       if (userPreferences !== null){
-          if(userPreferences.objectType == "bikeStation") {
+          if(userPreferences.transport == "BICYCLING") {
               setLineStyle({width:3, dash:null, mode:"BICYCLING", color:"green"})
-              setCurrentTransport("BICYCLING")
           }
-          if(userPreferences.objectType == "vehicleStation") {
+          else if(userPreferences.transport == "WALKING") {
+            setLineStyle({width:3, dash:[10.10], mode:"WALKING", color:"hotpink"})
+            setCurrentTransport("WALKING")
+          }
+          else {
               setLineStyle({width:3, dash:null, mode:"DRIVING", color:"blue"})
-              setCurrentTransport("DRIVING")
-          }
-          if(userPreferences.objectType == "walk") {
-              setLineStyle({width:7, dash:[10.10], mode:"WALKING", color:"hotpink"})
-              setCurrentTransport("WALKING")
-          }
-          if(userPreferences.objectType == "transport") {
-              setLineStyle({width:3, dash:null, mode:"TRANSIT", color:"red"})
-              setCurrentTransport("TRANSIT")
-
           }
       }
   };
