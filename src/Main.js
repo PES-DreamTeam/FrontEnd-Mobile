@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { AuthNavigator, SidebarNavigator } from "./navigators";
 import useAuth from "./hooks/useAuth";
 import { ToastProvider } from "react-native-toast-notifications";
@@ -7,7 +8,19 @@ import * as Font from 'expo-font';
 
 function Main() {
   //console.disableYellowBox = true;
-  const { isSignedIn, auth } = useAuth();
+  const { isSignedIn, signOut, auth } = useAuth();
+
+  axios.interceptors.response.use(function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  }, function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    signOut();
+    console.log("Am I doing something?")
+    return Promise.reject(error);
+  });
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
