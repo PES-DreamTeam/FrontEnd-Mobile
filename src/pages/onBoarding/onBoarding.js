@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import i18n from 'i18n-js';
 import CustomButton from "../../utils/button";
 import Onboarding from 'react-native-onboarding-swiper';
+import { StackActions } from '@react-navigation/native';
 
 
 const Skip = ({ ...props }) => (
@@ -33,7 +34,7 @@ const Done = ({ ...props }) => (
 
 const OnBoarding = ({ navigation, route }) => {  
     console.log(route);
-    const { goToMap } = route.params;
+    const { goToMap, afterRegister } = route.params;
     return (
         <View style={[{height: '100%', width: '100%'}]}>
             <Onboarding
@@ -72,8 +73,14 @@ const OnBoarding = ({ navigation, route }) => {
                     subtitle: i18n.t('onboarding.subtitle5'),
                     },
                 ]}
-                onSkip={() => navigation.navigate(goToMap ? "Home" : "VehicleConfig")}
-                onDone={() => navigation.navigate(goToMap ? "Home" : "VehicleConfig")}
+                onSkip={() =>{
+                    (goToMap && afterRegister) ? navigation.dispatch(StackActions.popToTop()) : "";
+                    navigation.navigate(goToMap ? "Home" : "VehicleConfig")}
+                } 
+                onDone={() =>{
+                   (goToMap && afterRegister) ? navigation.dispatch(StackActions.popToTop()) : "";
+                    navigation.navigate(goToMap ? "Home" : "VehicleConfig")}
+                } 
             />
         </View>
     );
