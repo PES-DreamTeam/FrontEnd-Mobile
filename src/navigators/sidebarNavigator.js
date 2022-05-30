@@ -45,6 +45,19 @@ function SidebarNavigator() {
             headerShown: false,
            }}
         />
+        <Stack.Screen
+          name="Home"
+          component={MainNavigator}
+          options={{
+            title: `${i18n.t("drawer.home")}`,
+            drawerLabelStyle: customStyle.normalText,
+            drawerActiveBackgroundColor: '#f3edff',
+            header: () => null,
+            drawerIcon: ({ color }) => (
+              <Ionicons name="home-outline" size={22} color={'#8200d6'} />
+            ),
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   ) : (
