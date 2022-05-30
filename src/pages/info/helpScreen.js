@@ -48,7 +48,7 @@ function HelpScreen({ navigation }) {
           <Stack.Screen
             name="TutorialScreen"
             component={OnBoarding}
-            initialParams={{ goToMap: true }}
+            initialParams={{ goToMap: true, afterRegister: true }}
             options={{
               title: i18n.t("help.tutorial"),
               headerStyle: {

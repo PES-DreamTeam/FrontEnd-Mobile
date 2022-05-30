@@ -8,7 +8,7 @@ const MapContext = createContext({});
 
 const MapContextProvider = ({ children }) => {
 
-    const { auth } = useAuth();
+    const { auth, isSignedIn } = useAuth();
 
     const { getChargePoints } = useChargePoints();
 
@@ -36,9 +36,11 @@ const MapContextProvider = ({ children }) => {
     }
 
     const ReloadMapPoints = async () => {
-        let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
-        let temp = Object.entries(pointsToShow);
-        setShown(temp);
+        if(isSignedIn()) {
+            let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
+            let temp = Object.entries(pointsToShow);
+            setShown(temp);
+        }
     };
 
     const ReloadUserLocation = async () => {
@@ -56,12 +58,15 @@ const MapContextProvider = ({ children }) => {
         })
     };
 
-    useEffect(async () => {
+    const loadMap = async () => {
         setIsLoading(true);
         await ReloadUserLocation();
         await ReloadMapPoints();
         setIsLoading(false);
-        
+    }
+
+    useEffect(async () => {
+        await loadMap();        
     }, []);
 
     useEffect(async () => {
@@ -98,6 +103,7 @@ const MapContextProvider = ({ children }) => {
                 currentStationInfo,
                 setStationInfo,
                 ReloadUserLocation,
+                loadMap,
             }
         }>
             {children}

@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import {CarTypeSelector, CircularColorBtnList} from './vehicleConfigComponents';
 import useAuth from '../../hooks/useAuth';
 import useVehicleConfig from '../../hooks/useVehicleConfig';
-import i18n from 'i18n-js';
+import i18n, { reset } from 'i18n-js';
 import CustomButton from "../../utils/button";
 import ButtonTable from "../../utils/buttonTable";
 import CarSelectorModal from './vehicleConfigComponents/carSelectorModal';
@@ -45,6 +45,17 @@ function VehicleConfig({ navigation }) {
     const [vehicleModels, setVehicleModels] = useState();
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [vehicleColors, setVehicleColors] = useState([
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+    ]);
 
     useEffect (async () => {
         if (selectedBrand !== '') {
@@ -89,6 +100,7 @@ function VehicleConfig({ navigation }) {
     
     useEffect(async ()=>{
         setIsLoading(true);
+        reset();
         let brands = await getVehicleBrands();
         setIsLoading(false);
         if(brands) {
@@ -96,20 +108,7 @@ function VehicleConfig({ navigation }) {
             setVehicleBrands(brands);
             
         }  
-        setVehicle(initialState);
-        let temp = [];
-        for(let i = 0; i < 9; i++){
-            let tempObj = {
-              imageSrc: GetCarImage(i, 'white'),
-              imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
-              onPress: () => {
-                setCurrentVehicleType(i);
-                setModalOpen(true);
-              },
-            };
-            temp.push(tempObj);
-        }
-        setVehicleTypes(temp);
+        
 
         
     },[])
@@ -141,6 +140,10 @@ function VehicleConfig({ navigation }) {
 
         if(vehicleBrand.trim().length === 0 || vehicleModel.trim().length === 0 ||
             vehicleNickname.trim().length === 0 || numberPlate.trim().length === 0) {
+                console.log('brand: ', vehicleBrand);
+                console.log('model: ', vehicleModel.trim());
+                console.log('nickname: ', vehicleNickname.trim());
+                console.log('numberPlate: ', numberPlate.trim());
             setError({
                 error: true,
                 attribute: 'BlankFields',
@@ -167,16 +170,44 @@ function VehicleConfig({ navigation }) {
     };
 
     const markAsNotNew = () => {
-        clearAllFields();
+        reset();
         updateUser({...auth.user, isNew: false});
     }
 
-    const clearAllFields = () => {
+    const reset = () => {
         setVehicle(initialState);
+        setSelectedBrand('');
+        setSelectedModel('');
+        setVehicleModels([]);
+        setVehicleColors([
+            'white',
+            'white',
+            'white',
+            'white',
+            'white',
+            'white',
+            'white',
+            'white',
+        ]);
+
+        setVehicle(initialState);
+        let temp = [];
+        for(let i = 0; i < 9; i++){
+            let tempObj = {
+              imageSrc: GetCarImage(i, 'white'),
+              imageStyle: {height:'90%', aspectRatio: 1, alignSelf: "center"},
+              onPress: () => {
+                setCurrentVehicleType(i);
+                setModalOpen(true);
+              },
+            };
+            temp.push(tempObj);
+        }
+        setVehicleTypes(temp);
     }
 
     const cancel = () => {
-        clearAllFields();
+        reset();
         auth?.user?.isNew ? navigation.navigate("Home") : navigation.navigate("Profile");
     }
 
@@ -242,6 +273,7 @@ function VehicleConfig({ navigation }) {
                     text={ i18n.t('vehicleConfig.continue')}
                     onPress={() => {
                         validateInformation();
+                        reset();
                     }}
                     customStyles={styles.button}
                 />
@@ -273,7 +305,7 @@ function VehicleConfig({ navigation }) {
             {
             isLoading ?
             <View style={styles.spinner}>
-                <ActivityIndicator size="large" color="#b28dfc"/>
+                <ActivityIndicator size={50} color="#b28dfc"/>
             </View>
             : null
             }
@@ -283,6 +315,8 @@ function VehicleConfig({ navigation }) {
                 isVisible={modalOpen}
                 onHandleCancel={() => setModalOpen(false)}
                 onHandleAccept={onAcceptVehicle}
+                vehicleColors={vehicleColors}
+                setVehicleColors={setVehicleColors}
             />}
         </View>
     )

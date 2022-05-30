@@ -30,6 +30,18 @@ function SignInScreen({ navigation }) {
         })
     }
 
+    const handleError = (err) => {
+        let message = i18n.t('signIn.pwdOrEmailMessage');
+        if(err.response.status == 401) {
+            message = i18n.t('signIn.banMessage');
+        }
+        setError({
+            error: true,
+            message: message
+        });
+    }
+            
+
     const SignIn = () => {
         if(email.length === 0 || password.length === 0) {
             //Form Error
@@ -40,8 +52,8 @@ function SignInScreen({ navigation }) {
         }else {
             setLoading(true);
             signIn(user)
-                .then()
-                .catch(err => {setError({error:true, message: i18n.t('signIn.pwdOrEmailMessage')});})
+                .then() 
+                .catch(err => {handleError(err);})
                 .finally(()=> setLoading(false));
         }
     }

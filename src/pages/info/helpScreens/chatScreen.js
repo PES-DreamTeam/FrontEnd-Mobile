@@ -9,6 +9,7 @@ import { GiftedChat, InputToolbar, Bubble, Send } from "react-native-gifted-chat
 import useAuth from "../../../hooks/useAuth";
 import useChats from "../../../hooks/useChats";
 import { createdAt } from "expo-updates";
+import i18n from "i18n-js";
 
 function ChatScreen() {
   const [messages, setMessages] = useState([]);
@@ -90,7 +91,7 @@ function ChatScreen() {
           padding: 1,
           renderSend: () => {
             return (
-              <Text style={{ fontSize: 15, color: "#c0a2fc" }}>Enviar</Text>
+              <Text style={{ fontSize: 15, color: "#c0a2fc" }}>{i18n.t("report.send")}</Text>
             );
           },
         }}

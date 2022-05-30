@@ -79,12 +79,8 @@ function ProfileScreen({ navigation }) {
     setVehicleSelected(user.currentVehicle);
   }, [user]);
 
-  useEffect(() => {
-    if(editProfile && vehicleModalOpened) {
-      setVehicleModalOpened(false);
-    }
-  }, [vehicleModalOpened]);
 
+  
   useEffect(() => {
     setUser({
       id: auth.user._id,
@@ -94,20 +90,30 @@ function ProfileScreen({ navigation }) {
       currentVehicle: auth.user.currentVehicle ?? 0,
     });
   }, [auth]);
-
+  
   const { width } = useWindowDimensions();
-
+  
   const { id, email, name, vehicleConfig } = user;
-
+  
   const [vehicleSelected, setVehicleSelected] = useState(0);
-
+  
   const [garageInfo, setGarageInfo] = useState([]);
 
   const [editProfile, setEditProfile] = useState(false);
-
+  
   const [toDeleteElement, setToDeleteElement] = useState(-1);
-
+  
   const [settingsModalOpened, setSettingsModalOpened] = useState(false);
+  
+  useEffect(() => {
+    CreateGrid(user.vehicleConfig);
+  }, [editProfile]);
+
+  useEffect(() => {
+    if(editProfile && vehicleModalOpened) {
+      setVehicleModalOpened(false);
+    }
+  }, [vehicleModalOpened]);
 
   async function DeleteVehicle() {
     let temp = JSON.parse(JSON.stringify(user.vehicleConfig));
@@ -126,7 +132,8 @@ function ProfileScreen({ navigation }) {
     
   }
 
-  function GoToVehicleConfigScreen () {
+  function GoToVehicleConfigScreen() {
+    console.log("GoToVehicleConfigScreen", editProfile);
     if(!editProfile) {
       navigation.navigate("VehicleConfig");
     }
@@ -150,12 +157,14 @@ function ProfileScreen({ navigation }) {
       canBeDeleted: false,
       imageSrc: require('../../../assets/images/plus.png'),
       imageStyle: {width: 30, height: 30},
-      onPress: () => GoToVehicleConfigScreen(),
+      onPress: !editProfile ? GoToVehicleConfigScreen : null,
     })
     setGarageInfo(temp);
   }
 
   async function enableEditProfile(enabled) {
+    setEditProfile(enabled);
+    setVehicleModalOpened(false);
     if (!enabled) {
       await updateUser({
         ...auth.user,
@@ -172,8 +181,6 @@ function ProfileScreen({ navigation }) {
         location: "report",
       });
     }
-    setEditProfile(enabled);
-    setVehicleModalOpened(false);
   }
 
   const onChangeText = (text, name) => {

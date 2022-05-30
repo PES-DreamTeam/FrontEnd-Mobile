@@ -119,7 +119,8 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
 
   return (
     <View>
-      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] && routeActivate?.objectType === "vehicleStation" ? (
+      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] && 
+      routeActivate?.transport !== "BICYCLING" && routeActivate?.transport !== "WALKING" ? (
         <Marker
           title={closestFree.nearest[0].name}
           coordinate={{
@@ -133,7 +134,8 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
           />
         </Marker>
       ) : null}
-      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] && routeActivate?.objectType === "vehicleStation" ? (
+      {needsCharge && closestFree && closestFree.nearest && closestFree.nearest[0] && 
+      routeActivate?.transport !== "BICYCLING" && routeActivate?.transport !== "WALKING" ? (
         <MapViewDirections
           origin={location}
           destination={destination}

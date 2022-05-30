@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { AuthNavigator, SidebarNavigator } from "./navigators";
 import useAuth from "./hooks/useAuth";
 import { ToastProvider } from "react-native-toast-notifications";
@@ -7,7 +8,14 @@ import * as Font from 'expo-font';
 
 function Main() {
   //console.disableYellowBox = true;
-  const { isSignedIn, auth } = useAuth();
+  const { isSignedIn, signOut, auth } = useAuth();
+
+  axios.interceptors.response.use(function (response) {
+    return response;
+  }, function (error) {
+    signOut();
+    console.log(error)
+  });
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
