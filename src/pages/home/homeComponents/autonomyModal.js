@@ -18,7 +18,12 @@ export default ({isVisible, handleCancel, handleAccept}) => {
     }, [autonomyValue]);
 
     const accept = () => {
-        handleAccept(autonomyValue);
+        let temp = autonomyValue;
+        if(autonomyValue <= 0 || autonomyValue.length == '' || isNaN(autonomyValue) || 
+            autonomyValue == null || autonomyValue == undefined) {
+            temp = 10000;
+        }
+        handleAccept(temp);
         reset();
     }
 
