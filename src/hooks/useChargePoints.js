@@ -32,19 +32,25 @@ const useChargePoints = () => {
           filter === null || filter === "all" || filter === [] ? "" : filterText
         }`
       );
-      const data = response.data;
-      return data.chargePoints;
+      
+      const data = response?.data;
+      return data?.chargePoints;
     } catch (error) {
-      console.log(error);
+      console.log("Error en el get all sations", error);
     }
   };
 
   const getSingleChargePoint = async (id_charge) => {
-    const response = await axios.get(
-      `${API_HOST}/api/chargePoints/${id_charge}`
-    );
-    const data = response.data;
-    return data.chargePoint;
+    try {
+      const response = await axios.get(
+        `${API_HOST}/api/chargePoints/${id_charge}`
+      );
+      const data = response?.data;
+      return data.chargePoint;
+    } catch (error) {
+      console.log("Error en el get single charge point", error);
+      return null;
+    }
   };
 
   const getChargePointInfo = async (id_station) => {
@@ -52,18 +58,29 @@ const useChargePoints = () => {
       const response = await axios.get(
         `${API_HOST}/api/chargePoints/${id_station}/info`
       );
-      return response.data.chargePoint;
+      if(response !== undefined && response !== null){
+        const data = response?.data;
+        return data?.chargePoint;
+      }
+      else {
+        return null;
+      }
     } catch (error) {
-      console.log("error");
+      console.log("error en getChargePointInfo", error);
+      return null;
     }
   };
 
   const getChargePointLikes = async (id_station) => {
-    const response = await axios.get(
-      `${API_HOST}/api/chargePoints/${id_station}/info`
-    );
-    const data = response.data.chargePoint.likes;
-    return data;
+    try {
+      const response = await axios.get(
+        `${API_HOST}/api/chargePoints/${id_station}/info`
+      );
+      const data = response?.data?.chargePoint?.likes;
+      return data;
+    } catch (error) {
+      return 0;
+    }
   };
 
   const sendStationLike = async (station_id) => {
@@ -74,7 +91,8 @@ const useChargePoints = () => {
       );
       return response.data.likedStations;
     } catch (error) {
-      console.log(error);
+      console.log("error en sendStationLike", error);
+
     }
   };
 

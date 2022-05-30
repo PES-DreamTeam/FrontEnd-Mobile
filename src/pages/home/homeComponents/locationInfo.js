@@ -28,6 +28,22 @@ function LocationInfo(props) {
   const [stationLikes, setStationLikes] = useState();
   const [stationReports, setStationReports] = useState();
 
+  const customStyle = require('../../../utils/customStyleSheet');
+
+  const { updateAchievement } = useAchievements();
+  const { getStationPollution } = useExternalService();
+
+  const [stationInfoStyle, setStationInfoStyle] = useState(
+    styles.locationInfoClosed
+  );
+  const [modalButtonStyle, setModalButtonStyle] = useState(
+    styles.locationInfoClosed
+  );
+  const [locationModalOpened, setLocationModalOpened] = useState(false);
+  const [reportStationVisible, setReportStationVisible] = useState(false);
+  const [pollution, setPollution] = useState();
+  const [pollutionColor, setPollutionColor] = useState("#a8a8a8");
+
   useEffect(async () => {
     if (
       props.stationInfo != null &&
@@ -55,13 +71,12 @@ function LocationInfo(props) {
 
     if (props.stationInfo != null) {
       let info = await getChargePointInfo(props?.stationInfo?.id);
-      if(info) {
-        setStationLikes(info.likes);
-        setStationReports(info.reports);
+      if(info != null && info != undefined) {
+        setStationLikes(info?.likes);
+        setStationReports(info?.reports);
         toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
         toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
       }
-
     } 
   }, [props]);
 
@@ -77,8 +92,8 @@ function LocationInfo(props) {
 
   useEffect(async () => {
     let info = await getChargePointInfo(props?.stationInfo?.id);
-    if(info){
-      setStationReports(info.reports);
+    if(info != null && info != undefined){
+      setStationReports(info?.reports);
     }
   }, [auth?.user?.reports]);
 
@@ -135,25 +150,16 @@ function LocationInfo(props) {
     }
   };
 
-  const customStyle = require('../../../utils/customStyleSheet');
-
-  const { updateAchievement } = useAchievements();
-  const { getStationPollution } = useExternalService();
-
-  const [stationInfoStyle, setStationInfoStyle] = useState(
-    styles.locationInfoClosed
-  );
-  const [modalButtonStyle, setModalButtonStyle] = useState(
-    styles.locationInfoClosed
-  );
-  const [locationModalOpened, setLocationModalOpened] = useState(false);
-  const [reportStationVisible, setReportStationVisible] = useState(false);
-  const [pollution, setPollution] = useState();
-  const [pollutionColor, setPollutionColor] = useState("#a8a8a8");
-
   const ChargeStationIcon = (chargerType) => {};
 
-  const ReportStation = (stationInfo) => {};
+  const ReportStation = async () => {
+    let info = await getChargePointInfo(props?.stationInfo?.id);
+    if(info != null && info != undefined){
+      setStationReports(info?.reports);
+      setReportStationVisible(!reportStationVisible);
+    }
+
+  };
 
 
   function perc2color(perc) {
@@ -256,13 +262,7 @@ function LocationInfo(props) {
       </View>
       <ReportStationModal
         isVisible={reportStationVisible}
-        handleAccept={async () => {
-          let info = await getChargePointInfo(props?.stationInfo?.id);
-          if(info){
-            setStationReports(info.reports);
-            setReportStationVisible(!reportStationVisible);
-          }
-        }}
+        handleAccept={ReportStation}
         handleCancel={() => setReportStationVisible(!reportStationVisible)}
         onPress={() => setReportStationVisible(!reportStationVisible)}
         title={i18n.t("report.reportStation.title")}

@@ -54,13 +54,13 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
   const mapRef = useRef(null);
   
   const centerPosition = async () => {
-    mapRef.current.animateToRegion(
+    mapRef?.current?.animateToRegion(
       userLocation,
       1500)
   }
 
   const centerPositionOnStation = async () => {
-    mapRef.current.animateToRegion(
+    mapRef?.current?.animateToRegion(
       {
       latitude:currentStationInfo?.lat,
         longitude:currentStationInfo?.lng,
