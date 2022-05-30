@@ -38,7 +38,10 @@ const MapContextProvider = ({ children }) => {
     const ReloadMapPoints = async () => {
         if(isSignedIn()) {
             let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
-            let temp = Object.entries(pointsToShow);
+            let temp = [];
+            if(pointsToShow) {
+                temp = Object.entries(pointsToShow);
+            }
             setShown(temp);
         }
     };

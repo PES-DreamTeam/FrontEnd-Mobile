@@ -46,12 +46,24 @@ export default function HomeScreen({ navigation }) {
 
   const [autonomyModalVisible, setAutonomyModalVisible] = useState(false);
 
+  const ResetState = () => {
+    setRouteInfo(null);
+    setStationInfo(null);
+    setSearchedPoint(null);
+    setOpenSearchBar("none");
+    setTempRouteInfo(null);
+  }
+
+
   useEffect(() => {
     setUser(auth.user);
   }, [auth]);
 
   useEffect(() => {
+    console.log("HomeScreen: load map async");
+    ResetState();
     loadMapAsync();
+
   }, []);
 
   const { vehicleConfig, currentVehicle } = user;
