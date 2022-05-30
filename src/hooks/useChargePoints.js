@@ -8,26 +8,35 @@ import i18n from "i18n-js";
 
 const useChargePoints = () => {
   const toast = useToast();
-  const {auth} = useAuth();
+  const { auth } = useAuth();
   const getChargePoints = async (filter, userId) => {
-    let filterText = "";
-    if (filter !== undefined && filter !== null && filter !== "all" && filter !== []) {
-      for (let i = 0; i < filter.length; ++i) {
-        if (filter[i] != "favs") {
-          filterText += "&objectType[]=" + filter[i];
-        } else {
-          filterText += "&userId=" + userId;
+    try {
+      let filterText = "";
+      if (
+        filter !== undefined &&
+        filter !== null &&
+        filter !== "all" &&
+        filter !== []
+      ) {
+        for (let i = 0; i < filter.length; ++i) {
+          if (filter[i] != "favs") {
+            filterText += "&objectType[]=" + filter[i];
+          } else {
+            filterText += "&userId=" + userId;
+          }
         }
       }
-    }
 
-    const response = await axios.get(
-      `${API_HOST}/api/chargePoints?groupBy=id${
-        filter === null || filter === "all" || filter === [] ? "" : filterText
-      }`
-    );
-    const data = response.data;
-    return data.chargePoints;
+      const response = await axios.get(
+        `${API_HOST}/api/chargePoints?groupBy=id${
+          filter === null || filter === "all" || filter === [] ? "" : filterText
+        }`
+      );
+      const data = response.data;
+      return data.chargePoints;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getSingleChargePoint = async (id_charge) => {
@@ -40,16 +49,13 @@ const useChargePoints = () => {
 
   const getChargePointInfo = async (id_station) => {
     try {
-
       const response = await axios.get(
         `${API_HOST}/api/chargePoints/${id_station}/info`
       );
       return response.data.chargePoint;
-    }
-    catch (error) {
+    } catch (error) {
       console.log("error");
     }
-    
   };
 
   const getChargePointLikes = async (id_station) => {
@@ -63,10 +69,10 @@ const useChargePoints = () => {
   const sendStationLike = async (station_id) => {
     try {
       //console.log("sendStationLike");
-    const response = await axios.put(
-      `${API_HOST}/api/chargePoints/${station_id}/vote`
-    );
-    return response.data.likedStations;
+      const response = await axios.put(
+        `${API_HOST}/api/chargePoints/${station_id}/vote`
+      );
+      return response.data.likedStations;
     } catch (error) {
       console.log(error);
     }
@@ -110,7 +116,6 @@ const useChargePoints = () => {
           type: "custom_type",
           location: "autonomia",
         });
-
       } else
         throw {
           error: true,

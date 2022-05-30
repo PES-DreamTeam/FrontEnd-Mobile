@@ -55,10 +55,12 @@ function LocationInfo(props) {
 
     if (props.stationInfo != null) {
       let info = await getChargePointInfo(props?.stationInfo?.id);
-      setStationLikes(info.likes);
-      setStationReports(info.reports);
-      toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
-      toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
+      if(info) {
+        setStationLikes(info.likes);
+        setStationReports(info.reports);
+        toggleFavourite(auth?.user?.favourites?.includes(props?.stationInfo?.id?.toString()));
+        toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
+      }
 
     } 
   }, [props]);
@@ -75,7 +77,9 @@ function LocationInfo(props) {
 
   useEffect(async () => {
     let info = await getChargePointInfo(props?.stationInfo?.id);
-    setStationReports(info.reports);
+    if(info){
+      setStationReports(info.reports);
+    }
   }, [auth?.user?.reports]);
 
   const handleFavourite = async () => {
@@ -254,8 +258,10 @@ function LocationInfo(props) {
         isVisible={reportStationVisible}
         handleAccept={async () => {
           let info = await getChargePointInfo(props?.stationInfo?.id);
-          setStationReports(info.reports);
-          setReportStationVisible(!reportStationVisible);
+          if(info){
+            setStationReports(info.reports);
+            setReportStationVisible(!reportStationVisible);
+          }
         }}
         handleCancel={() => setReportStationVisible(!reportStationVisible)}
         onPress={() => setReportStationVisible(!reportStationVisible)}

@@ -36,7 +36,7 @@ export default function HomeScreen({ navigation }) {
 
   const { auth } = useAuth();
   const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
-    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint, isLoading } = useMap();
+    routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint, isLoading, loadMapAsync } = useMap();
 
   const [user, setUser] = useState(auth?.user);
   const [search, setSearch] = useState("");
@@ -49,6 +49,10 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     setUser(auth.user);
   }, [auth]);
+
+  useEffect(() => {
+    loadMapAsync();
+  }, []);
 
   const { vehicleConfig, currentVehicle } = user;
 
