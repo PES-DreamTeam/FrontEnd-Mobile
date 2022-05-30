@@ -37,6 +37,7 @@ const en = {
 		otherSocial: "Or Log In with",
 		pwdOrEmailMessage: "There is an error with your password or email",
 		emptyFieldMessage: "Please fill in all fields",
+		banMessage: "This user has been banned from the app",
 		noAccount: "Haven't got an account?",
 		enterEmail: "Enter your email",
 		enterPassword: "Enter your password",
