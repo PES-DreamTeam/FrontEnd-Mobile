@@ -6,7 +6,7 @@ import Modal from 'react-native-modal';
 import CircularColorBtnList from './circularColorBtnList'
 import carTypeImages from '../../../utils/carTypeImages';
 
-export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHandleCancel, vehicleBrand}) => {
+export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHandleCancel, vehicleBrand, vehicleColors, setVehicleColors}) => {
     const customStyle = require('../../../utils/customStyleSheet');
 
     const {GetCarImage} = carTypeImages();
@@ -33,19 +33,6 @@ export default CarSelectorModal = ({vehicleType, isVisible, onHandleAccept, onHa
         Yellow:     '#fad616', 
         Purple:     '#bfa3cf',
     };
-
-    const [vehicleColors, setVehicleColors] = useState([
-        'white',
-        'white',
-        'white',
-        'white',
-        'white',
-        'white',
-        'white',
-        'white',
-    ]);
-
-
     
     const onChangeColor = (color) => {
         let temp = JSON.parse(JSON.stringify(vehicleColors));
