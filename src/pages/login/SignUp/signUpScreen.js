@@ -10,7 +10,10 @@ function SignUpScreen({ navigation }) {
     const customStyle = require('../../../utils/customStyleSheet');
 
     const { signUp } = useAuth();
-    const [error, setError] = useState({error: false, errors:[]});
+    const [error, setError] = useState({
+        error: false, 
+        message: ''
+    });    
     const [showPassword, setShowPassword] = useState(true);
     const [user, setUser] = useState({
         name: '',
@@ -21,7 +24,7 @@ function SignUpScreen({ navigation }) {
     const { name, email, password } = user;
 
     const onChangeText = (text, name) => {
-        setError({error: false, errors:[]});
+        setError({error:false, message: ""});
         setUser({
             ...user,
             [name]: text 
@@ -30,14 +33,16 @@ function SignUpScreen({ navigation }) {
 
     const createUser = async () => {
         if(name.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0) {
-            alert('Please fill all fields');
+            setError({
+                error: true,
+                message: i18n.t('signIn.emptyFieldMessage')
+            });
             return;
         }
         else 
             signUp(user)
-                .catch(error => {
-                    setError(error)
-                });
+                .catch(err => {setError({error:true, message: i18n.t('signIn.pwdOrEmailMessage')});})
+
     }
 
     return (
@@ -54,8 +59,14 @@ function SignUpScreen({ navigation }) {
                     </View>
                     <View style={[{width: '90%', alignSelf: 'center'}]}>
                         <View style={customStyle.formInputContainer}>
-                            <Text style={[customStyle.formInputTitle]}> {i18n.t('signUp.enterName')}</Text>
-                            
+                            {error.error ?
+                                <View style={styles.errorContainer}>
+                                    <Text style={styles.error}>
+                                        {error.message}
+                                    </Text>
+                                </View>
+                            : null}
+                            <Text style={[customStyle.formInputTitle]}> {i18n.t('signUp.enterName')}</Text>                            
                             <TextInput
                                 onChangeText={(e) => onChangeText(e, 'name')}
                                 value={name}
@@ -65,15 +76,6 @@ function SignUpScreen({ navigation }) {
                         </View>
                         <View style={customStyle.formInputContainer}>
                             <Text style={[customStyle.formInputTitle]}> {i18n.t('signUp.enterEmail')}</Text>
-                            {
-                                error?.errors?.map(error => error.attribute === "email" ?  
-                                    <View style={styles.errorContainer} key={error.attribute}>
-                                        <Text style={styles.error}>
-                                                <Text>{error.errorMessage}</Text>
-                                        </Text>
-                                    </View>
-                                :null) 
-                            }
                             <TextInput
                                 onChangeText={(e) => onChangeText(e, 'email')}
                                 value={email}
@@ -84,15 +86,6 @@ function SignUpScreen({ navigation }) {
                         </View>
                         <View style={customStyle.formInputContainer}>
                             <Text style={[customStyle.formInputTitle]}> {i18n.t('signUp.enterPassword')}</Text>
-                            {
-                                error?.errors?.map(error => error.attribute === "password" ?  
-                                    <View style={styles.errorContainer} key={error.attribute}>
-                                        <Text style={styles.error}>
-                                                <Text>{error.errorMessage}</Text>
-                                        </Text>
-                                    </View>
-                                :null) 
-                            }
                             <View style={styles.passwordContainer}>
                                 <TextInput
                                     onChangeText={(text) => onChangeText(text, 'password')}
