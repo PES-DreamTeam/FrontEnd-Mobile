@@ -4,9 +4,9 @@
     "slug": "EcoRoads",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logoChikito.png",
+    "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash-1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -31,7 +31,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/playstore.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "config": {
@@ -42,7 +42,7 @@
       "package": "com.rashgaron.myapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/playstore.png"
     },
     "plugins": [
       [
