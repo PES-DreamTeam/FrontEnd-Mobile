@@ -27,10 +27,18 @@ export default ({chargePoints, OpenStationInfo,searchedPoint}) => {
         let fav = IsFavStation(station);
         if(station.objectType == "bikeStation") {
             if(fav) {
-                return (require( '../../../../assets/images/pins/favPinBlue.png'));
+                return (require( '../../../../assets/images/pins/favPinRed.png'));
             }
             else {
-                return (require( '../../../../assets/images/pins/normalPinBlue.png'));
+                return (require( '../../../../assets/images/pins/normalPinRed.png'));
+            }
+        }
+        else if(station.objectType == "highlight") {
+            if(fav) {
+                return (require( '../../../../assets/images/pins/favPinPurple.png'));
+            }
+            else {
+                return (require( '../../../../assets/images/pins/normalPinPurple.png'));
             }
         }
         if(station.objectType == "vehicleStation") {
@@ -59,10 +67,10 @@ export default ({chargePoints, OpenStationInfo,searchedPoint}) => {
         }
         else {
             if(fav) {
-                return (require( '../../../../assets/images/pins/favPinRed.png'));
+                return (require( '../../../../assets/images/pins/favPinOrange.png'));
             }
             else {
-                return (require( '../../../../assets/images/pins/normalPinRed.png'));
+                return (require( '../../../../assets/images/pins/normalPinOrange.png'));
             }
         }
         }
