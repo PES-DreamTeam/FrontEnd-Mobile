@@ -44,9 +44,9 @@ function LocationInfo(props) {
   const [pollution, setPollution] = useState();
   const [pollutionColor, setPollutionColor] = useState("#a8a8a8");
 
-  useEffect(async () => {
+  const OnPropsChange = async () => {
     if (
-      props.stationInfo != null &&
+      props.stationInfo != null && props.stationInfo != undefined &&
       (props.routeActivate === null || props.routeActivate === undefined)
     ) {
       setStationInfoStyle(styles.locationInfoOpened);
@@ -78,6 +78,19 @@ function LocationInfo(props) {
         toggleLiked(auth?.user?.likes?.includes(props?.stationInfo?.id.toString()));
       }
     } 
+  }
+
+  useEffect(() => {
+    let cancel = false;
+    if(cancel) {
+      return;
+    }
+    OnPropsChange();
+
+    return () => {
+      cancel = true;
+    }
+    
   }, [props]);
 
   useEffect(() => {
@@ -90,10 +103,18 @@ function LocationInfo(props) {
     updateAchievement(5, auth?.user?.favourites?.length);
   }, [auth?.user?.favourites]);
 
-  useEffect(async () => {
+  const OnUpdateReports = async () => {
     let info = await getChargePointInfo(props?.stationInfo?.id);
     if(info != null && info != undefined){
       setStationReports(info?.reports);
+    }
+  }
+
+  useEffect(() => {
+    try {
+      OnUpdateReports();
+    } catch (error) {
+      console.log(error);
     }
   }, [auth?.user?.reports]);
 
@@ -153,10 +174,12 @@ function LocationInfo(props) {
   const ChargeStationIcon = (chargerType) => {};
 
   const ReportStation = async () => {
-    let info = await getChargePointInfo(props?.stationInfo?.id);
-    if(info != null && info != undefined){
-      setStationReports(info?.reports);
-      setReportStationVisible(!reportStationVisible);
+    if(props.stationInfo != null && props.stationInfo != undefined) {
+      let info = await getChargePointInfo(props?.stationInfo?.id);
+      if(info != null && info != undefined){
+        setStationReports(info?.reports);
+        setReportStationVisible(!reportStationVisible);
+      }
     }
 
   };

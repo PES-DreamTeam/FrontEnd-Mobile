@@ -34,15 +34,19 @@ const CustomMapView = ({color, vehicleType, CloseStationInfo, OpenStationInfo, i
     longitudeDelta:0.01
 }
 
-  
-
-  useEffect(async () => {
-    await recalcUserLocation();
+const OnBegin = (async () => {
+  await recalcUserLocation();
     centerPosition();
     const intervalId = setInterval(() => {
       recalcUserLocation();
     }, 1000 * 10) 
     return () => clearInterval(intervalId)
+  });
+
+  
+
+  useEffect(() => {
+    OnBegin();
   }, [])
   useEffect(() => {
     centerPositionOnStation();

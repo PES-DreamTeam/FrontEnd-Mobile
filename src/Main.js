@@ -13,13 +13,16 @@ function Main() {
   axios.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
-    signOut();
-    console.log(error)
+    if(error.response.status === 401) {
+      signOut();
+      console.log(error)
+    }
   });
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   async function loadFonts() {
+    setFontsLoaded(false); 
     await Font.loadAsync({
       'Montserrat-Regular': require('../assets/fonts/Montserrat/Montserrat-Regular.ttf'),
     });
@@ -37,9 +40,8 @@ function Main() {
 
   useEffect(() => {}, [auth]);
 
-  useEffect(async () => {
-    setFontsLoaded(false); 
-    await loadFonts();
+  useEffect(() => {
+    loadFonts();
   }, []);
   
   return fontsLoaded ? (

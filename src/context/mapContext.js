@@ -36,6 +36,7 @@ const MapContextProvider = ({ children }) => {
     }
 
     const ReloadMapPoints = async () => {
+        setIsLoading(true);
         if(isSignedIn()) {
             let pointsToShow = await getChargePoints(mapFilter, auth?.user?._id);
             let temp = [];
@@ -44,6 +45,7 @@ const MapContextProvider = ({ children }) => {
             }
             setShown(temp);
         }
+        setIsLoading(false);
     };
 
     const ReloadUserLocation = async () => {
@@ -68,11 +70,11 @@ const MapContextProvider = ({ children }) => {
         setIsLoading(false);
     }
 
-    useEffect(async () => {
-        await loadMap();        
+    useEffect(() => {
+        loadMap();        
     }, []);
 
-    useEffect(async () => {
+    useEffect(() => {
         if(mapFilter.includes("singleCharge")){
             let aux = shownChargePoints?.filter(markers => markers[1].id == wantRoute?.id)
             if(aux.length > 0){
@@ -80,9 +82,9 @@ const MapContextProvider = ({ children }) => {
             }
         }
         else{
-            setIsLoading(true);
-            await ReloadMapPoints();
-            setIsLoading(false);
+            
+            ReloadMapPoints();
+           
         }
     }, [mapFilter, wantRoute]);
     

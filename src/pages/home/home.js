@@ -55,6 +55,7 @@ export default function HomeScreen({ navigation }) {
     ActivateRoute(null);
     setRouteInfo(null);
     ChangeMapFilter((mapFilter));
+    loadMapAsync();
   }
 
 
@@ -63,10 +64,17 @@ export default function HomeScreen({ navigation }) {
   }, [auth]);
 
   useEffect(() => {
-    console.log("HomeScreen: load map async");
+    console.log("HomeScreen: useEffect:");
+    let cancel = false;
+    if(cancel) {
+      console.log("HomeScreen: useEffect: cancel");
+      return;
+    }
     ResetState();
-    loadMapAsync();
-
+    
+    return () => {
+      cancel = true;
+    }
   }, []);
 
   const { vehicleConfig, currentVehicle } = user;
@@ -119,7 +127,10 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.topBarMenuButtonContainer}>
             <Pressable
               style={styles.topBarMenuButton}
-              onPress={() => navigation.toggleDrawer()}
+              onPress={() => {
+                  navigation.toggleDrawer();
+                }
+              }
             >
               <Image style={styles.menuImage} source={require("../../../assets/images/desplegable.png")} />
             </Pressable>
@@ -136,7 +147,6 @@ export default function HomeScreen({ navigation }) {
         </View>        
       </View>
       
-      {
       <CustomMapView
         //ref={mapViewRef}
         color={vehicleConfig[currentVehicle]?.color ?? "black"}
@@ -154,18 +164,13 @@ export default function HomeScreen({ navigation }) {
         isLoading={isLoading}
         isSearching={!openSearchBar}
       />
-      }
-      {
-        routeInfo != null ?
-        <RoutesInfo
-        routeActivate={wantRoute}
-        ActivateRoute={ActivateRoute}
-        routingInfo={routeInfo}
-        /> : null
-      }
-      { openSearchBar && currentStationInfo != null && wantRoute == null ?
+      <RoutesInfo
+      routeActivate={wantRoute}
+      ActivateRoute={ActivateRoute}
+      routingInfo={routeInfo}
+      />
       <LocationInfo
-        stationInfo={openSearchBar? currentStationInfo : null}
+        stationInfo={openSearchBar && wantRoute == null? currentStationInfo : null}
         routeActivate={wantRoute}
         ActivateRoute={(info) => {
           if(!isLoading) {
@@ -174,7 +179,7 @@ export default function HomeScreen({ navigation }) {
           }
         }}
         onChangeFilter={ChangeMapFilter}
-        /> : null}
+      />
 
 
       <AutonomyModal
