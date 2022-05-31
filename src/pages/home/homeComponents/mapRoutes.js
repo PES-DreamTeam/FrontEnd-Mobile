@@ -50,8 +50,12 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
     changeLine(routeActivate);
   }, [closestFree]);
 
-  useEffect(async() => {
+  const OnUpdateAutonomia = async() => {
     await getStationFree();
+  }
+
+  useEffect(() => {
+    getStationFree();
   }, [autonomia]);
   
   useEffect(() =>{   
@@ -67,7 +71,7 @@ export default ({routeActivate, location, ChangeRoutingInfo}) => {
   const { getCloserStationAvailable } = useCloseStation();
   
 
-  useEffect(async () => {
+  useEffect(() => {
     //getStation();
     getStationFree();
   }, []);
