@@ -10,14 +10,18 @@ function Main() {
   //console.disableYellowBox = true;
   const { isSignedIn, signOut, auth } = useAuth();
 
+  
   axios.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
     if(error.response.status === 401) {
       signOut();
-      console.log(error)
+      return Promise.reject(error);
     }
-  });
+    else {
+      return Promise.reject(error)
+    }
+  }); 
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 

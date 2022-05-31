@@ -35,7 +35,7 @@ export default function HomeScreen({ navigation }) {
   const [openSearchBar, setOpenSearchBar] = useState("none");
 
   const { auth } = useAuth();
-  const { ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
+  const { ResetMapFilter, ChangeMapFilter, mapFilter, wantRoute, setWantRoute, shownChargePoints,
     routeInfo, setRouteInfo, currentStationInfo, setStationInfo, setSearchedPoint, isLoading, loadMapAsync } = useMap();
 
   const [user, setUser] = useState(auth?.user);
@@ -54,7 +54,7 @@ export default function HomeScreen({ navigation }) {
     setTempRouteInfo(null);
     ActivateRoute(null);
     setRouteInfo(null);
-    ChangeMapFilter((mapFilter));
+    ResetMapFilter((mapFilter));
     loadMapAsync();
   }
 
@@ -164,11 +164,6 @@ export default function HomeScreen({ navigation }) {
         isLoading={isLoading}
         isSearching={!openSearchBar}
       />
-      <RoutesInfo
-      routeActivate={wantRoute}
-      ActivateRoute={ActivateRoute}
-      routingInfo={routeInfo}
-      />
       <LocationInfo
         stationInfo={openSearchBar && wantRoute == null? currentStationInfo : null}
         routeActivate={wantRoute}
@@ -180,6 +175,11 @@ export default function HomeScreen({ navigation }) {
         }}
         onChangeFilter={ChangeMapFilter}
       />
+        <RoutesInfo
+          routeActivate={wantRoute}
+          ActivateRoute={ActivateRoute}
+          routingInfo={routeInfo}
+        />
 
 
       <AutonomyModal
