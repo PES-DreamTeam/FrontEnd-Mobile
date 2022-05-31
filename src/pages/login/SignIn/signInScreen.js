@@ -146,15 +146,15 @@ function SignInScreen({ navigation }) {
                     <View style={{flexDirection:'row', justifyContent: 'space-around', width: '100%'}}>
                         <CustomButton
                             text='Facebook'
-                            customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
+                            customStyles={[customStyle.button, {marginVertical: 20, width: '80%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
                             onPress={loginWithFacebook}
 
                         />
 
-                        <CustomButton
+{/*                         <CustomButton
                             text='Google'
                             customStyles={[customStyle.button, {marginVertical: 20, width: '40%', alignSelf: 'center', backgroundColor: '#c5a9fc', borderColor: '#b491fa', borderWidth: 3}]}
-                        />
+                        /> */}
                     </View>
                 </View>
                 <View style={{flexDirection: 'row', marginBottom: 20, marginLeft: '20%'}}>
