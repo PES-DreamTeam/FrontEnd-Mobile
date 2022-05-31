@@ -187,6 +187,7 @@ function LocationInfo(props) {
 
   function perc2color(perc) {
     perc *= 5;
+    if(perc >= 100) perc = 100;
     perc = 100 - perc;
     let r,
       g,
