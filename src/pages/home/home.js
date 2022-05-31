@@ -47,11 +47,14 @@ export default function HomeScreen({ navigation }) {
   const [autonomyModalVisible, setAutonomyModalVisible] = useState(false);
 
   const ResetState = () => {
-    setRouteInfo(null);
     setStationInfo(null);
+    setWantRoute(null);
     setSearchedPoint(null);
     setOpenSearchBar("none");
     setTempRouteInfo(null);
+    ActivateRoute(null);
+    setRouteInfo(null);
+    ChangeMapFilter((mapFilter));
   }
 
 
