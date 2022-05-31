@@ -164,11 +164,6 @@ export default function HomeScreen({ navigation }) {
         isLoading={isLoading}
         isSearching={!openSearchBar}
       />
-      <RoutesInfo
-      routeActivate={wantRoute}
-      ActivateRoute={ActivateRoute}
-      routingInfo={routeInfo}
-      />
       <LocationInfo
         stationInfo={openSearchBar && wantRoute == null? currentStationInfo : null}
         routeActivate={wantRoute}
@@ -180,6 +175,11 @@ export default function HomeScreen({ navigation }) {
         }}
         onChangeFilter={ChangeMapFilter}
       />
+        <RoutesInfo
+          routeActivate={wantRoute}
+          ActivateRoute={ActivateRoute}
+          routingInfo={routeInfo}
+        />
 
 
       <AutonomyModal
