@@ -12,13 +12,14 @@ function HighlightInfo (props) {
 
     const { getHighlightById } = useHighlights();
 
-    useEffect(async () => {
-        setStationInfo(await getInfo());
-    }, []);
 
-    const getInfo = async () => {
+    useEffect(() => {
+        updateInfo();
+    }, [props?.stationInfo]);
+
+    const updateInfo = async () => {
         const response = await getHighlightById(props?.stationInfo?.id);
-        return response?.data;
+        setStationInfo(response?.data);
     };
 
     return (
