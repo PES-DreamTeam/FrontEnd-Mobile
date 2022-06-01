@@ -14,10 +14,9 @@ import i18n from "i18n-js";
 function ChatScreen() {
   const [messages, setMessages] = useState([]);
   const [userChat, setUserChat] = useState([]);
-  const { auth, updateUser } = useAuth();
-
+  const { auth, updateUser, socket } = useAuth();
   const { sendChat } = useChats();
- const {  getMessagesUser} = useChats();
+  const {  getMessagesUser} = useChats();
   const [user, setUser] = useState({
     id: auth.user._id,
   });
@@ -32,13 +31,19 @@ function ChatScreen() {
   
   useEffect(() => {
     getMessages();
-   const intervalId = setInterval(() => {
-    getMessages();
-  }, 1000 * 10) 
-  return () => clearInterval(intervalId)
-}, [])
+  }, [])
 
-
+  useEffect(()=>{
+    socket.emit('join', auth.user._id);
+    socket.on("newMessage", (message) => {
+      if(message.user._id === "-1"){
+        message.avatar = "https://i.ibb.co/Gp0PMBY/admin2.png";
+        message.name = "nickname";
+      } 
+      console.log(message);
+      setMessages([message, ... messages]);
+    });
+  },[messages])
 
   const getMessages = async () => {
     let chat = await getMessagesUser(
@@ -168,7 +173,8 @@ function ChatScreen() {
       GiftedChat.append(previousMessages, message)
     );
     message = { ...message[0], chat_id: auth.user._id, position: "right" };
-    await sendChat(message);
+    delete message._id
+    socket.emit("sendMessage", message);
   };
 
   return (

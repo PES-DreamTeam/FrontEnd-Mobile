@@ -5,7 +5,8 @@ import { AuthContext } from "../context/authContext";
 
 const useChats = () => { 
   const sendChat = async (messages) => {
-    const response = await axios.post(`${API_HOST}/api/message/`, {
+    console.log(`${API_HOST}/message`);
+    const response = await axios.post(`${API_HOST}/message`, {
       chat_id: messages.chat_id,
       createdAt: messages.createdAt,
       position: messages.position,

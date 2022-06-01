@@ -5,7 +5,7 @@ import { AuthContext } from "../context/authContext";
 import * as Facebook from "expo-facebook";
 
 const useAuth = () => {
-  const { auth, setAuth, logout } = useContext(AuthContext);
+  const { auth, setAuth, logout, socket } = useContext(AuthContext);
 
   const signIn = async (user) => {
     const { email, password } = user;
@@ -109,6 +109,7 @@ const useAuth = () => {
     loginWithFacebook,
     setAuth,
     auth,
+    socket
   };
 };
 

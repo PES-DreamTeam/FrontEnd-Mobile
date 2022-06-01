@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, createContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import io from 'socket.io-client';
+import { API_HOST } from "@env";
 
 const AuthContext = createContext({});
 
@@ -17,7 +19,7 @@ const AuthProvider = ({ children }) => {
         try {
             const authDataString = await AsyncStorage.getItem("auth");
             const authData = JSON.parse(authDataString);
-
+            socket.io.opts.query = { userId: authData.user.id};
             configureAxiosHeaders(authData.token);
             setAuthState({
                 token: authData.token,
@@ -52,13 +54,14 @@ const AuthProvider = ({ children }) => {
     const configureAxiosHeaders = (token) => {
         axios.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
+    const socket = io(API_HOST);
 
     useEffect(() => {
         getAuthState();
     },[])
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, logout }}>
+        <AuthContext.Provider value={{ auth, setAuth, logout, socket }}>
             {children}
         </AuthContext.Provider>
     )

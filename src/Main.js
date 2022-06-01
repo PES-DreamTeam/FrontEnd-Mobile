@@ -17,6 +17,8 @@ function Main() {
     if(error.response.status === 401) {
       signOut();
       return Promise.reject(error);
+    }else if(error.response.status === 503){
+
     }
     else {
       return Promise.reject(error)
