@@ -40,9 +40,7 @@ function ChatScreen() {
         message.user.name = "nickname";
         message.user.avatar = "https://i.ibb.co/Gp0PMBY/admin2.png";
       } 
-      console.log(message);
       setMessages([message, ...messages]);
-      // console.log(GiftedChat.append(messages, message));
     });
   },[messages])
 
