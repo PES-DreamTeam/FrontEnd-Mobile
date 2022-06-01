@@ -13,14 +13,14 @@ function HighlightInfo (props) {
     const { getHighlightById } = useHighlights();
 
 
-    useEffect(() => {
-        updateInfo();
+    useEffect(async () => {
+        if(props?.stationInfo != null && props?.stationInfo != undefined && props?.stationInfo?.id != null && props?.stationInfo?.id != undefined) { 
+            const response = await getHighlightById(props?.stationInfo?.id);
+            if(response != null && response != undefined && response?.data != null && response.data != undefined) {
+                setStationInfo(response?.data);
+            } 
+        }
     }, [props?.stationInfo]);
-
-    const updateInfo = async () => {
-        const response = await getHighlightById(props?.stationInfo?.id);
-        setStationInfo(response?.data);
-    };
 
     return (
         <View style={styles.highlightContent}>
