@@ -17,10 +17,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useToast } from "react-native-toast-notifications";
-import { API_KEY } from "@env";
 import { Marker } from "react-native-maps";
 import useCloseStation from "../../../hooks/useCloseStation";
-
+const API_KEY = "AIzaSyDVFLmXiGOOau6B2W6PGS-7aVPOidSCOZs";
 export default ({routeActivate, location, ChangeRoutingInfo}) => {
   const destination = {latitude:routeActivate.latitude, longitude:routeActivate.longitude};
   //const currentTransport = routeActivate.objectType == "vehicleStation" ? "DRIVING" : "BICYCLING";
