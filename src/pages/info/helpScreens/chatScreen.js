@@ -37,13 +37,16 @@ function ChatScreen() {
     socket.emit('join', auth.user._id);
     socket.on("newMessage", (message) => {
       if(message.user._id === "-1"){
-        message.avatar = "https://i.ibb.co/Gp0PMBY/admin2.png";
-        message.name = "nickname";
+        message.user.name = "nickname";
+        message.user.avatar = "https://i.ibb.co/Gp0PMBY/admin2.png";
       } 
       console.log(message);
-      setMessages([message, ... messages]);
+      setMessages([message, ...messages]);
+      // console.log(GiftedChat.append(messages, message));
     });
   },[messages])
+
+  useEffect(()=>{},[messages])
 
   const getMessages = async () => {
     let chat = await getMessagesUser(
@@ -176,7 +179,6 @@ function ChatScreen() {
     delete message._id
     socket.emit("sendMessage", message);
   };
-
   return (
     <View style={{ backgroundColor: "#f5f2fc", flex: 1 }}>
       <GiftedChat
